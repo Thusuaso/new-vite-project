@@ -197,10 +197,11 @@ import { fileService } from '../../services/fileService';
 import CustomInputFile from "../../components/shared/CustomInputFile.vue";
 
 import VueHtml2Canvas from 'vue-html2canvas';
-import pdfMake from "pdfmake/build/pdfmake";
-import pdfFonts from "pdfmake/build/vfs_fonts";
-
+var pdfMake = require('pdfmake/build/pdfmake.js');
+var pdfFonts = require('pdfmake/build/vfs_fonts.js');
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
+
+
 import jsPDF from 'jspdf';
 export default {
     props: ['po'],
