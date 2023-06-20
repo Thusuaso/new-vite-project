@@ -3,7 +3,7 @@
       <div class="toast-container p-3" id="toastPlacement">
         <div class="toast">
           <div class="toast-header">
-            <img src="..." class="rounded me-2" alt="...">
+            <img src="" class="rounded me-2" alt="">
             <strong class="me-auto">Bootstrap</strong>
             <small>11 mins ago</small>
           </div>
@@ -28,9 +28,9 @@
     
 </template>
 <script>
-import { loginService } from '@/services/loginService';
+import { loginService } from '../services/loginService';
 import { useLoginStore } from '../stores/login';
-import { useLoadingStore } from '@/stores/loading';
+import { useLoadingStore } from '../stores/loading';
 export default {
     data() {
         return {
