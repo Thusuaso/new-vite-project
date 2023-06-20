@@ -1,0 +1,121 @@
+<template>
+    <div class="row m-auto mt-3">
+        <div class="col">
+            <div class="form-floating">
+                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 150px;width:350px;" v-model="getModel.yapilacak"></textarea>
+                <label for="floatingTextarea2">Yapılacak</label>
+            </div>
+        </div>
+        <div class="col">
+            <span class="p-float-label w-100">
+                <Dropdown id="users" v-model="selectedUser" :options="getUsersList" optionLabel="username" class="w-100" @change="userSelected($event)"/>
+                <label for="users">Görev Sahibi</label>
+            </span>
+        </div>
+        <div class="col">
+            <span class="p-float-label w-100">
+                <Dropdown id="priority" v-model="selectedPriority" :options="priorities" optionLabel="priority" class="w-100" @change="prioritySelected($event)"/>
+                <label for="priority">Öncelik</label>
+            </span>
+        </div>
+    </div>
+    <div class="row m-auto mt-3">
+        <div class="col">
+            <button type="button" class="btn btn-success w-100" @click="process">Kaydet</button>
+        </div>
+    </div>
+</template>
+<script>
+import { useTodoStore } from '../../stores/todo';
+import { mapState } from 'pinia';
+
+import { localDateService } from '../../services/localDateService';
+import { todoService } from '../../services/todoService';
+import { socket } from '../../services/customServices/realTimeService';
+import { useLoadingStore } from '../../stores/loading';
+export default {
+    computed: {
+        ...mapState(useTodoStore, [
+            'getModel',
+            'getUsersList',
+            'getTodoNewButton'
+        ])
+    },
+    data() {
+        return {
+            priorities: [
+                { 'id': 1, 'priority': 'A' },
+                { 'id': 2, 'priority': 'B' },
+                { 'id': 3, 'priority': 'C' },
+            ],
+            selectedPriority: {},
+            selectedUser: {},
+
+        }
+    },
+    created() {
+        if (!this.getTodoNewButton) {
+            this.todoCreatedProcess();
+        }
+    },
+    methods: {
+        todoCreatedProcess() {
+            this.selectedUser = this.getUsersList.find(x => x.id == this.getModel.gorev_sahibi_id);
+            this.selectedPriority = this.priorities.find(x => x.priority == this.getModel.oncelik);
+        },
+        process() {
+            if (this.getTodoNewButton) {
+                this.save();
+            } else {
+                this.update();
+            }
+        },
+        save() {
+            this.getModel.gorev_veren_id = localStorage.getItem('userId');
+            this.getModel.gorev_veren_adi = localStorage.getItem('username');
+            this.getModel.girisTarihi = localDateService.getDateString(new Date());
+            todoService.save(this.getModel).then(data => {
+                if (data.status) {
+                    socket.socketIO.emit('to_do_list_emit', localStorage.getItem('userId'));
+                    this.reset();
+                    this.$toast.add({ severity: 'success', detail: 'Başarıyla Kaydedildi', life: 3000 });
+                } else {
+                    this.$toast.add({ severity: 'danger', detail: 'Kaydetme Başarısız', life: 3000 });
+                };
+            });
+        },
+        update() {
+            useLoadingStore().begin_loading_act();
+            todoService.update(this.getModel).then(data => {
+                if (data.status) {
+                    socket.socketIO.emit('to_do_list_emit', localStorage.getItem('userId'));
+                    useLoadingStore().end_loading_act();
+                    this.emitter.emit('todo_dialog_opened', false);
+                    this.$toast.add({ severity: 'success', detail: 'Başarıyla Güncellendi', life: 3000 });
+                } else {
+                    useLoadingStore().end_loading_act();
+                    this.$toast.add({ severity: 'error', detail: 'Güncelleme Başarısız', life: 3000 });
+                }
+            })
+        },
+        reset() {
+            todoService.getModel().then(data => {
+                this.selectedPriority = { };
+                this.selectedUser = { };
+                useTodoStore().to_do_model_list_load_act(data);
+                useTodoStore().to_do_new_button_load_act(true);
+            });
+        },
+        prioritySelected(event) {
+            this.getModel.oncelik = event.value.priority;
+        },
+        userSelected(event) {
+            this.getModel.gorev_sahibi_adi = event.value.username;
+            this.getModel.gorev_sahibi_id = event.value.id;
+        }
+    }
+}
+</script>
+<style scoped>
+
+</style>

@@ -1,0 +1,236 @@
+<template>
+    <DataTable 
+      tableStyle="width:100%;"
+      style="font-size: 50%"
+      :value="productionsList" 
+      rowGroupMode="rowspan"
+      :groupRowsBy="groups"
+      sortMode="single"
+      sortField="groups"
+      :sortOrder="1"
+      :globalFilterFields="['musteriAdi', 'siparisNo', 'urunAdi', 'en', 'boy', 'kenar', 'tedarikciAdi', 'operasyon','icerik']"
+      v-model:filters="filters"
+      filterDisplay="row"
+      scrollable scrollHeight="650px"
+      v-model:selection="selectedSiparis"
+      selectionMode="single"
+      @row-select="siparisSecim($event)"
+      @filter="productFilterEvent($event)"
+
+    >
+        <template #header>
+            <div class="row">
+              <div class="col-6">
+                <h4>{{ title }}</h4>
+              </div>
+              <div class="col">
+                <div class="flex justify-content-between">
+                  <span class="p-input-icon-left">
+                    <i class="pi pi-search" />
+                    <InputText v-model="filters['global'].value" placeholder="Keyword Search" />
+                  </span>
+                </div>
+              </div>
+            </div>
+            
+          </template>
+        <Column field="tarih" header="Tarih" ></Column>
+        <Column field="musteriAdi" header="Kime" :showFilterMenu="false" :showFilterMatchModes="false" >
+          <template #filter="{ filterModel, filterCallback }">
+              <InputText v-model="filterModel.value" type="text" style="width:50px;" @input="filterCallback()" class="p-column-filter" placeholder="Search by name" />
+          </template>
+        </Column>
+        <Column field="link" :header="getProductStatusId == 3 ? 'CI' : 'PI'">
+          <template #body="slotProps">
+             <Button
+                type="button"
+                :disabled="
+                  getProductStatusId == 2
+                    ? slotProps.data.evrak != 0
+                      ? false
+                      : true
+                    : slotProps.data.evrakc != 0
+                      ? false
+                      : true
+                                "
+                @click="proformaDowload(slotProps.data.link,'Proforma')"
+                class="pi pi-cloud-download"
+                style="margin-right: 0.5em"
+              ></Button>
+          </template>
+        </Column>
+        <Column field="siparisNo" header="PO" :showFilterMenu="false" :showFilterMatchModes="false" :filterMenuStyle="{ width: '14rem' }">
+          <template #body="slotProps">
+            {{ slotProps.data.siparisNo }}
+          </template>
+          <template #filter="{ filterModel, filterCallback }">
+                <InputText v-model="filterModel.value" type="text" style="width:50px;" @input="filterCallback()" class="p-column-filter" placeholder="Search by name" />
+            </template>
+        </Column>
+        <Column field="urunAdi" header="Ürün" :showFilterMenu="false" :showFilterMatchModes="false" :filterMenuStyle="{ width: '14rem' }">
+
+          <template #filter="{ filterModel, filterCallback }">
+                  <InputText v-model="filterModel.value" type="text" style="width:50px;" @input="filterCallback()" class="p-column-filter" placeholder="Search by name" />
+              </template>
+        </Column>
+        <Column field="icerik" header="İçerik"></Column>
+        <Column field="en" header="E" :showFilterMenu="false" :showFilterMatchModes="false" :filterMenuStyle="{ width: '14rem' }">
+          <template #filter="{ filterModel, filterCallback }">
+                <InputText v-model="filterModel.value" type="text" style="width:50px;" @input="filterCallback()" class="p-column-filter" placeholder="Search by name" />
+            </template>
+        </Column>
+        <Column field="boy" header="B" :showFilterMenu="false" :showFilterMatchModes="false" :filterMenuStyle="{ width: '14rem' }">
+          <template #filter="{ filterModel, filterCallback }">
+                  <InputText v-model="filterModel.value" type="text" style="width:50px;" @input="filterCallback()" class="p-column-filter" placeholder="Search by name" />
+              </template>
+        </Column>
+        <Column field="kenar" header="K" :showFilterMenu="false" :showFilterMatchModes="false" :filterMenuStyle="{ width: '14rem' }">
+          <template #filter="{ filterModel, filterCallback }">
+                    <InputText v-model="filterModel.value" type="text" style="width:50px;" @input="filterCallback()" class="p-column-filter" placeholder="Search by name" />
+                </template>
+        </Column>
+        <Column field="tedarikciAdi" header="Kimden" :showFilterMenu="false" :showFilterMatchModes="false" :filterMenuStyle="{ width: '14rem' }">
+          <template #body="slotProps">
+              <div :style="{
+                backgroundColor: slotProps.data.urunDurumRenk,
+                color:
+                  slotProps.data.urunDurumRenk != 'transparent' &&
+                    getProductStatusId == 2
+                    ? 'white'
+                    : 'black',
+              }">
+                {{ slotProps.data.tedarikciAdi }}
+              </div>
+          </template>
+          
+          <template #filter="{ filterModel, filterCallback }">
+              <InputText v-model="filterModel.value" type="text" style="width:50px;" @input="filterCallback()" class="p-column-filter" placeholder="Search by name" />
+          </template>
+        </Column>
+        <Column field="siparisMiktari" header="M">
+          <template #footer>
+            {{ $filters.formatDecimal(getProductionsListTotal.amount) }}
+          </template>
+        </Column>
+        <Column field="adet" header="A">
+          <template #footer>
+              {{ $filters.formatDecimal(getProductionsListTotal.piece) }}
+            </template>
+        </Column>
+        <Column field="mt2" header="M2">
+          <template #footer>
+              {{ $filters.formatDecimal(getProductionsListTotal.m2) }}
+            </template>
+        </Column>
+        <Column field="birim" header="B"></Column>
+        <Column field="uretimMiktari" header="Üretim">
+          <template #footer>
+              {{ $filters.formatDecimal(getProductionsListTotal.production) }}
+            </template>
+        </Column>
+        <Column field="ton" header="Ton">
+          <template #footer>
+                {{ $filters.formatDecimal(getProductionsListTotal.ton) }}
+              </template>
+        </Column>
+        <Column field="birimFiyat" header="F">
+          <template #body="slotProps">
+            {{ $filters.formatPrice(slotProps.data.birimFiyat) }}
+          </template>
+        </Column>
+        <Column field="satisToplam" header="Toplam">
+          <template #body="slotProps">
+            {{ $filters.formatPrice(slotProps.data.satisToplam) }}
+          </template>
+          <template #footer>
+            {{ $filters.formatPrice(getProductionsListTotal.productPriceSum) }}
+          </template>
+        </Column>
+    </DataTable>
+
+    <Dialog v-model:visible="product_detail_form" :header="po" modal :style="{ width: '100vw' }"> 
+        <orderForm :po="po"/>
+    </Dialog>
+
+</template>
+<script>
+import orderForm from './orderForm.vue';
+
+import { useProductionsStore } from '../../stores/productions';
+import { useLoadingStore } from '../../stores/loading';
+
+import { mapState } from 'pinia';
+import { FilterMatchMode } from "primevue/api";
+import { productionsService } from '../../services/productions';
+
+export default {
+    props: ['title'],
+    computed: {
+      ...mapState(useProductionsStore, [
+        'productionsList',
+        'productionsDetailModel',
+        'getProductStatusId',
+        'getProductionsListTotal'
+      ])
+  },
+  components: {
+    orderForm
+  },
+    
+    data() {
+      return {
+            product_detail_form:false,
+            po:"",
+            selectedSiparis:[],
+            groups: [ "siparisNo", "musteriAdi", "tarih", "link"],
+            filters: {
+                global: { value: null, matchMode: FilterMatchMode.CONTAINS },
+                musteriAdi: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+                siparisNo: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+                urunAdi: { value: null, matchMode: FilterMatchMode.CONTAINS },
+                en: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+                boy: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+                kenar: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+                tedarikciAdi: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+
+
+            }
+        }
+    },
+    methods: {
+      siparisSecim(event) {
+        useLoadingStore().begin_loading_act();
+        useProductionsStore().productions_new_button_load_act(false);
+        this.po = event.data.siparisNo;
+        productionsService.getOrderDetail(event.data.siparisNo).then(data => {
+          useProductionsStore().product_detail_cost_list(data.costList);
+          useProductionsStore().product_total_load_act(data.productList);
+          useProductionsStore().productions_detail_model_load_act(data.productList);
+          useProductionsStore().product_detail_check_list(data.checkList);
+          useProductionsStore().product_detail_document_list(data.documentList);
+          useProductionsStore().products_detail_supplier_list(data.supplierList);
+          useProductionsStore().products_supplier_delivery_list(data.supplierDeliveryList);
+          useProductionsStore().products_supplier_invoice_list(data.supplierInvoiceList);
+          useProductionsStore().product_detail_order_information_load_act(data.orderInformationList);
+          useProductionsStore().product_detail_users_list_load_act(data.usersList);
+          useProductionsStore().product_detail_chat_list_load_act(data.chatList);
+          useProductionsStore().products_save_button_status_load_act(true);
+          this.product_detail_form = true;
+          useLoadingStore().end_loading_act();
+
+        });
+            
+      },
+      proformaDowload(proformaLink,folderName) {
+        const link = document.createElement("a");
+        link.href = proformaLink;
+        link.setAttribute("download", `${folderName}.pdf`);
+        document.body.appendChild(link);
+        link.click();
+      },
+      productFilterEvent(event) {
+        useProductionsStore().products_total_datatable_load_act(event.filteredValue);
+      },
+    }
+}
+</script>
