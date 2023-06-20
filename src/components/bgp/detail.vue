@@ -24,7 +24,7 @@
     </Dialog>
 </template>
 
-<script>
+<script lang="javascript">
 import { useBgpStore } from '../../stores/bgp';
 import { mapState } from 'pinia';
 import detailForm from '../../components/bgp/detailForm.vue'

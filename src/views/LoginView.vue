@@ -27,7 +27,7 @@
     </div>
     
 </template>
-<script>
+<script lang="javascript">
 import { loginService } from '../services/loginService';
 import { useLoginStore } from '../stores/login';
 import { useLoadingStore } from '../stores/loading';

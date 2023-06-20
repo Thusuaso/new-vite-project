@@ -13,5 +13,6 @@
   ],
   "compilerOptions": {
     "ignoreDeprecations": "5.0",
+    "allowJs": true
   }
 }
