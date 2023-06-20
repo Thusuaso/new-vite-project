@@ -12,7 +12,8 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
   },
-  build:{
+  build: {
+    chunkSizeWarningLimit: 1600,
     outDir: "build",
      rollupOptions: {
         external: 'NonExistingPath'
