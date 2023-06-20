@@ -13,6 +13,9 @@ export default defineConfig({
     }
   },
   build:{
-    outDir: "build"
+    outDir: "build",
+     rollupOptions: {
+        external: 'NonExistingPath'
+      }
   }
 })
