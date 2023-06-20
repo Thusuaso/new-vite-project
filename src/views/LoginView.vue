@@ -28,9 +28,9 @@
     
 </template>
 <script>
-import { loginService } from '../services/loginService';
-import { useLoginStore } from '../stores/login';
-import { useLoadingStore } from '../stores/loading';
+import { loginService } from '@/services/loginService';
+import { useLoginStore } from '@/stores/login';
+import { useLoadingStore } from '@/stores/loading';
 export default {
     data() {
         return {
