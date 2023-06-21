@@ -199,9 +199,9 @@ import CustomInputFile from "../../components/shared/CustomInputFile.vue";
 
 import VueHtml2Canvas from 'vue-html2canvas';
 import pdfMake from "pdfmake/build/pdfmake";
-import pdfFonts from "../../../node_modules/pdfmake/build/vfs_fonts";
+// import pdfFonts from "../../../node_modules/pdfmake/build/vfs_fonts";
 
-pdfMake.vfs = pdfFonts.pdfMake.vfs;
+// pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 
 
