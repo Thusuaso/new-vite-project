@@ -266,6 +266,7 @@ export default {
     },
     methods: {
         product_select_item(event) {
+            // @ts-ignore
             this.products = this.getProductionsDetailModel.siparisUrunler.find(x => x.id == event.data.id);
             this.productCardSelected(this.getCardList.find(x => x.id == event.data.urunKartId));
             this.selectedSupplier = this.getProductSupplierList.find(x => x.id == event.data.tedarikciId);
@@ -296,7 +297,9 @@ export default {
             this.form_status = false;
             this.workmanship_disabled = true;
             this.resetData()
+            // @ts-ignore
             if (this.getProductionsDetailModel.siparisUrunler.length > 0) {
+                // @ts-ignore
                 this.products.siraNo = this.getProductionsDetailModel.siparisUrunler.length + 1
             } else {
                 this.products.siraNo = 1
@@ -312,7 +315,9 @@ export default {
             this.resetData()
         },
         updateForm() {
+            // @ts-ignore
             const index = this.findIndex(this.products.id, this.getProductionsDetailModel.siparisUrunler);
+            // @ts-ignore
             this.getProductionsDetailModel.siparisUrunler.splice(index, 1);
             this.products.tedarikciId = this.selectedSupplier.id;
             this.products.tedarikciAdi = this.selectedSupplier.firmaAdi;
@@ -339,23 +344,30 @@ export default {
             this.products.satisToplam = parseFloat(this.products.miktar) * parseFloat(this.products.satisFiyati);
             this.products.alisToplam = parseFloat(this.products.miktar) * parseFloat(this.products.alisFiyati);
 
+            // @ts-ignore
             this.getProductionsDetailModel.siparisUrunler.push(this.products);
             if (!this.getProductionsNewButton) {
+                // @ts-ignore
                 this.getProductionsDetailModel.urunlerDegisenler.push(this.products);
             };
             useProductionsStore().product_total_load_act(this.getProductionsDetailModel);
             useProductionsStore().products_save_button_status_load_act(false);
+            // @ts-ignore
             this.sumProducts(this.getProductionsDetailModel.siparisUrunler);
             this.buttonReset();
             this.resetData();
 
         },
         deleteForm() {
+            // @ts-ignore
             this.getProductionsDetailModel.urunlerSilinenler.push(this.products);
+            // @ts-ignore
             const index = this.findIndex(this.products.id, this.getProductionsDetailModel.siparisUrunler);
+            // @ts-ignore
             this.getProductionsDetailModel.siparisUrunler.splice(index, 1);
             useProductionsStore().product_total_load_act(this.getProductionsDetailModel);
             useProductionsStore().products_save_button_status_load_act(false);
+            // @ts-ignore
             this.sumProducts(this.getProductionsDetailModel.siparisUrunler);
             this.buttonReset();
             this.resetData();
@@ -406,12 +418,15 @@ export default {
                 this.products.m2 = 0
             };
             this.products.satisToplam = parseFloat(this.products.miktar) * parseFloat(this.products.satisFiyati);
+            // @ts-ignore
             this.getProductionsDetailModel.siparisUrunler.push(this.products);
             if (!this.getProductionsNewButton) {
+                // @ts-ignore
                 this.getProductionsDetailModel.urunlerYeni.push(this.products);
             };
             useProductionsStore().product_total_load_act(this.getProductionsDetailModel);
             useProductionsStore().products_save_button_status_load_act(false);
+            // @ts-ignore
             this.sumProducts(this.getProductionsDetailModel.siparisUrunler);
             this.buttonReset();
             this.resetData();
@@ -454,6 +469,7 @@ export default {
         }
     },
     mounted() {
+        // @ts-ignore
         this.emitter.on('cardDialogClose', () => {
             this.product_card_form = false
         })
@@ -461,6 +477,8 @@ export default {
     created() {
         if (!this.getProductionsNewButton) {
             this.workmanshipButton = false
+            // @ts-ignore
+            this.sumProducts(this.getProductionsDetailModel.siparisUrunler);
         };
     },
 }
