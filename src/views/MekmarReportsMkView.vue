@@ -33,7 +33,7 @@
 <script>
 import { useReportsStore } from '../stores/reports';
 import { useLoadingStore } from '../stores/loading';
-import { useLocalStore } from '../../stores/local';
+import { useLocalStore } from '../stores/local';
 import { mapState } from 'pinia';
 
 import { reportsService } from '../services/reportsService';
