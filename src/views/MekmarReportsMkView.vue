@@ -33,6 +33,7 @@
 <script>
 import { useReportsStore } from '../stores/reports';
 import { useLoadingStore } from '../stores/loading';
+import { useLocalStore } from '../../stores/local';
 import { mapState } from 'pinia';
 
 import { reportsService } from '../services/reportsService';
@@ -54,6 +55,9 @@ export default {
         ...mapState(useReportsStore, [
             'getMekmarMkYearsList',
             'getMekmarMkList'
+        ]),
+        ...mapState(useLocalStore, [
+            'getLocalServiceUrl'
         ])
     },
     data() {
@@ -76,7 +80,7 @@ export default {
             reportsService.getMekmarMkExcelList(this.getMekmarMkList).then(data => {
                 if (data.status) {
                     const link = document.createElement("a");
-                    link.href = 'http://localhost:5000/' + "/raporlar/listeler/mkraporlari/excel";
+                    link.href = this.getLocalServiceUrl + "/raporlar/listeler/mkraporlari/excel";
                     link.setAttribute("download", "mkRaporlari.xlsx");
                     document.body.appendChild(link);
                     link.click();

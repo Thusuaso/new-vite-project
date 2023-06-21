@@ -79,5 +79,5 @@ getIcSiparisExcelListesi(data_list:any) {
     return api
       .get("tedarikci/icsiparisformu/listeler")
       .then((res) => res.data);
-  },
+    },
 }

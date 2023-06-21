@@ -91,6 +91,7 @@
 import productionsList from './productionsList.vue';
 import { productionsService } from '../../services/productions';
 import { useProductionsStore } from '../../stores/productions';
+import { useLocalStore } from '../../stores/local';
 import { mapState } from 'pinia';
 import orderForm from '../../components/order/orderForm.vue';
 export default {
@@ -103,6 +104,9 @@ export default {
         ...mapState(useProductionsStore, [
             'getProductionsList',
             'getProductionsFilterList'
+        ]),
+        ...mapState(useLocalStore, [
+            'getLocalServiceUrl'
         ])
     },
     data() {
@@ -172,7 +176,7 @@ export default {
             productionsService.getProductExcelList(this.getProductionsList).then((response) => {
                 if (response.status) {
                     const link = document.createElement("a");
-                    link.href = 'http://localhost:5000/' + "siparisler/dosyalar/uretimExcelCikti";
+                    link.href = this.getLocalServiceUrl + "siparisler/dosyalar/uretimExcelCikti";
                     link.setAttribute("download", "Üretim_Listesi.xlsx");
                     document.body.appendChild(link);
                     link.click();

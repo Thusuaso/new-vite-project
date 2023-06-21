@@ -28,6 +28,7 @@
 </template>
 <script>
 import { useProductionsStore } from '../../stores/productions';
+import { useLocalStore } from '../../stores/local';
 import { mapState } from 'pinia';
 import { productionsService } from '../../services/productions';
 
@@ -35,6 +36,9 @@ export default {
     computed: {
         ...mapState(useProductionsStore, [
             'getProductDetailCheckList'
+        ]),
+        ...mapState(useLocalStore, [
+            'getLocalServiceUrl'
         ])
     },
     data() {
@@ -50,7 +54,7 @@ export default {
             productionsService.getCheckExcellist(this.getProductDetailCheckList).then((res) => {
                 if (res.status) {
                     const link = document.createElement("a");
-                    link.href = 'http://localhost:5000/' + "excel/listeler/siparisCekiListesi";
+                    link.href = this.getLocalServiceUrl + "excel/listeler/siparisCekiListesi";
 
                     link.setAttribute("download", "ceki_listesi.xlsx");
                     document.body.appendChild(link);

@@ -190,6 +190,7 @@
 import { useProductionsStore } from '../../stores/productions';
 import { useLocalStore } from '../../stores/local';
 import { mapState } from 'pinia';
+
 import { localDateService } from '../../services/localDateService';
 import { productionsService } from '../../services/productions';
 import { fileService } from '../../services/fileService';
@@ -197,9 +198,11 @@ import { fileService } from '../../services/fileService';
 import CustomInputFile from "../../components/shared/CustomInputFile.vue";
 
 import VueHtml2Canvas from 'vue-html2canvas';
-var pdfMake = require('pdfmake/build/pdfmake.js');
-var pdfFonts = require('pdfmake/build/vfs_fonts.js');
+import pdfMake from "pdfmake/build/pdfmake";
+import pdfFonts from "pdfmake/build/vfs_fonts";
+
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
+
 
 
 import jsPDF from 'jspdf';
@@ -453,7 +456,7 @@ export default {
             });
         },
         deneme() {
-            serviceRapor
+            productionsService
                 .getTedarikciPDFCikti(this.secimTur.concat(this.urunList))
                 .then((res) => {
                     if (res.status) {

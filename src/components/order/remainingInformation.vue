@@ -68,12 +68,16 @@
 </template>
 <script>
 import { useProductionsStore } from '../../stores/productions';
+import { useLocalStore } from '../../stores/local';
 import { mapState } from 'pinia';
 import { productionsService } from '../../services/productions';
 export default {
     computed: {
         ...mapState(useProductionsStore, [
             'getProductDetailOrderInformationList'
+        ]),
+        ...mapState(useLocalStore, [
+            'getLocalServiceUrl'
         ])
     },
     data() {
@@ -96,12 +100,10 @@ export default {
                 if (response.status) {
                     const link = document.createElement("a");
                     link.href =
-                    'http://localhost:5000/' + "raporlar/listeler/sipKalanListesiExcell";
+                    this.getLocalServiceUrl + "raporlar/listeler/sipKalanListesiExcell";
                     link.setAttribute("download", "sipKalanListesiExcell.xlsx");
                     document.body.appendChild(link);
                     link.click();
-                    this.loading = false;
-                    this.is_excel = false;
                 }
             });
         },
