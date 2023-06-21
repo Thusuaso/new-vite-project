@@ -171,6 +171,8 @@ export default {
     methods: {
         save() {
             this.getModel.sevk_tarihi = localDateService.getDateString(this.f_date);
+            this.getModel.hatirlatma_sure = this.normal_sevk ? 5 : 3
+
             this.getModel.sevkEden = localStorage.getItem('username');
             forwardingService.save(this.getModel).then(data => {
                 if (data) {
