@@ -16,8 +16,5 @@ export default defineConfig({
   build: {
     chunkSizeWarningLimit: 2500,
     outDir: "build",
-     rollupOptions: {
-        external: 'NonExistingPath'
-      }
   }
 })
