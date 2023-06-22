@@ -80,7 +80,6 @@
                                     <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" v-model="slotProps.data.kasa_secim">
                                 </div>
                             </template>
-                            
                         </Column>
                         <Column field="kasano" header="No"></Column>
                         <Column field="miktar" header="M">
@@ -164,13 +163,14 @@ export default {
                 totalPrice:0,
             },
             allCrate: false,
-            send_crate_disabled: true,
+            send_crate_disabled: false,
         }
     },
     crated() {
     },
     methods: {
         save() {
+            useLoadingStore().begin_loading_act();
             this.forwarding_form = true;
             this.getModel.sevk_tarihi = localDateService.getDateString(this.f_date);
             this.getModel.hatirlatma_sure = this.normal_sevk ? 5 : 3;
@@ -178,9 +178,11 @@ export default {
             this.getModel.sevkEden = localStorage.getItem('username');
             forwardingService.save(this.getModel).then(data => {
                 if (data) {
+                    useLoadingStore().end_loading_act();
                     this.$toast.add({ severity: 'success', detail: 'Başarıyla Sevk Edildi', life: 3000 });
                     this.forwarding_form = false;
                 } else {
+                    useLoadingStore().end_loading_act();
                     this.$toast.add({ severity: 'error', detail: 'Sevk Etme Başarısız', life: 3000 });
                     this.forwarding_form = false;
                 };
@@ -264,6 +266,22 @@ export default {
                     item.kasa_secim = false;
                 };
             };
+        },
+        reset() {
+            this.selectedOrder = null;
+            this.f_date = new Date();
+            this.selectedOrderProduct = [];
+            this.selectedOrderProduct.siparis = 0;
+            this.selectedOrderProduct.uretim = 0;
+            this.remainder = 0;
+            this.forwardingCrateList = [];
+            this.send_crate_disabled = false;
+            this.allCrate = false;
+            useLoadingStore().begin_loading_act();
+            forwardingService.getForwardingModel().then(data => {
+                useForwardingStore().forwarding_load_act(data);
+                useLoadingStore().end_loading_act();
+            });
         }
     }
 }
