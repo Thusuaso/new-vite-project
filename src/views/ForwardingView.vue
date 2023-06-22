@@ -163,7 +163,7 @@ export default {
                 totalPrice:0,
             },
             allCrate: false,
-            send_crate_disabled: false,
+            send_crate_disabled: true,
         }
     },
     crated() {
