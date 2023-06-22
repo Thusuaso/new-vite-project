@@ -79,6 +79,9 @@
     <Dialog v-model:visible="is_form" :header="folderName" modal>
         <invoiceForm :id="invoiceId" :po="po"/>
     </Dialog>
+    <Dialog v-model:visible="is_form2" header="" modal>
+        <supplierForm :po="selectedUploadingProduct.siparisno"/>
+    </Dialog>
 </template>
 <script>
 import { useUploadingStore } from '../stores/uploading';
@@ -90,6 +93,7 @@ import { uploadingService } from '../services/uploadingService';
 import { socket } from '../services/customServices/realTimeService';
 
 import form from '../components/uploading/form.vue';
+import supplierForm from '../components/uploading/supplierForm.vue';
 
 export default {
     computed: {
@@ -99,7 +103,8 @@ export default {
         ])
     },
     components: {
-        invoiceForm:form
+        invoiceForm: form,
+        supplierForm
     },
     data() {
         return {
@@ -124,7 +129,8 @@ export default {
             is_form: false,
             invoiceId: 0,
             po: "",
-            folderName:"",
+            folderName: "",
+            is_form2:false,
         }
     },
     methods: {
@@ -185,10 +191,15 @@ export default {
             });
         },
         uploadingFolderSelected(event) {
+            console.log(event)
             this.invoiceId = event.data.Faturaid;
             this.po = this.selectedUploadingProduct.siparisno;
             this.folderName = event.data.faturaadi;
-            this.is_form = true;
+            if (event.data.Faturaid) {
+                this.is_form2 = true;
+            } else {
+                this.is_form = true;
+            }
         },
         uploadingProductSelected(event) {
             this.uploadButtonForm = true;

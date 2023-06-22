@@ -9,5 +9,17 @@ export const uploadingService = {
     },
     getUploadingFolderList(po:any) {
         return api.get(`/evrak/faturaList/${po}`).then(response => response.data);
+    },
+    getSupplierList(po:any) {
+        return api.get(`/evrak/tedarikci/faturaList/${po}`).then(response => response.data);
+    },
+    getUploadingDocumentControl(supplier:any,po:any) {
+        return api.get(`operasyon/islemler/tedarikci/tedarikciKontrol/${supplier}/${po}`).then(response => response.data);
+    },
+    setSupplierInvoice(supplier: any) {
+        return api.get(`/operasyon/islemler/tedarikci/tedarikciDosyaKaydet/${supplier}`).then(response => response.data);
+    },
+    setSupplier(data:any){
+        return api.post(`/operasyon/islemler/tedarikci/tedarikciKayit`,data).then(response => response.data);
     }
 }

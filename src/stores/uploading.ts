@@ -5,7 +5,8 @@ export const useUploadingStore = defineStore('uploading', {
         return {
             uploadingProductList: [],
             uploadingFolderList: [],
-            uploadingProductFolderList:[],
+            uploadingProductFolderList: [],
+            uploadingSupplierList: [],
         }
     },
     actions: {
@@ -17,6 +18,9 @@ export const useUploadingStore = defineStore('uploading', {
         },
         uploading_product_folder_list_load_act(data: any) {
             this.uploadingProductFolderList = data;
+        },
+        uploading_supplier_list_load_act(data: any) {
+            this.uploadingSupplierList = data;
         }
     },
     getters: {  
@@ -28,6 +32,9 @@ export const useUploadingStore = defineStore('uploading', {
         },
         getUploadingProductFolderList(state) {
             return state.uploadingProductFolderList;
+        },
+        getUploadingSupplierList(state) {
+            return state.uploadingSupplierList;
         }
     }
 });

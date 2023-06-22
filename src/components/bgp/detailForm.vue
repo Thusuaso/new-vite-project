@@ -1,4 +1,5 @@
 <template>
+    {{ getBgpListDetailModel }}
     <br/>
     <div class="container text-center">
       <div class="row">
@@ -54,15 +55,15 @@
       <div class="row">
         <div class="col-2"> 
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="Constructor" v-model="getBgpListDetailModel.unvan" >
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="contractor" v-model="getBgpListDetailModel.unvan" >
                 <label class="form-check-label" for="flexRadioDefault1">
-                    Constructor
+                    Contractor
                 </label>
             </div>
         </div>
         <div class="col-2">
             <div class="form-check">
-                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" value="Architech" v-model="getBgpListDetailModel.unvan">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" value="architect" v-model="getBgpListDetailModel.unvan">
                     <label class="form-check-label" for="flexRadioDefault2">
                         Architech
                     </label>
