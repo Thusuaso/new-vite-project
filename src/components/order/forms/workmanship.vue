@@ -7,7 +7,7 @@
             </span>
         </div>
         <div class="col">
-            <Dropdown v-model="selectedSupplier"  :options="getProductSupplierList" @change="changeSupplier($event)" :disabled="!disabled_new_button" aria-describedby="basic-addon1" optionLabel="firmaAdi" placeholder="Tedarikçi" class="w-full md:w-14rem" style="width:100%;" />
+            <Dropdown v-model="selectedSupplier" filter   :options="getProductSupplierList" @change="changeSupplier($event)" :disabled="!disabled_new_button" aria-describedby="basic-addon1" optionLabel="firmaAdi" placeholder="Tedarikçi" class="w-full md:w-14rem" style="width:100%;" />
         </div>
         <div class="col">
                 <div class="input-group mb-3" style="height:50px;">

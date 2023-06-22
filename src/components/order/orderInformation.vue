@@ -26,9 +26,8 @@
                     </div>
                     <div class="row">
                         <div class="col">
-                                <Dropdown v-model="selectedSupplier"  :options="getProductSupplierList" :disabled="form_status" aria-describedby="basic-addon1" optionLabel="firmaAdi" placeholder="Tedarikçi" class="w-full md:w-14rem" style="width:100%;" />
+                            <Dropdown v-model="selectedSupplier"  :options="getProductSupplierList" filter :disabled="form_status" aria-describedby="basic-addon1" optionLabel="firmaAdi" placeholder="Tedarikçi" class="w-full md:w-14rem" style="width:100%;" />
                         </div>
-                    
                         <div class="col">
                             <div class="input-group mb-3 ">
                                 <span class="input-group-text" id="basic-addon1" style="width:40%;height:50px;">Alış $</span>
@@ -238,7 +237,7 @@ export default {
     data() {
         return {
             workmanship_disabled:true,
-            workmanshipButton:true,
+            workmanshipButton:false,
             workmanship_form:false,
             productsSum: {
                 m2: 0,
@@ -475,8 +474,9 @@ export default {
         })
     },
     created() {
+        console.log(this.getProductionsNewButton);
         if (!this.getProductionsNewButton) {
-            this.workmanshipButton = false
+            this.workmanshipButton = true;
             // @ts-ignore
             this.sumProducts(this.getProductionsDetailModel.siparisUrunler);
         };
