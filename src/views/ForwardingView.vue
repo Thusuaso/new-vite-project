@@ -179,6 +179,7 @@ export default {
             forwardingService.save(this.getModel).then(data => {
                 if (data) {
                     useLoadingStore().end_loading_act();
+                    this.reset();
                     this.$toast.add({ severity: 'success', detail: 'Başarıyla Sevk Edildi', life: 3000 });
                     this.forwarding_form = false;
                 } else {
