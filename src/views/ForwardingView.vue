@@ -66,7 +66,7 @@
             </div>
         </div>
         <div class="col">
-            <button type="button" class="btn btn-success" @click="save">Sevk Et</button>
+            <button type="button" class="btn btn-success" @click="save" :disabled="forwarding_form">Sevk Et</button>
         </div>
     </div>
     <div class="row m-auto">
@@ -150,6 +150,7 @@ export default {
     },
     data() {
         return {
+            forwarding_form:false,
             filterOrderList: [],
             selectedOrder: null,
             f_date: new Date(),
@@ -170,24 +171,27 @@ export default {
     },
     methods: {
         save() {
+            this.forwarding_form = true;
             this.getModel.sevk_tarihi = localDateService.getDateString(this.f_date);
-            this.getModel.hatirlatma_sure = this.normal_sevk ? 5 : 3
+            this.getModel.hatirlatma_sure = this.normal_sevk ? 5 : 3;
 
             this.getModel.sevkEden = localStorage.getItem('username');
             forwardingService.save(this.getModel).then(data => {
                 if (data) {
                     this.$toast.add({ severity: 'success', detail: 'Başarıyla Sevk Edildi', life: 3000 });
+                    this.forwarding_form = true;
                 } else {
                     this.$toast.add({ severity: 'error', detail: 'Sevk Etme Başarısız', life: 3000 });
-                }
+                    this.forwarding_form = true;
+                };
             })
         },
         sendCrate() {
             for (const item of this.forwardingCrateList) {
                 if (item.kasa_secim) {
                     this.getModel.kasalistesi.push(item);
-                }
-            }
+                };
+            };
             let index = this.findIndex(this.selectedOrderProduct.urunkartid, this.getProductList);
             this.getProductList.splice(index, 1);
             this.forwardingCrateSum(this.getModel.kasalistesi);
@@ -202,8 +206,8 @@ export default {
                     return index;
                 } else {
                     index += 1;
-                }
-            }
+                };
+            };
         },
         orderProductSelected(event) {
             this.forwardingCrateList = [];
@@ -248,7 +252,7 @@ export default {
             for (const item of data) {
                 this.crateTotal.amount += item.miktar;
                 this.crateTotal.totalPrice += (item.birimfiyat * item.miktar);
-            }
+            };
         },
         allCrateSelected(event) {
             this.send_crate_disabled = !this.send_crate_disabled;
@@ -258,7 +262,7 @@ export default {
                 };
                 if (event.target._modelValue) {
                     item.kasa_secim = false;
-                }
+                };
             };
         }
     }

@@ -74,9 +74,11 @@ export default {
     },
     methods: {
         save() {
+            useProductionsStore().products_save_button_status_load_act(true);
             this.getProductionsDetailModel.siparis.kullaniciId = localStorage.getItem('userId');
             this.getProductionsDetailModel.siparis.kayit_kisi = localStorage.getItem('userId');
             productionsService.saveProductions(this.getProductionsDetailModel).then(data => {
+
             if (data.status) {
                 let productStatus;
                 if (this.$router.currentRoute._value.fullPath == '/order/waiting') {
@@ -95,16 +97,21 @@ export default {
                         year: new Date().getFullYear()
                     }
                 }
-                console.log(this.$router.currentRoute._value.fullPath)
                 socket.socketIO.emit('products_update_emit', productStatus)
                 this.$toast.add({ severity: 'success', detail: 'Başarıyla Kaydedildi', life: 3000 });
+                useProductionsStore().products_save_button_status_load_act(false);
+
             } else {
                 this.$toast.add({ severity: 'error', detail: 'Kayıt İşlemi Başarısız', life: 3000 });
+                useProductionsStore().products_save_button_status_load_act(false);
+
 
             }
         })
         },
         update() {
+            useProductionsStore().products_save_button_status_load_act(true);
+
             this.getProductionsDetailModel.degisimMasraflar = [];
             this.getProductionsDetailModel.siparis.kullaniciId = localStorage.getItem('userId');
             this.getProductionsDetailModel.siparis.kayit_kisi = localStorage.getItem('userId');
@@ -130,8 +137,12 @@ export default {
 
                     socket.socketIO.emit('products_update_emit', productStatus)
                     this.$toast.add({ severity: 'success', detail: 'Başarıyla Kaydedildi', life: 3000 });
+            useProductionsStore().products_save_button_status_load_act(false);
+
                 } else {
                     this.$toast.add({ severity: 'error', detail: 'Kayıt İşlemi Başarısız', life: 3000 });
+            useProductionsStore().products_save_button_status_load_act(false);
+
 
                 }
             })
