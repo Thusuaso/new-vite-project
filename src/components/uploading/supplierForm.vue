@@ -139,28 +139,28 @@ export default {
             };
         },
         supplierKindSelected(event) {
-                uploadingService.getUploadingDocumentControl(event.value.tedarikci, this.po).then(data => {
-                    if (data.data) {
+            uploadingService.getUploadingDocumentControl(event.value.tedarikci, this.po).then(data => {
+                if (data.data) {
+                    this.product_save_form = true
+                    this.supplier_document_form = true
+                    alert('Zaten bu siparişin tedarikçisi bulunmakta,lütfen siparişi kontrol ediniz.')
+                } else {
+                    this.product_save_form = false
+                    this.supplier_document_form = false
+
+
+                    this.id = event.value.ID;
+                    if (event.value.ID == 1 || event.value.ID == 123) {
                         this.product_save_form = true
-                        this.supplier_document_form = true
-                        alert('Zaten bu siparişin tedarikçisi bulunmakta,lütfen siparişi kontrol ediniz.')
+
                     } else {
                         this.product_save_form = false
-                        this.supplier_document_form = false
-
-
-                        this.id = event.value.ID;
-                        if (event.value.ID == 1 || event.value.ID == 123) {
-                            this.product_save_form = true
-
-                        } else {
-                            this.product_save_form = false
-                        }
-                        this.supplierLink = `https://file-service.mekmar.com/file/tedarikci/download/30/${this.po
-                            }/${event.value.tedarikci + ".pdf"}`
-                        this.supplier_link_form = false
                     }
-                })
+                    this.supplierLink = `https://file-service.mekmar.com/file/tedarikci/download/30/${this.po
+                        }/${event.value.tedarikci + ".pdf"}`
+                    this.supplier_link_form = false
+                };
+            });
         },
         searchSupplier(event) {
             setTimeout(() => {

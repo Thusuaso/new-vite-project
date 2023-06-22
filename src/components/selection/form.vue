@@ -3,13 +3,13 @@
     <br/>
     <div class="row">
         <div class="col-4">
-            <Dropdown class="w-100" v-model="selectedSavedKind" :options="saveKindList" optionLabel="kayitTur" placeholder="Kayıt Tür"  @change="productSavedKindSelected($event)"/>
+            <Dropdown class="w-100" v-model="selectedSavedKind" :options="saveKindList" optionLabel="kayitTur" placeholder="Kayıt Tür"  @change="productSavedKindSelected($event)" :disabled="form.kind"/>
             <br/>
             <br/>
-            <AutoComplete placeholder="Po" class="w-100" v-model="searchProduct" :suggestions="productList" @complete="productSearch($event)" optionLabel="name" :disabled="selectedSavedKind.id == 1 ? true : false" @item-select="productItemSelected($event)"/>
+            <AutoComplete placeholder="Po" class="w-100" v-model="searchProduct" :suggestions="productList" @complete="productSearch($event)" optionLabel="name" :disabled="form.po" @item-select="productItemSelected($event)" />
             <br/>
             <br/>
-            <Dropdown class="w-100" v-model="selectedProductDetail" :options="selectionProductDetail" optionLabel="tanim" placeholder="Sipariş Detay" :disabled="selectedSavedKind.id == 1 ? true : false" @change="productItemDetailSelected($event)"/>
+            <Dropdown class="w-100" v-model="selectedProductDetail" :options="selectionProductDetail" optionLabel="tanim" placeholder="Sipariş Detay" :disabled="form.product" @change="productItemDetailSelected($event)"/>
             <br/>
             <br/>
             <InputText class="w-100" v-model="getSelectionModelList.tanim" placeholder="Sipariş Ürün Kart" disabled/>
@@ -32,33 +32,33 @@
                     </div>
                 </div>
                 <div class="col">
-                    <AutoComplete  class="" v-model="searchMine" placeholder="Ocak" :suggestions="mineList" @complete="mineSearch($event)" optionLabel="name"  @item-select="productMineSelected($event)"/>
+                    <AutoComplete  class="" v-model="searchMine" placeholder="Ocak" :suggestions="mineList" @complete="mineSearch($event)" optionLabel="name"  @item-select="productMineSelected($event)" :disabled="form.mine"/>
                 </div>
             </div>
             <div class="row">
                 <div class="col">
                     <div class="input-group mb-3 w-100">
                         <span class="input-group-text" id="basic-addon1">Düzenleyen</span>
-                        <input type="text" class="form-control" v-model="getSelectionModelList.duzenleyen" aria-label="Username" aria-describedby="basic-addon1">
+                        <input type="text" class="form-control" v-model="getSelectionModelList.duzenleyen" aria-label="Username" aria-describedby="basic-addon1" :disabled="form.worker1">
                     </div>
                     </div>
                 <div class="col">
                     <div class="input-group mb-3 w-100">
                         <span class="input-group-text" id="basic-addon1">Kasalayan</span>
-                        <input type="text" class="form-control" v-model="getSelectionModelList.kasalayan" aria-label="Username" aria-describedby="basic-addon1">
+                        <input type="text" class="form-control" v-model="getSelectionModelList.kasalayan" aria-label="Username" aria-describedby="basic-addon1" :disabled="form.worker2">
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-4">
             <span class="p-float-label">
-                <AutoComplete class="w-100" inputId="ac" v-model="searchSupplier" :suggestions="supplierList" @complete="supplierSearch($event)" optionLabel="name" @item-select="supplierItemSelected($event)"/>
+                <AutoComplete class="w-100" inputId="ac" v-model="searchSupplier" :suggestions="supplierList" @complete="supplierSearch($event)" optionLabel="name" @item-select="supplierItemSelected($event)" :disabled="form.supplier"/>
 
                 <label for="ac">Tedarikçi</label>
             </span>
             <br/>
             <br/>
-            <Calendar v-model="p_date" @date-select="dateSelected($event)"/>
+            <Calendar v-model="p_date" @date-select="dateSelected($event)" :disabled="form.date"/>
             <br/>
             <br/>
             <div class="row">
@@ -76,19 +76,19 @@
             <div class="row">
                 <div class="col">
                     <span class="p-float-label">
-                        <InputText id="kutusayisi" class="form-control" aria-describedby="basic-addon1" v-model="getSelectionModelList.kutuadet" @input="calculateAmount($event)"/>
+                        <InputText id="kutusayisi" class="form-control" aria-describedby="basic-addon1" v-model="getSelectionModelList.kutuadet" @input="calculateAmount($event)" :disabled="form.amountincreate"/>
                         <label for="kutusayisi">Kutu Sayısı</label>
                     </span>
                 </div>
                 <div class="col">
                     <span class="p-float-label">
-                        <InputText id="kutuiciadet" class="form-control" aria-describedby="basic-addon1" v-model="getSelectionModelList.kutuiciadet" @input="inBoxPiece"/>
+                        <InputText id="kutuiciadet" class="form-control" aria-describedby="basic-addon1" v-model="getSelectionModelList.kutuiciadet" @input="inBoxPiece" :disabled="form.amountinbox"/>
                         <label for="kutuiciadet">Kutu İçi</label>
                     </span>
                 </div>
                 <div class="col">
                     <span class="p-float-label">
-                        <InputText id="kutuiciadet" class="form-control" aria-describedby="basic-addon1" v-model="getSelectionModelList.adet" @input="calculateAmount($event)"/>
+                        <InputText id="kutuiciadet" class="form-control" aria-describedby="basic-addon1" v-model="getSelectionModelList.adet" @input="calculateAmount($event)" :disabled="form.totalAmount"/>
                         <label for="kutuiciadet">Toplam</label>
                     </span>
                 </div>
@@ -97,19 +97,19 @@
             <div class="row">
                 <div class="col">
                     <span class="p-float-label">
-                        <InputText id="miktar" class="form-control" aria-describedby="basic-addon1" v-model="getSelectionModelList.miktar" @input="getSelectionModelList.miktar = $filters.formatPoint($event.target.value)"/>
+                        <InputText id="miktar" class="form-control" aria-describedby="basic-addon1" v-model="getSelectionModelList.miktar" @input="getSelectionModelList.miktar = $filters.formatPoint($event.target.value)" :disabled="form.amount"/>
                         <label for="miktar">Miktar</label>
                     </span>
                 </div>
                 <div class="col">
                     <span class="p-float-label">
-                        <InputText id="miktar" class="form-control" aria-describedby="basic-addon1" v-model="getSelectionModelList.ozelmiktar" @input="getSelectionModelList.ozelmiktar = $filters.formatPoint($event.target.value)"/>
+                        <InputText id="miktar" class="form-control" aria-describedby="basic-addon1" v-model="getSelectionModelList.ozelmiktar" @input="getSelectionModelList.ozelmiktar = $filters.formatPoint($event.target.value)" :disabled="form.speacial"/>
                         <label for="miktar">Sqm</label>
                     </span>
                 </div>
                 <div class="col">
                     <span class="p-float-label">
-                        <InputText id="miktar" class="form-control" aria-describedby="basic-addon1" v-model="cratePiece"/>
+                        <InputText id="miktar" class="form-control" aria-describedby="basic-addon1" v-model="cratePiece" :disabled="form.createpiece"/>
                         <label for="miktar">Kasa</label>
                     </span>
                 </div>
@@ -253,7 +253,22 @@ export default {
             cancel_button_form: false,
             save_button_form: false,
             update_button_form: true,
-            delete_button_form:true,
+            delete_button_form: true,
+            form: {
+                kind: false,
+                po: false,
+                product: false,
+                mine: false,
+                worker1: false,
+                worker2: false,
+                supplier: false,
+                amountincreate: false,
+                amountinbox: false,
+                totalAmount: false,
+                amount: false,
+                speacial: false,
+                createpiece: false,
+            }
         }
     },
     created() {
@@ -321,6 +336,8 @@ export default {
         },
         newForm() {
             this.resetForm();
+            this.disabledForm();
+            
             this.new_button_form = true;
             this.cancel_button_form = false;
             this.save_button_form = false;
@@ -329,6 +346,7 @@ export default {
         },
         cancelForm() {
             this.resetForm();
+            this.enabledForm();
             this.new_button_form = false;
             this.cancel_button_form= true;
             this.save_button_form= true;
@@ -345,11 +363,13 @@ export default {
             this.getSelectionModelList.kayit_sayisi = this.cratePiece;
             this.getSelectionModelList.urundurumid = 1;
             this.getSelectionModelList.tarih = localDateService.getDateString(this.p_date);
+            this.enabledForm();
             useLoadingStore().begin_loading_act();
             selectionService.save(this.getSelectionModelList).then(data => {
                 if (!data.kasa_kontrol) {
                     useLoadingStore().end_loading_act();
                     this.$toast.add({ severity: 'error', detail: 'Bu kasa no zaten mevcut.', life: 3000 });
+                    this.disabledForm();
                     return;
                 }
                 if (data.kayit_durum) {
@@ -363,11 +383,46 @@ export default {
                 else {
                     useLoadingStore().end_loading_act();
                     this.$toast.add({ severity: 'error', detail: 'Kayıt Başarısız.', life: 3000 });
+                    this.disabledForm();
                 };
             })
 
 
             this.resetForm();
+        },
+        disabledForm(){
+            this.form = {
+                kind: false,
+                po: false,
+                product: false,
+                mine: false,
+                worker1: false,
+                worker2: false,
+                supplier: false,
+                amountincreate: false,
+                amountinbox: false,
+                totalAmount: false,
+                amount: false,
+                speacial: false,
+                createpiece: false,
+            };
+        },
+        enabledForm() {
+            this.form = {
+                kind: true,
+                po: true,
+                product: true,
+                mine: true,
+                worker1: true,
+                worker2: true,
+                supplier: true,
+                amountincreate: true,
+                amountinbox: true,
+                totalAmount: true,
+                amount: true,
+                speacial: true,
+                createpiece: true,
+            };
         },
         updateForm() {
             this.getSelectionModelList.tarih = localDateService.getDateString(this.p_date);
@@ -385,6 +440,7 @@ export default {
             })
         },
         deleteForm() {
+            this.delete_button_form = true;
             useLoadingStore().begin_loading_act();
             selectionService.delete(this.getSelectionModelList.kasano).then(data => {
                 if (data) {
@@ -439,6 +495,13 @@ export default {
 
         },
         productSavedKindSelected(event) {
+            if(event.value.id == 1){
+                this.form.po = true;
+                this.form.product = true;
+            }else{
+                this.form.po = false;
+                this.form.product = false;
+            };
             this.getSelectionModelList.kayit_tur = event.value.kayitTur;
             this.cratePiece = 1;
             this.getSelectionModelList.duzenleyen = 'Muhsin';

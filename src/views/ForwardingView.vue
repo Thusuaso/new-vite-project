@@ -179,10 +179,10 @@ export default {
             forwardingService.save(this.getModel).then(data => {
                 if (data) {
                     this.$toast.add({ severity: 'success', detail: 'Başarıyla Sevk Edildi', life: 3000 });
-                    this.forwarding_form = true;
+                    this.forwarding_form = false;
                 } else {
                     this.$toast.add({ severity: 'error', detail: 'Sevk Etme Başarısız', life: 3000 });
-                    this.forwarding_form = true;
+                    this.forwarding_form = false;
                 };
             })
         },
