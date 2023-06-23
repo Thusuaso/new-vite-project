@@ -23,10 +23,14 @@ export const useSelectionStore = defineStore('selection', {
                 boxPiece: 0,
                 m2:0
             },
-            selectionNewButton:false,
+            selectionNewButton: false,
+            filteredSelectionList: [],
         }
     },
     actions: {
+        selection_filtered_list_load_act(data: any) {
+            this.filteredSelectionList = data;
+        },
         selection_model_list_load_act(data: any) {
             this.selectionModelList = data;
         },
@@ -143,7 +147,10 @@ export const useSelectionStore = defineStore('selection', {
             };
         }
     },  
-    getters :{
+    getters: {
+        getFilteredSelectionList(state) {
+            return state.filteredSelectionList;  
+        },
         getSelectionList(state) {
             return state.selectionListFilter;
         },

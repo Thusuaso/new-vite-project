@@ -66,6 +66,9 @@
 import { useCardStore } from '../../stores/cards';
 import { mapState } from 'pinia';
 import { FilterMatchMode } from 'primevue/api';
+
+import { socket } from '../../services/customServices/realTimeService';
+import { cardService } from '../../services/cardService';
 export default {
     computed: {
         ...mapState(useCardStore,['getCardList'])
@@ -94,6 +97,13 @@ export default {
             this.$emit('productCardSelected', event.data)
             this.emitter.emit('cardDialogClose')
         }
+    },
+    mounted() {
+        socket.socketIO.on('cards_update_list_on', () => {
+            cardService.getCardList().then(data => {
+                useCardStore().card_list_load_act(data)
+            })
+        })
     }
 }
 </script>

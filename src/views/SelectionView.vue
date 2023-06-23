@@ -114,6 +114,7 @@ export default {
             'getBtnFormMekmerOuter',
             'getBtnFormNotFound',
             'getSelectionList',
+            'getFilteredSelectionList'
         ]),
         ...mapState(useLocalStore, [
             'getLocalServiceUrl'
@@ -244,19 +245,36 @@ export default {
             })
         },
         excel_output_list() {
-            selectionService.getSelectionExcelList(this.getSelectionList).then(data => {
-                if (data.status) {
-                    const link = document.createElement("a");
-                    //link.href = 'localhost:5000/' + 'siparisler/dosyalar/seleksiyonExcelCikti'
-                    link.href =
-                        this.getLocalServiceUrl + "siparisler/dosyalar/seleksiyonExcelCikti";
+            if (this.getFilteredSelectionList.length > 0) {
+                selectionService.getSelectionExcelList(this.getFilteredSelectionList).then(data => {
+                    if (data.status) {
+                        const link = document.createElement("a");
+                        //link.href = 'localhost:5000/' + 'siparisler/dosyalar/seleksiyonExcelCikti'
+                        link.href =
+                            this.getLocalServiceUrl + "siparisler/dosyalar/seleksiyonExcelCikti";
 
-                    link.setAttribute("download", "seleksiyon_listesi.xlsx");
-                    document.body.appendChild(link);
-                    link.click();
-                    this.$store.dispatch("fullscreenLoadingAct", false);
-                }
-            })
+                        link.setAttribute("download", "seleksiyon_listesi.xlsx");
+                        document.body.appendChild(link);
+                        link.click();
+                        this.$store.dispatch("fullscreenLoadingAct", false);
+                    };
+                });
+            } else {
+                selectionService.getSelectionExcelList(this.getSelectionList).then(data => {
+                    if (data.status) {
+                        const link = document.createElement("a");
+                        //link.href = 'localhost:5000/' + 'siparisler/dosyalar/seleksiyonExcelCikti'
+                        link.href =
+                            this.getLocalServiceUrl + "siparisler/dosyalar/seleksiyonExcelCikti";
+
+                        link.setAttribute("download", "seleksiyon_listesi.xlsx");
+                        document.body.appendChild(link);
+                        link.click();
+                        this.$store.dispatch("fullscreenLoadingAct", false);
+                    };
+                });
+            }
+            
         },
         formDialogClose() {
             this.is_new_form = false;

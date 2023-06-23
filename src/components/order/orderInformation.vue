@@ -474,7 +474,6 @@ export default {
         })
     },
     created() {
-        console.log(this.getProductionsNewButton);
         if (!this.getProductionsNewButton) {
             this.workmanshipButton = true;
             // @ts-ignore

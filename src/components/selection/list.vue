@@ -234,6 +234,7 @@ export default {
     methods: {
         selectionFiltered(event) {
             useSelectionStore().selection_total_sum_load_act(event.filteredValue);
+            useSelectionStore().selection_filtered_list_load_act(event.filteredValue);
         },
         selectedDetailCrate(event) {
             useSelectionStore().selection_new_button_load_act(false);
@@ -252,6 +253,12 @@ export default {
             useLoadingStore().end_loading_act();
             selectionService.getSelectionList().then(data => {
                 useSelectionStore().selection_list_load_act(data);
+                if (this.getBtnFormMekmer) useSelectionStore().btn_form_mekmer_load_act();
+                else if (this.getBtnFormOuter) useSelectionStore().btn_form_outer_load_act();
+                else if (this.getBtnFormMekmerOuter) useSelectionStore().btn_form_mekmer_outer_load_act();
+                else if (this.getBtnFormNotFound) useSelectionStore().btn_form_not_found_load_act();
+
+                
                 cardService.getCardList().then(data => {
                     useCardStore().card_list_load_act(data);
                     useLoadingStore().end_loading_act();
