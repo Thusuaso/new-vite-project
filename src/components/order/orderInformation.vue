@@ -137,12 +137,14 @@
     </div>
     <br/>
     <DataTable 
-    :value="getProductionsDetailModel.siparisUrunler" 
-    tableStyle="min-width: 50rem"
-    :selection="productSelected"
-    selectionMode="single"
-    @row-click="product_select_item($event)"
-    sortField="siraNo" :sortOrder="1">
+        :value="getProductionsDetailModel.siparisUrunler" 
+        tableStyle="min-width: 50rem"
+        v-model:selection="productSelected"
+        selectionMode="single"
+        @row-click="product_select_item($event)"
+        sortField="siraNo" 
+        :sortOrder="1"
+    >
         <Column field="siraNo" header="S"></Column>
         <Column field="tedarikciAdi" header="Kimden"></Column>
         <Column field="iscilik" header="İşçilik"></Column>

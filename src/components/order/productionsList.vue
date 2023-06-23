@@ -1,7 +1,7 @@
 <template>
     <DataTable 
       tableStyle="width:100%;"
-      style="font-size: 50%"
+      style="font-size: 55%"
       :value="productionsList" 
       rowGroupMode="rowspan"
       :groupRowsBy="groups"
@@ -16,7 +16,6 @@
       selectionMode="single"
       @row-select="siparisSecim($event)"
       @filter="productFilterEvent($event)"
-
     >
         <template #header>
             <div class="row">
@@ -35,7 +34,14 @@
             
           </template>
         <Column field="tarih" header="Tarih" ></Column>
-        <Column field="musteriAdi" header="Kime" :showFilterMenu="false" :showFilterMatchModes="false" >
+        <Column field="musteriAdi" header="Kime" 
+        :showFilterMenu="false"
+                :showFilterOperator="false"
+                :showClearButton="false"
+                :showApplyButton="false"
+                :showFilterMatchModes="false"
+                :showAddButton="false"
+        >
           <template #filter="{ filterModel, filterCallback }">
               <InputText v-model="filterModel.value" type="text" style="width:50px;" @input="filterCallback()" class="p-column-filter" placeholder="Search by name" />
           </template>
@@ -59,7 +65,14 @@
               ></Button>
           </template>
         </Column>
-        <Column field="siparisNo" header="PO" :showFilterMenu="false" :showFilterMatchModes="false" :filterMenuStyle="{ width: '14rem' }">
+        <Column field="siparisNo" header="PO" 
+        :showFilterMenu="false"
+                :showFilterOperator="false"
+                :showClearButton="false"
+                :showApplyButton="false"
+                :showFilterMatchModes="false"
+                :showAddButton="false"
+        :filterMenuStyle="{ width: '14rem' }">
           <template #body="slotProps">
             {{ slotProps.data.siparisNo }}
           </template>
@@ -67,29 +80,76 @@
                 <InputText v-model="filterModel.value" type="text" style="width:50px;" @input="filterCallback()" class="p-column-filter" placeholder="Search by name" />
             </template>
         </Column>
-        <Column field="urunAdi" header="Ürün" :showFilterMenu="false" :showFilterMatchModes="false" :filterMenuStyle="{ width: '14rem' }">
+        <Column field="urunAdi" header="Ürün" 
+        :showFilterMenu="false"
+                :showFilterOperator="false"
+                :showClearButton="false"
+                :showApplyButton="false"
+                :showFilterMatchModes="false"
+                :showAddButton="false"
+        :filterMenuStyle="{ width: '14rem' }">
 
           <template #filter="{ filterModel, filterCallback }">
                   <InputText v-model="filterModel.value" type="text" style="width:50px;" @input="filterCallback()" class="p-column-filter" placeholder="Search by name" />
               </template>
         </Column>
-        <Column field="icerik" header="İçerik"></Column>
-        <Column field="en" header="E" :showFilterMenu="false" :showFilterMatchModes="false" :filterMenuStyle="{ width: '14rem' }">
-          <template #filter="{ filterModel, filterCallback }">
-                <InputText v-model="filterModel.value" type="text" style="width:50px;" @input="filterCallback()" class="p-column-filter" placeholder="Search by name" />
-            </template>
+        <Column field="icerik" header="İçerik" headerStyle="width:150px;" bodyStyle="width:150px;">
+          <template #body="slotProps" >
+            <div style="width:340px;">
+            {{ slotProps.data.icerik }}
+            </div>
+          </template>
         </Column>
-        <Column field="boy" header="B" :showFilterMenu="false" :showFilterMatchModes="false" :filterMenuStyle="{ width: '14rem' }">
+        <Column field="en" header="E" 
+        :showFilterMenu="false"
+                :showFilterOperator="false"
+                :showClearButton="false"
+                :showApplyButton="false"
+                :showFilterMatchModes="false"
+                :showAddButton="false" 
+        
+        :filterMenuStyle="{ width: '14rem' }" headerStyle="width:30px;" bodyStyle="width:30px;"> 
+          <template #body="slotProps">
+            <div style="width:30px;">
+              {{ slotProps.data.en }}
+            </div>
+          </template>
+          <template #filter="{ filterModel, filterCallback }">
+              <InputText v-model="filterModel.value" type="text" style="width:50px;" @input="filterCallback()" class="p-column-filter" placeholder="Search by name" />
+          </template>
+        </Column>
+        <Column field="boy" header="B" 
+        :showFilterMenu="false"
+                :showFilterOperator="false"
+                :showClearButton="false"
+                :showApplyButton="false"
+                :showFilterMatchModes="false"
+                :showAddButton="false"
+         :filterMenuStyle="{ width: '14rem' }">
           <template #filter="{ filterModel, filterCallback }">
                   <InputText v-model="filterModel.value" type="text" style="width:50px;" @input="filterCallback()" class="p-column-filter" placeholder="Search by name" />
               </template>
         </Column>
-        <Column field="kenar" header="K" :showFilterMenu="false" :showFilterMatchModes="false" :filterMenuStyle="{ width: '14rem' }">
+        <Column field="kenar" header="K" 
+        :showFilterMenu="false"
+                :showFilterOperator="false"
+                :showClearButton="false"
+                :showApplyButton="false"
+                :showFilterMatchModes="false"
+                :showAddButton="false"
+        :filterMenuStyle="{ width: '14rem' }">
           <template #filter="{ filterModel, filterCallback }">
                     <InputText v-model="filterModel.value" type="text" style="width:50px;" @input="filterCallback()" class="p-column-filter" placeholder="Search by name" />
                 </template>
         </Column>
-        <Column field="tedarikciAdi" header="Kimden" :showFilterMenu="false" :showFilterMatchModes="false" :filterMenuStyle="{ width: '14rem' }">
+        <Column field="tedarikciAdi" header="Kimden" 
+        :showFilterMenu="false"
+                :showFilterOperator="false"
+                :showClearButton="false"
+                :showApplyButton="false"
+                :showFilterMatchModes="false"
+                :showAddButton="false"
+        :filterMenuStyle="{ width: '14rem' }">
           <template #body="slotProps">
               <div :style="{
                 backgroundColor: slotProps.data.urunDurumRenk,
@@ -112,7 +172,7 @@
             {{ $filters.formatDecimal(getProductionsListTotal.amount) }}
           </template>
         </Column>
-        <Column field="adet" header="A">
+        <!-- <Column field="adet" header="A">
           <template #footer>
               {{ $filters.formatDecimal(getProductionsListTotal.piece) }}
             </template>
@@ -121,7 +181,7 @@
           <template #footer>
               {{ $filters.formatDecimal(getProductionsListTotal.m2) }}
             </template>
-        </Column>
+        </Column> -->
         <Column field="birim" header="B"></Column>
         <Column field="uretimMiktari" header="Üretim">
           <template #footer>

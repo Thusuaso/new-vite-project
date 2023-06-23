@@ -6,6 +6,8 @@ import { bgpService } from '@/services/bgpService';
 import { cardService } from  '@/services/cardService';
 import { selectionService } from '@/services/selectionService';
 import { financeService } from '@/services/financeService';
+import { financeServiceNew } from '@/services/financeServiceNew';
+
 import { supplierService } from '@/services/supplierService';
 import { forwardingService } from '@/services/forwardingService';
 import { uploadingService } from '@/services/uploadingService';
@@ -26,6 +28,8 @@ import { useBgpStore } from '@/stores/bgp';
 import { useCardStore } from '@/stores/cards';
 import { useSelectionStore } from '@/stores/selection';
 import { useFinanceStore } from '@/stores/finance';
+import { useFinanceStoreNew } from '@/stores/financenew';
+
 import { useSupplierStore } from '@/stores/supplier';
 import { useForwardingStore } from '@/stores/forwarding';
 import { useUploadingStore } from '@/stores/uploading';
@@ -158,6 +162,23 @@ const router = createRouter({
         })
       }
     },
+    {
+      path: '/finance/list/new',
+      component: () => import('@/views/FinanceViewNew.vue'),
+      beforeEnter: (to, from, next) => {
+        useLoadingStore().begin_loading_act();
+        financeServiceNew.getFinanceList().then(data => {
+          console.log(data)
+          useFinanceStoreNew().finance_list_load_act(data);
+          useLoadingStore().end_loading_act();
+          next();
+          
+        })
+      }
+    },
+
+
+
     {
       path: '/operation/cards',
       component: () => import('@/views/ProductCardsView.vue'),
