@@ -39,5 +39,11 @@ export const selectionService = {
     },
     getPoTicketDownload(code: any) {
         return api.get(`/islemler/evrak/etiketList/${code}`).then(response => response.data);
+    },
+    getCollectiveProductList(po:any){
+        return api.get(`/islemler/seleksiyon/seleksiyonProductList/${po}`).then(response=>response.data);
+    },
+    setCollectiveCrate(data:any){
+        return api.post('/seleksiyon/setCrateAll',data).then(response=>response.data);
     }
 }

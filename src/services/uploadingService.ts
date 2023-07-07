@@ -17,7 +17,7 @@ export const uploadingService = {
         return api.get(`operasyon/islemler/tedarikci/tedarikciKontrol/${supplier}/${po}`).then(response => response.data);
     },
     setSupplierInvoice(supplier: any) {
-        return api.get(`/operasyon/islemler/tedarikci/tedarikciDosyaKaydet/${supplier}`).then(response => response.data);
+        return api.post('/operasyon/islemler/tedarikci/tedarikciDosyaKaydet',supplier).then(response => response.data);
     },
     setSupplier(data:any){
         return api.post(`/operasyon/islemler/tedarikci/tedarikciKayit`,data).then(response => response.data);

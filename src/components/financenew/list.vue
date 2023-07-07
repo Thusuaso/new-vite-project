@@ -1,5 +1,4 @@
 <template>
-    {{ getShowingFinanceList }}
         <DataTable 
             :value="getShowingFinanceList" 
             class="p-datatable-sm" 

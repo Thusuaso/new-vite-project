@@ -17,23 +17,23 @@
         </div>
         <div class="col">
             <span class="p-float-label">
-                    <AutoComplete id="faturaTur" v-model="faturaTur1" :suggestions="filterFaturaTurList"
-                        @complete="aramaFaturaTur($event)" field="tur" :dropdown="true" @item-select="faturaTurDegisim">
-                        <template #items="slotProps">
-                            <div class="p-clearfix p-autocomplete-brand-item">
-                                <div>{{ slotProps.tur }}</div>
-                            </div>
-                        </template>
-                    </AutoComplete>
-                    <label for="faturaTur">Fatura Tür</label>
-                </span>
+                <AutoComplete id="faturaTur" v-model="faturaTur1" :suggestions="filterFaturaTurList"
+                    @complete="aramaFaturaTur($event)" field="tur" :dropdown="true" @item-select="faturaTurDegisim">
+                    <template #items="slotProps">
+                        <div class="p-clearfix p-autocomplete-brand-item">
+                            <div>{{ slotProps.tur }}</div>
+                        </div>
+                    </template>
+                </AutoComplete>
+                <label for="faturaTur">Fatura Tür</label>
+            </span>
         </div>
         <div class="col">
             <span class="p-float-label">
-                    <Calendar id="sipTarih" v-model="teslimTarihi" :showIcon="true" dateFormat="dd/mm/yy"
-                        @date-select="siparisTarihiDegisim" />
-                    <label for="sipTarih">Tarih</label>
-                </span>
+                <Calendar id="sipTarih" v-model="teslimTarihi" :showIcon="true" dateFormat="dd/mm/yy"
+                    @date-select="siparisTarihiDegisim" />
+                <label for="sipTarih">Tarih</label>
+            </span>
         </div>
         <div class="col">
             <span class="p-float-label">
@@ -268,7 +268,7 @@ export default {
     },
     mounted() {
         this.urunList = null;
-        this.emitter.on("tedarikciler", (data) => {
+        this.emitter.on("suppliers", (data) => {
             this.tedarikciler = data;
             for (let item of data) {
                 if (this.controlTedarikciList(item.tedarikciAdi) != false) {
@@ -372,10 +372,10 @@ export default {
                         fontSize: 7,
                     },
                     { text: "Sipariş Tarihi : " + this.date, fontSize: 7 },
-                    { text: "Firma : " + this.urunList[0].tedarikciAdi, fontSize: 7 },
-                    { text: "Teslimat : " + this.secimTur[0].teslimAdi, fontSize: 7 },
+                    { text: "Firma : " + this.tedarikci.tedarikciadi, fontSize: 7 },
+                    { text: "Teslimat : " + this.teslimTur.tur, fontSize: 7 },
                     { text: "Teslim Tarihi : " + this.teslimTarihi, fontSize: 7 },
-                    { text: "Kime: " + this.secimFatura[0].faturaTur, fontSize: 7 },
+                    { text: "Kime: " + this.faturaTur1.tur, fontSize: 7 },
                     { text: " ", style: "header", fontSize: 7 },
                     { text: " ", style: "header", fontSize: 7 },
 
@@ -384,7 +384,7 @@ export default {
                     {
                         text:
                             "Denizli " +
-                            this.secimTur[0].teslimAdi +
+                            this.teslimTur.tur +
                             " : " +
                             this.formatPrice(total),
                         fontSize: 9,
@@ -507,7 +507,6 @@ export default {
                     kullaniciAdi: localStorage.getItem('username'),
                     kullaniciId: localStorage.getItem('userId'),
                 };
-                this.bilgi = bilgi;
                 productionsService.setIcSiparisDosyaKayit(bilgi).then((veri) => {
                     if (veri.Status) {
                         alert("Başarılı şekilde yuklendi.");

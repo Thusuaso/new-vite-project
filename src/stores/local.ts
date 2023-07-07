@@ -17,5 +17,4 @@ export const useLocalStore = defineStore('local', {
             return state.url;
         }
     }
-
 })

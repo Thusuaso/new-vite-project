@@ -182,6 +182,12 @@ export default {
             this.cardModel.kategoriAdi = event.value.kategoriAdi;
         },
         process() {
+            this.cardModel.kategoriAdi = this.selectedCategory.kategoriAdi ? this.selectedCategory.kategoriAdi : this.selectedCategory;
+            this.cardModel.urunAdi = this.selectedProduct.urunAdi ? this.selectedProduct.urunAdi : this.selectedProduct;
+            this.cardModel.yuzeyIslem = this.selectedSurface.yuzeyIslemAdi ? this.selectedSurface.yuzeyIslemAdi : this.selectedSurface;
+            this.cardModel.en = this.selectedWidth.en ? this.selectedWidth.en : this.selectedWidth;
+            this.cardModel.boy = this.selectedHeight.boy ? this.selectedHeight.boy : this.selectedHeight;
+            this.cardModel.kenar = this.selectedEdge.kenar ? this.selectedEdge.kenar : this.selectedEdge;
             if (this.getCardNewButton) {
                 this.save();
             } else {

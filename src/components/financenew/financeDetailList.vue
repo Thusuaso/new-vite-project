@@ -85,6 +85,14 @@
                     {{ $filters.formatPrice(financeDetailTotal.remainder) }}
                 </template>
             </Column>
+            <Column field="kalan2" header="P.Kalan">
+                <template #body="slotProps">
+                    {{ $filters.formatPrice(slotProps.data.kalan2) }}
+                </template>
+                <template #footer>
+                    {{ $filters.formatPrice(financeDetailTotal.remainder2) }}
+                </template>
+            </Column>
             <Column field="vade" header="Vade"></Column>
             <Column field="tahmini_eta" header="Eta"></Column>
         </DataTable>
@@ -154,7 +162,8 @@ export default {
             financeDetailTotal: {
                 'product': 0,
                 'paid': 0,
-                'remainder': 0
+                'remainder': 0,
+                'remainder2':0,
             },
             finance_detail_collection_form: false,
             customerPo: "",
@@ -203,12 +212,15 @@ export default {
             this.financeDetailTotal = {
                 'product': 0,
                 'paid': 0,
-                'remainder': 0
+                'remainder': 0,
+                'remainder2':0,
             };
             for (const item of data) {
                 this.financeDetailTotal.product += item.siparis_total;
                 this.financeDetailTotal.paid += item.odenen_tutar;
                 this.financeDetailTotal.remainder += item.kalan;
+                this.financeDetailTotal.remainder2 += item.kalan2;
+
             };
         },
     },

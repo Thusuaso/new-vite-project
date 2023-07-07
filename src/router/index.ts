@@ -7,7 +7,6 @@ import { cardService } from  '@/services/cardService';
 import { selectionService } from '@/services/selectionService';
 import { financeService } from '@/services/financeService';
 import { financeServiceNew } from '@/services/financeServiceNew';
-
 import { supplierService } from '@/services/supplierService';
 import { forwardingService } from '@/services/forwardingService';
 import { uploadingService } from '@/services/uploadingService';
@@ -20,6 +19,7 @@ import { offerService } from '@/services/offerService';
 import { usaService } from '@/services/usaService';
 import { panelService } from '@/services/panelService';
 import { costService } from '@/services/costService';
+import { financeServiceTest } from '@/services/financeServiceTest';
 /*Stores */
 import { useHomeStore } from '@/stores/home';
 import { useLoadingStore } from '@/stores/loading';
@@ -29,7 +29,6 @@ import { useCardStore } from '@/stores/cards';
 import { useSelectionStore } from '@/stores/selection';
 import { useFinanceStore } from '@/stores/finance';
 import { useFinanceStoreNew } from '@/stores/financenew';
-
 import { useSupplierStore } from '@/stores/supplier';
 import { useForwardingStore } from '@/stores/forwarding';
 import { useUploadingStore } from '@/stores/uploading';
@@ -44,6 +43,7 @@ import { usePanelStore } from '@/stores/panel';
 import { todoService } from '@/services/todoService';
 import { useTodoStore } from '@/stores/todo';
 import { useCostStore } from '@/stores/cost';
+import { useFinanceTestStore } from '@/stores/financetest';
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -167,8 +167,9 @@ const router = createRouter({
       component: () => import('@/views/FinanceViewNew.vue'),
       beforeEnter: (to, from, next) => {
         useLoadingStore().begin_loading_act();
-        financeServiceNew.getFinanceList().then(data => {
-          console.log(data)
+        const date = new Date();
+        const year = date.getFullYear();
+        financeServiceNew.getFinanceList(year).then(data => {
           useFinanceStoreNew().finance_list_load_act(data);
           useLoadingStore().end_loading_act();
           next();
@@ -655,6 +656,18 @@ const router = createRouter({
         useLoadingStore().begin_loading_act();
         reportsService.getOrderRepresentativeInfo().then(data => {
           useReportsStore().order_representative_info_list_load_act(data);
+          useLoadingStore().end_loading_act();
+          next();
+        })
+      }
+    },
+    {
+      path: '/finance/test',
+      component: () => import('@/views/FinanceViewTest.vue'),
+      beforeEnter(to, from, next) {
+        useLoadingStore().begin_loading_act();
+        financeServiceTest.getList().then((data: any) => {
+          useFinanceTestStore().finance_test_list_loac_act(data);
           useLoadingStore().end_loading_act();
           next();
         })

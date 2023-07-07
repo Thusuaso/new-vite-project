@@ -128,15 +128,12 @@ export default {
             useLoadingStore().begin_loading_act();
             usaService.getUsaSkuList().then(data => {
                 useUsaStore().usa_sku_list_load_act(data);
-                console.log(event)
                 const result = data.find(x => x.skuNo == event.data.skuno);
-                console.log(result);
                 useUsaStore().usa_product_detail_list_load_act(result);
                 this.usa_products_detail_form = true;
                 useUsaStore().usa_new_button_load_act(false);
                 useLoadingStore().end_loading_act();
-
-            })
+            });
             
 
         }

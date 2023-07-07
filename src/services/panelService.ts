@@ -24,5 +24,8 @@ export const panelService = {
     },
     setPhotosAdd(data: any) {
         return api.post('/panel/mekmarcom/fotoEkle', data);
+    },
+    getPanelDetail(product_id:any){
+        return api.get(`/panel/mekmarcom/productDetail/${product_id}`).then(response=>response.data);
     }
 }

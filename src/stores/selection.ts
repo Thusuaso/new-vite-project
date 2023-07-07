@@ -192,6 +192,9 @@ export const useSelectionStore = defineStore('selection', {
         },
         getSelectionNewButton(state) {
             return state.selectionNewButton;
+        },
+        getSelectionCollectiveList(state){
+            return state.selectionList;
         }
 
     }

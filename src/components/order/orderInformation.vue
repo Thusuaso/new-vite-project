@@ -117,7 +117,7 @@
 
                                 </div>
                         <div class="col">
-                            <button type="button" class="btn btn-success w-75" :disabled="form_status" @click="addForm">Ekle</button>
+                            <button type="button" class="btn btn-success w-75" :disabled="form_status_add" @click="addForm">Ekle</button>
 
                         </div>
                         <div class="col">
@@ -262,6 +262,7 @@ export default {
                 
             },
             form_status: true,
+            form_status_add:true,
             new_form_status:false,
       }  
     },
@@ -274,6 +275,7 @@ export default {
             this.selectedUnit = this.getProductUnitList.find(x => x.id == event.data.urunBirimId);
             this.new_form_status = true;
             this.form_status = false;
+            this.form_status_add = true;
             this.workmanship_disabled = false;
         },
         showProductCard() {
@@ -296,6 +298,7 @@ export default {
         newForm() {
             this.new_form_status = true;
             this.form_status = false;
+            this.form_status_add = false;
             this.workmanship_disabled = true;
             this.resetData()
             // @ts-ignore
@@ -309,6 +312,7 @@ export default {
         buttonReset() {
             this.new_form_status = false;
             this.form_status = true;
+            this.form_status_add = true;
             this.workmanship_disabled = true
         },
         cancelForm() {
@@ -357,6 +361,7 @@ export default {
             this.sumProducts(this.getProductionsDetailModel.siparisUrunler);
             this.buttonReset();
             this.resetData();
+            this.emitter.emit("suppliers", this.getProductionsDetailModel.siparisUrunler);
 
         },
         deleteForm() {

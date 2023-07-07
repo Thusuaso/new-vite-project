@@ -44,7 +44,7 @@
                 <br/>
                 <button type="button" class="btn btn-warning m-1 w-50" :disabled="getBtnFormNotFound" @click="notFound">Bulunamadı</button>
                 <br/>
-                <button type="button" class="btn btn-info m-1 w-50"  @click="collectioveCrate">Toplu Kasa</button>
+                <button type="button" class="btn btn-info m-1 w-50"  @click="collectiveCrate">Toplu Kasa</button>
         </div>
         <div class="col">
             <button type="text" class="btn btn-secondary" @click="excel_output_list">Excel</button>
@@ -90,10 +90,14 @@
     <Dialog v-model:visible="is_new_form" :header="form_header" modal :style="{ width: '80vw' }">
         <formDialog @formDialogClose="formDialogClose"/>
     </Dialog>
+    <Dialog v-model:visible="is_collective_form" header="Kasa Atama" modal>
+        <collective />
+    </Dialog>
 </template>
 <script>
 import list from '../components/selection/list.vue';
 import form from '../components/selection/form.vue';
+import collective from '../components/selection/collective.vue';
 
 import { useSelectionStore } from '../stores/selection';
 import { useLocalStore } from '../stores/local';
@@ -104,7 +108,8 @@ import { localDateService } from '../services/localDateService';
 export default {
     components: {
         list,
-        formDialog:form
+        formDialog:form,
+        collective,
     },
     computed: {
         ...mapState(useSelectionStore,[
@@ -201,9 +206,13 @@ export default {
             selectedVeikCrate: {},
             selectedNovaBox: {},
             selectedNovaCrate: {},
+            is_collective_form:false,
         }
     },
     methods: {
+        collectiveCrate(){
+            this.is_collective_form = true;
+        },
         downloadEfeTicket(event) {
             this.isEfeTicketForm = false;
             this.ticketLink = event.value.link;

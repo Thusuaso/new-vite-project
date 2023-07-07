@@ -37,8 +37,15 @@
             <li class="nav-item">
                 <a class="nav-link" aria-current="page" href="/selection/entry">Seleksiyon Giriş</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" aria-current="page" href="/finance/list">Finans</a>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Finans
+                </a>
+                <ul class="dropdown-menu">
+                  <a class="nav-link" aria-current="page" href="/finance/list">Finans</a>
+                  <a class="nav-link" aria-current="page" href="/finance/test">Finans 2</a>
+
+                </ul>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">

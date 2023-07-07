@@ -356,7 +356,6 @@ export default {
             }
         },
         createdProcess() {
-
             this.selectedSku = this.getUsaSkuList.find(x => x.skuNo == this.getUsaProductList.skuNo);
         },
         sendPhoto(event) {

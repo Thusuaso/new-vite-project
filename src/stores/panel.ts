@@ -31,6 +31,7 @@ export const usePanelStore = defineStore('panel', {
             this.panelProductNewButton = data;
         },
         panel_product_model_list_load_act(data: any) {
+            
             this.productModel = data.productdetail;
             this.productCategoryList = data.categoryList;
             this.productFinishList = data.finishlist;

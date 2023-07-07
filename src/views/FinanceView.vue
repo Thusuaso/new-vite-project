@@ -136,6 +136,8 @@ export default {
                     });
                 });
             });
+        
+        
         },
         advancePayment() {
             useLoadingStore().begin_loading_act();
@@ -143,7 +145,7 @@ export default {
                 useFinanceStore().finance_advanced_payment_list_load_act(data);
                 useLoadingStore().end_loading_act();
                 this.is_advanced_payment_form = true;
-            })
+            });
         }
     }
 }

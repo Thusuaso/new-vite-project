@@ -273,7 +273,7 @@
                     <button type="button" class="btn btn-success" @click="saveSuggested">Kaydet</button>
                 </div>
             </div>
-            <div class="row m-auto mt-3" v-if="notSuggestedList.length >0" >
+            <div class="row m-auto mt-3"  >
                 <div class="col">
                     <DataTable 
                             :value="notSuggestedList" 
@@ -304,10 +304,10 @@
         </TabPanel>
         <TabPanel header="Fotolar">
             <div class="row m-auto mt-3">
-                <div class="col" v-if="getProductPhotoList.length">
+                <div class="col" >
                     <div class="containerRestriction" style="text-align:center;margin-left:80px;">
                         <Galleria :value="getProductPhotoList" :responsiveOptions="responsiveOptions" :numVisible="5" containerStyle="max-width: 640px"
-                            :circular="true" :autoPlay="true" :transitionInterval="2000" v-if="fotolist.length > 0">
+                            :circular="true" :autoPlay="true" :transitionInterval="2000">
                             <template #item="slotProps">
                             <img :src="slotProps.item.nocdn" style="width: 100%;height:350px; display: block;" />
                             </template>
@@ -590,15 +590,15 @@ export default {
 
         },
         panelCreatedProcess() {
-            this.keyListEn = self.__noneControl(this.getProductModel.anahtarlar_en);   
-            this.keyListFr = self.__noneControl(this.getProductModel.anahtarlar_fr);
-            this.keyListEs = self.__noneControl(this.getProductModel.anahtarlar_es);
+            this.keyListEn = this.__noneControl(this.getProductModel.anahtarlar_en);   
+            this.keyListFr = this.__noneControl(this.getProductModel.anahtarlar_fr);
+            this.keyListEs = this.__noneControl(this.getProductModel.anahtarlar_es);
             this.selectedCategoryEn = this.getProductCategoryList.find(x => x.kategori_id == this.getProductModel.kategori_id);
             this.selectedColorEn = this.getProductColorEnList.find(x => x.name == this.getProductModel.renk_en);
             this.selectedStoneType = this.getProductCategoryList.find(x => x.kategori_id == this.getProductModel.stonetype);
         },
         __noneControl(value){
-            if (value == null || value.length == 0 || value == '' || value == ' ') {
+            if (value == null || value == '' || value == ' ') {
                 console.log('1');
             } else {
                 return value.split(',');

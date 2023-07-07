@@ -1,8 +1,8 @@
 import { api } from "./customServices/doctorService";
 
 export const financeServiceNew = {
-    getFinanceList() {
-        return api.get(`/finans/listeler/konteynerAnaListe/yeni`).then(response => response.data);
+    getFinanceList(year:any) {
+        return api.get(`/finans/listeler/konteynerAnaListe/yeni/${year}`).then(response => response.data);
     },
     getFinanceCollectionList(year: any,month: any) {
         return api.get(`/finans/listeler/musteriOdemeListesi/${year}/${month}`).then(response => response.data);
