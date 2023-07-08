@@ -21,18 +21,19 @@
     </div>
     <div class="row m-auto mt-3">
         <div class="col">
-            <button type="button" class="btn btn-success w-100" @click="process">Kaydet</button>
+            <button type="button" class="btn btn-success w-100" @click="process" :disabled="to_do_save_disabled">Kaydet</button>
         </div>
     </div>
 </template>
 <script>
 import { useTodoStore } from '../../stores/todo';
+import { useLoadingStore } from '../../stores/loading';
+
 import { mapState } from 'pinia';
 
 import { localDateService } from '../../services/localDateService';
 import { todoService } from '../../services/todoService';
 import { socket } from '../../services/customServices/realTimeService';
-import { useLoadingStore } from '../../stores/loading';
 export default {
     computed: {
         ...mapState(useTodoStore, [
@@ -50,7 +51,7 @@ export default {
             ],
             selectedPriority: {},
             selectedUser: {},
-
+            to_do_save_disabled:false,
         }
     },
     created() {
@@ -71,6 +72,8 @@ export default {
             }
         },
         save() {
+            this.to_do_save_disabled = true;
+            useLoadingStore().begin_loading_act();
             this.getModel.gorev_veren_id = localStorage.getItem('userId');
             this.getModel.gorev_veren_adi = localStorage.getItem('username');
             this.getModel.girisTarihi = localDateService.getDateString(new Date());
@@ -78,13 +81,18 @@ export default {
                 if (data.status) {
                     socket.socketIO.emit('to_do_list_emit', localStorage.getItem('userId'));
                     this.reset();
+                    this.to_do_save_disabled = false;
+                    useLoadingStore().end_loading_act();
                     this.$toast.add({ severity: 'success', detail: 'Başarıyla Kaydedildi', life: 3000 });
                 } else {
+                    this.to_do_save_disabled = false;
+                    useLoadingStore().end_loading_act();
                     this.$toast.add({ severity: 'danger', detail: 'Kaydetme Başarısız', life: 3000 });
                 };
             });
         },
         update() {
+            
             useLoadingStore().begin_loading_act();
             todoService.update(this.getModel).then(data => {
                 if (data.status) {
