@@ -59,7 +59,7 @@ export default {
     data() {
         return {
             filters: {
-                siparis_no:{value:null,matchmode:FilterMatchMode.STARTSWITH}
+                siparis_no:{value:null,matchmode:FilterMatchMode.STARTS_WITH}
             }
         }
     }

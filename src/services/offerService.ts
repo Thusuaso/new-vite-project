@@ -36,5 +36,8 @@ export const offerService = {
     },
     getOfferDetail(id: any) {
         return api.get(`/islemler/teklif/teklifModel/${id}`).then(response => response.data);
+    },
+    getOffersAllList() {
+        return api.get('/listeler/teklif/tumTeklifList').then(response => response.data);
     }
 }

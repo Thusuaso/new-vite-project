@@ -31,9 +31,13 @@ export const useOfferStore = defineStore('offer', {
             offerDeletingProductsList: [],
             offerUpdatingProductsList: [],
             offerAddingProductsList: [],
+            offersAllList: [],
         }
     },
     actions: {
+        offers_all_list_load_act(data: any) {
+            this.offersAllList = data;  
+        },
         offer_main_page_list_load_act(data: any) {
             this.offerReminderList = data.hatirlatmaList;
             this.offerCustomerList = data.musteriOzetList;
@@ -180,6 +184,9 @@ export const useOfferStore = defineStore('offer', {
         },
         getOfferUpdatingProductsList(state) {
             return state.offerUpdatingProductsList;
+        },
+        getOffersAllList(state) {
+            return state.offersAllList;
         }
 
 

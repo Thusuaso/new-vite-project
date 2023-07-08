@@ -6,6 +6,12 @@
                 <label class="form-check-label" for="flexSwitchCheckDefault">Hepsi</label>
             </div>
         </div>
+        <div class="col">
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" v-model="mekmar" @change="isChangeMekmar">
+                <label class="form-check-label" for="flexSwitchCheckDefault">Mekmar</label>
+            </div>
+        </div>
     </div>
     <DataTable 
         :value=" !all ? getFinanceTestList:getFinanceTestListAll " 
@@ -69,9 +75,11 @@
                 {{ $filters.formatPrice(getFinanceTestListTotal.advance_payment) }}
             </template>
         </Column>
-        <Column field="total" header="Bakiye">
+        <Column field="total " header="Bakiye(Borç)">
             <template #body="slotProps">
-                {{ $filters.formatPrice(slotProps.data.total) }}
+                <div :style="{'backgroundColor':slotProps.data.total < -8 ? 'green':'','color':slotProps.data.total <-8 ? 'white':'black'}">
+                    {{ $filters.formatPrice(slotProps.data.total) }}
+                </div>
             </template>
             <template #footer>
                 {{ $filters.formatPrice(getFinanceTestListTotal.balance) }}
@@ -93,11 +101,11 @@
 </template>
 <script>
 import { useFinanceTestStore } from '../../stores/financetest';
-import {useLoadingStore} from '../../stores/loading';
+import { useLoadingStore } from '../../stores/loading';
 import { mapState } from 'pinia';
 
 import { financeServiceTest } from '../../services/financeServiceTest';
-import {socket} from '../../services/customServices/realTimeService';
+import { socket } from '../../services/customServices/realTimeService';
 
 import { FilterMatchMode } from 'primevue/api';
 
@@ -117,16 +125,31 @@ export default {
     data(){
         return{
             filters:{
-                customer_name:{ value: null, matchMode: FilterMatchMode.CONTAINS }
+                customer_name: { value: null, matchMode: FilterMatchMode.CONTAINS },
             },
             all:false,
             selectedFinance:null,
             finance_test_form:false,
             customer_name:"",
-            customer_id:0,
+            customer_id: 0,
+            finance_list: [],
+            mekmar: false,
+            
         }
     },
-    methods:{
+    created(){
+        this.finance_list = this.getFinanceTestList;
+    },
+    methods: {
+        isChangeMekmar() {
+            if (this.mekmar) {
+                console.log(this.finance_list)
+                const result = this.finance_list.filter(x => x.marketing == 'Mekmar');
+                useFinanceTestStore().finance_test_list_loac_act(result);
+            } else {
+                useFinanceTestStore().finance_test_list_loac_act(this.finance_list);
+            }
+        },
         financeSelected(event){
             this.customer_name = event.data.customer_name;
             this.customer_id = event.data.customer_id;

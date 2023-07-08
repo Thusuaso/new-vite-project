@@ -9,6 +9,9 @@
         <div class="col-1">
             <button type="button" class="btn btn-primary" @click="f_dates = null">Temizle</button>
         </div>
+        <div class="col-1">
+            <button type="button" class="btn btn-secondary" @click="excelOutput">Excel</button>
+        </div>
     </div>
     <div class="row m-auto mt-3">
         <div class="col">
@@ -230,19 +233,24 @@
 </template>
 <script>
 import { useReportsStore } from '../stores/reports';
+import { useLocalStore } from '../stores/local';
+import { useLoadingStore } from '../stores/loading';
+
 import { mapState } from 'pinia';
 
 import { localDateService } from '../services/localDateService';
 
 import { FilterMatchMode } from 'primevue/api';
 import { reportsService } from '../services/reportsService';
-import { useLoadingStore } from '../stores/loading';
 
 export default {
     computed: {
         ...mapState(useReportsStore, [
             'getMekmarForwardingList',
             'getMekmarForwardingTotalList'
+        ]),
+        ...mapState(useLocalStore, [
+            'getLocalServiceUrl'
         ])
     },
     data() {
@@ -265,6 +273,22 @@ export default {
         }
     },
     methods: {
+        excelOutput() {
+            useLoadingStore().begin_loading_act();
+            reportsService.getMekmarForwardingExcel(this.getMekmarForwardingList).then((responce) => {
+                if (responce.status) {
+                    const link = document.createElement("a");
+                    link.href =
+                        this.getLocalServiceUrl +
+                        "raporlar/dosyalar/sevkiyatRaporExcelListe";
+
+                    link.setAttribute("download", "sevkiyat_listesi.xlsx");
+                    document.body.appendChild(link);
+                    link.click();
+                    useLoadingStore().end_loading_act();
+                }
+            });
+        },
         searchForwardingDate() {
             if (this.f_dates) {
                 useLoadingStore().begin_loading_act();

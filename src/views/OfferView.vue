@@ -22,7 +22,8 @@
                 <p class="card-text">
                     <div class="row m-auto mt-3">
                         <div class="col">
-                            <button type="button" class="btn btn-success" @click="newForm">Yeni</button>
+                            <button type="button" class="btn btn-success mr-3" @click="newForm" style="margin-right:15px;">Yeni</button>
+                            <button type="button" class="btn btn-info ml-3" @click="allOffersList">Tüm Teklifler</button>
                             <offerCalendarList/>
                         </div>
                     </div>
@@ -36,6 +37,9 @@
     </Dialog>
     <Dialog v-model:visible="offer_form_visible" header="" modal>
         <offerForm/>
+    </Dialog>
+    <Dialog v-model:visible="offers_all_list_form" header="" modal>
+        <offersAllList/>
     </Dialog>
 </template>
 <script>
@@ -52,6 +56,7 @@ import offerRepresentativeList from '../components/offer/offerRepresentativeList
 import offerCalendarList from '../components/offer/offerCalendarList.vue';
 import offerAllList from '../components/offer/offerAllList.vue';
 import offerForm from '../components/offer/offerForm.vue';
+import offersAllList from '../components/offer/offersAllList.vue';
 export default {
     computed: {
         ...mapState(useOfferStore, [
@@ -64,15 +69,25 @@ export default {
         offerCustomerCountList,
         offerCalendarList,
         offerAllList,
-        offerForm
+        offerForm,
+        offersAllList
     },
     data() {
         return {
             offer_all_list_visible: false,
             offer_form_visible: false,
+            offers_all_list_form:false,
         }
     },
     methods: {
+        allOffersList() {
+            useLoadingStore().begin_loading_act();
+            offerService.getOffersAllList().then(data => {
+                useOfferStore().offers_all_list_load_act(data);
+                this.offers_all_list_form = true;
+                useLoadingStore().end_loading_act();
+            });
+        },
         newForm() {
             useLoadingStore().begin_loading_act();
             offerService.getOfferFormModel().then(data => {

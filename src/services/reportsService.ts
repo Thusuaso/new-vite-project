@@ -107,6 +107,9 @@ export const reportsService = {
     getMekmarForwardingListDate(yearOne: any, yearTwo: any) {
         return api.get(`/raporlar/listeler/sevkiyatRaporIkiTarihAll/${yearOne}/${yearTwo}`).then(response => response.data);
     },
+    getMekmarForwardingExcel(data: any) {
+        return api.post('/raporlar/dosyalar/sevkiyatRaporExcelListe',data).then(response => response.data);  
+    },
     getMekmarOrderSummaryList(username:any) {
         return api.get(`/raporlar/siparis/siparisOzetRaporlar/${username}`).then(response => response.data);
     },
