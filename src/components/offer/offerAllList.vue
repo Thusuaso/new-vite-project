@@ -276,7 +276,7 @@ export default {
     mounted() {
         this.emitter.on('offer_detail_dialog_close', () => {
             this.offer_detail_form = false;
-        })
+        });
         socket.socketIO.on('offer_detail_list_on', (userId) => {
             useLoadingStore().begin_loading_act();
             offerService.getOfferAllRepresentativeList(userId).then(data => {

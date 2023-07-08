@@ -1,13 +1,41 @@
 <template>
     <DataTable 
-        :value="getUnfollowContainerList"
-        v-model:selection="selectedContainer"
-        selectionMode="single"
-        @row-click="containerSelected($event)"
+            :value="getUnfollowContainerList"
+            v-model:selection="selectedContainer"
+            selectionMode="single"
+            @row-click="containerSelected($event)"
+            v-model:filters="filters"
+            filterDisplay="row"
         >
             <Column field="sira" header="#"></Column>
-            <Column field="musteriadi" header="Müşteri"></Column>
-            <Column field="siparisno" header="Po"></Column>
+            <Column 
+                        field="musteriadi" 
+                        header="Müşteri"
+                        :showFilterMenu="false"
+                        :showFilterOperator="false"
+                        :showClearButton="false"
+                        :showApplyButton="false"
+                        :showFilterMatchModes="false"
+                        :showAddButton="false"
+                    >
+                    <template #filter="{ filterModel, filterCallback }">
+                        <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
+                    </template>
+            </Column>
+            <Column 
+                    field="siparisno" 
+                    header="Po"
+                    :showFilterMenu="false"
+                    :showFilterOperator="false"
+                    :showClearButton="false"
+                    :showApplyButton="false"
+                    :showFilterMatchModes="false"
+                    :showAddButton="false"
+            >
+                <template #filter="{ filterModel, filterCallback }">
+                    <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
+                </template>
+            </Column>
             <Column field="sevk_tarihi" header="Sevk Tarihi"></Column>
             <Column field="konteynerno" header="K.No"></Column>
             <Column field="line" header="Hat"></Column>
@@ -52,6 +80,8 @@ import { mapState } from 'pinia';
 import { socket } from '../services/customServices/realTimeService';
 import { containerService } from '../services/containerService';
 
+import { FilterMatchMode } from 'primevue/api';
+
 import form from '../components/container/form.vue';
 
 export default {
@@ -68,6 +98,11 @@ export default {
             selectedContainer: {},
             is_container_form: false,
             header: '',
+            filters: {
+                musteriadi: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+                siparisno: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+
+            }
         }
     },
     methods: {
