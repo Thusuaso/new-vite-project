@@ -49,7 +49,7 @@
     </div>
     <div class="input-group mb-4 mt-3 ">
         <span class="input-group-text " id="basic-addon1">Peşinat</span>
-        <InputNumber inputId="currency-us" mode="currency" currency="USD" locale="en-US" disabled v-model="productionsDetailModel.siparis.pesinat"/>
+        <InputNumber inputId="currency-us" mode="currency" currency="USD" locale="en-US" :disabled="advanced_payment_disabled" v-model="productionsDetailModel.siparis.pesinat"/>
     </div>
     <br/>
     <span class="p-float-label mb-3 w-100">
@@ -137,6 +137,7 @@ export default {
             selectedSalesman: {},
             selectedOperation: {},
             selectedFinance: {},
+            advanced_payment_disabled:true,
         }
     },
     methods: {
@@ -211,6 +212,11 @@ export default {
         if (!this.getProductionsNewButton) {
             this.productInformationCreated();
         }
+    },
+    mounted() {
+        this.emitter.on('open_advanced_payment',(value)=>{
+            this.advanced_payment_disabled = value;
+        })
     }
 }
 </script>

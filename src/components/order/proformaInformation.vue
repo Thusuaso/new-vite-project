@@ -298,6 +298,11 @@ export default {
             } else if (event.value.id == 3) {
                 this.getProductionsDetailModel.siparis.siparisDurumId = 2
             };
+            if(event.value.id == 2 && localStorage.getItem('userId') == 12){
+                this.emitter.emit('open_advanced_payment',false);
+            }else{
+                this.emitter.emit('open_advanced_payment', true);
+            }
             this.getProductionsDetailModel.siparis.odemeTurId = event.value.id;
             useProductionsStore().products_save_button_status_load_act(false);
 
