@@ -102,6 +102,7 @@ export default {
             useLoadingStore().begin_loading_act();
             offerService.getOfferAllList().then(data => {
                 useOfferStore().offer_all_list_load_act(data);
+                useOfferStore().offer_all_button_load_act(true);
                 useLoadingStore().end_loading_act();
                 this.offer_all_list_visible = true;
             })

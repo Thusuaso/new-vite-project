@@ -80,4 +80,10 @@ getIcSiparisExcelListesi(data_list:any) {
       .get("tedarikci/icsiparisformu/listeler")
       .then((res) => res.data);
     },
+    getProformaControl(po: any) {
+        return api.get(`/controls/proforma/${po}`).then(response => response.data);
+    },
+    getIsfControl(supplier_id: any,po:any) {
+        return api.get(`/listeler/tedarikciDeleteFormKontrol/${supplier_id}/${po}`).then(response => response.data);
+    }
 }

@@ -32,9 +32,13 @@ export const useOfferStore = defineStore('offer', {
             offerUpdatingProductsList: [],
             offerAddingProductsList: [],
             offersAllList: [],
+            offerAllButton:false,
         }
     },
     actions: {
+        offer_all_button_load_act(data:any){
+            this.offerAllButton = data;  
+        },
         offers_all_list_load_act(data: any) {
             this.offersAllList = data;  
         },
@@ -110,6 +114,9 @@ export const useOfferStore = defineStore('offer', {
 
     },
     getters: {
+        getOfferAllButton(state) {
+            return state.offerAllButton;  
+        },
         getOfferReminderList(state) {
             return state.offerReminderList;
         },

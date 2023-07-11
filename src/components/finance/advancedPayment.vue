@@ -104,6 +104,8 @@ export default {
         save() {
             this.save_button_form = true;
             this.advancedPaymentModel.kullanici_id = localStorage.getItem('userId');
+            this.advancedPaymentModel.kullaniciadi = localStorage.getItem('username');
+
             financeService.setCurrencySave(this.advancedPaymentModel).then(data => {
                 if (data.status) {
                     socket.socketIO.emit('finance_main_list_update_emit');

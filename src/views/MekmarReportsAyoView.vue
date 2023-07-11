@@ -15,6 +15,16 @@
             </div>
         </div>
         <div class="col">
+            <Dropdown
+                v-model="selected_quarter"
+                :disabled="is_quarter_dropdown"
+                @change="quarter_year_change"
+                :options="quarter_year"
+                optionLabel="quarter"
+                placeholder="Select a Quarter"
+              />
+        </div>
+        <div class="col">
             <table class="table">
                 <thead>
                     <tr>
@@ -38,7 +48,7 @@
     <div class="row m-auto mt-3">
         <div class="col">
             <DataTable 
-                    v-model:value="getMekmarAyoList" 
+                    :value="quarter_maliyet_form ? quarterMaliyet :getMekmarAyoList" 
                     tableStyle="font-size:80%"
                     class="p-datatable-sm"
                     v-model:filters="filters"
@@ -573,6 +583,17 @@ export default {
     },
     data() {
         return {
+            quarter_maliyet_form:false,
+            quarterMaliyet:[],
+            is_quarter_dropdown:true,
+            selected_quarter:{},
+            quarter_year: [
+                { id: 1, quarter: "Hepsi" },
+                { id: 2, quarter: "1. Çeyrek" },
+                { id: 3, quarter: "2. Çeyrek" },
+                { id: 4, quarter: "3. Çeyrek" },
+                { id: 5, quarter: "4. Çeyrek" },
+            ],
             filters: {
                 siparisci: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
                 operasyon: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
@@ -598,6 +619,48 @@ export default {
         
     },
     methods: {
+        quarter_year_change(event){
+            event = event.value.quarter;
+            if (event == "1. Çeyrek") {
+                this.quarterMaliyet = this.getMekmarAyoList.filter(
+                    (x) => x.yukleme_month >= 1 && x.yukleme_month <= 3
+                );
+                this.maliyet_listesi_excel = this.quarterMaliyet;
+
+                this.quarter_maliyet_form = true;
+            } else if (event == "2. Çeyrek") {
+                this.quarterMaliyet = this.getMekmarAyoList.filter(
+                    (x) => x.yukleme_month >= 4 && x.yukleme_month <= 6
+                );
+
+                this.maliyet_listesi_excel = this.quarterMaliyet;
+
+                this.quarter_maliyet_form = true;
+            } else if (event == "3. Çeyrek") {
+                this.quarterMaliyet = this.getMekmarAyoList.filter(
+                    (x) => x.yukleme_month >= 7 && x.yukleme_month <= 9
+                );
+
+                this.maliyet_listesi_excel = this.quarterMaliyet;
+
+                this.quarter_maliyet_form = true;
+            } else if (event == "4. Çeyrek") {
+                this.quarterMaliyet = this.getMekmarAyoList.filter(
+                    (x) => x.yukleme_month >= 10 && x.yukleme_month <= 12
+                );
+
+                this.maliyet_listesi_excel = this.quarterMaliyet;
+
+                this.quarter_maliyet_form = true;
+            } else if (event == "Hepsi") {
+                this.quarterMaliyet = this.getMekmarAyoList;
+
+
+                this.maliyet_listesi_excel = this.quarterMaliyet;
+
+                this.quarter_maliyet_form = false;
+            }
+        },
         mekmarAyoSelected(event) {
             useLoadingStore().begin_loading_act();
             this.po = event.data.siparis_no;
@@ -608,11 +671,13 @@ export default {
             })
         },
         allAyoReportsChange(event) {
+            
             if (event.target._modelValue) {
                 useLoadingStore().begin_loading_act();
                 reportsService.getMekmarAyoListAll(this.selectedYear.yil).then(data => {
                     useReportsStore().mekmar_ayo_list_load_act(data);
                     this.mekmar_ayo_date_form = true;
+                    this.is_quarter_dropdown = false;
                     useLoadingStore().end_loading_act();
                 })
             } else {
@@ -620,6 +685,7 @@ export default {
                 reportsService.getMekmarAyoList(this.selectedYear.yil, this.selectedMonth.ay).then(data => {
                     useReportsStore().mekmar_ayo_list_load_act(data);
                     this.mekmar_ayo_date_form = false;
+                    this.is_quarter_dropdown = true;
                     useLoadingStore().end_loading_act();
 
                 })

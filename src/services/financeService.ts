@@ -20,7 +20,7 @@ export const financeService = {
         return api.get(`/listeler/DovizListe/${year}/${month}/${day}`).then(response => response.data);
     },
     setCurrencySave(data:any) {
-        return api.get('/finans/listeler/pesinatIslemListesi', data).then(response => response.data);
+        return api.post('/finans/listeler/pesinatIslemListesi', data).then(response => response.data);
     },
     getFinanceDetailList(customerId:any) {
         return api.get(`/finans/listeler/konteynerAyrintiList/${customerId}`).then(response => response.data);

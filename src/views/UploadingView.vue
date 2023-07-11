@@ -154,7 +154,7 @@ export default {
                 else if (item.name == 'İlaçlama Belgesi.pdf') this.folderProductInfo.id = 10;
                 else if (item.name == 'Dolaşım Belgeleri.pdf') this.folderProductInfo.id = 11;
                 else if (item.name == 'Gçb Beyannamesi.pdf') this.folderProductInfo.id = 12;
-                else if (item.name == 'Packing Declarition.pdf') this.folderProductInfo.id = 13;
+                else if (item.name == 'Packing Declarition.pdf') this.folderProductInfo.id = 14;
                 else if (item.name == 'L-C Metin.pdf') this.folderProductInfo.id = 15;
                 else if (item.name == 'Commer Invoice.pdf') this.folderProductInfo.id = 16;
                 else if (item.name == 'Packing List.pdf') this.folderProductInfo.id = 17;
@@ -191,7 +191,6 @@ export default {
             });
         },
         uploadingFolderSelected(event) {
-            console.log(event)
             this.invoiceId = event.data.Faturaid;
             this.po = this.selectedUploadingProduct.siparisno;
             this.folderName = event.data.faturaadi;

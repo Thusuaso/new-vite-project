@@ -539,7 +539,7 @@ export default {
                 if (this.is_two_isf_form == false) {
                     const evrak =
                         this.tedarikci.tedarikciadi + "-" + this.po + ".pdf";
-
+                    
                     fileService.faturaDosyaGonder(event, 3, evrak).then((data) => {
                         console.log(data);
                         const bilgi = {
@@ -561,6 +561,7 @@ export default {
                             }
                         });
                     });
+                    
 
 
                 } else {

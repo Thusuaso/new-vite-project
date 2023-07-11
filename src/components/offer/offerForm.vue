@@ -85,7 +85,7 @@
         <div class="col-2">
             <div class="row m-auto mt-3">
                 <div class="col">
-                    <button type="button" class="btn btn-success" @click="offerProcess">Kaydet</button>
+                    <button type="button" class="btn btn-success" @click="offerProcess" :disabled="offer_save_disabled">Kaydet</button>
                 </div>
                 <div class="col">
                     <button type="button" class="btn btn-danger" @click="deleteForm">Sil</button>
@@ -171,7 +171,8 @@ export default {
             'getOfferProductsList',
             'getOfferDeletingProductsList',
             'getOfferAddingProductsList',
-            'getOfferUpdatingProductsList'
+            'getOfferUpdatingProductsList',
+            'getOfferAllButton'
         ])
     },
     components:{
@@ -181,6 +182,7 @@ export default {
     },
     data() {
         return {
+            offer_save_disabled:false,
             o_date: new Date(),
             selectedSource: {},
             sources: [
@@ -289,6 +291,7 @@ export default {
 
         },
         save() {
+            this.offer_save_disabled = true;
             this.getOfferModelList.kullaniciAdi = localStorage.getItem('username');
             this.getOfferModelList.kullaniciId = localStorage.getItem('userId');
             this.getOfferModelList.tarih = this.dateNullControl(this.o_date);
@@ -307,14 +310,19 @@ export default {
                 if (data.status) {
                     socket.socketIO.emit('offer_list_emit');
                     socket.socketIO.emit('offer_detail_list_emit', localStorage.getItem('userId'));
+
+
                     this.emitter.emit('offer_detail_dialog_close');
+                    this.offer_save_disabled = false;
                     this.$toast.add({ severity: 'success', detail: 'Başarıyla Kaydedildi', life: 3000 });
                 } else {
+                    this.offer_save_disabled = false;
                     this.$toast.add({ severity: 'error', detail: 'Kaydetme Başarısız', life: 3000 });
                 };
             });
         },
         update() {
+            this.offer_save_disabled = true;
             this.customerControl(this.selectedShopper);
             this.getOfferModelList.tarih = this.dateNullControl(this.o_date);
             this.getOfferModelList.hatirlatmaTarihi = this.dateNullControl(this.r_date);
@@ -334,8 +342,12 @@ export default {
                 if (data.status) {
                     socket.socketIO.emit('offer_list_emit');
                     socket.socketIO.emit('offer_detail_list_emit', localStorage.getItem('userId'));
+                    this.offer_save_disabled = false;
+
                     this.$toast.add({ severity: 'success', detail: 'Başarıyla Güncellendi', life: 3000 });
                 } else {
+                    this.offer_save_disabled = false;
+
                     this.$toast.add({ severity: 'error', detail: 'Güncelleme Başarısız', life: 3000 });
                 };
             });

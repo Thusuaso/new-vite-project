@@ -256,6 +256,7 @@ export default {
             offerService.getOfferDetail(event.data.id).then(data => {
                 useOfferStore().offer_form_model_list_load_act(data);
                 useOfferStore().offer_new_button_load_act(false);
+                useOfferStore().offer_all_button_load_act(false);
                 this.offer_detail_form = true;
             })
         },
@@ -263,6 +264,7 @@ export default {
             offerService.getOfferDetail(event.data.id).then(data => {
                 useOfferStore().offer_form_model_list_load_act(data);
                 useOfferStore().offer_new_button_load_act(false);
+                useOfferStore().offer_all_button_load_act(false);
                 this.offer_detail_form = true;
             })
         },
@@ -283,7 +285,7 @@ export default {
                 useOfferStore().offer_all_list_load_act(data);
                 useLoadingStore().end_loading_act();
                 this.emitter.emit('offer_all_representative_dialog', true);
-            })
+            });
         });
     }
 }

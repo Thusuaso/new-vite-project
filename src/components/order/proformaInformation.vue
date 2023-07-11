@@ -254,25 +254,34 @@ export default {
             if (event.files[0].size > 1000000) {
                 this.$toast.ad({severity:'error',detail:'Proforma Yükleme Başarısız, Lütfen Dosya Boyutunu Kontrol Ediniz.',life:3000})
             } else {
-                fileService.sendProforma(event.files[0], 2, this.getProductionsDetailModel.siparis.siparisNo).then(data => {
+                productionsService.getProformaControl(this.getProductionsDetailModel.siparis.siparisNo).then(data=>{
                     if (data) {
-                        const proformaData = {
-                            'id': 2,
-                            'siparisno': this.getProductionsDetailModel.siparis.siparisNo,
-                            'kullaniciId': localStorage.getItem('userId'),
-                        }
-                        productionsService.saveProforma(proformaData).then(data => {
-                            if (data.status) {
-                                this.$toast.add({ severity: 'success', detail: 'Evrak Başarıyla Yüklendi', life: 3000 })
+                        alert('Proforma Zaten Mevcut');
+                    }else{
+                      fileService.sendProforma(event.files[0], 2, this.getProductionsDetailModel.siparis.siparisNo).then(data => {
+                            if (data) {
+                                const proformaData = {
+                                    'id': 2,
+                                    'siparisno': this.getProductionsDetailModel.siparis.siparisNo,
+                                    'kullaniciId': localStorage.getItem('userId'),
+                                }
+                                productionsService.saveProforma(proformaData).then(data => {
+                                    if (data.status) {
+                                        this.$toast.add({ severity: 'success', detail: 'Evrak Başarıyla Yüklendi', life: 3000 })
+                                    } else {
+                                        this.$toast.add({ severity: 'error', detail: 'Evrak Yükleme Başarısız, Lütfen Tekrar Deneyiniz.', life: 3000 })
+
+                                    }
+                                })
                             } else {
                                 this.$toast.add({ severity: 'error', detail: 'Evrak Yükleme Başarısız, Lütfen Tekrar Deneyiniz.', life: 3000 })
-
-                            }
-                        })
-                    } else {
-                        this.$toast.add({ severity: 'error', detail: 'Evrak Yükleme Başarısız, Lütfen Tekrar Deneyiniz.', life: 3000 })
-                    }
+                            };
+                        });  
+                    };
                 })
+                
+
+
             }
 
         },
