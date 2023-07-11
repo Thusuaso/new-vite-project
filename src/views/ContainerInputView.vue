@@ -129,6 +129,8 @@ export default {
             new_disabled_form:true,
             invoiceId: 0,
             invoiceNo: 0,
+            companyId: 0,
+            
         }
     },
     methods: {
@@ -140,7 +142,7 @@ export default {
         uploadContainerFile(event) {
             this.containerModel.urunID = this.invoiceId;
             this.containerModel.kullaniciid = localStorage.getItem('userId');
-            fileService.sendInvoiceShipping(event.files[0],this.invoiceId,this.invoiceNo + '.pdf').then(data => {
+            fileService.sendInvoiceShipping(event.files[0],this.companyId,this.invoiceNo + '.pdf').then(data => {
                 if (data) {
                     containerService.informationSave(this.containerModel).then(data => {
                         if (data.status) {
@@ -168,6 +170,7 @@ export default {
             containerService.save(this.containerModel).then(data => {
                 if (data.status) {
                     this.invoiceId = data.invoiceId;
+                    this.companyId = data.companyId;
                     this.invoiceNo = data.invoiceNo;
                     this.file_disabled_form = false;
                     this.save_disabled_form = true;
