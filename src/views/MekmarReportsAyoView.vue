@@ -15,6 +15,9 @@
             </div>
         </div>
         <div class="col">
+            <button type="button" class="btn btn-primary" @click="excel_output">Excel</button>
+        </div>
+        <div class="col">
             <Dropdown
                 v-model="selected_quarter"
                 :disabled="is_quarter_dropdown"
@@ -562,6 +565,7 @@
 <script>
 import { useReportsStore } from '../stores/reports';
 import { useLoadingStore } from '../stores/loading';
+import { useLocalStore } from '../stores/local';
 import { mapState } from 'pinia';
 
 import { reportsService } from '../services/reportsService';
@@ -576,6 +580,9 @@ export default {
             'getMekmarAyoTotalList',
             'getMekmarAyoYearList',
             'getMekmarAyoMonthList',
+        ]),
+        ...mapState(useLocalStore, [
+            'getLocalServiceUrl'
         ])
     },
     components: {
@@ -619,6 +626,45 @@ export default {
         
     },
     methods: {
+        excel_output() {
+            useLoadingStore().begin_loading_act();
+            if(this.quarter_maliyet_form){
+                 reportsService
+                    .getMekmarAyoExcelOutput(this.quarterMaliyet)
+                    .then((response) => {
+                        if (response.status) {
+                            useLoadingStore().end_loading_act();
+                            const link = document.createElement("a");
+                            link.href =
+                                this.getLocalServiceUrl + "maliyet/dosyalar/maliyetRaporExcelListe";
+
+                            link.setAttribute("download", "ayo_maliyet_listesi.xlsx");
+                            document.body.appendChild(link);
+                            link.click();
+
+                        }
+                    });
+
+            } else {
+                 reportsService
+                    .getMekmarAyoExcelOutput(this.getMekmarAyoList)
+                    .then((response) => {
+                        if (response.status) {
+                            useLoadingStore().end_loading_act();
+                            const link = document.createElement("a");
+                            link.href =
+                                this.getLocalServiceUrl + "maliyet/dosyalar/maliyetRaporExcelListe";
+
+                            link.setAttribute("download", "ayo_maliyet_listesi.xlsx");
+                            document.body.appendChild(link);
+                            link.click();
+
+                        }
+                    });
+
+            }
+           
+        },
         quarter_year_change(event){
             event = event.value.quarter;
             if (event == "1. Çeyrek") {

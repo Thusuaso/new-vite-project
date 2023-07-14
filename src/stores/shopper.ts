@@ -4,6 +4,7 @@ export const useShopperStore = defineStore('shopper', {
     state: () => {
         return {
             shopperList: [],
+            shopperPoList: [],
             shopperModel: [],
             shopperRepresentativeList: [],
             shopperCountryList: [],
@@ -33,7 +34,8 @@ export const useShopperStore = defineStore('shopper', {
     },
     actions: {
         shopper_list_load_act(data: any) {
-            this.shopperList = data;
+            this.shopperList = data.customer_list;
+            this.shopperPoList = data.customer_po_list;
         },
         shopper_model_load_act(data: any) {
             this.shopperModel = data.musteri_model;
@@ -101,6 +103,9 @@ export const useShopperStore = defineStore('shopper', {
     getters: {
         getShopperList(state) {
             return state.shopperList;
+        },
+        getShopperPoList(state) {
+            return state.shopperPoList;
         },
         getShopperModel(state) {
             return state.shopperModel;

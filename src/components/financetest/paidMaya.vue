@@ -77,7 +77,7 @@
                         {{ $filters.formatPrice(slotProps.data.paid) }}
                     </template>
                 </Column>
-                <Column field="balance" header="Balans">
+                <Column field="balance" header="Balans(Tahsil Edilmedi)">
                     <template #body="slotProps">
                         <div :style="{'backgroundColor':slotProps.data.balance > 0 ? 'green':'','color':slotProps.data.balance>0 ? 'white':''}">
                             {{ $filters.formatPrice(slotProps.data.balance) }}

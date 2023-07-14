@@ -259,19 +259,25 @@ export default {
     },
     methods: {
         offerListBSelected(event) {
+            useLoadingStore().begin_loading_act();
+
             offerService.getOfferDetail(event.data.id).then(data => {
                 useOfferStore().offer_form_model_list_load_act(data);
                 useOfferStore().offer_new_button_load_act(false);
                 useOfferStore().offer_all_button_load_act(false);
                 this.offer_detail_form = true;
+                useLoadingStore().end_loading_act();
+
             })
         },
         offerListASelected(event) {
+            useLoadingStore().begin_loading_act();
             offerService.getOfferDetail(event.data.id).then(data => {
                 useOfferStore().offer_form_model_list_load_act(data);
                 useOfferStore().offer_new_button_load_act(false);
                 useOfferStore().offer_all_button_load_act(false);
                 this.offer_detail_form = true;
+                useLoadingStore().end_loading_act();
             })
         },
         offerAllListAFilter(event) {

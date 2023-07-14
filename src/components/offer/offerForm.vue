@@ -291,6 +291,7 @@ export default {
 
         },
         save() {
+            useLoadingStore().begin_loading_act();
             this.offer_save_disabled = true;
             this.getOfferModelList.kullaniciAdi = localStorage.getItem('username');
             this.getOfferModelList.kullaniciId = localStorage.getItem('userId');
@@ -314,14 +315,20 @@ export default {
 
                     this.emitter.emit('offer_detail_dialog_close');
                     this.offer_save_disabled = false;
+                    useLoadingStore().end_loading_act();
+
                     this.$toast.add({ severity: 'success', detail: 'Başarıyla Kaydedildi', life: 3000 });
                 } else {
                     this.offer_save_disabled = false;
+                    useLoadingStore().end_loading_act();
+
                     this.$toast.add({ severity: 'error', detail: 'Kaydetme Başarısız', life: 3000 });
                 };
             });
         },
         update() {
+            useLoadingStore().begin_loading_act();
+
             this.offer_save_disabled = true;
             this.customerControl(this.selectedShopper);
             this.getOfferModelList.tarih = this.dateNullControl(this.o_date);
@@ -343,10 +350,12 @@ export default {
                     socket.socketIO.emit('offer_list_emit');
                     socket.socketIO.emit('offer_detail_list_emit', localStorage.getItem('userId'));
                     this.offer_save_disabled = false;
+                    useLoadingStore().end_loading_act();
 
                     this.$toast.add({ severity: 'success', detail: 'Başarıyla Güncellendi', life: 3000 });
                 } else {
                     this.offer_save_disabled = false;
+                    useLoadingStore().end_loading_act();
 
                     this.$toast.add({ severity: 'error', detail: 'Güncelleme Başarısız', life: 3000 });
                 };

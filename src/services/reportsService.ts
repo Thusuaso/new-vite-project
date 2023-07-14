@@ -86,6 +86,9 @@ export const reportsService = {
     getMekmarAyoDetailList(po: any) {
         return api.get(`/maliyet/ayrinti/listeler/maliyetListesi/${po}`).then(response => response.data);
     },
+    getMekmarAyoExcelOutput(data: any) {
+        return api.post('/maliyet/dosyalar/maliyetRaporExcelListe', data).then(response => response.data);
+    },
     getMekmarLoadingList(year: any, month: any) {
         return api.get(`/raporlar/listeler/yukleme/${year}/${month}`).then(response => response.data);
     },

@@ -4,23 +4,23 @@
             <button type="button" class="btn btn-success" @click="newCustomer">Yeni</button>
         </div>
         <div class="col">
-
+            <AutoComplete v-model="selectedPo" :suggestions="filteredShopperPoList" optionLabel="po" @complete="searchPo($event)" @item-select="poSelected($event)" @clear="clearPo($event)"/>
         </div>
     </div>
     <div class="row m-auto mt-3">
         <div class="col">
             <DataTable 
-            :value="getShopperList" 
-            tableStyle="min-width: 50rem" 
-            paginator 
-            :rows="15"
-            sortField="sira"
-            :sortOrder="-1"
-            v-model:filters="filters"
-            filterDisplay="row"
-            v-model:selection="selectedShopper"
-            selectionMode="single"
-            @row-click="shopperSelected($event)"
+                :value="filteres_shopper_list_form ? filteredShopperList : getShopperList" 
+                tableStyle="min-width: 50rem" 
+                paginator 
+                :rows="15"
+                sortField="sira"
+                :sortOrder="-1"
+                v-model:filters="filters"
+                filterDisplay="row"
+                v-model:selection="selectedShopper"
+                selectionMode="single"
+                @row-click="shopperSelected($event)"
             >
             <Column field="sira" header="#"></Column>
             <Column 
@@ -164,10 +164,12 @@ export default {
     computed: {
         ...mapState(useShopperStore, [
             'getShopperList',
+            'getShopperPoList',
         ])
     },
     components: {
-        shopperForm:form,
+        shopperForm: form,
+        
     },
     data() {
         return {
@@ -182,9 +184,35 @@ export default {
             },
             is_shopper_form: false,
             selectedShopper: {},
+            selectedPo: null,
+            filteredShopperPoList: [],
+            filteredShopperList: [],
+            filteres_shopper_list_form:false,
         }
     },
     methods: {
+        clearPo(event) {
+            console.log('clear',event)
+        },
+        poSelected(event) {
+            console.log(this.getShopperList);
+            console.log(event);
+
+            this.filteres_shopper_list_form = true;
+            this.filteredShopperList = this.getShopperList.find(x => x.id == event.value.id);
+        },
+        searchPo(event) {
+            console.log(event);
+            let result;
+            if (event.query.length == 0) {
+                result = this.getShopperPoList;
+            } else {
+                result = this.getShopperPoList.filter(x => {
+                    return x.po.toLowerCase().startsWith(event.query.toLowerCase());
+                });
+            };
+            this.filteredShopperPoList = result;
+        },
         shopperSelected(event) {
             useLoadingStore().begin_loading_act();
             shopperService.getShopperDetail(event.data.id).then(data => {
