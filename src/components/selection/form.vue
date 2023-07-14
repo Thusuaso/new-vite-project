@@ -374,6 +374,11 @@ export default {
                 }
                 if (data.kayit_durum) {
                     socket.socketIO.emit('selection_update_emit');
+                    const data = {
+                        'status': 2,
+                        'year': 'Hepsi'
+                    }
+                    socket.socketIO.emit('products_update_emit', data);
                     useLoadingStore().end_loading_act();
                     this.$toast.add({ severity: 'success', detail: 'Başarıyla Kaydedildi.', life: 3000 });
                     this.resetForm();
@@ -430,6 +435,12 @@ export default {
             selectionService.update(this.getSelectionModelList).then(data => {
                 if (data) {
                     socket.socketIO.emit('selection_update_emit');
+                    const data = {
+                        'status': 2,
+                        'year':'Hepsi',
+                    }
+                    socket.socketIO.emit('products_update_emit', data);
+
                     useLoadingStore().end_loading_act();
                     this.$toast.add({ severity: 'success', detail: 'Başarıyla Güncellendi.', life: 3000 });
                     this.$emit('formDialogClose');
@@ -445,6 +456,12 @@ export default {
             selectionService.delete(this.getSelectionModelList.kasano).then(data => {
                 if (data) {
                     socket.socketIO.emit('selection_update_emit');
+                    const data = {
+                        'status': 2,
+                        'year': 'Hepsi',
+                    }
+                    socket.socketIO.emit('products_update_emit', data);
+
                     useLoadingStore().end_loading_act();
                     this.$toast.add({ severity: 'success', detail: 'Başarıyla Silindi', life: 3000 });
                     this.$emit('formDialogClose');

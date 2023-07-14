@@ -46,30 +46,37 @@
                 <span class="input-group-text" id="basic-addon1">Fatura</span>
                 <Dropdown v-model="selectedInvoice" filter  :options="getInvoiceList" optionLabel="faturaKesimTurAdi"  class="w-full md:w-14rem form-control" @change="changeInvoice($event)"/>
             </div>
+            
             <div class="form-check">
                 <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" v-model="getProductionsDetailModel.siparis.depo">
                 <label class="form-check-label" for="flexCheckDefault">
                     Atlanta SM
                 </label>
             </div>
+            <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault2" v-model="getProductionsDetailModel.siparis.maya" @input="saveButtonControl">
+                    <label class="form-check-label" for="flexCheckDefault2">
+                        Maya Odeme
+                    </label>
+                </div>
 
 
 
         </div>
         <div class="col-8">
             <div class="form-floating">
-                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" style="height:150px;" v-model="getProductionsDetailModel.siparis.uretimAciklama"></textarea>
+                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" style="height:150px;" v-model="getProductionsDetailModel.siparis.uretimAciklama" @input="saveButtonControl"></textarea>
                 <label for="floatingTextarea">Üretim Açıklama</label>
             </div>
             <br/>
             <div class="form-floating">
-                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" style="height:150px;" v-model="getProductionsDetailModel.siparis.sevkiyatAciklama"></textarea>
+                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" style="height:150px;" v-model="getProductionsDetailModel.siparis.sevkiyatAciklama" @input="saveButtonControl"></textarea>
                 <label for="floatingTextarea">Sevkiyat Açıklama</label>
             </div>
             <br/>
 
             <div class="form-floating">
-                <textarea   textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" style="height:150px;" v-model="getProductionsDetailModel.siparis.finansAciklama"></textarea>
+                <textarea   textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" style="height:150px;" v-model="getProductionsDetailModel.siparis.finansAciklama" @input="saveButtonControl"></textarea>
                 <label for="floatingTextarea">Finans Açıklama</label>
             </div>
             <br/>
@@ -246,6 +253,9 @@ export default {
 
     },
     methods: {
+        saveButtonControl() {
+            useProductionsStore().products_save_button_status_load_act(false);
+        },
         changeCost() {
             useProductionsStore().product_total_load_act(this.getProductionsDetailModel);
             useProductionsStore().products_save_button_status_load_act(false);

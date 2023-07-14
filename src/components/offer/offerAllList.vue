@@ -54,6 +54,12 @@
                         :showFilterMatchModes="false"
                         :showAddButton="false"
                     >
+                    <template #body="slotProps">
+                        <div :style="{'backgroundColor':slotProps.data.goruldu ? '':'yellow'}">
+                            {{ slotProps.data.musteriAdi }}
+                        </div>
+
+                    </template>
                     <template #footer>
                         {{ getOfferAllListATotal }}
                     </template>

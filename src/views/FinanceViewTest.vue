@@ -37,7 +37,7 @@ export default {
     components:{
         list,
         collectionList,
-        advancedPayment
+        advancedPayment,
     },
     computed:{
       ...mapState(useFinanceTestStore,[
@@ -92,12 +92,20 @@ export default {
         }
     },
     mounted(){
-        socket.socketIO.on('finance_test_list_on',()=>{
+        socket.socketIO.on('finance_test_list_on', () => {
+            useLoadingStore().begin_loading_act();
             financeServiceTest.getList().then((data) => {
                 useFinanceTestStore().finance_test_list_loac_act(data);
                 useLoadingStore().end_loading_act();
             });
         });
+        socket.socketIO.on('finance_test_advanced_payment_list_on', () => {
+            useLoadingStore().begin_loading_act();
+            financeService.getAdvancedPaymentList().then(data => {
+                useFinanceStore().finance_advanced_payment_list_load_act(data);
+                useLoadingStore().end_loading_act();
+            });
+        })
     }
 }
 </script>

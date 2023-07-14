@@ -97,6 +97,8 @@
                         {{ $filters.formatPriceTl(slotProps.data.tutar * slotProps.data.kur) }}
                     </template>
                 </Column>
+                <Column field="aciklama" header="Açıklama">
+                </Column>
                 <Column field="genel_link" header="Link">
                     <template #body="slotProps">
                         <a :href="slotProps.data.genel_link">

@@ -4,6 +4,7 @@ export const useCostStore = defineStore('cost', {
         return {
             list: [],
             model: [],
+            users:[],
             newButton:false,
         }
     },
@@ -12,7 +13,8 @@ export const useCostStore = defineStore('cost', {
             this.list = data;
         },
         cost_error_model_load_act(data: any) {
-            this.model = data;
+            this.model = data.model;
+            this.users = data.users;
         },
         cost_error_new_button_load_act(data: any) {
             this.newButton = data;
@@ -24,6 +26,9 @@ export const useCostStore = defineStore('cost', {
         },
         getModel(state) {
             return state.model;
+        },
+        getUsers(state) {
+            return state.users;  
         },
         getNewButton(state) {
             return state.newButton;

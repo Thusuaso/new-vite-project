@@ -205,7 +205,7 @@ export default {
                         }
                     socket.socketIO.emit('finance_test_detail_payment_emit',data);
                     socket.socketIO.emit('finance_test_detail_emit',data);
-                    socket.socketIO.emit('finance_test_list_emit')
+                    socket.socketIO.emit('finance_test_list_emit');
                     this.save_form_disabled = false;
                     this.reset();
                     useLoadingStore().end_loading_act();

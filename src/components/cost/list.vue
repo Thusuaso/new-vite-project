@@ -27,7 +27,7 @@
                 </Column>
                 <Column 
                         field="kullanici_adi" 
-                        header="Kullanıcı"
+                        header="Hata Sahibi"
                         :showFilterMenu="false"
                         :showFilterOperator="false"
                         :showClearButton="false"
@@ -40,7 +40,11 @@
                     </template>
                 </Column>
                 <Column field="hata" header="Hata"></Column>
-                <Column field="maliyet" header="Maliyet"></Column>
+                <Column field="maliyet" header="Maliyet">
+                    <template #body="slotProps">
+                        {{ $filters.formatPrice(slotProps.data.maliyet) }}
+                    </template>
+                </Column>
                 <Column header="">
                     <template #body="slotProps">
                         <button type="button" class="btn btn-danger" @click="deleteCost(slotProps.data.id)">Sil</button>

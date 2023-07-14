@@ -85,5 +85,11 @@ getIcSiparisExcelListesi(data_list:any) {
     },
     getIsfControl(supplier_id: any,po:any) {
         return api.get(`/listeler/tedarikciDeleteFormKontrol/${supplier_id}/${po}`).then(response => response.data);
+    },
+    setDivideProduction(data: any) {
+        return api.post('/siparis/siparisBolmeGuncelleme', data).then(response => response.data);
+    },
+    getUsersList() {
+        return api.get('/listeler/kullaniciList').then(response => response.data);
     }
 }

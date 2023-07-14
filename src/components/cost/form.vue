@@ -12,6 +12,12 @@
                 <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="getModel.maliyet" @input="getModel.maliyet = $filters.formatPoint($event.target.value)">
             </div>
         </div>
+        <div class="col">
+            <Dropdown v-model="selectedUser" :options="getUsers" optionLabel="name" placeholder="Select a User" class="w-full md:w-14rem" @change="userSelected($event)"/>
+        </div>
+        <div class="col">
+            <Calendar v-model="c_m_date" />
+        </div>
     </div>
     <div class="row m-auto mt-3">
         <div class="col">
@@ -31,10 +37,27 @@ export default {
     computed: {
         ...mapState(useCostStore, [
             'getModel',
-            'getNewButton'
+            'getNewButton',
+            'getUsers'
         ])
     },
+    data() {
+        return {
+            c_m_date: new Date(),
+            selectedUser: {},
+        }
+    },
+    created() {
+        if (!this.getNewButton) {
+            this.selectedUser = this.getUsers.find(x => x.id == this.getModel.kullanici_id);
+            this.c_m_date = localDateService.getStringDate(this.getModel.tarih);
+        }
+    },
     methods: {
+        userSelected(event) {
+            this.getModel.kullanici_id = event.value.id;
+            this.getModel.kullanici_adi = event.value.name;
+        },
         process() {
             if (this.getNewButton) {
                 this.save();
@@ -44,9 +67,7 @@ export default {
         },
         save() {
             useLoadingStore().begin_loading_act();
-            this.getModel.kullanici_id = localStorage.getItem('userId');
-            this.getModel.kullanici_adi = localStorage.getItem('username');
-            this.getModel.tarih = localDateService.getDateString(new Date());
+            this.getModel.tarih = localDateService.getDateString(this.c_m_date);
             costService.save(this.getModel).then(data => {
                 if (data.status) {
                     socket.socketIO.emit('cost_error_list_emit');
@@ -74,6 +95,8 @@ export default {
             });
         },
         reset() {
+            this.c_m_date = new Date();
+            this.selectedUser = {};
             costService.getModel().then(data => {
                 useCostStore().cost_error_model_load_act(data);
                 useCostStore().cost_error_new_button_load_act(true);

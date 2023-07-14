@@ -64,6 +64,7 @@
 </template>
 <script>
 import { useFinanceStore } from '../../stores/finance';
+import { useLoadingStore } from '../../stores/loading';
 import { mapState } from 'pinia';
 
 import { localDateService } from '../../services/localDateService';
@@ -102,15 +103,20 @@ export default {
     },
     methods: {
         save() {
+            useLoadingStore().begin_loading_act();
             this.save_button_form = true;
             this.advancedPaymentModel.kullanici_id = localStorage.getItem('userId');
             this.advancedPaymentModel.kullaniciadi = localStorage.getItem('username');
 
             financeService.setCurrencySave(this.advancedPaymentModel).then(data => {
                 if (data.status) {
-                    socket.socketIO.emit('finance_main_list_update_emit');
+                    socket.socketIO.emit('finance_test_list_emit');
+                    socket.socketIO.emit('finance_test_advanced_payment_list_emit');
+                    useLoadingStore().end_loading_act();
+
                     this.$toast.add({ severity: 'success', detail: 'Peşinat Başarıyla Kaydedildi', life: 3000 });
                 } else {
+                    useLoadingStore().end_loading_act();
                     this.$toast.add({ severity: 'error', detail: 'Peşinat Kaydetme Başarısız', life: 3000 });
                 }
             })
@@ -121,9 +127,12 @@ export default {
             this.save_button_form = true;
         },
         advancedDateSelect(event) {
+            useLoadingStore().begin_loading_act();
             this.advancedPaymentModel.tarih = localDateService.getDateString(event);
             financeService.getCurrency(event.getFullYear(), event.getMonth() + 1 , event.getDate()).then(data => {
                 this.advancedPaymentModel.kur = data.result;
+                useLoadingStore().end_loading_act();
+
             });
         },
         advancedPaymentTotalSum(data) {

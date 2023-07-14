@@ -1,19 +1,4 @@
 <template>
-    <div aria-live="polite" aria-atomic="true" class="bg-body-secondary position-relative bd-example-toasts rounded-3">
-      <div class="toast-container p-3" id="toastPlacement">
-        <div class="toast">
-          <div class="toast-header">
-            <img src="" class="rounded me-2" alt="">
-            <strong class="me-auto">Bootstrap</strong>
-            <small>11 mins ago</small>
-          </div>
-          <div class="toast-body">
-            Hello, world! This is a toast message.
-          </div>
-        </div>
-      </div>
-    </div>
-
     <div class="container w-25">
         <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Username</label>

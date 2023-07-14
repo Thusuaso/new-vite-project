@@ -27,5 +27,8 @@ export const financeServiceTest = {
     },
     getExcelList(data:any){
         return api.post('/finance/reports/test/excel',data).then(response=>response.data);
+    },
+    getMaturityList() {
+        return api.get('/finans/listeler/vadeYeniAnaListe').then(response => response.data);
     }
 }

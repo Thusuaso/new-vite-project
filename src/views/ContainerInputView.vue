@@ -50,6 +50,14 @@
             </div>
         </div>
     </div>
+       <div class="row m-auto mt-3">
+            <div class="col">
+                <div class="form-floating">
+                    <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px" v-model="containerModel.aciklama"></textarea>
+                    <label for="floatingTextarea2">Açıklama</label>
+                </div>
+            </div>
+        </div>
     <div class="row m-auto mt-3">
         <div class="col">
             <button type="button" class="btn btn-primary w-100" @click="newForm" :disabled="new_disabled_form">Yeni Kayıt</button>
@@ -59,6 +67,7 @@
         </div>
         
     </div>
+ 
 
     <div class="row m-auto mt-3">
         <div class="col">
@@ -122,6 +131,7 @@ export default {
                 'Tutar_tl': 0,
                 'urunID': 0,
                 'kullaniciid': 0,
+                'aciklama':''
             },
             new_company_form: false,
             file_disabled_form: true,
@@ -140,6 +150,7 @@ export default {
             this.save_disabled_form = false;
         },
         uploadContainerFile(event) {
+            useLoadingStore().begin_loading_act();
             this.containerModel.urunID = this.invoiceId;
             this.containerModel.kullaniciid = localStorage.getItem('userId');
             fileService.sendInvoiceShipping(event.files[0],this.companyId,this.invoiceNo + '.pdf').then(data => {
@@ -147,12 +158,16 @@ export default {
                     containerService.informationSave(this.containerModel).then(data => {
                         if (data.status) {
                             this.reset();
+                            useLoadingStore().end_loading_act();
+
                             this.$toast.add({ severity: 'success', detail: 'Başarıyla Yüklendi', life: 3000 });
                         } else {
+                            useLoadingStore().end_loading_act();
                             this.$toast.add({ severity: 'error', detail: 'Yükleme Başarısız', life: 3000 });
                         };
                     });
                 } else {
+                    useLoadingStore().end_loading_act();
                     this.$toast.add({ severity: 'error', detail: 'Yükleme Başarısız', life: 3000 });
                 };
             })
@@ -166,6 +181,7 @@ export default {
             })
         },  
         save() {
+            useLoadingStore().begin_loading_act();
             this.containerModel.fatura_tur_list = this.selectedInvoice;
             containerService.save(this.containerModel).then(data => {
                 if (data.status) {
@@ -175,8 +191,11 @@ export default {
                     this.file_disabled_form = false;
                     this.save_disabled_form = true;
                     this.new_disabled_form = false;
+                    useLoadingStore().end_loading_act();
+
                     this.$toast.add({ severity: 'success', detail: 'Başarıyla Kaydedildi, Lütfen Gerekli Evrağı Yükleyiniz', life: 3000 });
                 } else {
+                    useLoadingStore().end_loading_act();
                     this.$toast.add({ severity: 'error', detail: 'Kaydetme Başarısız', life: 3000 });
                 };
             })
@@ -188,10 +207,12 @@ export default {
             this.containerModel.Tutar_dolar = (event.target.value / this.containerModel.kur).toFixed(2);
         },
         containerDateSelect(event) {
+            useLoadingStore().begin_loading_act();
             this.containerModel.tarih = localDateService.getDateString(event);
             containerService.getCurrency(event.getFullYear(), event.getMonth() + 1, event.getDate()).then(data => {
                 this.containerModel.kur = data.result;
-            })
+                useLoadingStore().end_loading_act();
+            });
         },
         containerProductSelected(event) {
             this.containerModel.siparisno = event.value.siparisno;

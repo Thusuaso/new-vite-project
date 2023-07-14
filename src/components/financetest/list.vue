@@ -13,88 +13,114 @@
             </div>
         </div>
     </div>
-    <DataTable 
-        :value=" !all ? getFinanceTestList:getFinanceTestListAll " 
-        tableStyle="min-width: 50rem" 
-        sortField="total" 
-        sortOrder="-1" 
-        scrollable 
-        scrollHeight="550px"
-        v-model:filters="filters"
-        filterDisplay="row"
-        v-model:selection="selectedFinance"
-        selectionMode="single"
-        @row-click="financeSelected($event)"
+    <div class="row m-auto mt-3">
+        <div class="col-9">
+        <DataTable 
+            :value="!all ? getFinanceTestList : getFinanceTestListAll" 
+            tableStyle="min-width: 50rem" 
+            sortField="total" 
+            sortOrder="-1" 
+            scrollable 
+            scrollHeight="550px"
+            v-model:filters="filters"
+            filterDisplay="row"
+            v-model:selection="selectedFinance"
+            selectionMode="single"
+            @row-click="financeSelected($event)"
         
-    >
-        <Column field="customer_name" header="Müşteri">
-            <template #filter="{ filterModel, filterCallback }">
-                <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
+        >
+            <template #header>
+                Finans Ana Liste
             </template>
-        </Column>
-        <Column field="total_order_amount" header="Toplam Sipariş">
-            <template #body="slotProps">
-                {{ $filters.formatPrice(slotProps.data.total_order_amount) }}
-            </template>
-            <template #footer>
-                {{ $filters.formatPrice(getFinanceTestListTotal.total_orders) }}
-            </template>
-        </Column>
-        <Column field="production" header="Üretimde">
-            <template #body="slotProps">
-                {{ $filters.formatPrice(slotProps.data.production) }}
-            </template>
-            <template #footer>
-                {{ $filters.formatPrice(getFinanceTestListTotal.orders) }}
-            </template>
-        </Column>
-        <Column field="forwarding" header="Sevk Edilen">
-            <template #body="slotProps">
-                {{ $filters.formatPrice(slotProps.data.forwarding) }}
-            </template>
-            <template #footer>
-                {{ $filters.formatPrice(getFinanceTestListTotal.forwarding) }}
-            </template>
-        </Column>
-        <Column field="paid" header="Ödenen">
-            <template #body="slotProps">
-                {{ $filters.formatPrice(slotProps.data.paid) }}
-            </template>
-            <template #footer>
-                {{ $filters.formatPrice(getFinanceTestListTotal.paid) }}
-            </template>
-        </Column>
-        <Column field="advanced_payment" header="Peşinat">
-            <template #body="slotProps">
-                <div :style="{'backgroundColor': slotProps.data.advanced_payment ? 'red':'', 'color':slotProps.data.advanced_payment ? 'white':''}">
-                    {{ $filters.formatPrice(slotProps.data.advanced_payment) }}
-                </div>
+            <Column 
+                field="customer_name" 
+                header="Müşteri"
+                :showFilterMenu="false"
+                :showFilterOperator="false"
+                :showClearButton="false"
+                :showApplyButton="false"
+                :showFilterMatchModes="false"
+                :showAddButton="false"
+            
+            >
+                <template #filter="{ filterModel, filterCallback }">
+                    <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
+                </template>
+            </Column>
+            <Column field="total_order_amount" header="Toplam Sipariş">
+                <template #body="slotProps">
+                    {{ $filters.formatPrice(slotProps.data.total_order_amount) }}
+                </template>
+                <template #footer>
+                    {{ $filters.formatPrice(getFinanceTestListTotal.total_orders) }}
+                </template>
+            </Column>
+            <Column field="production" header="Üretimde">
+                <template #body="slotProps">
+                    {{ $filters.formatPrice(slotProps.data.production) }}
+                </template>
+                <template #footer>
+                    {{ $filters.formatPrice(getFinanceTestListTotal.orders) }}
+                </template>
+            </Column>
+            <Column field="forwarding" header="Sevk Edilen">
+                <template #body="slotProps">
+                    {{ $filters.formatPrice(slotProps.data.forwarding) }}
+                </template>
+                <template #footer>
+                    {{ $filters.formatPrice(getFinanceTestListTotal.forwarding) }}
+                </template>
+            </Column>
+            <Column field="paid" header="Ödenen">
+                <template #body="slotProps">
+                    {{ $filters.formatPrice(slotProps.data.paid) }}
+                </template>
+                <template #footer>
+                    {{ $filters.formatPrice(getFinanceTestListTotal.paid) }}
+                </template>
+            </Column>
+            <Column field="advanced_payment" header="Peşinat">
+                <template #body="slotProps">
+                    <div :style="{ 'backgroundColor': slotProps.data.advanced_payment ? 'red' : '', 'color': slotProps.data.advanced_payment ? 'white' : '' }">
+                        {{ $filters.formatPrice(slotProps.data.advanced_payment) }}
+                    </div>
                 
-            </template>
-            <template #footer>
-                {{ $filters.formatPrice(getFinanceTestListTotal.advance_payment) }}
-            </template>
-        </Column>
-        <Column field="total " header="Bakiye(Borç)">
-            <template #body="slotProps">
-                <div :style="{'backgroundColor':slotProps.data.total < -8 ? 'green':'','color':slotProps.data.total <-8 ? 'white':'black'}">
-                    {{ $filters.formatPrice(slotProps.data.total) }}
-                </div>
-            </template>
-            <template #footer>
-                {{ $filters.formatPrice(getFinanceTestListTotal.balance) }}
-            </template>
-        </Column>
-        <Column field="total" header="Bakiye (Üretim Hariç)">
-            <template #body="slotProps">
-                {{ $filters.formatPrice(slotProps.data.forwarding - slotProps.data.paid) }}
-            </template>
-            <template #footer>
-                {{ $filters.formatPrice(getFinanceTestListTotal.balanceExceptProduct) }}
-            </template>
-        </Column>
+                </template>
+                <template #footer>
+                    {{ $filters.formatPrice(getFinanceTestListTotal.advance_payment) }}
+                </template>
+            </Column>
+            <Column field="total " header="Bakiye(Borç)">
+                <template #body="slotProps">
+                    <div :style="{ 'backgroundColor': slotProps.data.total < -8 ? 'green' : '', 'color': slotProps.data.total < -8 ? 'white' : 'black' }">
+                        {{ $filters.formatPrice(slotProps.data.total) }}
+                    </div>
+                </template>
+                <template #footer>
+                    {{ $filters.formatPrice(getFinanceTestListTotal.balance) }}
+                </template>
+            </Column>
+            <Column field="total" header="Bakiye (Üretim Hariç)">
+                <template #body="slotProps">
+                    {{ $filters.formatPrice(slotProps.data.forwarding - slotProps.data.paid) }}
+                </template>
+                <template #footer>
+                    {{ $filters.formatPrice(getFinanceTestListTotal.balanceExceptProduct) }}
+                </template>
+            </Column>
 
-    </DataTable>
+        </DataTable>
+        </div>
+        <div class="col-3">
+            <maturity />
+        </div>
+    </div>
+    <div class="row m-auto mt-3 mb-5">
+        <div class="col">
+            <paidMaya />
+        </div>
+    </div>
+
     <Dialog v-model:visible="finance_test_form" :header="customer_name" modal>
         <detail :customer_id="customer_id"/>
     </Dialog>
@@ -110,10 +136,14 @@ import { socket } from '../../services/customServices/realTimeService';
 import { FilterMatchMode } from 'primevue/api';
 
 import detail from '../financetest/detail.vue';
+import maturity from '../financetest/maturity.vue';
+import paidMaya from '../financetest/paidMaya.vue';
 
 export default {
     components:{
         detail,
+        maturity,
+        paidMaya
     },
     computed:{
         ...mapState(useFinanceTestStore,[

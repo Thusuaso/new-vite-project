@@ -1,4 +1,5 @@
 <template>
+   
     <div class="row m-auto mt-3">
         <div class="col">
             <table class="table">
@@ -20,6 +21,11 @@
                 </table>
         </div>
     </div>
+     <div class="row m-auto mt-3">
+            <div class="col bg-danger m-auto text-center" style="color:white">
+                * Sarı renkli Po'lar MAYA USA hesabına gelmiştir.
+            </div>
+        </div>
     <div class="row m-auto mt-3">
         <div class="col">
             <DataTable 
@@ -29,8 +35,9 @@
                 v-model:selection="selectedDetail"
                 selectionMode="single"
                 @row-click="detailSelected($event)"
+                :rowClass="rowClass"
             >
-                <Column field="po" header="Po"></Column>
+                <Column field="po" header="Po" ></Column>
                 <Column field="product_date" header="Sipariş Tarihi"></Column>
                 <Column field="forwarding_date" header="Sevkiyat Tarihi"></Column>
 
@@ -98,7 +105,8 @@
     </Dialog>
 </template>
 <script>
-import {useFinanceTestStore} from '../../stores/financetest';
+import { useFinanceTestStore } from '../../stores/financetest';
+import { useLoadingStore } from '../../stores/loading';
 import {mapState} from 'pinia';
 
 import {financeServiceTest} from '../../services/financeServiceTest';
@@ -117,7 +125,7 @@ export default {
             'getFinanceTestDetailPaidList',
             'getFinanceTestDetailTotalList',
             'getFinanceTestDetailPaidTotalList'
-        ])
+        ]),
     },
     props:['customer_id'],
     data(){
@@ -132,18 +140,24 @@ export default {
             po:"",
         }
     },
-    methods:{
-        detailSelected(event){
+    methods: {
+        rowClass(event) {
+            return [{ 'bg-warning': event.maya_control === true }];
+        },
+        detailSelected(event) {
+            useLoadingStore().begin_loading_act();
             this.customer_id2 = event.data.customer_id;
             this.po = event.data.po;
             this.balance = event.data.balance;
             financeServiceTest.getPaymentDetail(event.data.customer_id,event.data.po).then(data=>{
                 useFinanceTestStore().finance_test_detail_payment_list_load_act(data);
+                useLoadingStore().end_loading_act();
                 this.payment_detail_form = true;
             });
 
         },
-        detailPaidSelected(event){
+        detailPaidSelected(event) {
+            useLoadingStore().begin_loading_act();
             const date = event.data.date.split('-');
             const year = date[0];
             const month = date[1];
@@ -152,6 +166,8 @@ export default {
             this.date = newDateFormat;
             financeServiceTest.getPaidDetailList(this.customer_id,newDateFormat).then(data=>{
                 useFinanceTestStore().finance_test_detail_paid_detail_list_load_act(data);
+                useLoadingStore().end_loading_act();
+
                 this.paid_detail_form = true;
             })
         }

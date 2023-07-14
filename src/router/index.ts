@@ -20,6 +20,7 @@ import { usaService } from '@/services/usaService';
 import { panelService } from '@/services/panelService';
 import { costService } from '@/services/costService';
 import { financeServiceTest } from '@/services/financeServiceTest';
+import { productionsService } from '@/services/productions';
 /*Stores */
 import { useHomeStore } from '@/stores/home';
 import { useLoadingStore } from '@/stores/loading';
@@ -44,6 +45,7 @@ import { todoService } from '@/services/todoService';
 import { useTodoStore } from '@/stores/todo';
 import { useCostStore } from '@/stores/cost';
 import { useFinanceTestStore } from '@/stores/financetest';
+import { useProductionsStore } from '@/stores/productions';
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -114,8 +116,26 @@ const router = createRouter({
       component: () => import('@/views/ShipmentView.vue'),
       beforeEnter: (to, from, next) => {
         cardService.getCardList().then(data => {
-            useCardStore().card_list_load_act(data)
-            next()
+          useCardStore().card_list_load_act(data);
+          useLoadingStore().begin_loading_act();
+          productionsService.getOrderList(3, '2023').then(data => {
+            useProductionsStore().productions_list_load_act(data.products);
+            useProductionsStore().productions_list_filter_load_act(data.products);
+            useProductionsStore().productions_unit_list_load_act(data.productUnit);
+            useProductionsStore().productions_supplier_list_load_act(data.supplier);
+            useProductionsStore().productions_delivery_list_load_act(data.delivery);
+            useProductionsStore().productions_payment_list_load_act(data.payment);
+            useProductionsStore().productions_invoice_list_load_act(data.invoice);
+            useProductionsStore().productions_country_list_load_act(data.country);
+            useProductionsStore().productions_customers_list_load_act(data.customers);
+            useProductionsStore().productions_users_list_load_act(data.users);
+            useProductionsStore().productions_status_id_load_act(3);
+            useProductionsStore().products_total_datatable_load_act(data.products);
+            useLoadingStore().end_loading_act();
+            next();
+
+          });
+            
         })
       }
     },

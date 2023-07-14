@@ -3,7 +3,9 @@
         <div class="col">
             <DataTable :value="getFinanceTestDetailPaidDetailList">
                 <Column field="sira" header="#"></Column>
-                <Column field="siparisno" header="Po"></Column>
+                <Column field="siparisno" header="Po">
+      
+                </Column>
                 <Column field="aciklama" header="Açıklama"></Column>
                 <Column field="tutar" header="Tutar">
                     <template #body="slotProps">

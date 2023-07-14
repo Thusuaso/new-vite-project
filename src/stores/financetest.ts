@@ -30,7 +30,8 @@ export const useFinanceTestStore = defineStore('financetest',{
                 'paid':0,
                 'cost':0,
             },
-            financeTestDetailPaymentList:[],
+            financeTestDetailPaymentList: [],
+            financeTestMayaList: [],
 
         }
     },
@@ -59,7 +60,7 @@ export const useFinanceTestStore = defineStore('financetest',{
         },
         finance_test_list_loac_act(data:any){
             this.financeTestList = [];
-            for(const item of data) {
+            for(const item of data.financeList) {
                 if(item.total == 0){
                     continue;
                 }else if (item.total > 8 || item.total < -8){
@@ -67,7 +68,8 @@ export const useFinanceTestStore = defineStore('financetest',{
                 }
             };
 
-            this.financeTestListAll = data;
+            this.financeTestListAll = data.financeList;
+            this.financeTestMayaList = data.mayaList;
             this.finance_test_total_list_load_act(this.financeTestList);
         },
         finance_test_total_list_load_act(data:any){
@@ -109,7 +111,10 @@ export const useFinanceTestStore = defineStore('financetest',{
             this.financeTestDetailPaymentList = data;
         }
     },
-    getters:{
+    getters: {
+        getFinanceTestMayaList(state) {
+            return state.financeTestMayaList;  
+        },
         getFinanceTestList(state){
             return state.financeTestList;
         },
