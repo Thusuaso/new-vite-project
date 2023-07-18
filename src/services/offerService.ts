@@ -39,5 +39,8 @@ export const offerService = {
     },
     getOffersAllList() {
         return api.get('/listeler/teklif/tumTeklifList').then(response => response.data);
+    },
+    setEnBoy(data: any) {
+        return api.post('/listeler/teklif/addEnBoy', data).then(response => response.data);
     }
 }

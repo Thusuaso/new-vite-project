@@ -82,6 +82,25 @@
         <div class="col">
             <button type="button" class="btn btn-secondary" @click="cancel">Vazgeç</button>
         </div>
+        <div class="col">
+          <button type="button" @click="addEnBoy" class="btn btn-primary">EnxBoy Ekle</button>
+          <OverlayPanel ref="op" appendTo="body" :showCloseIcon="true" :dismissable="true" style="width: 500px">
+            <div class="grid" style="text-align:center;">
+              <div class="col">
+              <InputText v-model="en" placeholder="En" @input="isEn"></InputText>
+
+              </div>
+              <div class="col"> 
+              <InputText v-model="boy" placeholder="Boy" @input="isBoy"></InputText>
+
+              </div>
+              <div class="col">
+              <button type="button" class="btn btn-success" @click="addEbat" :disabled="isEnBoyButton">Kaydet</button>
+
+              </div>
+            </div>
+          </OverlayPanel>
+        </div>
     </div>
     <div class="row m-auto mt-3">
         <div class="col-9">
@@ -143,7 +162,7 @@
                 </div>
             
             
-            </div>
+        </div>
     </div>
     
 </template>
@@ -152,6 +171,7 @@ import { useOfferStore } from '../../stores/offer';
 import { mapState } from 'pinia';
 
 import { localDateService } from '../../services/localDateService';
+import { offerService } from '../../services/offerService';
 export default {
     computed: {
         ...mapState(useOfferStore, [
@@ -169,6 +189,9 @@ export default {
     },
     data() {
         return {
+            isEnBoyButton: false,
+            en: "",
+            boy:"",
             selectedProductList:{},
             selectedCategory: null,
             filteredOfferCategoryList: [],
@@ -218,6 +241,44 @@ export default {
 
     },
     methods: {
+        addEbat() {
+            this.isEnBoyButton = true;
+            this.$refs.op.hide();
+            const datas = {
+                olcu: this.en + "x" + this.boy,
+            };
+
+            offerService.setEnBoy(datas).then((data) => {
+                if (data.status) {
+                    this.$toast.add({
+                        severity: "success",
+                        summary: "Success Message",
+                        detail: "Başarıyla Kaydedildi",
+                        life: 3000,
+                    });
+                    useOfferStore().offer_length_list_load_act(data.datas);
+                    this.isEnBoyButton = false
+                } else {
+                    this.$toast.add({
+                        severity: "error",
+                        summary: "Error Message",
+                        detail: "Kaydetme Başarısız",
+                        life: 3000,
+                    });
+                }
+            });
+        },
+        isEn(event) {
+            this.en = event.replace(".", ",");
+            this.isEnBoyButton = false;
+        },
+        isBoy(event) {
+            this.boy = event.replace(".", ",");
+            this.isEnBoyButton = false;
+        },
+        addEnBoy(event){
+            this.$refs.op.toggle(event);
+        },
         stringToDateNullControl(value) {
             if (value == null || value == "" || value == "NaN-NaN-NaN") {
                 return null;

@@ -328,7 +328,6 @@ export default {
         },
         update() {
             useLoadingStore().begin_loading_act();
-
             this.offer_save_disabled = true;
             this.customerControl(this.selectedShopper);
             this.getOfferModelList.tarih = this.dateNullControl(this.o_date);
@@ -344,19 +343,16 @@ export default {
                 'guncellenenMusteri': this.customerUpdateList,
                 'kullaniciAdi': localStorage.getItem('username'),
             };
-
             offerService.update(data).then(data => {
                 if (data.status) {
                     socket.socketIO.emit('offer_list_emit');
                     socket.socketIO.emit('offer_detail_list_emit', localStorage.getItem('userId'));
                     this.offer_save_disabled = false;
                     useLoadingStore().end_loading_act();
-
                     this.$toast.add({ severity: 'success', detail: 'Başarıyla Güncellendi', life: 3000 });
                 } else {
                     this.offer_save_disabled = false;
                     useLoadingStore().end_loading_act();
-
                     this.$toast.add({ severity: 'error', detail: 'Güncelleme Başarısız', life: 3000 });
                 };
             });

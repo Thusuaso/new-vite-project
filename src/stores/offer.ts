@@ -89,6 +89,9 @@ export const useOfferStore = defineStore('offer', {
                 this.offer_products_list_load_act(item);
             };
         },
+        offer_length_list_load_act(data: any) {
+            this.offerLengthList = data;
+        },
         offer_new_button_load_act(data: any) {
             this.offerNewButton = data;
             if (data) {

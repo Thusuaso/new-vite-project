@@ -15,7 +15,7 @@
             </p>
             <p class="card-text">
             <small class="text-body-secondary">
-                <button type="button" class="btn btn-success" @click="send">Gönder</button>
+                <button type="button" class="btn btn-success" @click="send" :disabled="chat_button_disabled">Gönder</button>
             </small></p>
           </div>
         </div>
@@ -24,17 +24,23 @@
 
 </template>
 <script>
-import { productionsService } from '../../../services/productions';
 import { useProductionsStore } from '../../../stores/productions';
+import { useLoadingStore } from '../../../stores/loading';
 import { mapState } from 'pinia';
+
+import { productionsService } from '../../../services/productions';
+
 export default {
     props: ['chatsData', 'po','chatList'],
     computed: {
-        ...mapState(useProductionsStore,['getProductChatWhoSend'])
+        ...mapState(useProductionsStore, [
+            'getProductChatWhoSend'
+        ])
     },
     data() {
         return {
-            message:"",
+            message: "",
+            chat_button_disabled:false,
         }
     },
     created() {
@@ -44,21 +50,26 @@ export default {
     },
     methods: {
         send() {
+            this.chat_button_disabled = true;
+            useLoadingStore().begin_loading_act();
             const datas = {
                 'po': this.po,
                 'gonderen': this.getProductChatWhoSend.kullaniciAdi + ' ' + this.getProductChatWhoSend.kullaniciSoyAd,
                 'alici': this.chatsData.mailAdres,
                 'metin': this.message,
                 'bugun': new Date(),
-            }
+            };
             productionsService.sendChatsMail(datas).then(data => {
                 if (data) {
-                    this.$toast.add({ severity: 'success', detail: 'Mesajınız başarıyla iletildi', life: 300 });
+                    useLoadingStore().end_loading_act();
+                    this.chat_button_disabled = false;
+                    this.$toast.add({ severity: 'success', detail: 'Mesajınız başarıyla iletildi', life: 3000 });
                 } else {
-                    this.$toast.add({ severity: 'error', detail: 'Mesaj gönderimi başarısız', life: 300 });
-
-                }
-            })
+                    useLoadingStore().end_loading_act();
+                    this.chat_button_disabled = false;
+                    this.$toast.add({ severity: 'error', detail: 'Mesaj gönderimi başarısız', life: 3000 });
+                };
+            });
         },
         
     }

@@ -192,14 +192,13 @@ export default {
     },
     methods: {
         clearPo(event) {
-            console.log('clear',event)
+            this.filteres_shopper_list_form = false;
+            this.filteredShopperList = [];
         },
         poSelected(event) {
-            console.log(this.getShopperList);
-            console.log(event);
-
             this.filteres_shopper_list_form = true;
-            this.filteredShopperList = this.getShopperList.find(x => x.id == event.value.id);
+            this.filteredShopperList = [];
+            this.filteredShopperList.push(this.getShopperList.find(x => x.id == event.value.id));
         },
         searchPo(event) {
             console.log(event);

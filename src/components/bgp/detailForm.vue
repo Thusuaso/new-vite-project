@@ -1,5 +1,4 @@
 <template>
-    {{ getBgpListDetailModel }}
     <br/>
     <div class="container text-center">
       <div class="row">

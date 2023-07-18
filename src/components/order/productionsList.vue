@@ -16,6 +16,7 @@
       selectionMode="single"
       @row-select="siparisSecim($event)"
       @filter="productFilterEvent($event)"
+      :rowStyle="rowStyle"
     >
         <template #header>
             <div class="row">
@@ -65,16 +66,19 @@
               ></Button>
           </template>
         </Column>
-        <Column field="siparisNo" header="PO" 
-        :showFilterMenu="false"
+        <Column 
+                field="siparisNo"
+                header="PO" 
+                :showFilterMenu="false"
                 :showFilterOperator="false"
                 :showClearButton="false"
                 :showApplyButton="false"
                 :showFilterMatchModes="false"
                 :showAddButton="false"
-        :filterMenuStyle="{ width: '14rem' }">
+                :filterMenuStyle="{ width: '14rem' }"
+        >
           <template #body="slotProps">
-            {{ slotProps.data.siparisNo }}
+              {{ slotProps.data.siparisNo }}
           </template>
           <template #filter="{ filterModel, filterCallback }">
                 <InputText v-model="filterModel.value" type="text" style="width:50px;" @input="filterCallback()" class="p-column-filter" placeholder="Search by name" />
@@ -231,7 +235,9 @@ export default {
         'productionsDetailModel',
         'getProductStatusId',
         'getProductionsListTotal'
-      ])
+      ]),
+
+
   },
   components: {
     orderForm
@@ -257,7 +263,27 @@ export default {
             }
         }
     },
-    methods: {
+  methods: {
+    rowStyle(event) {
+      console.log(event)
+      if (event.operasyon == 'semih' && event.operasyon == localStorage.getItem('username').toLowerCase()) {
+        return { 'backgroundColor': '#d1e0f2' };
+      } else if (event.operasyon == 'hakan' && event.operasyon == localStorage.getItem('username').toLowerCase()) {
+        return { 'backgroundColor': '#d1e0f2' };
+      } else if (event.operasyon == 'ozlem' && event.operasyon == localStorage.getItem('username').toLowerCase()) {
+        return { 'backgroundColor': '#d1e0f2' };
+      } else if (event.temsilci == 'hakan' && event.temsilci == localStorage.getItem('username').toLowerCase()) {
+        return {'backgroundColor':'#d1e0f2' }
+      } else if (event.temsilci == 'semih' && event.temsilci == localStorage.getItem('username').toLowerCase()) {
+        return { 'backgroundColor': '#d1e0f2' };
+      } else if (event.temsilci == 'ozlem' && event.temsilci == localStorage.getItem('username').toLowerCase()) {
+        return { 'backgroundColor': '#d1e0f2' };
+      } else if (event.operasyon == 'gizem' && event.operasyon == localStorage.getItem('username').toLowerCase()) {
+        return { 'backgroundColor': '#d1e0f2' };
+      } else if (event.temsilci == 'gizem' && event.temsilci == localStorage.getItem('username').toLowerCase()) {
+        return { 'backgroundColor': '#d1e0f2' };
+      }
+    },
       siparisSecim(event) {
         useLoadingStore().begin_loading_act();
         useProductionsStore().productions_new_button_load_act(false);

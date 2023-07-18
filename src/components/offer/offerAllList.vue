@@ -296,7 +296,7 @@ export default {
             offerService.getOfferAllRepresentativeList(userId).then(data => {
                 useOfferStore().offer_all_list_load_act(data);
                 useLoadingStore().end_loading_act();
-                this.emitter.emit('offer_all_representative_dialog', true);
+                // this.emitter.emit('offer_all_representative_dialog', true);
             });
         });
     }
