@@ -166,7 +166,9 @@ export default {
             useProductionsStore().products_save_button_status_load_act(false);
         },
         selectedODate(event) {
+            
             this.productionsDetailModel.siparis.tahminiYuklemeTarihi = localDateService.getDateString(event);
+            console.log(localDateService.getDateString(event))
             useProductionsStore().products_save_button_status_load_act(false);
         },
         changeCustomer(event) {
