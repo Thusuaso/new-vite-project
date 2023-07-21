@@ -14,7 +14,8 @@ const emitter = mitt();
 import 'bootstrap';
 /*Prime Vue */
 import PrimeVue from 'primevue/config';
-import "primevue/resources/themes/rhea/theme.css"     
+// import "primevue/resources/themes/rhea/theme.css"     
+import "primevue/resources/themes/viva-light/theme.css";
 import "primevue/resources/primevue.min.css";
 import "primeicons/primeicons.css";
 

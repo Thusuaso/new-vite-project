@@ -313,14 +313,22 @@ export default {
         },
         changePayment(event) {
             if (event.value.id == 1 || event.value.id == 2) {
-                this.getProductionsDetailModel.siparis.siparisDurumId = 1
+                this.getProductionsDetailModel.siparis.siparisDurumId = 1;
             } else if (event.value.id == 3) {
-                this.getProductionsDetailModel.siparis.siparisDurumId = 2
+                this.getProductionsDetailModel.siparis.siparisDurumId = 2;
+                this.getProductionsDetailModel.siparis.pesinat = 0;
             };
             if(event.value.id == 2 && localStorage.getItem('userId') == 12){
                 this.emitter.emit('open_advanced_payment',false);
             }else{
                 this.emitter.emit('open_advanced_payment', true);
+            };
+            if(event.value.id == 1){
+                let result = 0;
+                for(const item of this.getProductionsDetailModel.siparisUrunler){
+                    result += item.satisToplam;
+                }
+                this.getProductionsDetailModel.siparis.pesinat = result;
             }
             this.getProductionsDetailModel.siparis.odemeTurId = event.value.id;
             useProductionsStore().products_save_button_status_load_act(false);

@@ -6,7 +6,7 @@
                 <orderInformation/>
             </TabPanel>
             <TabPanel header="Proforma">
-                <proformaInformation/>
+                <proformaInformation />
             </TabPanel>
             <TabPanel header="Masraf" v-if="!getProductionsNewButton">
                 <costInformation/>

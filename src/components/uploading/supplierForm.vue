@@ -1,6 +1,4 @@
 <template>
-    {{ filterSupplierList }}
-    {{ getUploadingSupplierList }}
     <div class="row m-auto mt-3">
         <div class="col">
             <AutoComplete

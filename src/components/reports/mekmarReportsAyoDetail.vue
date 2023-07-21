@@ -1,7 +1,7 @@
 <template>
     <div class="row m-auto mt-3">
         <div class="col">
-            <DataTable :value="getMekmarAyoDetailCostList" tableStyle="min-width: 50rem;font-size:70%" class="p-datatable-sm">
+            <DataTable :value="getMekmarAyoDetailCostList" tableStyle="font-size:60%" class="p-datatable-sm">
                 <template #header>
                     Masraflar
                 </template>

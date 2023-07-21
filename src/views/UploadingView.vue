@@ -100,6 +100,7 @@ export default {
         ...mapState(useUploadingStore, [
             'getUploadingProductList',
             'getUploadingFolderList',
+            'getUploadingProductFolderList'
         ])
     },
     components: {
@@ -194,10 +195,17 @@ export default {
             this.invoiceId = event.data.Faturaid;
             this.po = this.selectedUploadingProduct.siparisno;
             this.folderName = event.data.faturaadi;
-            if (event.data.Faturaid) {
-                this.is_form2 = true;
-            } else {
+            if (
+                event.data.Faturaid != 30 &&
+                event.data.Faturaid != 40 &&
+                event.data.Faturaid != 13 &&
+                event.data.Faturaid != 73 &&
+                event.data.Faturaid != 50 &&
+                event.data.Faturaid != 3
+            ) {
                 this.is_form = true;
+            } else {
+                this.is_form2 = true;
             }
         },
         uploadingProductSelected(event) {

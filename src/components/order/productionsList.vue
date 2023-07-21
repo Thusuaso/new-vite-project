@@ -265,7 +265,6 @@ export default {
     },
   methods: {
     rowStyle(event) {
-      console.log(event)
       if (event.operasyon == 'semih' && event.operasyon == localStorage.getItem('username').toLowerCase()) {
         return { 'backgroundColor': '#d1e0f2' };
       } else if (event.operasyon == 'hakan' && event.operasyon == localStorage.getItem('username').toLowerCase()) {

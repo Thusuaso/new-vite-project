@@ -60,6 +60,8 @@
                     v-model:selection="selectedMekmarAyo"
                     selectionMode="single"
                     @row-click="mekmarAyoSelected($event)"
+                    scrollable
+                    scrollHeight="500px"
                 >
                 <Column 
                     field="siparisci" 
