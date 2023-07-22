@@ -30,5 +30,8 @@ export const financeServiceTest = {
     },
     getMaturityList() {
         return api.get('/finans/listeler/vadeYeniAnaListe').then(response => response.data);
+    },
+    getDetailExcelList(data:any) {
+        return api.post('/finans/dosyalar/konteynerAyrintiExcelListe',data).then(response => response.data);
     }
 }

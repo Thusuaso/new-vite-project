@@ -28,6 +28,11 @@
         </div>
     <div class="row m-auto mt-3">
         <div class="col">
+            <button type="button" class="btn btn-primary" @click="excel_output">Excel</button>
+        </div>
+    </div>
+    <div class="row m-auto mt-3">
+        <div class="col">
             <DataTable 
                 :value="getFinanceTestDetailList"
                 scrollable
@@ -107,6 +112,7 @@
 <script>
 import { useFinanceTestStore } from '../../stores/financetest';
 import { useLoadingStore } from '../../stores/loading';
+import { useLocalStore } from '../../stores/local';
 import {mapState} from 'pinia';
 
 import {financeServiceTest} from '../../services/financeServiceTest';
@@ -126,6 +132,9 @@ export default {
             'getFinanceTestDetailTotalList',
             'getFinanceTestDetailPaidTotalList'
         ]),
+        ...mapState(useLocalStore, [
+            'getLocalServiceUrl'
+        ])
     },
     props:['customer_id'],
     data(){
@@ -141,6 +150,18 @@ export default {
         }
     },
     methods: {
+        excel_output() {
+            financeServiceTest.getDetailExcelList(this.getFinanceTestDetailList).then((res) => {
+                if (res.status) {
+                    const link = document.createElement("a");
+                    link.href = this.getLocalServiceUrl + "finans/dosyalar/konteynerAyrintiExcelListe";
+
+                    link.setAttribute("download", "konteynır_ayrinti.xlsx");
+                    document.body.appendChild(link);
+                    link.click();
+                }
+            });
+        },
         rowClass(event) {
             return [{ 'bg-warning': event.maya_control === true }];
         },
