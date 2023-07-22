@@ -316,6 +316,11 @@ export default {
       productFilterEvent(event) {
         useProductionsStore().products_total_datatable_load_act(event.filteredValue);
       },
-    }
+  },
+  mounted() {
+    this.emitter.on('products_closed_dialog', () => {
+      this.product_detail_form = false;
+    })
+  }
 }
 </script>

@@ -188,6 +188,11 @@ export default {
                 }
             });
         }
+    },
+    mounted() {
+        this.emitter.on('products_closed_dialog', () => {
+            this.order_form = false;
+        })
     }
 }
 </script>

@@ -114,6 +114,7 @@ export default {
                     }
                 }
                 socket.socketIO.emit('products_update_emit', productStatus);
+                this.emitter.emit('products_closed_dialog');
                 useLoadingStore().end_loading_act();
                 this.$toast.add({ severity: 'success', detail: 'Başarıyla Kaydedildi', life: 3000 });
                 useProductionsStore().products_save_button_status_load_act(false);
@@ -155,6 +156,8 @@ export default {
                     }
 
                     socket.socketIO.emit('products_update_emit', productStatus);
+                    this.emitter.emit('products_closed_dialog');
+
                     useLoadingStore().end_loading_act();
                     this.$toast.add({ severity: 'success', detail: 'Başarıyla Kaydedildi', life: 3000 });
             useProductionsStore().products_save_button_status_load_act(false);
