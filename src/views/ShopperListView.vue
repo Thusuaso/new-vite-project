@@ -11,7 +11,6 @@
         <div class="col">
             <DataTable 
                 :value="filteres_shopper_list_form ? filteredShopperList : getShopperList" 
-                tableStyle="min-width: 50rem" 
                 paginator 
                 :rows="15"
                 sortField="sira"

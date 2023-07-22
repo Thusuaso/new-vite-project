@@ -3,7 +3,7 @@
         <div class="col-1">
             <Dropdown v-model="selectedYear" :options="getMekmarLoadingYearList" optionLabel="yil" class="w-full md:w-14rem" @change="changeYear($event)"/>
         </div>
-        <div class="col-1">
+        <div class="col-2">
             <Dropdown v-model="selectedMonth" :options="getMekmarLoadingMonthList" optionLabel="ay_str" class="w-full md:w-14rem" @change="changeMonth($event)"/>
         </div>
         <div class="col-1">

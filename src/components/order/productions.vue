@@ -83,7 +83,7 @@
     <br/>
     <productionsList :title="title"/>
 
-    <Dialog v-model:visible="order_form" header="Yeni Sipariş" modal :style="{ width: '100vw' }">
+    <Dialog v-model:visible="order_form" header="Yeni Sipariş" modal :style="{ width: '100vw' }" :closeOnEscape="false">
         <orderForm/>
     </Dialog>
 </template>

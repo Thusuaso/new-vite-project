@@ -106,7 +106,6 @@
                     <li><a class="dropdown-item" href="/reports/mekmar/order/summary">Sipariş Özet</a></li>
                     <li><a class="dropdown-item" href="/reports/mekmar/order/mk">Mk Raporları</a></li>
                     <li><a class="dropdown-item" href="/reports/mekmar/order/gu">GU Raporları</a></li>
-                    <li><a class="dropdown-item" href="/reports/mekmar/todo/list">Yapılacaklar</a></li>
 
                   </ul>
             </li>

@@ -153,6 +153,7 @@ export default {
             new_company_form: false,
             file_disabled_form: true,
             save_disabled_form: false,
+            company_id:0,
         }
     },
     methods: {
@@ -165,7 +166,7 @@ export default {
             })
         },
         uploadDocument(event) {
-            fileService.sendInvoiceShipping(event.files[0], this.invoiceId, this.invoiceName + '.pdf').then(data => {
+            fileService.sendInvoiceShipping(event.files[0], this.company_id, this.invoiceName + '.pdf').then(data => {
                 console.log(data);
                 this.newShippingList[0].kullaniciId = localStorage.getItem('userId');
                 shippingService.invoiceFileSave(this.newShippingList).then(data => {
@@ -251,6 +252,7 @@ export default {
         },
         companySelected(event) {
             this.shippingModel.Firma_id = event.value.Firma_id;
+            this.company_id = event.value.Firma_id;
             this.is_company_selected = true;
         },
         searchCompany(event) {

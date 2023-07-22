@@ -1,5 +1,5 @@
 <template>
-    <div class="row m-auto mt-3">
+    <div class="row m-auto mt-2">
         <div class="col">
             <div class="form-check form-switch">
                 <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" v-model="all">
@@ -13,11 +13,11 @@
             </div>
         </div>
     </div>
-    <div class="row m-auto mt-3">
+    <div class="row m-auto mt-0">
         <div class="col-9">
         <DataTable 
             :value="!all ? getFinanceTestList : getFinanceTestListAll" 
-            tableStyle="min-width: 50rem" 
+            style="font-size:85%;"
             sortField="total" 
             sortOrder="-1" 
             scrollable 
@@ -29,9 +29,6 @@
             @row-click="financeSelected($event)"
         
         >
-            <template #header>
-                Finans Ana Liste
-            </template>
             <Column 
                 field="customer_name" 
                 header="Müşteri"

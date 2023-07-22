@@ -31,7 +31,7 @@
                         <div class="col">
                             <div class="input-group mb-3 ">
                                 <span class="input-group-text" id="basic-addon1" style="width:40%;height:50px;">Alış $</span>
-                                <input type="text" class="form-control" aria-label="Username" :disabled="form_status" aria-describedby="basic-addon1" v-model="products.alisFiyati">
+                                <input type="text" class="form-control" aria-label="Username" :disabled="form_status" aria-describedby="basic-addon1" v-model="products.alisFiyati" @input="products.alisFiyati = $filters.formatPoint($event.target.value)">
                             </div>
                         </div>
                     </div>
@@ -46,7 +46,7 @@
                             <div class="col">
                                 <div class="input-group mb-3 ">
                                     <span class="input-group-text" id="basic-addon1" style="width:40%;height:50px;">Satış $</span>
-                                    <input type="text" class="form-control" aria-label="Username" :disabled="form_status" aria-describedby="basic-addon1"  v-model="products.satisFiyati">
+                                    <input type="text" class="form-control" aria-label="Username" :disabled="form_status" aria-describedby="basic-addon1"  v-model="products.satisFiyati" @input="products.satisFiyati = $filters.formatPoint($event.target.value)">
                                 </div>
                             </div>
                     </div>
@@ -202,10 +202,10 @@
                 </template>
         </Column>
     </DataTable>
-    <Dialog v-model:visible="product_card_form" header="Ürünler" modal>
+    <Dialog v-model:visible="product_card_form" header="Ürünler" modal :closeOnEscape="false">
         <cards @productCardSelected="productCardSelected($event)"/>
     </Dialog>
-    <Dialog v-model:visible="workmanship_form" header="İşçilik" modal>
+    <Dialog v-model:visible="workmanship_form" header="İşçilik" modal :closeOnEscape="false">
         <workmanship :orderNo="getProductionsDetailModel.siparis.siparisNo" :productId="products.urunKartId"/>
     </Dialog>
 </template>

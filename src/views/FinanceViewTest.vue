@@ -1,5 +1,5 @@
 <template>
-    <div class="row m-auto mt-3">
+    <div class="row m-auto mt-0">
         <div class="col">
             <button type="button" class="btn btn-primary" @click="paymentList">Tahsilat</button>
         </div>

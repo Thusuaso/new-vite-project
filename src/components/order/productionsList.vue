@@ -212,7 +212,7 @@
         </Column>
     </DataTable>
 
-    <Dialog v-model:visible="product_detail_form" :header="po" modal :style="{ width: '100vw' }"> 
+    <Dialog v-model:visible="product_detail_form" :header="po" modal :style="{ width: '100vw' }" :closeOnEscape="false"> 
         <orderForm :po="po"/>
     </Dialog>
 

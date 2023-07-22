@@ -53,8 +53,6 @@ export default ({
     RouterView
   },
   beforeCreate() {
-
-
     const data = {
       username: localStorage.getItem('username'),
       userId: localStorage.getItem('userId')
@@ -75,6 +73,8 @@ export default ({
 })
 </script>
 
-<style scoped>
-
+<style>
+  .p-datatable{
+    font-size:85%;
+  }
 </style>

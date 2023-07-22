@@ -92,7 +92,7 @@ export default {
             useLoadingStore().begin_loading_act();
             useProductionsStore().products_save_button_status_load_act(true);
             this.getProductionsDetailModel.siparis.kullaniciId = localStorage.getItem('userId');
-            this.getProductionsDetailModel.siparis.kayit_kisi = localStorage.getItem('userId');
+            this.getProductionsDetailModel.siparis.kayit_kisi = localStorage.getItem('username');
             productionsService.saveProductions(this.getProductionsDetailModel).then(data => {
 
             if (data.status) {
@@ -134,7 +134,7 @@ export default {
 
             this.getProductionsDetailModel.degisimMasraflar = [];
             this.getProductionsDetailModel.siparis.kullaniciId = localStorage.getItem('userId');
-            this.getProductionsDetailModel.siparis.kayit_kisi = localStorage.getItem('userId');
+            this.getProductionsDetailModel.siparis.kayit_kisi = localStorage.getItem('username');
             productionsService.updateProductions(this.getProductionsDetailModel).then(data => {
                 if (data.status) {
                     let productStatus;
