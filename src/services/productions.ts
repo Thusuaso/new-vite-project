@@ -91,5 +91,8 @@ getIcSiparisExcelListesi(data_list:any) {
     },
     getUsersList() {
         return api.get('/listeler/kullaniciList').then(response => response.data);
+    },
+    deleteProforma(po: any) {
+        return api.get(`/siparis/delete/proforma/${po}`).then(response => response.data);
     }
 }

@@ -12,16 +12,24 @@
             
         </Column>
         <Column field="kullanici" header="Yükleyen"></Column>
+        <Column header="">
+            <template #body="slotProps">
+                <button type="button" class="btn btn-danger" v-if="slotProps.data.faturano == 2" @click="deleteProforma">Sil</button>
+            </template>
+        </Column>
     </DataTable>
 </template>
 <script>
 import { useProductionsStore } from '../../stores/productions';
 import { mapState } from 'pinia';
 
+import { productionsService } from '../../services/productions';
+import { socket } from '../../services/customServices/realTimeService';
 export default {
     computed: {
         ...mapState(useProductionsStore, [
-            'getProductDetailDocumentList'
+            'getProductDetailDocumentList',
+            'getProductionsDetailModel'
         ])
     },
     methods: {
@@ -31,6 +39,16 @@ export default {
             link.setAttribute("download", `${documentName}.pdf`);
             document.body.appendChild(link);
             link.click();
+        },
+        deleteProforma() {
+            productionsService.deleteProforma(this.getProductionsDetailModel.siparis.siparisNo).then(data => {
+                if (data) {
+                    socket.socketIO.emit('products_detail_update_emit', this.getProductionsDetailModel.siparis.siparisNo);
+                    this.$toast.add({ severity: 'success', detail: 'Başarıyla Silindi', life: 3000 });
+                } else {
+                    this.$toast.add({ severity: 'error', detail: 'Silme Başarısız', life: 3000 });
+                };
+            })
         }
     }
 }

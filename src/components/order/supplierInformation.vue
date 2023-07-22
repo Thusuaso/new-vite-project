@@ -194,6 +194,7 @@ import { mapState } from 'pinia';
 import { localDateService } from '../../services/localDateService';
 import { productionsService } from '../../services/productions';
 import { fileService } from '../../services/fileService';
+import { socket } from '../../services/customServices/realTimeService';
 
 import CustomInputFile from "../../components/shared/CustomInputFile.vue";
 
@@ -555,6 +556,7 @@ export default {
                                 this.$toast.add({ severity: 'success', summary: 'ISF', detail: 'ISF başarıyla kaydedildi', life: 3000 });
 
                                 this.IcSiparisDosyaGonder();
+                                socket.socketIO.emit('products_detail_update_emit', this.getProductionsDetailModel.siparis.siparisNo);
                             } else {
                                 this.$toast.add({ severity: 'error', summary: 'ISF', detail: 'ISF kaydedilemedi, Lütfen tekrar deneyiniz.', life: 3000 });
 

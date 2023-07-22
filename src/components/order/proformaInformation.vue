@@ -223,6 +223,7 @@ import { mapState } from 'pinia';
 import { localDateService } from '../../services/localDateService';
 import { fileService } from '../../services/fileService';
 import { productionsService } from '../../services/productions';
+import { socket } from '../../services/customServices/realTimeService';
 export default {
     computed: {
         ...mapState(useProductionsStore, [
@@ -277,6 +278,7 @@ export default {
                                 }
                                 productionsService.saveProforma(proformaData).then(data => {
                                     if (data.status) {
+                                        socket.socketIO.emit('products_detail_update_emit', this.getProductionsDetailModel.siparis.siparisNo);
                                         this.$toast.add({ severity: 'success', detail: 'Evrak Başarıyla Yüklendi', life: 3000 })
                                     } else {
                                         this.$toast.add({ severity: 'error', detail: 'Evrak Yükleme Başarısız, Lütfen Tekrar Deneyiniz.', life: 3000 })

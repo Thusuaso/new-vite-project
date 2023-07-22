@@ -226,7 +226,7 @@ import { useLoadingStore } from '../../stores/loading';
 import { mapState } from 'pinia';
 import { FilterMatchMode } from "primevue/api";
 import { productionsService } from '../../services/productions';
-
+import { socket } from '../../services/customServices/realTimeService';
 export default {
     props: ['title'],
     computed: {
@@ -320,6 +320,26 @@ export default {
   mounted() {
     this.emitter.on('products_closed_dialog', () => {
       this.product_detail_form = false;
+    });
+    socket.socketIO.on('products_detail_update_on', (po) => {
+      useLoadingStore().begin_loading_act();
+      useProductionsStore().productions_new_button_load_act(false);
+      productionsService.getOrderDetail(po).then(data => {
+        useProductionsStore().product_detail_cost_list(data.costList);
+        useProductionsStore().product_total_load_act(data.productList);
+        useProductionsStore().productions_detail_model_load_act(data.productList);
+        useProductionsStore().product_detail_check_list(data.checkList);
+        useProductionsStore().product_detail_document_list(data.documentList);
+        useProductionsStore().products_detail_supplier_list(data.supplierList);
+        useProductionsStore().products_supplier_delivery_list(data.supplierDeliveryList);
+        useProductionsStore().products_supplier_invoice_list(data.supplierInvoiceList);
+        useProductionsStore().product_detail_order_information_load_act(data.orderInformationList);
+        useProductionsStore().product_detail_users_list_load_act(data.usersList);
+        useProductionsStore().product_detail_chat_list_load_act(data.chatList);
+        useProductionsStore().products_save_button_status_load_act(true);
+        useLoadingStore().end_loading_act();
+
+      });
     })
   }
 }
