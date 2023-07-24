@@ -1,5 +1,5 @@
 <template>
-    <DataTable :value="getShopperSellerProductList" tableStyle="min-width: 50rem">
+    <DataTable :value="getShopperSellerProductList" style="font-size:85%;">
         <Column field="kategori" header="Kategori"></Column>
         <Column field="urunAdi" header="Ürün"></Column>
         <Column field="en" header="En"></Column>

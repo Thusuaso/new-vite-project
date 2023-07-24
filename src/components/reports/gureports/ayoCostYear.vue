@@ -11,6 +11,7 @@
                 v-model:selection="selectedAyoDetail"
                 selectionMode="single"
                 @row-click="ayoDetailSelected($event)"
+                style="font-size:85%;"
                 >
                 <Column 
                         field="musteri_adi" 

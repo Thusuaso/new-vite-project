@@ -60,6 +60,7 @@
                 v-model:selection="selectedPayment"
                 selectionMode="single"
                 @row-click="paymentSelected($event)"
+                style="font-size:85%;"
             >
                 <Column field="tarih" header="Tarih"></Column>
                 <Column field="siparisno" header="Po"></Column>

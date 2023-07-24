@@ -73,7 +73,7 @@
         <div class="col">
             <div class="row">
                 <div class="col">
-                    <DataTable :value="forwardingCrateList" dataKey="kasano" ref="forwardingCrate">
+                    <DataTable :value="forwardingCrateList" dataKey="kasano" ref="forwardingCrate" style="font-size:85%;">
                         <Column headerStyle="width: 3rem" field="kasa_secim">
                             <template #body="slotProps">
                                 <div class="form-check">
@@ -103,7 +103,7 @@
             
         </div>
         <div class="col">
-            <DataTable  :value="getModel.kasalistesi" class="p-datatable-sm">
+            <DataTable  :value="getModel.kasalistesi" style="font-size:85%;">
                 <Column field="kasano" header="Kasa No"></Column>
                 <Column field="urunadi" header="Ürün"></Column>
                 <Column field="yuzeyislem" header="Yüzey"></Column>

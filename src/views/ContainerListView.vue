@@ -3,7 +3,7 @@
         <div class="col">
             <DataTable 
                     v-model:value="getContainerList" 
-                    tableStyle="min-width: 50rem" 
+                    style="font-size:85%;"
                     paginator 
                     :rows="15"
                     v-model:filters="filters"

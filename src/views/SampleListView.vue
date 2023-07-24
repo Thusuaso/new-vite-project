@@ -20,6 +20,7 @@
                 v-model:selection="selectedSample"
                 selectionMode="single"
                 @row-click="sampleSelected($event)"
+                style="font-size:85%;"
 
             >
                 <Column 

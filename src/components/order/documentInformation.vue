@@ -1,5 +1,5 @@
 <template>
-    <DataTable :value="getProductDetailDocumentList">
+    <DataTable :value="getProductDetailDocumentList" style="font-size:85%;">
         <Column field="faturano" header="#"></Column>
         <Column field="yuklemeTarihi" header="Yükleme Tarihi"></Column>
         <Column field="adi" header="Evrak Adı"></Column>

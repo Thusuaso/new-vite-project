@@ -1,5 +1,5 @@
 <template>
-    <DataTable :value="getWarehouseList" tableStyle="" class="p-datatable-sm">
+    <DataTable :value="getWarehouseList" style="font-size:85%;">
         <template #header>
             Depo Alacak Listesi
         </template>

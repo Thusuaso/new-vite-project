@@ -1,8 +1,7 @@
 <template>
         <DataTable 
             :value="getShowingFinanceList" 
-            class="p-datatable-sm" 
-            tableStyle="min-width: 50rem " 
+            style="font-size:85%;"
             @filter="financeFilterList($event)" 
             v-model:filters="filters" 
             filterDisplay="row" 

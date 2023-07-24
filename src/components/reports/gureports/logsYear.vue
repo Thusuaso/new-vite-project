@@ -5,6 +5,7 @@
                 :value="getMekmarGuLogsList"
                 v-model:filters="filters"
                 filterDisplay="row"
+                style="font-size:85%;"
             >
                 <Column 
                     field="yil" 

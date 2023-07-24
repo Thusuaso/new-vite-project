@@ -47,7 +47,7 @@
 
     <DataTable 
     :value="getWorkmanshipList" 
-    tableStyle="min-width: 50rem" 
+    style="font-size:85%;"
     v-model:selection="workmanshipSelected" 
     selectionMode="single" 
     @row-click="workmanshipSelectedList($event)"

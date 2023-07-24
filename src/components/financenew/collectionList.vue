@@ -10,7 +10,7 @@
     <br/>
     <DataTable 
             :value="getCollectionList" 
-            tableStyle="min-width: 50rem" 
+            style="font-size:85%;" 
             scrollable scrollHeight="400px" 
             @filter="financeCollectionFilter($event)" 
             v-model:filters="filters" 

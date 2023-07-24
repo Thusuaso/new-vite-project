@@ -215,6 +215,7 @@
                                 :value="surfaceProductList" 
                                 v-model:selection="selectedSurfaceProduct"
                                 selectionMode="single"
+                                style="font-size:85%;"
                             >
                                 <Column field="name" header="Yüzey"></Column>
                             </DataTable>
@@ -250,6 +251,7 @@
                             <DataTable :value="sizeProductList"
                                 v-model:selection="selectedSizeProduct"
                                 selectionMode="single"
+                                style="font-size:85%;"
                             >
                                 <Column field="ebat" header="Ebat"></Column>
                                 <Column field="fiyat" header="Fiyat"></Column>
@@ -279,6 +281,7 @@
                             :value="notSuggestedList" 
                             v-model:selection="selectedNotSuggested"
                             selectionMode="single"
+                            style="font-size:85%;"
                         >
                         <Column field="id" header="Id"></Column>
                         <Column field="urunadi_en" header="Ürün"></Column>
@@ -294,6 +297,7 @@
                             :value="suggestedList" 
                             v-model:selection="selectedSuggested"
                             selectionMode="single"
+                            style="font-size:85%;"
                         >
                         <Column field="code" header="Code"></Column>
                         <Column field="name" header="Name"></Column>

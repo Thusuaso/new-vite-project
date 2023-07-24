@@ -3,10 +3,9 @@
         <div class="col">
             <DataTable 
                     :value="getMekmerAtlantaStockList" 
-                    tableStyle="min-width: 50rem;font-size:80%"
+                    style="font-size:85%;"
                     paginator 
                     :rows="15"
-                    class="p-datatable-sm"
                     v-model:filters="filters"
                     filterDisplay="row"
                     @filter="mekmerAtlantaStockFiltered($event)"

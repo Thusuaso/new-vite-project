@@ -20,6 +20,7 @@
                 v-model:selection="selectedShopper"
                 selectionMode="single"
                 @row-click="shopperSelected($event)"
+                style="font-size:85%;"
             >
             <Column field="sira" header="#"></Column>
             <Column 

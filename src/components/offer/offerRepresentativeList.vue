@@ -6,6 +6,7 @@
                 v-model:selection="selectedOfferRepresentative"
                 selectionMode="single"
                 @row-click="offerRepresentativeSelected($event)"
+                style="font-size:85%;"
             >
                 <Column field="adi" header="Temsilci"></Column>
                 <Column field="teklifSayisi" header="Teklif Sayısı">

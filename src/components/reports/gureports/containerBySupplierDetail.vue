@@ -1,7 +1,7 @@
 <template>
     <div class="row m-auto mt-3">
         <div class="col">
-            <DataTable :value="getMekmarGuContainerSupplierDetailList" tableStyle="min-width: 50rem">
+            <DataTable :value="getMekmarGuContainerSupplierDetailList" style="font-size:85%;">
                 <Column field="firma_adi" header="Firma"></Column>
                 <Column field="siparis_no" header="Po"></Column>
                 <Column field="alis_toplami" header="Alış">

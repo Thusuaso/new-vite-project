@@ -75,6 +75,7 @@
                 selectionMode="single"
                 @row-click="financeDetailCollectionSelected($event)"
                 :loading="financeDetailCollectionLoading"
+                style="font-size:85%;"
             >
                 <Column field="tarih" header="Tarih"></Column>
                 <Column field="siparisno" header="Po"></Column>

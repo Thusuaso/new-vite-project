@@ -17,10 +17,9 @@
         <div class="col">
             <DataTable 
                 :value="getMekmerProductionList" 
-                tableStyle="min-width: 50rem"
+                style="font-size:85%;"
                 paginator 
                 :rows="15"
-                class="p-datatable-sm"
                 v-model:filters="filters"
                 filterDisplay="row"
             >

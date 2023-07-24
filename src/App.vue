@@ -74,7 +74,5 @@ export default ({
 </script>
 
 <style>
-  .p-datatable{
-    font-size:85%;
-  }
+
 </style>

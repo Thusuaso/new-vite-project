@@ -1,6 +1,6 @@
 <template>
 
-    <DataTable :value="list" class="p-datatable-sm">
+    <DataTable :value="list" style="font-size:85%;">
         <template #header>
                         Vadeli Alacaklar Listesi
         </template>

@@ -45,7 +45,7 @@
     <br/>
     <DataTable 
     :value="getAdvancedPaymentList" 
-    tableStyle="min-width: 50rem" 
+    style="font-size:85%;" 
     v-model:selection="selectedAdvancedPayment" 
     selectionMode="single"
     @row-click="advancedPaymentClick($event)"

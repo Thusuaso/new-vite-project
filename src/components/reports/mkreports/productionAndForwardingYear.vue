@@ -3,7 +3,7 @@
         <div class="col">
             <DataTable 
                 :value="getMekmarMkProductionAndForwardingList" 
-                tableStyle="min-width: 50rem"
+                style="font-size:85%;"
                 v-model:filters="filters"
                 filterDisplay="row"
                 @filter="productionAndForwardingFiltered($event)"

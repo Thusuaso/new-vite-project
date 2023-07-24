@@ -36,6 +36,8 @@
                     v-model:filters="monthFilters"
                     filterDisplay="row"
                     @filter="monthFilterTotal($event)"
+                    style="font-size:85%;"
+                    
                 >
                 <template #header>
                     Aylık Yükleme
@@ -96,6 +98,7 @@
                     v-model:filters="yearFilters"
                     filterDisplay="row"
                     @filter="yearFilterTotal($event)"
+                    style="font-size:85%;"
                 >
                 <template #header>
                     Yıllık Yükleme
@@ -133,7 +136,7 @@
             </DataTable>
         </div>
         <div class="col">
-            <DataTable :value="getMekmarLoadingListYearCounting">
+            <DataTable :value="getMekmarLoadingListYearCounting" style="font-size:85%;">
                 <template #header>
                     Pazarlama Toplam Yüklemeler
                 </template>

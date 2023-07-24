@@ -45,6 +45,7 @@
                 v-model="selectedStock"
                 selectionMode="single"
                 @row-click="stockSelected($event)"
+                style="font-size:85%;"
             >
                 <Column 
                     field="en" 

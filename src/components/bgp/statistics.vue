@@ -1,5 +1,5 @@
 <template>
-    <DataTable :value="getStatisticList" tableStyle="min-width: 50rem">
+    <DataTable :value="getStatisticList" style="font-size:85%;">
         <Column field="ulkeAdi" header="Ülke"></Column>
         <Column field="notResponse" header="Cevapsız">
             <template #footer>

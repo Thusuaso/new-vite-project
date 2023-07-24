@@ -19,7 +19,7 @@
     selectionMode="single" 
     @row-click="commentSelected($event)"
     
-    tableStyle="min-width: 50rem">
+    style="font-size:85%;">
         <Column field="skuno" header="Sku"></Column>
         <Column field="name" header="Müşteri"></Column>
         <Column field="date" header="Tarih"></Column>

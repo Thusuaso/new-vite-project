@@ -8,7 +8,7 @@
         <div class="col">
             <DataTable 
                     :value="getMekmerToBeProducedList" 
-                    tableStyle="min-width: 50rem"
+                    style="font-size:85%;"
                     paginator 
                     :rows="15"
                     v-model:filters="filters"

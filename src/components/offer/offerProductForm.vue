@@ -106,7 +106,7 @@
         <div class="col-9">
             <DataTable 
                     :value="getOfferProductsList" 
-                    tableStyle="min-width: 50rem"
+                    style="font-size:85%;"
                     v-model:selection="selectedProductList"
                     selectionMode="single"
                     @row-click="productListSelected($event)"

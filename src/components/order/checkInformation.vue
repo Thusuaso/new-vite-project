@@ -1,6 +1,6 @@
 <template>
     <button type="button" class="btn btn-secondary" @click="excel_output">Excel</button>
-    <DataTable v-model:value="getProductDetailCheckList" tableStyle="min-width: 50rem" sortField="sira" sortOrder="1">
+    <DataTable v-model:value="getProductDetailCheckList" style="font-size:85%;" sortField="sira" sortOrder="1">
         <Column field="sira" header="#"></Column>
         <Column field="urunKart" header="Ürün Kart"></Column>
         <Column field="kasaNo" header="Kasa No"></Column>

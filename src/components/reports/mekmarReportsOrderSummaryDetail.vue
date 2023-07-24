@@ -2,7 +2,7 @@
 
     <div class="row m-auto mt-3">
         <div class="col">
-            <DataTable :value="getMekmarOrderSummaryDetailList" tableStyle="min-width: 50rem">
+            <DataTable :value="getMekmarOrderSummaryDetailList" style="font-size:85%;">
                 <Column field="tarih" header="Tarih"></Column>
                 <Column field="musteri" header="Müşteri"></Column>
                 <Column field="siparisnumarasi" header="Po"></Column>

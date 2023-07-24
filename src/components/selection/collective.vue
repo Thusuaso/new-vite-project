@@ -16,7 +16,7 @@
                     v-model:selection="selectedCrate" 
                     :value="getSelectionCollectiveList" 
                     dataKey="id" 
-                    tableStyle="min-width: 50rem"
+                    style="font-size:85%;"
                     v-model:filters="filters"
                     filterDisplay="row"
                     paginator 

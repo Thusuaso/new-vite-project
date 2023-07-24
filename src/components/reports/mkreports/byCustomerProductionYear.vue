@@ -3,7 +3,7 @@
         <div class="col">
             <DataTable 
                     :value="getMekmarMkByMarketingProductionList" 
-                    tableStyle="min-width: 50rem"
+                    style="font-size:85%;"
                 >
                 <template #header>
                     {{ year }} Marketinge Göre Siparişler
@@ -32,7 +32,7 @@
         <div class="col">
             <DataTable 
                 :value="getMekmarMkByCustomerProductionList" 
-                tableStyle="min-width: 50rem"
+                style="font-size:85%;"
                 sortField="toplamCfr"
                 :sortOrder="-1"
                 v-model:filters="filters"

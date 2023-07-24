@@ -2,7 +2,7 @@
     <button type="button" class="btn btn-secondary" @click="excel_output">Excel</button>
     <DataTable 
     :value="getProductDetailOrderInformationList" 
-    tableStyle="min-width: 50rem;font-size:80%;">
+    style="font-size:85%;">
         <Column field="kategori" header="Kategori"></Column>
         <Column field="urunAdi" header="Ürün"></Column>
         <Column field="yuzey" header="Yüzey"></Column>

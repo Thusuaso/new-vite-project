@@ -8,7 +8,7 @@
         <div class="col">
             <DataTable 
                 v-model:value="getShopperFairList" 
-                tableStyle="min-width: 50rem"
+                style="font-size:85%;"
                 v-model:filters="filters"
                 filterDisplay="row"
                 paginator 

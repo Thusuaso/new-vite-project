@@ -3,7 +3,7 @@
         <div class="col">
             <DataTable 
                     :value="getList" 
-                    tableStyle="min-width: 50rem"
+                    style="font-size:85%;"
                     v-model:selection="selectedCostError"
                     selectionMode="single"
                     @row-click="costErrorSelected($event)"

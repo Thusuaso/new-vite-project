@@ -10,6 +10,7 @@
                 v-model:selection="selectedOffers"
                 selectionMode="single"
                 @row-click="offersSelected($event)"
+                style="font-size:85%;"
             >
                 <Column 
                         field="teklifno" 

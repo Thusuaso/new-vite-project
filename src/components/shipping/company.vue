@@ -30,7 +30,7 @@
             <button type="button" class="btn btn-success w-100" @click="save">Kaydet</button>
         </div>
     </div>
-    <DataTable :value="getShippingCompanyListDetail" tableStyle="min-width: 50rem">
+    <DataTable :value="getShippingCompanyListDetail" style="font-size:85%;">
         <Column field="id" header="#"></Column>
         <Column field="firma_adi" header="Firma"></Column>
         <Column field="mail" header="Mail"></Column>

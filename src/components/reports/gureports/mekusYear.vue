@@ -5,7 +5,8 @@
                     :value="getMekmarGuMekusList" 
                     v-model:filters="filters"
                     filterDisplay="row"
-                    @filter="guMekusFiltered($event)"                
+                    @filter="guMekusFiltered($event)" 
+                    style="font-size:85%;"               
                 >
                 <Column 
                     field="siparisNo" 

@@ -6,6 +6,7 @@
             @row-click="containerSelected($event)"
             v-model:filters="filters"
             filterDisplay="row"
+            style="font-size:85%;"
         >
             <Column field="sira" header="#"></Column>
             <Column 

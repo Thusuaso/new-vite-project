@@ -2,7 +2,7 @@
 
     <div class="row m-auto mt-3">
         <div class="col">
-            <DataTable :value="getList" >
+            <DataTable :value="getList" style="font-size:85%;">
                 <Column field="yuklemeTarihi" header="Yükleme">
                         <template #body="slotProps"> 
                             {{ formatDate(slotProps.data.yuklemeTarihi) }}

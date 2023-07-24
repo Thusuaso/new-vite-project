@@ -21,7 +21,7 @@
     </div>
     <DataTable 
     :value="customerListDetail.musteriDetay" 
-    tableStyle="min-width: 50rem"
+    style="font-size:85%;"
     @row-click="customerListSelect($event)"
     v-model:selection="customerListselection"
     selectionMode="single"

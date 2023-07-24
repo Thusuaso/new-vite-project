@@ -1,7 +1,7 @@
 <template>
     <DataTable 
     :value="getCardList" 
-    tableStyle="min-width: 50rem" 
+    style="font-size:85%;"
     paginator 
     :rows="10" 
     :rowsPerPageOptions="[5, 10, 20, 50]"

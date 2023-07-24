@@ -8,6 +8,7 @@
                 v-model:selection="selectedInfo"
                 selectionMode="single"
                 @row-click="infoSelected($event)"
+                style="font-size:85%;"
             >
                 <Column 
                         field="po" 
@@ -58,6 +59,7 @@
                 :value="getOrderRepresentativeInfoList.ssOzet" 
                 sortField="adet"
                 sortOrder="-1"
+                style="font-size:85%;"
             >
                 <template #header>
                     Siparişçi Özet ({{ getOrderRepresentativeInfoTotal.orderer }})
@@ -78,6 +80,7 @@
                 sortField="adet"
                 sortOrder="-1"
                 class="mt-3"
+                style="font-size:85%;"
             >
                 <template #header>
                     Operasyon Özet ({{ getOrderRepresentativeInfoTotal.operation }})

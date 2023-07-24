@@ -6,6 +6,7 @@
                 v-model:selection="selectedTodo"
                 selectionMode="single"
                 @row-click="todoSelected($event)"
+                style="font-size:85%;"
             >
                 <template #header>
                     Tamamlanacak Görevler
@@ -38,7 +39,7 @@
     </div>
     <div class="row m-auto mt-3">
             <div class="col">
-                <DataTable :value="getTodoList.yapildi">
+                <DataTable :value="getTodoList.yapildi" style="font-size:85%;">
                     <template #header>
                         Tamamlanan Görevler
                     </template>

@@ -1,5 +1,5 @@
 <template>
-    <DataTable :value="getExpirtyList" tableStyle="" class="p-datatable-sm">
+    <DataTable :value="getExpirtyList" style="font-size:85%;">
             <template #header>
                 Vadeli Alacak Listesi
             </template>

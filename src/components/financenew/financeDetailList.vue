@@ -23,7 +23,7 @@
     <div class="row m-auto">
         <div class="col-8">
             <DataTable
-                class="p-datatable-sm"
+                style="font-size:85%;"
                 :value="getFinanceDetailList" 
                 scrollable 
                 scrollHeight="600px"
@@ -102,7 +102,7 @@
                     v-model:value="getFinanceDetailPaymentList" 
                     scrollable 
                     scrollHeight="600px" 
-                    class="p-datatable-sm"
+                    style="font-size:85%;"
                     v-model:selection="selectedFinanceDetailPayment"
                     selectionMode="single"
                     @row-click="financeDetailPaymentSelected($event)"

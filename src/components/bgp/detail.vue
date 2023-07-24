@@ -5,7 +5,7 @@
           <button type="button" class="btn btn-success" @click="newProjectDetail">Yeni</button>
         </div>
       </div>
-      <DataTable :value="getBgpListDetail" tableStyle="min-width: 50rem" :selection="bgpListSelected" selectionMode="single" @row-click="bgpListDetail($event)">
+      <DataTable :value="getBgpListDetail" style="font-size:85%;" :selection="bgpListSelected" selectionMode="single" @row-click="bgpListDetail($event)">
         <Column field="firmaAdi" header="Firma Adı"></Column>
         <Column field="kayitTarihi" header="Tarih"></Column>
         <Column field="baslik" header="Başlık"></Column>

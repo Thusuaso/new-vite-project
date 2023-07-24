@@ -41,6 +41,7 @@
                 selectionMode="single"
                 @row-click="detailSelected($event)"
                 :rowClass="rowClass"
+                style="font-size:85%;"
             >
                 <Column field="po" header="Po" ></Column>
                 <Column field="product_date" header="Sipariş Tarihi"></Column>
@@ -89,6 +90,7 @@
                 v-model:selection="selectedDetailPaid"
                 selectionMode="single"
                 @row-click="detailPaidSelected($event)"
+                style="font-size:85%;"
                 >
                 <Column field="date" header="Tarih"></Column>
                 <Column field="paid" header="Ödenen">

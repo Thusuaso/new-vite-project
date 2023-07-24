@@ -1,23 +1,23 @@
 <template>
     <div class="container text-center">
-        <div class="row">
+        <div class="row m-auto">
             <div class="col">
-                <div class="row">
-                    <div class="col" style="margin-top:7px;">
-                        <button type="button" class="btn btn-success" @click="newForm">Yeni</button>
+                <div class="row m-auto">
+                    <div class="col">
+                        <button type="button" class="btn btn-success h-100" @click="newForm">Yeni</button>
                     </div>
                     <div class="col">
                         <Dropdown v-model="selectedYear" :options="years" optionLabel="year" class="w-full md:w-14rem" @change="changeYear($event)" />
                     </div>
                     <div class="col">
-                        <button class="pi pi-file-excel btn btn-secondary" type="button" @click="excel_output_tr" style="margin-top:10px;"> TR</button>
+                        <button class="pi pi-file-excel btn btn-secondary h-100" type="button" @click="excel_output_tr"> TR</button>
                     </div>
                 </div>
 
             </div>
 
-            <div class="col">
-                <div class="row">
+            <div class="col m-auto">
+                <div class="row m-auto">
                     <div class="col">
                         Tedarikçi:
                     </div>
@@ -50,7 +50,7 @@
                     </div>
 
                 </div>
-                <div class="row">
+                <div class="row m-auto">
                     <div class="col">
                         Satışçı:
                     </div>
@@ -80,7 +80,7 @@
             </div>
         </div>
     </div>
-    <br/>
+
     <productionsList :title="title"/>
 
     <Dialog v-model:visible="order_form" header="Yeni Sipariş" modal :style="{ width: '100vw' }" :closeOnEscape="false">

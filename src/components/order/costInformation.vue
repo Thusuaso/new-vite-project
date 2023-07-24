@@ -13,7 +13,7 @@
     </table>
     <div class="row">
         <div class="col-4 mb-3" v-if="sprayingList.length > 0">
-            <DataTable :value="sprayingList">
+            <DataTable :value="sprayingList" style="font-size:85%;">
                 <template #header>
                     İlaçlama
                 </template>
@@ -29,7 +29,7 @@
             </DataTable>
         </div>
         <div class="col-4 mb-3" v-if="dutyList.length > 0">
-                <DataTable :value="dutyList">
+                <DataTable :value="dutyList" style="font-size:85%;">
                     <template #header>
                         Gümrük
                     </template>
@@ -45,7 +45,7 @@
                 </DataTable>
         </div>
         <div class="col-4 mb-3" v-if="lashingList.length > 0">
-            <DataTable :value="lashingList">
+            <DataTable :value="lashingList" style="font-size:85%;">
                 <template #header>
                     Lashing
                 </template>
@@ -61,7 +61,7 @@
             </DataTable>
         </div>
         <div class="col-4 mb-3" v-if="transportList.length > 0">
-            <DataTable :value="transportList">
+            <DataTable :value="transportList" style="font-size:85%;">
                 <template #header>
                     Nakliye
                 </template>
@@ -77,7 +77,7 @@
             </DataTable>
         </div>
         <div class="col-4 mb-3" v-if="portList.length > 0">
-            <DataTable :value="portList" >
+            <DataTable :value="portList" style="font-size:85%;">
                 <template #header>
                     Liman
                 </template>
@@ -93,7 +93,7 @@
             </DataTable>
         </div>
         <div class="col-4 mb-3" v-if="bookingList.length > 0">
-            <DataTable :value="bookingList">
+            <DataTable :value="bookingList" style="font-size:85%;">
                 <template #header>
                     Booking
                 </template>
@@ -109,7 +109,7 @@
             </DataTable>
         </div>
         <div class="col-4 mb-3" v-if="workmanshipList.length > 0">
-            <DataTable :value="workmanshipList">
+            <DataTable :value="workmanshipList" style="font-size:85%;">
                 <template #header>
                     İşçilik
                 </template>
@@ -125,7 +125,7 @@
             </DataTable>
         </div>
         <div class="col-4 mb-3" v-if="spazletList.length > 0">
-            <DataTable :value="spazletList">
+            <DataTable :value="spazletList" style="font-size:85%;">
                 <template #header>
                     Spanzlet
                 </template>
@@ -141,7 +141,7 @@
             </DataTable>
         </div>
         <div class="col-4 mb-3" v-if="freightList.length > 0">
-            <DataTable :value="freightList">
+            <DataTable :value="freightList" style="font-size:85%;">
                 <template #header>
                     Navlun
                 </template>

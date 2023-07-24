@@ -4,8 +4,7 @@
         v-model:selection="selectedProduct" 
         selectionMode="single" 
         @row-select="selectedDetailCrate($event)" 
-        class="p-datatable-sm" 
-        tableStyle="min-width: 50rem"
+        style="font-size:85%;"
          paginator 
          :rows="15" 
          v-model:filters="filters" 

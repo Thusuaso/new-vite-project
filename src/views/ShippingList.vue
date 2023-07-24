@@ -4,6 +4,7 @@
         v-model:filters="filters"
         filterDisplay="row"
         paginator :rows="12"
+        style="font-size:85%;"
     >
         <Column field="tarih" header="Tarih"></Column>
         <Column field="siparis_no" header="Po"

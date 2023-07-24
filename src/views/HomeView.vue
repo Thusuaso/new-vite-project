@@ -150,6 +150,7 @@
               :rows="5"
               v-model:filters="filterCont"
               filterDisplay="row"
+              style="font-size:85%;"
     
     >
         <template #header>
@@ -198,6 +199,7 @@
                   :rows="5"
                   v-model:filters="filterTedarikci"
                   filterDisplay="row"
+                  style="font-size:85%;"
     
         >
             <template #header>
@@ -234,6 +236,7 @@
                       :rows="5"
                       v-model:filters="filterUlkeyeGore"
                       filterDisplay="row"
+                      style="font-size:85%;"
     
             >
                 <template #header>
@@ -267,6 +270,7 @@
                         :rows="5"
                         v-model:filters="filterMusteriyeGore"
                         filterDisplay="row"
+                        style="font-size:85%;"
     
                 >
                     <template #header>
@@ -300,6 +304,7 @@
                             :rows="5"
                             v-model:filters="filterTekliflereGore"
                             filterDisplay="row"
+                            style="font-size:85%;"
     
                     >
                         <template #header>
@@ -322,6 +327,7 @@
                                 :rows="5"
                                 v-model:filters="filterTekliflerYillik"
                                 filterDisplay="row"
+                                style="font-size:85%;"
     
                         >
                             <template #header>
@@ -345,6 +351,7 @@
                                 
                                     :paginator="true"
                                     :rows="5"
+                                    style="font-size:85%;"
     
                             >
                                 <template #header>

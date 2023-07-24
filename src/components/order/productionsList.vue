@@ -1,5 +1,6 @@
 <template>
     <DataTable 
+    class="p-datatable-sm"
       tableStyle="width:100%;"
       style="font-size: 55%"
       :value="productionsList" 
@@ -20,15 +21,14 @@
       paginator :rows="10"
     >
         <template #header>
-            <div class="row">
-              <div class="col-6">
+            <div class="row " style="height:25px;">
+              <div class="col-9">
                 <h4>{{ title }}</h4>
               </div>
-              <div class="col">
+              <div class="col-3" style="margin-top:-6px;">
                 <div class="flex justify-content-between">
                   <span class="p-input-icon-left">
-                    <i class="pi pi-search" />
-                    <InputText v-model="filters['global'].value" placeholder="Keyword Search" />
+                    <input v-model="filters['global'].value" type="text" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="basic-addon1">
                   </span>
                 </div>
               </div>
@@ -37,7 +37,7 @@
           </template>
         <Column field="tarih" header="Tarih" ></Column>
         <Column field="musteriAdi" header="Kime" 
-        :showFilterMenu="false"
+                :showFilterMenu="false"
                 :showFilterOperator="false"
                 :showClearButton="false"
                 :showApplyButton="false"
@@ -45,7 +45,7 @@
                 :showAddButton="false"
         >
           <template #filter="{ filterModel, filterCallback }">
-              <InputText v-model="filterModel.value" type="text" style="width:50px;" @input="filterCallback()" class="p-column-filter" placeholder="Search by name" />
+              <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" placeholder="Search by name" />
           </template>
         </Column>
         <Column field="link" :header="getProductStatusId == 3 ? 'CI' : 'PI'">
@@ -216,6 +216,8 @@
 
 
      <DataTable 
+    class="p-datatable-sm"
+
         tableStyle="width:100%;"
         style="font-size: 55%"
         :value="productionsList" 
@@ -237,15 +239,14 @@
         v-else
       >
           <template #header>
-              <div class="row">
-                <div class="col-6">
-                  <h4>{{ title }}</h4>
+              <div class="row" style="height:25px;">
+                <div class="col-9">
+                  <h5>{{ title }}</h5>
                 </div>
-                <div class="col">
-                  <div class="flex justify-content-between">
+                <div class="col-3" style="margin-top:-6px;">
+                  <div class="flex justify-content-between ">
                     <span class="p-input-icon-left">
-                      <i class="pi pi-search" />
-                      <InputText v-model="filters['global'].value" placeholder="Keyword Search" />
+                      <input v-model="filters['global'].value" type="text" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="basic-addon1">
                     </span>
                   </div>
                 </div>
@@ -488,21 +489,23 @@ export default {
   methods: {
     rowStyle(event) {
       if (event.operasyon == 'semih' && event.operasyon == localStorage.getItem('username').toLowerCase()) {
-        return { 'backgroundColor': '#d1e0f2' };
+        return { 'backgroundColor': '#d1e0f2' ,'border':'1px solid black'};
       } else if (event.operasyon == 'hakan' && event.operasyon == localStorage.getItem('username').toLowerCase()) {
-        return { 'backgroundColor': '#d1e0f2' };
+        return { 'backgroundColor': '#d1e0f2' , 'border': '1px solid black' };
       } else if (event.operasyon == 'ozlem' && event.operasyon == localStorage.getItem('username').toLowerCase()) {
-        return { 'backgroundColor': '#d1e0f2' };
+        return { 'backgroundColor': '#d1e0f2' , 'border': '1px solid black' };
       } else if (event.temsilci == 'hakan' && event.temsilci == localStorage.getItem('username').toLowerCase()) {
-        return {'backgroundColor':'#d1e0f2' }
+        return {'backgroundColor':'#d1e0f2' , 'border': '1px solid black' }
       } else if (event.temsilci == 'semih' && event.temsilci == localStorage.getItem('username').toLowerCase()) {
-        return { 'backgroundColor': '#d1e0f2' };
+        return { 'backgroundColor': '#d1e0f2' , 'border': '1px solid black' };
       } else if (event.temsilci == 'ozlem' && event.temsilci == localStorage.getItem('username').toLowerCase()) {
-        return { 'backgroundColor': '#d1e0f2' };
+        return { 'backgroundColor': '#d1e0f2', 'border': '1px solid black' };
       } else if (event.operasyon == 'gizem' && event.operasyon == localStorage.getItem('username').toLowerCase()) {
-        return { 'backgroundColor': '#d1e0f2' };
+        return { 'backgroundColor': '#d1e0f2', 'border': '1px solid black' };
       } else if (event.temsilci == 'gizem' && event.temsilci == localStorage.getItem('username').toLowerCase()) {
-        return { 'backgroundColor': '#d1e0f2' };
+        return { 'backgroundColor': '#d1e0f2', 'border': '1px solid black' };
+      } else{
+        return { 'border': '1px solid black' };
       }
     },
     siparisSecim(event) {

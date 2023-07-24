@@ -7,7 +7,7 @@
     <br/>
     <DataTable 
         :value="getSupplierList" 
-        tableStyle="min-width: 50rem"
+        style="font-size:85%;"
         v-model:selection="selectedSupplier"
         selectionMode="single"
         @row-click="supplierSelected($event)"

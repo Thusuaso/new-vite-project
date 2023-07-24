@@ -3,7 +3,7 @@
         <TabPanel header="Gelen">
             <div class="row m-auto mt-3">
                 <div class="col-6">
-                    <DataTable :value="getMekmerAtlantaStockDetailList.stok_liste" class="p-datatable-sm" tableStyle="font-size:80%;">
+                    <DataTable :value="getMekmerAtlantaStockDetailList.stok_liste" style="font-size:85%;">
                         <template #header>
                             Stok Listesi
                         </template>
@@ -36,7 +36,7 @@
                     </DataTable>
                 </div>
                 <div class="col-6">
-                    <DataTable :value="getMekmerAtlantaStockDetailList.su_liste" class="p-datatable-sm" tableStyle="font-size:80%;">
+                    <DataTable :value="getMekmerAtlantaStockDetailList.su_liste" style="font-size:85%;">
                         <template #header>
                             Su Listesi
                         </template>
@@ -71,7 +71,7 @@
             </div>
         </TabPanel>
         <TabPanel header="Satış">
-            <DataTable :value="getMekmerAtlantaStockDetailList.satis_liste" tableStyle="min-width: 50rem">
+            <DataTable :value="getMekmerAtlantaStockDetailList.satis_liste" style="font-size:85%;">
                 <Column field="musteriAdi" header="Müşteri"></Column>
                 <Column field="orderNo" header="Po"></Column>
                 <Column field="satisTarihi" header="Satış"></Column>
@@ -107,7 +107,7 @@
             </DataTable>
         </TabPanel>
         <TabPanel header="Maliyet">
-            <DataTable :value="getMekmerAtlantaStockDetailList.maliyet" tableStyle="min-width: 50rem">
+            <DataTable :value="getMekmerAtlantaStockDetailList.maliyet" style="font-size:85%;">
                 <Column field="uretici" header="Üretici"></Column>
                 <Column field="uretici_fiyat" header="Fiyat"></Column>
                 <Column field="transport" header="Taşıma"></Column>

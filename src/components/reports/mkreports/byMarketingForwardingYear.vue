@@ -3,7 +3,7 @@
             <div class="col">
                 <DataTable 
                         :value="getmekmarMkByMarketingForwardingList" 
-                        tableStyle="min-width: 50rem"
+                        style="font-size:85%;"
                     >
                     <template #header>
                         {{ year }} Marketinge Göre Yüklemeler
@@ -32,6 +32,7 @@
             <div class="col" v-if="getMekmarMkByMarketingForwardingDetailMekmarList.length > 0">
                 <DataTable 
                         :value="getMekmarMkByMarketingForwardingDetailMekmarList" 
+                        style="font-size:85%;"
                     >
                     <template #header>
                         {{ year }} Mekmar Yüklemeler
@@ -58,6 +59,7 @@
             <div class="col" v-if="getMekmarMkByMarketingForwardingDetailMekmerList.length > 0">
                 <DataTable 
                         :value="getMekmarMkByMarketingForwardingDetailMekmerList" 
+                        style="font-size:85%;"
                     >
                     <template #header>
                         {{ year }} Mekmer Yüklemeler
@@ -84,6 +86,7 @@
             <div class="col" v-if="getMekmarMkByMarketingForwardingDetailIcPiyasaList.length > 0">
                 <DataTable 
                         :value="getMekmarMkByMarketingForwardingDetailIcPiyasaList" 
+                        style="font-size:85%;"
                     >
                     <template #header>
                         {{ year }} İç Piyasa Yüklemeler
@@ -110,6 +113,7 @@
             <div class="col" v-if="getMekmarMkByMarketingForwardingDetailImperialHomesList.length > 0">
                 <DataTable 
                         :value="getMekmarMkByMarketingForwardingDetailImperialHomesList" 
+                        style="font-size:85%;"
                     >
                     <template #header>
                         {{ year }} Imperial Homes Yüklemeler

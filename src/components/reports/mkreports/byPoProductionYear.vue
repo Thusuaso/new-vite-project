@@ -8,6 +8,7 @@
                     @filter="byProductionFilter($event)"
                     sortField="tarih"
                     :sortOrder="-1"
+                    style="font-size:85%;"
                 >
                 <template #header>
                     {{ year }} Po Bazında Üretim Listesi

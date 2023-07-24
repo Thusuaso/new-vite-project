@@ -7,6 +7,7 @@
             v-model:selection="selectedSelection"
             selectionMode="single"
             @row-click="selectionSelected($event)"
+            style="font-size:85%;"
         >
             <template #header>
                 {{ item.surfaceName }}

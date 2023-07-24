@@ -60,7 +60,7 @@
         <div class="col-6">
             <DataTable 
                 :value="getUploadingFolderList" 
-                tableStyle="min-width: 50rem" 
+                style="font-size:85%;"
                 v-model:selection="selectedUploadingFolder" 
                 selectionMode="single" 
                 @row-click="uploadingFolderSelected($event)"

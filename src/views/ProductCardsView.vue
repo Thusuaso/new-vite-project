@@ -19,6 +19,7 @@
     v-model:selection="selectedCard"
     selectionMode="single"
     @row-click="cardSelected($event)"
+    style="font-size:85%;"
     >
         <Column field="sira" header="#"></Column>
         <Column field="id" header="Id"></Column>

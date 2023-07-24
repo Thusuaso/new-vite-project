@@ -1,7 +1,7 @@
 <template>
     <DataTable 
         v-model:value="getShopperSellerList" 
-        tableStyle="min-width: 50rem"
+        style="font-size:85%;"
         v-model:selection="selectedShopperSeller"
         selectionMode="single"
         @row-click="shopperSellerSelected($event)"

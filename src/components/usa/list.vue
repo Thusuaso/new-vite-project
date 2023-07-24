@@ -8,6 +8,7 @@
             v-model:selection="selectedUsaList"
             selectionMode="single"
             @row-click="usaListSelected($event)"
+            style="font-size:85%;"
         >
         <Column 
             field="skuno" 

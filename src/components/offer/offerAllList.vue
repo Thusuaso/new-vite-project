@@ -5,7 +5,7 @@
                     :value="getOfferAllListA" 
                     scrollable 
                     scrollHeight="400px" 
-                    tableStyle="min-width: 50rem"
+                    style="font-size:85%;"
                     v-model:filters="filters1"
                     filterDisplay="row"
                     @filter="offerAllListAFilter($event)"
@@ -111,7 +111,7 @@
                     :value="getOfferAllListB" 
                     scrollable 
                     scrollHeight="400px" 
-                    tableStyle="min-width: 50rem"
+                    style="font-size:85%;"
                     v-model:filters="filters2"
                     filterDisplay="row"
                     @filter="offerAllListBFilter($event)"

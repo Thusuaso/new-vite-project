@@ -9,7 +9,7 @@
         <div class="col">
             <DataTable 
                     :value="getPanelProductList" 
-                    tableStyle="min-width: 50rem" 
+                    style="font-size:85%;" 
                     v-model:filters="filters"
                     filterDisplay="row"
                     v-model:selection="selectedPanelProduct"

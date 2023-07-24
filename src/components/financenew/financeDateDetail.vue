@@ -1,5 +1,5 @@
 <template>
-    <DataTable :value="getFinanceDateDetailList" tableStyle="min-width: 50rem">
+    <DataTable :value="getFinanceDateDetailList" style="font-size:85%;">
         <Column field="sira" header="#"></Column>
         <Column field="siparisno" header="Po"></Column>
         <Column field="faturatur" header="Tür"></Column>

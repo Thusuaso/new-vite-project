@@ -11,6 +11,7 @@
                 v-model:selection="selectedGuContainerCountry"
                 selectionMode="single"
                 @row-click="guContainerCountrySelected($event)"
+                style="font-size:85%;"
             >   
                 <template #header>
                     Ülkeye Göre Konteynır {{ getMekmarGuContainerCountryTotalList.country }}
@@ -52,6 +53,7 @@
                     v-model:selection="selectedGuContainerCustomer"
                     selectionMode="single"
                     @row-click="guContainerCustomerSelected($event)"
+                    style="font-size:85%;"
                 >
                 <template #header>
                     Müşteriye Göre Konteynır {{ getMekmarGuContainerCustomerTotalList.customer }}
@@ -107,6 +109,7 @@
                     v-model:selection="selectedGuContainerSupplier"
                     selectionMode="single"
                     @row-click="guContainerSupplierSelected($event)"
+                    style="font-size:85%;"
                 >
                 <template #header>
                     Tedarikçiye Göre Konteynır {{ getMekmarGuContainerSupplierTotalList.supplier }}

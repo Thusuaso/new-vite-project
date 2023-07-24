@@ -23,7 +23,7 @@
     </div>
     <div class="row m-auto mt-3">
         <div class="col">
-            <DataTable :value="getSamplePaidList" tableStyle="min-width: 50rem">
+            <DataTable :value="getSamplePaidList" style="font-size:85%;">
                 <Column field="tarih" header="Tarih"></Column>
                 <Column field="numune_no" header="Po"></Column>
                 <Column field="aciklama" header="Açıklama"></Column>

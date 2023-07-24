@@ -3,7 +3,7 @@
         <div class="col">
             <DataTable 
                     :value="getTodoListAll.yapilmadi" 
-                    tableStyle="min-width: 50rem"
+                    style="font-size:85%;"
                     v-model:filters="filtersNotTodo"
                     filterDisplay="row"
                     scrollable scrollHeight="550px"
@@ -77,7 +77,7 @@
         <div class="col">
             <DataTable 
                     :value="getTodoListAll.yapildi" 
-                    tableStyle="min-width: 50rem"
+                    style="font-size:85%;"
                     v-model:filters="filtersTodo"
                     filterDisplay="row"
                     scrollable scrollHeight="550px"

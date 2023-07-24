@@ -9,6 +9,7 @@
                     scrollHeight="500px"
                     v-model:filters="filters"
                     filterDisplay="row"
+                    style="font-size:85%;"
                 >
                 <template #header>
                     Yapılacaklar
@@ -84,6 +85,7 @@
                         scrollHeight="500px"
                         v-model:filters="filters2"
                         filterDisplay="row"
+                        style="font-size:85%;"
                     >
                     <template #header>
                         Yapılanlar

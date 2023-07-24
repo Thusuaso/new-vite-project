@@ -5,6 +5,8 @@
                 v-model:value="getFinanceTestMayaList"
                 v-model:filters="filters"
                 filterDisplay="row"
+                style="font-size:85%;"
+
             >
                 <template #header>
                     Maya Ödemeleri

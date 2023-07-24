@@ -1,7 +1,7 @@
 <template>
     <div class="row m-auto mt-3">
         <div class="col">
-            <DataTable :value="getSampleFinanceBankDetailList" tableStyle="min-width: 50rem">
+            <DataTable :value="getSampleFinanceBankDetailList" style="font-size:85%;">
                 <Column field="bankaya_gelen_tarih" header="Gelen Tarih"></Column>
                 <Column field="numune_tarihi" header="Numune Tarihi"></Column>
                 <Column field="banka_adi" header="Banka"></Column>

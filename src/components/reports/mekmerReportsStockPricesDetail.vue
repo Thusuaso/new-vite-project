@@ -12,7 +12,7 @@
     </div>
     <div class="row m-auto mt-3">
         <div class="col">
-            <DataTable :value="getMekmerProductionPricesDetailList" tableStyle="min-width: 50rem">
+            <DataTable :value="getMekmerProductionPricesDetailList" style="font-size:85%;">
                 <Column field="sira" header="#"></Column>
                 <Column field="tarihtop" header="Tarih"></Column>
                 <Column field="kasanotop" header="Kasa"></Column>

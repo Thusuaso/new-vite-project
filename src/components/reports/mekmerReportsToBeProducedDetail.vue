@@ -1,7 +1,7 @@
 <template>
     <div class="row m-auto mt-3">
         <div class="col">
-            <DataTable :value="getMekmerToBeProducedDetailList" tableStyle="min-width: 50rem">
+            <DataTable :value="getMekmerToBeProducedDetailList" style="font-size:85%;">
                 <Column field="siparisNo" header="Po"></Column>
                 <Column field="kategori" header="Kategori"></Column>
                 <Column field="urunAdi" header="Ürün"></Column>

@@ -73,6 +73,7 @@
                 @row-click="newShippingSelected($event)"
                 sortField="siparisno"
                 :sortOrder="-1"
+                style="font-size:85%;"
             >
                 <Column field="siparisno" header="Po"></Column>
                 <Column field="Tutar_tl" header="₺">

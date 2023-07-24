@@ -8,7 +8,7 @@
         <div class="col">
             <DataTable 
             :value="getShopperOfferList" 
-            tableStyle="min-width: 50rem" 
+            style="font-size:85%;"
             paginator 
             :rows="15"
             v-model:filters="filters"
@@ -16,6 +16,7 @@
             v-model:selection="selectedShopperOffer"
             selectionMode="single"
             @row-click="shopperOfferSelected($event)"
+
             >
             <Column 
                     field="customer" 

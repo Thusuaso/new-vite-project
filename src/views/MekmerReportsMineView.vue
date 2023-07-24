@@ -6,7 +6,7 @@
     </div>
     <div class="row m-auto mt-3">
         <div class="col">
-            <DataTable :value="getMekmerMineList" tableStyle="min-width: 50rem">
+            <DataTable :value="getMekmerMineList" style="font-size:85%;">
                 <Column field="ocakAdi" header="Ocak"></Column>
                 <Column field="mt2" header="M2"></Column>
                 <Column field="mt" header="Mt"></Column>

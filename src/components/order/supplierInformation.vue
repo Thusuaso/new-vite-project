@@ -73,7 +73,7 @@
 
     <div class="row m-auto mt-3">
         <div class="col">
-            <DataTable class="p-datatable-responsive" v-model:value="urunList" v-model:selection="selectUrun"
+            <DataTable style="font-size:85%;" v-model:value="urunList" v-model:selection="selectUrun"
                 :scrollable="true" scrollHeight="200px" :resizableColumns="true" columnResizeMode="fit" showGridlines
                 responsiveLayout="scroll">
                 <Column field="urunAdi" header="Ürün Adı">

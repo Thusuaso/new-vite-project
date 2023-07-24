@@ -120,6 +120,7 @@
                     v-model:selection="selectedBuying"
                     selectionMode="single"
                     @row-click="buyingSelected($event)"
+                    style="font-size:85%;"
                 >
                     <Column field="Yil" header="Yıl"></Column>
                     <Column field="Total" header="Toplam">

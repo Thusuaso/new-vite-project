@@ -8,7 +8,7 @@
         <div class="col-9">
             <DataTable 
                     :value="getSampleFinanceListSample" 
-                    tableStyle="min-width: 50rem"
+                    style="font-size:85%;"
                     v-model:selection="selectedFinanceSample"
                     selectionMode="single"
                     @row-click="financeSampleSelected($event)"
@@ -74,6 +74,7 @@
                 v-model:selection="selectedFinanceBank"
                 selectionMode="single"
                 @row-click="financeBankSelected($event)"
+                style="font-size:85%;"
             >
                     <template #header>
                         Banka Gelen

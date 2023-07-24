@@ -138,7 +138,7 @@
     <br/>
     <DataTable 
         :value="getProductionsDetailModel.siparisUrunler" 
-        tableStyle="min-width: 50rem"
+        style="font-size:85%;"
         v-model:selection="productSelected"
         selectionMode="single"
         @row-click="product_select_item($event)"

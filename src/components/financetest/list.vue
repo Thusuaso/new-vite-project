@@ -1,22 +1,8 @@
 <template>
-    <div class="row m-auto mt-2">
-        <div class="col">
-            <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" v-model="all">
-                <label class="form-check-label" for="flexSwitchCheckDefault">Hepsi</label>
-            </div>
-        </div>
-        <div class="col">
-            <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" v-model="mekmar" @change="isChangeMekmar">
-                <label class="form-check-label" for="flexSwitchCheckDefault">Mekmar</label>
-            </div>
-        </div>
-    </div>
     <div class="row m-auto mt-0">
         <div class="col-9">
         <DataTable 
-            :value="!all ? getFinanceTestList : getFinanceTestListAll" 
+            :value="!getAllFinance ? getFinanceTestList : getFinanceTestListAll" 
             style="font-size:85%;"
             sortField="total" 
             sortOrder="-1" 
@@ -146,7 +132,8 @@ export default {
         ...mapState(useFinanceTestStore,[
             'getFinanceTestList',
             'getFinanceTestListTotal',
-            'getFinanceTestListAll'
+            'getFinanceTestListAll',
+            'getAllFinance'
         ])
     },
     data(){
@@ -154,29 +141,16 @@ export default {
             filters:{
                 customer_name: { value: null, matchMode: FilterMatchMode.CONTAINS },
             },
-            all:false,
             selectedFinance:null,
             finance_test_form:false,
             customer_name:"",
             customer_id: 0,
-            finance_list: [],
-            mekmar: false,
             
         }
     },
-    created(){
-        this.finance_list = this.getFinanceTestList;
-    },
+
     methods: {
-        isChangeMekmar() {
-            if (this.mekmar) {
-                console.log(this.finance_list)
-                const result = this.finance_list.filter(x => x.marketing == 'Mekmar');
-                useFinanceTestStore().finance_test_list_loac_act(result);
-            } else {
-                useFinanceTestStore().finance_test_list_loac_act(this.finance_list);
-            }
-        },
+
         financeSelected(event){
             this.customer_name = event.data.customer_name;
             this.customer_id = event.data.customer_id;

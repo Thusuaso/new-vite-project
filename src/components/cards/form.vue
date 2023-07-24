@@ -53,7 +53,7 @@
     </div>
     <div class="row" v-if="getCardCustomerSalesList.length>0">
         <div class="col">
-            <DataTable :value="getCardCustomerSalesList" tableStyle="min-width: 50rem">
+            <DataTable :value="getCardCustomerSalesList" style="font-size:85%;">
                 <Column field="musteriAdi" header="Müşteri"></Column>
                 <Column field="siparisNo" header="Po"></Column>
                 <Column field="satisFiyati" header="Fiyat">

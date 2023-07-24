@@ -17,7 +17,7 @@
         <div class="col">
             <DataTable 
                     :value="getMekmarForwardingList" 
-                    tableStyle="min-width: 50rem;font-size:95%"
+                    tableStyle="font-size:65%"
                     paginator 
                     :rows="15"
                     v-model:filters="filters"
