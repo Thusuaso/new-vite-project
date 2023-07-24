@@ -82,6 +82,9 @@
     <Dialog v-model:visible="is_form2" header="" modal>
         <supplierForm :po="selectedUploadingProduct.siparisno"/>
     </Dialog>
+    <Dialog v-model:visible="is_form3" header modal>
+        <workermanForm :po="selectedUploadingProduct.siparisno"/>
+    </Dialog>
 </template>
 <script>
 import { useUploadingStore } from '../stores/uploading';
@@ -94,7 +97,7 @@ import { socket } from '../services/customServices/realTimeService';
 
 import form from '../components/uploading/form.vue';
 import supplierForm from '../components/uploading/supplierForm.vue';
-
+import workermanForm from '../components/uploading/workermanForm.vue';
 export default {
     computed: {
         ...mapState(useUploadingStore, [
@@ -105,10 +108,12 @@ export default {
     },
     components: {
         invoiceForm: form,
-        supplierForm
+        supplierForm,
+        workermanForm
     },
     data() {
         return {
+            is_form3:false,
             selectedUploadingProduct: null,
             filteredUploadingProductList: [],
             uploadingProductInfo: {
@@ -204,7 +209,11 @@ export default {
                 event.data.Faturaid != 3
             ) {
                 this.is_form = true;
-            } else {
+            }   else if (event.data.Faturaid == 40) {
+                this.is_form3 = true;
+            }   
+
+            else {
                 this.is_form2 = true;
             }
         },

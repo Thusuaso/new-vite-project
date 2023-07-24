@@ -291,9 +291,9 @@ export default {
         this.emitter.on('offer_detail_dialog_close', () => {
             this.offer_detail_form = false;
         });
-        socket.socketIO.on('offer_detail_list_on', (userId) => {
+        socket.socketIO.on('offer_detail_list_on', () => {
             useLoadingStore().begin_loading_act();
-            offerService.getOfferAllRepresentativeList(userId).then(data => {
+            offerService.getOfferAllRepresentativeList(localStorage.getItem('userId')).then(data => {
                 useOfferStore().offer_all_list_load_act(data);
                 useLoadingStore().end_loading_act();
                 // this.emitter.emit('offer_all_representative_dialog', true);

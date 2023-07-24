@@ -144,7 +144,8 @@ export const fileService = {
       return { ...res.data, dosyaAdi: dosya };
     });
   },
-  faturaDosyaGonder(file:any, teklifId:any, siparisno:any) {
+  faturaDosyaGonder(file: any, teklifId: any, siparisno: any) {
+
     const kontrol = file.name.split(".").length;
     if (kontrol > 2) {
       alert(

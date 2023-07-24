@@ -21,5 +21,11 @@ export const uploadingService = {
     },
     setSupplier(data:any){
         return api.post(`/operasyon/islemler/tedarikci/tedarikciKayit`,data).then(response => response.data);
+    },
+    setWorkerman(data: any) {
+        return api.post('/operasyon/islemler/ekstra/ozelIscilikDosyaKaydet', data).then(response => response.data);
+    },
+    getWorkermanSupplierList(po: any) {
+        return api.get(`/operasyon/islemler/iscilik/tedarikci/list/${po}`).then(response => response.data);
     }
 }
