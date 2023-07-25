@@ -8,7 +8,7 @@
         </div>
         <div class="col">
             <span class="p-float-label">
-                <Calendar id="p_date" class="w-100" v-model="p_date" showIcon @date-select="offerProformaDateSelected($event)"/>
+                <Calendar id="p_date" class="w-100" v-model="p_date" showIcon @date-select="offerProformaDateSelected($event)" dateFormat="dd/mm/yy"/>
                 <label for="p_date">Proforma Tarih</label>
             </span>
         </div>
@@ -55,6 +55,11 @@ export default {
             offerProformaLink: null,
         }
     },
+    created() {
+        if (this.getOfferModelList.proformaCloud) {
+            this.offerProformaLink = `https://file-service.mekmar.com/file/download/teklif/proforma/${this.getOfferModelList.id}/${this.getOfferModelList.proformaCloudDosya}`;
+        }
+    },
     methods: {
         onProformaSelected(event) {
             fileService.sendOfferProforma(event.files[0],this.getOfferModelList.id).then(data => {
@@ -62,7 +67,7 @@ export default {
                     this.getOfferModelList.proformaCloud = true;
                     this.getOfferModelList.proformaCloudDosya = data.dosyaAdi;
                     offerService.setOfferProforma(this.getOfferModelList).then(data => {
-                        if (data.status) {
+                        if (data.Status) {
                             this.offerProformaLink = `https://file-service.mekmar.com/file/download/teklif/proforma/${this.getOfferModelList.id}/${this.getOfferModelList.proformaCloudDosya}`;
                             this.$toast.add({ severity: 'success', detail: 'Başarıyla Kaydedildi', life: 3000 });
 

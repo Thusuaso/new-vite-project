@@ -43,6 +43,9 @@
                     Aylık Yükleme
                 </template>
                 <Column field="yukleme_tarihi" header="Yükleme Tarihi">
+                    <template #body="slotProps">
+                        {{ $filters.formatDate(slotProps.data.yukleme_tarihi) }}
+                    </template>
                 </Column>
                 <Column 
                     field="siparis_no" 

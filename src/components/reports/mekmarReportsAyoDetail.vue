@@ -1,7 +1,7 @@
 <template>
     <div class="row m-auto mt-3">
         <div class="col">
-            <DataTable :value="getMekmarAyoDetailCostList" style="font-size:85%;">
+            <DataTable :value="getMekmarAyoDetailCostList" style="font-size:65%;">
                 <template #header>
                     Masraflar
                 </template>
@@ -191,7 +191,7 @@
     </div>
     <div class="row m-auto mt-3">
         <div class="col">
-            <DataTable :value="getMekmarAyoDetailBankList" style="font-size:85%;">
+            <DataTable :value="getMekmarAyoDetailBankList" style="font-size:65%;">
                 <template #header>
                     Banka Özeti
                 </template>
@@ -231,12 +231,16 @@
             </DataTable>
         </div>
         <div class="col">
-            <DataTable :value="getMekmarAyoDetailInvoiceList" style="font-size:85%;">
+            <DataTable :value="getMekmarAyoDetailInvoiceList" style="font-size:65%;">
                 <template #header>
                     Evraklar
                 </template>
                 <Column field="faturano" header="#"></Column>
-                <Column field="yuklemeTarihi" header="Yükleme"></Column>
+                <Column field="yuklemeTarihi" header="Yükleme">
+                    <template #body="slotProps">
+                        {{ $filters.formatDate(slotProps.data.yuklemeTarihi) }}
+                    </template>
+                </Column>
                 <Column field="adi" header="Evrak"></Column>
                 <Column field="Draft" header="Link">
                     <template #body="slotProps">

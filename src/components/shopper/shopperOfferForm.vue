@@ -39,7 +39,7 @@
     </div>
     <div class="row m-auto mt-3">
         <div class="col">
-            <button type="button" class="btn btn-success w-100" @click="offerProcess">Kaydet</button>
+            <button type="button" class="btn btn-success w-100" @click="offerProcess" :disabled="offer_save_button">Kaydet</button>
 
         </div>
         <div class="col" v-if="!getShopperOfferNewButton">
@@ -66,6 +66,7 @@ export default {
         return {
             selectedCountry: null,
             filteredCountryList: [],
+            offer_save_button:false,
         }
     },
     created() {
@@ -99,19 +100,25 @@ export default {
             this.selectedCountry = this.getShopperOfferCountryList.find(x => x.id == this.getShopperOfferModel.country);
         },
         save() {
+            this.offer_save_button = true;
             this.getShopperOfferModel.user = localStorage.getItem('userId');
             this.getShopperOfferModel.username = localStorage.getItem('username');
             shopperService.saveShopperOffer(this.getShopperOfferModel).then(data => {
                 if (data.status) {
                     socket.socketIO.emit('shopper_offer_update_list_emit');
+                    this.offer_save_button = false;
+                    this.emitter.emit('close_shopper_offer_dialog');
+
                     this.$toast.add({ severity: 'success', detail: 'Başarıyla Kaydedildi', life: 3000 });
                 } else {
+                    this.offer_save_button = false;
                     this.$toast.add({ severity: 'error', detail: 'Kaydetme Başarısız', life: 3000 });
                 }
             })
 
         },
         update() {
+            this.offer_save_button = true;
             this.getShopperOfferModel.user = localStorage.getItem('userId');
             this.getShopperOfferModel.username = localStorage.getItem('username');
             this.getShopperOfferModel.country = this.selectedCountry.id;
@@ -120,8 +127,10 @@ export default {
                 if (data.status) {
                     socket.socketIO.emit('shopper_offer_update_list_emit');
                     this.emitter.emit('close_shopper_offer_dialog');
+                    this.offer_save_button = false;
                     this.$toast.add({ severity: 'success', detail: 'Başarıyla Güncellendi', life: 3000 });
                 } else {
+                    this.offer_save_button = false;
                     this.$toast.add({ severity: 'error', detail: 'Güncelleme Başarısız', life: 3000 });
                 }
             })

@@ -22,6 +22,9 @@
                     :showAddButton="false"
                 
                 >
+                    <template #body="slotProps">
+                        {{ $filters.formatDate(slotProps.data.girisTarihi) }}
+                    </template>
                     <template #filter="{ filterModel, filterCallback }">
                         <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter"/>
                     </template>
@@ -96,6 +99,9 @@
                     :showAddButton="false"
                 
                 >
+                <template #body="slotProps">
+                            {{ $filters.formatDate(slotProps.data.girisTarihi) }}
+                        </template>
                     <template #filter="{ filterModel, filterCallback }">
                         <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter"/>
                     </template>
@@ -110,6 +116,9 @@
                     :showFilterMatchModes="false"
                     :showAddButton="false"
                 >
+                <template #body="slotProps">
+                            {{ $filters.formatDate(slotProps.data.yapildiTarihi) }}
+                        </template>
                     <template #filter="{ filterModel, filterCallback }">
                         <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter"/>
                     </template>

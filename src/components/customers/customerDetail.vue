@@ -28,10 +28,18 @@
     
     >
             <Column field="sira" header="#"></Column>
-            <Column field="tarih_giris" header="Kayıt"></Column>
+            <Column field="tarih_giris" header="Kayıt">
+                <template #body="slotProps">
+                    {{ $filters.formatDate(slotProps.data.tarih_giris) }}
+                </template>
+            </Column>
             <Column field="baslik" header="Başlık"></Column>
             <Column field="aciklama" header="Açıklama"></Column>
-            <Column field="hatirlatmaTarihi" header="Hatırlatma T."></Column>
+            <Column field="hatirlatmaTarihi" header="Hatırlatma T.">
+                <template #body="slotProps">
+                    {{ $filters.formatDate(slotProps.data.hatirlatmaTarihi) }}
+                </template>
+            </Column>
                 <Column field="hatirlatma_notu" header="Hatırlatma N."></Column>
                 <Column field="satisci_cloud_dosya" header="İndir">
                     <template #body="slotProps">
@@ -56,8 +64,9 @@
 import { useCustomerStore } from '../../stores/customers';
 import { mapState } from 'pinia';
 import { customerService } from '../../services/customerService';
-import customerDetailForm from './customerDetailForm.vue';
 import { socket } from '../../services/customServices/realTimeService';
+import customerDetailForm from './customerDetailForm.vue';
+
 export default {
     props:['customerName','priority','followStatus'],
     components: {

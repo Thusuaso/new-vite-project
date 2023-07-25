@@ -1,7 +1,7 @@
 <template>
     <div class="row">
         <div class="col-2">
-            <Calendar v-model="a_date" showIcon @date-select="advancedDateSelect($event)" :disabled="a_date_form"/>
+            <Calendar v-model="a_date" showIcon @date-select="advancedDateSelect($event)" :disabled="a_date_form" dateFormat="dd/mm/yy"/>
         </div>
         <div class="col-2">
             <div class="input-group mb-3">

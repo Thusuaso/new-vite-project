@@ -13,7 +13,7 @@
             </div>
         </div>
         <div class="col">
-            <Calendar v-model="c_date" showIcon />
+            <Calendar v-model="c_date" showIcon dateFormat="dd/mm/yy" />
         </div>
         <div class="col">
             <div class="form-check">

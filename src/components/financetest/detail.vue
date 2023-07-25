@@ -44,8 +44,16 @@
                 style="font-size:85%;"
             >
                 <Column field="po" header="Po" ></Column>
-                <Column field="product_date" header="Sipariş Tarihi"></Column>
-                <Column field="forwarding_date" header="Sevkiyat Tarihi"></Column>
+                <Column field="product_date" header="Sipariş Tarihi">
+                    <template #body="slotProps">
+                        {{ $filters.formatDate(slotProps.data.product_date) }}
+                    </template>
+                </Column>
+                <Column field="forwarding_date" header="Sevkiyat Tarihi">
+                    <template #body="slotProps">
+                            {{ $filters.formatDate(slotProps.data.forwarding_date) }}
+                        </template>
+                </Column>
 
                 <Column field="status" header="Durum"></Column>
                 <Column field="cost" header="Sipariş">
@@ -92,7 +100,11 @@
                 @row-click="detailPaidSelected($event)"
                 style="font-size:85%;"
                 >
-                <Column field="date" header="Tarih"></Column>
+                <Column field="date" header="Tarih">
+                    <template #body="slotProps">
+                        {{ $filters.formatDate(slotProps.data.date) }}
+                    </template>
+                </Column>
                 <Column field="paid" header="Ödenen">
                     <template #body="slotProps">
                         {{ $filters.formatPrice(slotProps.data.paid) }}

@@ -50,7 +50,7 @@
             <button type="text" class="btn btn-secondary" @click="excel_output_list">Excel</button>
             <br/>
             <br/>
-            <Calendar v-model="l_date" showIcon />
+            <Calendar v-model="l_date" showIcon dateFormat="dd/mm/yy"/>
             <button type="text" class="btn btn-primary" @click="ticketExcelList" style="margin-left:10px;margin-top:-5px;">Etiket</button>
             <br/>
             <br/>

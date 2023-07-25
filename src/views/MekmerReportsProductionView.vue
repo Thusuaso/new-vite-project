@@ -1,7 +1,7 @@
 <template>
     <div class="row m-auto mt-3">
         <div class="col-2">
-            <Calendar v-model="m_r_date" selectionMode="range" :manualInput="false" placeholder="Bir Tarih Aralığı Seçiniz"/>
+            <Calendar v-model="m_r_date" selectionMode="range" :manualInput="false" placeholder="Bir Tarih Aralığı Seçiniz" dateFormat="dd/mm/yy"/>
         </div>
         <div class="col-1">
             <button type="button" class="btn btn-secondary" @click="m_r_date= null">Temizle</button>

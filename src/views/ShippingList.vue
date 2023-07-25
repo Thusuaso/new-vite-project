@@ -6,7 +6,11 @@
         paginator :rows="12"
         style="font-size:85%;"
     >
-        <Column field="tarih" header="Tarih"></Column>
+        <Column field="tarih" header="Tarih">
+            <template #body="slotProps">
+                {{ $filters.formatDate(slotProps.data.tarih) }}
+            </template>
+        </Column>
         <Column field="siparis_no" header="Po"
             :showFilterMenu="false"
             :showFilterOperator="false"

@@ -4,11 +4,11 @@
       <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="productionsDetailModel.siparis.siparisNo" :disabled="getProductionsNewButton ? false:true">
     </div>
     <span class="p-float-label mb-4 w-100">
-        <Calendar v-model="o_date" inputId="o_date" showIcon class="w-100" @date-select="selectedODate($event)" :disabled="getProductionsNewButton ? false : true"/>
+        <Calendar v-model="o_date" inputId="o_date" showIcon class="w-100" @date-select="selectedODate($event)" :disabled="getProductionsNewButton ? false : true" dateFormat="dd/mm/yy"/>
         <label for="o_date">Sipariş Tarihi</label>
     </span>
     <span class="p-float-label mb-3 w-100">
-        <Calendar v-model="e_l_date" inputId="e_l_date" showIcon class="w-100" @date-select="selectedELDate($event)" :disabled="getProductionsNewButton ? false : true"/>
+        <Calendar v-model="e_l_date" inputId="e_l_date" showIcon class="w-100" @date-select="selectedELDate($event)" :disabled="getProductionsNewButton ? false : true" dateFormat="dd/mm/yy"/>
         <label for="e_l_date">Tahmini Yükleme Tarihi</label>
     </span>
     <div class="input-group mb-3" >
@@ -53,11 +53,11 @@
     </div>
     <br/>
     <span class="p-float-label mb-3 w-100">
-        <Calendar v-model="l_date" inputId="l_date" showIcon class="w-100" @date-select="selectedLDate($event)"/>
+        <Calendar v-model="l_date" inputId="l_date" showIcon class="w-100" @date-select="selectedLDate($event)" dateFormat="dd/mm/yy"/>
         <label for="l_date">Yükleme Tarihi</label>
     </span>
     <span class="p-float-label mb-3 w-100">
-        <Calendar v-model="e_date" inputId="e_date" showIcon class="w-100" @date-select="selectedEDate($event)"/>
+        <Calendar v-model="e_date" inputId="e_date" showIcon class="w-100" @date-select="selectedEDate($event)" dateFormat="dd/mm/yy"/>
         <label for="e_date">Eta Tarihi</label>
     </span>
     <div class="input-group mb-4 mt-3 ">

@@ -1,7 +1,7 @@
 <template>
     <div class="row m-auto mt-3">
         <div class="col-2">
-            <Calendar v-model="f_dates" selectionMode="range" :manualInput="false"/>
+            <Calendar v-model="f_dates" selectionMode="range" :manualInput="false" dateFormat="dd/mm/yy"/>
         </div>
         <div class="col-1">
             <button type="button" class="btn btn-success" @click="searchForwardingDate">Ara</button>

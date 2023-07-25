@@ -2,7 +2,7 @@
     <div class="row m-auto mt-3">
         <div class="col">
             <span class="p-float-label">
-                <Calendar id="p_date" v-model="p_date" showIcon />
+                <Calendar id="p_date" v-model="p_date" showIcon dateFormat="dd/mm/yy"/>
                 <label for="p_date">Ödeme Tarihi</label>
             </span>
         </div>

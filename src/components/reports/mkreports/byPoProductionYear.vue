@@ -13,7 +13,11 @@
                 <template #header>
                     {{ year }} Po Bazında Üretim Listesi
                 </template>
-                <Column field="tarih" header="Tarih"></Column>
+                <Column field="tarih" header="Tarih">
+                    <template #body="slotProps">
+                        {{ $filters.formatDate(slotProps.data.tarih) }}
+                    </template>
+                </Column>
                 <Column 
                         field="firma" 
                         header="Müşteri"

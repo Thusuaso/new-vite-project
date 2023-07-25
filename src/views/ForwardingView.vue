@@ -8,7 +8,7 @@
         </div>
         <div class="col">
             <span class="p-float-label">
-                <Calendar id="f_date" v-model="f_date" showIcon/>
+                <Calendar id="f_date" v-model="f_date" showIcon dateFormat="dd/mm/yy"/>
                 <label for="f_date">Sevk Tarihi</label>
             </span>
         </div>

@@ -18,6 +18,15 @@ export const localDateService =  {
     const newDate = new Date(yil, ay - 1, gun);
     return newDate;
   },
+  getStringDate2(value: any) {
+    const tarih = value.split("-");
+
+    const yil = tarih[0];
+    const ay = tarih[1];
+    const gun = tarih[2];
+    const newDate = new Date(yil, ay - 1, gun);
+    return newDate;
+  },
 
   getDataTableSum(data:any, columns:any) {
     const values = [];
@@ -37,5 +46,6 @@ export const localDateService =  {
     }
 
     return values;
-  }
+  },
+
 }

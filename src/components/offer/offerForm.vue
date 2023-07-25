@@ -4,7 +4,7 @@
             <div class="row m-auto mt-4">
                 <div class="col">
                     <span class="p-float-label">
-                        <Calendar id="o_date" v-model="o_date" showIcon />
+                        <Calendar id="o_date" v-model="o_date" showIcon dateFormat="dd/mm/yy"/>
                         <label for="o_date">Tarih</label>
                     </span>
                 </div>
@@ -55,7 +55,7 @@
                 <TabPanel header="Hatırlatma Belge">
                     <div class="row m-auto mt-3">
                         <div class="col-3">
-                            <Calendar v-model="r_date" showIcon @date-select="reminderDateSelected($event)"/>
+                            <Calendar v-model="r_date" showIcon @date-select="reminderDateSelected($event)" dateFormat="dd/mm/yy"/>
                         </div>
                         <div class="col-3">
                             <FileUpload mode="basic" accept="image/*" :maxFileSize="1000000" @select="onSelect($event)" :auto="true" chooseLabel="Gönder" />
@@ -212,7 +212,7 @@ export default {
                 { id: 3, priority: "C" },
                 { id: 4, priority: "Toplantı" },
             ],
-            r_date: "",
+            r_date: null,
             offerFileLink: null,
             offerFileDownloadDisable: true,
             offerFileDeleteDisable: true,
@@ -253,7 +253,18 @@ export default {
             this.selectedOfferPlace = this.offerPlaces.find(x => x.place == this.getOfferModelList.teklifYeri);
             this.selectedCountry = this.getOfferCountryList.find(x => x.id == this.selectedShopper.ulkeId);
             this.selectedOfferPriority = this.offerPriorities.find(x => x.priority == this.getOfferModelList.teklifOncelik);
-            this.r_date = localDateService.getStringDate(this.getOfferModelList.hatirlatmaTarihi);
+            console.log(this.getOfferModelList.hatirlatmaTarihi)
+            if (this.getOfferModelList.hatirlatmaTarihi == null || this.getOfferModelList.hatirlatmaTarihi == 'NaN/NaN/NaN' || this.getOfferModelList.hatirlatmaTarihi == '' || this.getOfferModelList.hatirlatmaTarihi == ' ' || this.getOfferModelList.hatirlatmaTarihi == undefined) {
+                this.r_date = null;
+            } else {
+                this.r_date = localDateService.getStringDate(this.getOfferModelList.hatirlatmaTarihi);
+            };
+            if (this.getOfferModelList.teklifCloud) {
+            this.offerFileDownloadDisable = false;
+            this.offerFileDeleteDisable = false;
+            this.offerFileLink = `https://file-service.mekmar.com/file/download/teklif/teklifDosya/${this.getOfferModelList.id}/${this.getOfferModelList.teklifCloudDosya}`;
+
+            }
 
 
 
@@ -274,12 +285,13 @@ export default {
             this.getOfferModelList.hatirlatmaDurum = 1;
         },
         onSelect(event) {
+
             fileService.offerFile(event.files[0], this.getOfferModelList.id).then((data) => {
                 if (data.Status) {
                     this.getOfferModelList.teklifCloud = true;
                     this.getOfferModelList.teklifCloudDosya = data.dosyaAdi;
 
-                    offerService.setOfferFile(this.teklif).then((veri) => {
+                    offerService.setOfferFile(this.getOfferModelList).then((veri) => {
                         if (veri.status) {
                             this.offerFileLink = `https://file-service.mekmar.com/file/download/teklif/teklifDosya/${this.getOfferModelList.id}/${this.getOfferModelList.teklifCloudDosya}`;
                             this.offerFileDownloadDisable = false;

@@ -66,7 +66,25 @@ app.config.globalProperties.$filters = {
     return "€" + val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
   },
   formatPoint(value: any) {
+    if (value == null || value == " " || value == undefined || value == "") {
+      return 0
+    } else {
       return value.replace(',', '.');
+      
+    }
+  },
+  formatDate(value: any) {
+    if (value == null) {
+      return null
+    } else {
+          const date = new Date(value);
+          const day = date.getDate();
+          const month = date.getMonth() + 1;
+          const year = date.getFullYear();
+          return day + '-' + month + '-' + year;
+    }
+
+    
   }
 }
 

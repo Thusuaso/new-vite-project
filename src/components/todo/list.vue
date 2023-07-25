@@ -11,8 +11,14 @@
                 <template #header>
                     Tamamlanacak Görevler
                 </template>
-                <Column field="girisTarihi" header="Giriş Tarihi"></Column>
-                <Column field="gorev_sahibi_adi" header="Görev Sahibi"></Column>
+                <Column field="girisTarihi" header="Giriş Tarihi">
+                    <template #body="slotProps">
+                        {{ $filters.formatDate(slotProps.data.girisTarihi) }}
+                    </template>
+                </Column>
+                <Column field="gorev_sahibi_adi" header="Görev Sahibi">
+                    
+                </Column>
                 <Column field="yapilacak" header="Görev">
                     <template #body="slotProps">
                         <div :style="{'backgroundColor':slotProps.data.gorev_veren_id == 10 ? 'yellow':''}">
@@ -43,8 +49,16 @@
                     <template #header>
                         Tamamlanan Görevler
                     </template>
-                    <Column field="girisTarihi" header="Giriş Tarihi"></Column>
-                    <Column field="yapildiTarihi" header="Yapıldığı Tarih"></Column>
+                    <Column field="girisTarihi" header="Giriş Tarihi">
+                        <template #body="slotProps">
+                            {{ $filters.formatDate(slotProps.data.girisTarihi) }}
+                        </template>
+                    </Column>
+                    <Column field="yapildiTarihi" header="Yapıldığı Tarih">
+                        <template #body="slotProps">
+                            {{ $filters.formatDate(slotProps.data.yapildiTarihi) }}
+                        </template>
+                    </Column>
                     <Column field="gorev_sahibi_adi" header="Görev Sahibi"></Column>
                     <Column field="yapilacak" header="Görev">
                         <template #body="slotProps">

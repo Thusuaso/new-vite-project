@@ -21,7 +21,7 @@
             <Dropdown v-model="selectedInvoice" :options="invoiceKindList" optionLabel="name" placeholder="Fatura Tür Seç" class="w-full md:w-14rem" />
         </div>
         <div class="col">
-            <Calendar v-model="c_date" showIcon  @date-select="containerDateSelect($event)"/>
+            <Calendar v-model="c_date" showIcon  @date-select="containerDateSelect($event)" dateFormat="dd/mm/yy"/>
         </div>
         <div class="col">
             <div class="input-group mb-3">

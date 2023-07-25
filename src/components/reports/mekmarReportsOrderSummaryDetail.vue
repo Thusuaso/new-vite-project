@@ -3,7 +3,11 @@
     <div class="row m-auto mt-3">
         <div class="col">
             <DataTable :value="getMekmarOrderSummaryDetailList" style="font-size:85%;">
-                <Column field="tarih" header="Tarih"></Column>
+                <Column field="tarih" header="Tarih">
+                    <template #body="slotProps">
+                        {{ $filters.formatDate(slotProps.data.tarih) }}
+                    </template>
+                </Column>
                 <Column field="musteri" header="Müşteri"></Column>
                 <Column field="siparisnumarasi" header="Po"></Column>
                 <Column field="teslim" header="Teslim"></Column>

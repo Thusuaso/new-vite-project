@@ -86,13 +86,13 @@
             </template>
         </Column>
         <Column field="urunAdi" header="Ürün" 
-        :showFilterMenu="false"
+                :showFilterMenu="false"
                 :showFilterOperator="false"
                 :showClearButton="false"
                 :showApplyButton="false"
                 :showFilterMatchModes="false"
                 :showAddButton="false"
-        :filterMenuStyle="{ width: '14rem' }">
+                :filterMenuStyle="{ width: '14rem' }">
 
           <template #filter="{ filterModel, filterCallback }">
                   <InputText v-model="filterModel.value" type="text" style="width:50px;" @input="filterCallback()" class="p-column-filter" placeholder="Search by name" />
@@ -296,7 +296,10 @@
                   :filterMenuStyle="{ width: '14rem' }"
           >
             <template #body="slotProps">
+              <div :style="{'color':slotProps.data.isf_alis_fiyati_durum }">
                 {{ slotProps.data.siparisNo }}
+
+              </div>
             </template>
             <template #filter="{ filterModel, filterCallback }">
                   <InputText v-model="filterModel.value" type="text" style="width:50px;" @input="filterCallback()" class="p-column-filter" placeholder="Search by name" />

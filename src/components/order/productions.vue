@@ -13,9 +13,7 @@
                         <button class="pi pi-file-excel btn btn-secondary h-100" type="button" @click="excel_output_tr"> TR</button>
                     </div>
                 </div>
-
             </div>
-
             <div class="col m-auto">
                 <div class="row m-auto">
                     <div class="col">
@@ -80,9 +78,7 @@
             </div>
         </div>
     </div>
-
     <productionsList :title="title"/>
-
     <Dialog v-model:visible="order_form" header="Yeni Sipariş" modal :style="{ width: '100vw' }" :closeOnEscape="false">
         <orderForm/>
     </Dialog>

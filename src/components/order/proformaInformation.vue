@@ -10,7 +10,7 @@
                     <Dropdown v-model="selectedPayment" filter  :options="getProductPaymentList" optionLabel="odemeTurAdi"  class="w-full md:w-14rem form-control" @change="changePayment($event)"/>
             </div>
 
-            <Calendar class="w-100 mb-3" v-model="v_date"  showIcon inputId="birth_date" @date-select="selectedVDate($event)" />
+            <Calendar class="w-100 mb-3" v-model="v_date"  showIcon inputId="birth_date" @date-select="selectedVDate($event)" dateFormat="dd/mm/yy"/>
 
 
 

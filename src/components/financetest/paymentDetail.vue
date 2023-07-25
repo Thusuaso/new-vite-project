@@ -17,7 +17,7 @@
             </div>
             <div class="row m-auto mt-3">
                 <div class="col">
-                    <Calendar v-model="p_date" @date-select="paymentDateSelected($event)"/>
+                    <Calendar v-model="p_date" @date-select="paymentDateSelected($event)" dateFormat="dd/mm/yy"/>
                 </div>
                 <div class="col">
                     <div class="input-group mb-3">

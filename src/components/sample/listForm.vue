@@ -20,11 +20,11 @@
                 <input type="text" class="form-control"  aria-describedby="basic-addon1" v-model="getSampleModel.numuneNo" :disabled="sample_no_disabled">
             </div>
             <span class="p-float-label mb-4">
-                <Calendar v-model="s_date" showIcon class="w-100" @date-select="sendingDateSelected($event)"/>
+                <Calendar v-model="s_date" showIcon class="w-100" @date-select="sendingDateSelected($event)" dateFormat="dd/mm/yy"/>
                 <label for="customer">Giriş Tarihi</label>
             </span>
             <span class="p-float-label mb-4">
-                <Calendar v-model="l_date" showIcon class="w-100" @date-select="loadingDateSelected($event)"/>
+                <Calendar v-model="l_date" showIcon class="w-100" @date-select="loadingDateSelected($event)" dateFormat="dd/mm/yy"/>
                 <label for="customer">Yükleme Tarihi</label>
             </span>
             <span class="p-float-label mb-4">

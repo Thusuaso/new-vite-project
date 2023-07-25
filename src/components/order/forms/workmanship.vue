@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col">
             <span class="p-float-label">
-                <Calendar v-model="w_date" inputId="w_date" @date-select="selectWorkmanshipDate($event)" :disabled="!disabled_new_button"/>
+                <Calendar v-model="w_date" inputId="w_date" @date-select="selectWorkmanshipDate($event)" :disabled="!disabled_new_button" dateFormat="dd/mm/yy"/>
                 <label for="w_date">Tarih</label>
             </span>
         </div>

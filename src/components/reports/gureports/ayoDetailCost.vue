@@ -10,7 +10,11 @@
             
             >
             <Column field="siparis_no" header="Po" style="min-width: 100px"></Column>
-            <Column field="yukleme_tarihi" header="Y.Tarihi" style="min-width: 100px"></Column>
+            <Column field="yukleme_tarihi" header="Y.Tarihi" style="min-width: 100px">
+                <template #body="slotProps">
+                    {{ $filters.formatDate(slotProps.data.yukleme_tarihi) }}
+                </template>
+            </Column>
             <Column field="satis_toplami" header="Satış" style="min-width: 100px">
                 <template #body="slotProps">
                     {{ $filters.formatPrice(slotProps.data.satis_toplami) }}

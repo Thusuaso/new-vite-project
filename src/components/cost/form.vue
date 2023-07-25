@@ -16,7 +16,7 @@
             <Dropdown v-model="selectedUser" :options="getUsers" optionLabel="name" placeholder="Select a User" class="w-full md:w-14rem" @change="userSelected($event)"/>
         </div>
         <div class="col">
-            <Calendar v-model="c_m_date" />
+            <Calendar v-model="c_m_date" dateFormat="dd/mm/yy"/>
         </div>
     </div>
     <div class="row m-auto mt-3">
@@ -50,7 +50,7 @@ export default {
     created() {
         if (!this.getNewButton) {
             this.selectedUser = this.getUsers.find(x => x.id == this.getModel.kullanici_id);
-            this.c_m_date = localDateService.getStringDate(this.getModel.tarih);
+            this.c_m_date = localDateService.getStringDate2(this.getModel.tarih);
         }
     },
     methods: {

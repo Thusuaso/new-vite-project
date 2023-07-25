@@ -2,13 +2,13 @@
     <div class="row m-auto mt-3">
         <div class="col">
             <span class="p-float-label">
-                <Calendar id="e_date" v-model="e_date" showIcon @date-select="enterDateSelected($event)"/>
+                <Calendar id="e_date" v-model="e_date" showIcon @date-select="enterDateSelected($event)" dateFormat="dd/mm/yy"/>
                 <label for="e_date">Giriş Tarihi</label>
             </span>
         </div>
         <div class="col">
             <span class="p-float-label">
-                <Calendar id="r_date" v-model="r_date" showIcon @date-select="reminderDateSelected($event)" />
+                <Calendar id="r_date" v-model="r_date" showIcon @date-select="reminderDateSelected($event)" dateFormat="dd/mm/yy"/>
                 <label for="r_date">Hatırlatma Tarihi</label>
             </span>
         </div>

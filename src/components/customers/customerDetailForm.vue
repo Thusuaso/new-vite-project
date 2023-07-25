@@ -134,9 +134,10 @@ export default {
             this.gTarih = new Date()
             this.hTarih = new Date()
         } else {
-            this.gTarih = localDateService.getStringDate(this.getCustomerModel.tarih_giris);
-            this.hTarih = localDateService.getStringDate(this.getCustomerModel.hatirlatmaTarihi);
-        }
+            console.log(this.getCustomerModel.tarih_giris)
+            this.gTarih = localDateService.getStringDate2(this.getCustomerModel.tarih_giris);
+            this.hTarih = localDateService.getStringDate2(this.getCustomerModel.hatirlatmaTarihi);
+        };
         
 
     }

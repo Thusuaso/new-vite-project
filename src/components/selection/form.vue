@@ -58,7 +58,7 @@
             </span>
             <br/>
             <br/>
-            <Calendar v-model="p_date" @date-select="dateSelected($event)" :disabled="form.date"/>
+            <Calendar v-model="p_date" @date-select="dateSelected($event)" :disabled="form.date" dateFormat="dd/mm/yy"/>
             <br/>
             <br/>
             <div class="row">

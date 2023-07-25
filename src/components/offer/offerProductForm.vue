@@ -2,7 +2,7 @@
     <div class="row m-auto mt-3">
         <div class="col">
             <span class="p-float-label">
-                <Calendar id="p_date" v-model="p_date" showIcon @date-select="productDateSelected($event)"/>
+                <Calendar id="p_date" v-model="p_date" showIcon @date-select="productDateSelected($event)" dateFormat="dd/mm/yy"/>
                 <label for="p_date">Tarih</label>
             </span>
         </div>
@@ -317,7 +317,7 @@ export default {
                 const productsLenght = this.productsList.length + 1;
                 this.product.id = productsLenght;
             };
-            this.product.tarih = localDateService.getDateString(new Date());
+            this.product.tarih = localDateService.getDateString(this.p_date);
             this.productsList.push(this.product);
             useOfferStore().offer_products_list_load_act(this.product);
             useOfferStore().offer_products_adding_list_load_act(this.product);
@@ -350,7 +350,6 @@ export default {
             useOfferStore().offer_products_updating_list_load_act(this.getOfferProductsList[index]);
             this.reset();
             this.selectedProductList = {};
-            console.log("getOfferUpdatingProductsList", this.getOfferUpdatingProductsList);
         },
         reset() {
             this.product = {

@@ -17,7 +17,7 @@
             </div>
             <div class="row">
                     <div class="col">
-                        <Calendar v-model="f_c_date" showIcon @date-select="financeCollectionDateSelected($event)"/>
+                        <Calendar v-model="f_c_date" showIcon @date-select="financeCollectionDateSelected($event)" dateFormat="dd/mm/yy"/>
                     </div>
                     <div class="col">
                         

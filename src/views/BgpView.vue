@@ -40,7 +40,7 @@
                         <button type="button" class="btn btn-primary" @click="detail(item.projectName, item.ulkeAdi)">Detay</button>
                     </div>
                     <div class="col-4">
-                        {{ item.dateOfRegistiration }}  {{ item.temsilciAdi }}
+                        {{ $filters.formatDate(item.dateOfRegistiration) }}  {{ item.temsilciAdi }}
 
                     </div>
                     <div class="col-4">

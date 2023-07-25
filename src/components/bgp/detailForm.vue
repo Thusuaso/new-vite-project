@@ -80,7 +80,7 @@
             <div class="col">
                   <div class="input-group mb-3">
                     <span class="input-group-text" id="basic-addon1">H.Tarihi</span>
-                    <Calendar v-model="r_date" showIcon style="width:80%;height:40px;"/>
+                    <Calendar v-model="r_date" showIcon style="width:80%;height:40px;" dateFormat="dd/mm/yy"/>
                   </div>
                 </div>
       </div>
@@ -131,8 +131,8 @@ export default {
     },
     created() {
         if (!this.getbgpProjectNewButtonStatus) {
-            this.s_date = localDateService.getStringDate(this.getBgpListDetailModel.kayitTarihi)
-            this.r_date = localDateService.getStringDate(this.getBgpListDetailModel.hatirlatmaTarihi)
+            this.s_date = localDateService.getStringDate2(this.getBgpListDetailModel.kayitTarihi)
+            this.r_date = localDateService.getStringDate2(this.getBgpListDetailModel.hatirlatmaTarihi)
         } else {
             useLoadingStore().begin_loading_act()
             bgpService.bgpProjectDetailModel().then(data => {

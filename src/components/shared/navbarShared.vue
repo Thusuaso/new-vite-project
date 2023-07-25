@@ -143,7 +143,7 @@
             </li>
             <li class="nav-item">
                 <button class="nav-link" icon="pi pi-arrow-right" @click="todo_side_bar_visible = true">
-                  <i v-badge.danger="getTodoLength" class="pi pi-calendar p-overlay-badge" style="font-size: 2rem" />
+                  <i v-badge.danger="getTodoLength" class="pi pi-calendar p-overlay-badge" style="font-size: 2rem" dateFormat="dd/mm/yy"/>
                 </button>
             </li>
             <li class="nav-item">

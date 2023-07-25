@@ -3,7 +3,11 @@
         <div class="col">
             <DataTable :value="getMekmerStockDetailList" style="font-size:85%;">
                 <Column field="sira" header="#"></Column>
-                <Column field="tarihtop" header="Tarih"></Column>
+                <Column field="tarihtop" header="Tarih">
+                    <template #body="slotProps">
+                        {{ $filters.formatDate(slotProps.data.tarihtop) }}
+                    </template>
+                </Column>
                 <Column field="kasanotop" header="Kasa"></Column>
                 <Column field="tedarikci_aditop" header="Tedarikçi"></Column>
                 <Column field="kategoritop" header="Kategori"></Column>

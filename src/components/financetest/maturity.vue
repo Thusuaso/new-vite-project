@@ -17,7 +17,7 @@
         </Column>
         <Column field="vade_tarih" header="Vade Tarihi" bodyStyle="text-align:center;">
             <template #body="slotProps">
-                {{ slotProps.data.vade_tarih }}
+                {{ $filters.formatDate(slotProps.data.vade_tarih) }}
             </template>
         </Column>
         <Column field="tutar" header="Tutar" bodyStyle="text-align:center;">

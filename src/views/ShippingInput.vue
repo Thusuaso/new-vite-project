@@ -13,7 +13,7 @@
         </div>
         <div class="col">
             <span class="p-float-label">
-                <Calendar id="date" v-model="s_date" showIcon @date-select="shippingDateSelect($event)"/>
+                <Calendar id="date" v-model="s_date" showIcon @date-select="shippingDateSelect($event)" dateFormat="dd/mm/yy"/>
                 <label for="date">Tarih</label>
             </span>
         </div>

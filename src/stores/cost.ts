@@ -5,7 +5,7 @@ export const useCostStore = defineStore('cost', {
             list: [],
             model: [],
             users:[],
-            newButton:false,
+            newButton:true,
         }
     },
     actions: {
@@ -13,6 +13,7 @@ export const useCostStore = defineStore('cost', {
             this.list = data;
         },
         cost_error_model_load_act(data: any) {
+            console.log(data.users)
             this.model = data.model;
             this.users = data.users;
         },

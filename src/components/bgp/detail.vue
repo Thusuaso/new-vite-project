@@ -7,10 +7,18 @@
       </div>
       <DataTable :value="getBgpListDetail" style="font-size:85%;" :selection="bgpListSelected" selectionMode="single" @row-click="bgpListDetail($event)">
         <Column field="firmaAdi" header="Firma Adı"></Column>
-        <Column field="kayitTarihi" header="Tarih"></Column>
+        <Column field="kayitTarihi" header="Tarih">
+          <template #body="slotProps">
+            {{ $filters.formatDate(slotProps.data.kayitTarihi) }}
+          </template>
+        </Column>
         <Column field="baslik" header="Başlık"></Column>
         <Column field="aciklama" header="Açıklama"></Column>
-        <Column field="hatirlatmaTarihi" header="H.Tarihi"></Column>
+        <Column field="hatirlatmaTarihi" header="H.Tarihi">
+          <template #body="slotProps">
+              {{ $filters.formatDate(slotProps.data.hatirlatmaTarihi) }}
+            </template>
+        </Column>
         <Column field="hatirlatmaAciklama" header="H.Açıklama"></Column>
         <Column field="email" header="Email"></Column>
         <Column field="phone" header="Tel"></Column>
