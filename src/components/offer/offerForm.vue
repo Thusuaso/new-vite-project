@@ -253,7 +253,6 @@ export default {
             this.selectedOfferPlace = this.offerPlaces.find(x => x.place == this.getOfferModelList.teklifYeri);
             this.selectedCountry = this.getOfferCountryList.find(x => x.id == this.selectedShopper.ulkeId);
             this.selectedOfferPriority = this.offerPriorities.find(x => x.priority == this.getOfferModelList.teklifOncelik);
-            console.log(this.getOfferModelList.hatirlatmaTarihi)
             if (this.getOfferModelList.hatirlatmaTarihi == null || this.getOfferModelList.hatirlatmaTarihi == 'NaN/NaN/NaN' || this.getOfferModelList.hatirlatmaTarihi == '' || this.getOfferModelList.hatirlatmaTarihi == ' ' || this.getOfferModelList.hatirlatmaTarihi == undefined) {
                 this.r_date = null;
             } else {
@@ -264,12 +263,7 @@ export default {
             this.offerFileDeleteDisable = false;
             this.offerFileLink = `https://file-service.mekmar.com/file/download/teklif/teklifDosya/${this.getOfferModelList.id}/${this.getOfferModelList.teklifCloudDosya}`;
 
-            }
-
-
-
-
-
+            };
         },
         offerFileDelete() {
             offerService.deleteOfferFile(this.getOfferModelList.id).then(data => {

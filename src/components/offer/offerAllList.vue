@@ -11,7 +11,9 @@
                     @filter="offerAllListAFilter($event)"
                     v-model:selection="selectedOfferListA"
                     selectionMode="single"
-                    @row-click="offerListASelected($event)"            
+                    @row-click="offerListASelected($event)"  
+                    :sortField="['teklifOncelik','tarih']"
+                    sortOrder="-1"          
                 >
                 <template #header>
                     Teklifler A Listesi
@@ -233,7 +235,8 @@ export default {
             'getOfferAllListATotal',
             'getOfferAllListBTotal',
             'getOfferAllChartListA',
-            'getOfferAllChartListB'
+            'getOfferAllChartListB',
+            'getOfferAllButton'
         ])
     },
     components: {
@@ -296,11 +299,19 @@ export default {
         });
         socket.socketIO.on('offer_detail_list_on', () => {
             useLoadingStore().begin_loading_act();
-            offerService.getOfferAllRepresentativeList(localStorage.getItem('userId')).then(data => {
-                useOfferStore().offer_all_list_load_act(data);
-                useLoadingStore().end_loading_act();
-                // this.emitter.emit('offer_all_representative_dialog', true);
-            });
+            if (this.getOfferAllButton) {
+                offerService.getOfferAllList().then(data => {
+                    useOfferStore().offer_all_list_load_act(data);
+                    useLoadingStore().end_loading_act();
+                })
+            } else {
+                offerService.getOfferAllRepresentativeList(localStorage.getItem('userId')).then(data => {
+                    useOfferStore().offer_all_list_load_act(data);
+                    useLoadingStore().end_loading_act();
+                    // this.emitter.emit('offer_all_representative_dialog', true);
+                });
+            }
+            
         });
     }
 }
