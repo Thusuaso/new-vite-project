@@ -10,6 +10,7 @@
   <el-button
     v-loading.fullscreen.lock="getLoading"
     type="primary"
+    v-if="getAuthentication"
   >
   </el-button>
 
@@ -34,9 +35,7 @@ import { RouterView } from 'vue-router';
 import navBar from '@/components/shared/navbarShared.vue';
 import { useLoginStore } from '@/stores/login';
 import { useLoadingStore } from '@/stores/loading';
-import { useTodoStore } from './stores/todo';
 
-import { todoService } from './services/todoService';
 
 import { mapState } from 'pinia';
 export default ({
@@ -64,9 +63,6 @@ export default ({
       this.$router.push('/login');
       useLoginStore().login_authentication_act(false);
     };
-    todoService.getList(localStorage.getItem('userId')).then(data => {
-      useTodoStore().to_do_list_load_act(data);
-    });
 
 
   }

@@ -191,9 +191,9 @@ const router = createRouter({
         selectionService.getSelectionList().then(data => {
           useSelectionStore().selection_list_load_act(data);
           cardService.getCardList().then(data => {
-              useCardStore().card_list_load_act(data);
-              useLoadingStore().end_loading_act();
-              next();
+            useCardStore().card_list_load_act(data);
+            useLoadingStore().end_loading_act();
+            next();
 
 
           })
@@ -525,7 +525,7 @@ const router = createRouter({
           })
 
           
-        });        
+        });
         
       }
     },
@@ -583,7 +583,7 @@ const router = createRouter({
             useLoadingStore().end_loading_act();
             next();
 
-        })
+          })
         })
         
       }
@@ -731,6 +731,14 @@ const router = createRouter({
 
 
   ]
-})
+});
+router.beforeEach(
+  (to, from, next) => {
+    todoService.getList(localStorage.getItem('userId')).then(data => {
+      useTodoStore().to_do_list_load_act(data);
+    });
+    next();
+  }
+)
 
 export default router
