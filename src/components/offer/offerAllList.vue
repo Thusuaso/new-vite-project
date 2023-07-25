@@ -12,7 +12,7 @@
                     v-model:selection="selectedOfferListA"
                     selectionMode="single"
                     @row-click="offerListASelected($event)"  
-                    :sortField="['teklifOncelik','tarih']"
+                    :sortField="['teklifOncelik','sira']"
                     sortOrder="-1"          
                 >
                 <template #header>
@@ -226,7 +226,7 @@ import { FilterMatchMode } from 'primevue/api';
 import { offerService } from '../../services/offerService';
 import { socket } from '../../services/customServices/realTimeService';
 
-import offerForm from '../../components/offer/offerForm.vue';
+import offerForm from '../../components/offer/offerFormAll.vue';
 export default {
     computed: {
         ...mapState(useOfferStore, [
@@ -297,20 +297,12 @@ export default {
         this.emitter.on('offer_detail_dialog_close', () => {
             this.offer_detail_form = false;
         });
-        socket.socketIO.on('offer_detail_list_on', () => {
+        socket.socketIO.on('offer_detail_list_all_on', () => {
             useLoadingStore().begin_loading_act();
-            if (this.getOfferAllButton) {
-                offerService.getOfferAllList().then(data => {
-                    useOfferStore().offer_all_list_load_act(data);
-                    useLoadingStore().end_loading_act();
-                })
-            } else {
-                offerService.getOfferAllRepresentativeList(localStorage.getItem('userId')).then(data => {
-                    useOfferStore().offer_all_list_load_act(data);
-                    useLoadingStore().end_loading_act();
-                    // this.emitter.emit('offer_all_representative_dialog', true);
-                });
-            }
+            offerService.getOfferAllList().then(data => {
+                useOfferStore().offer_all_list_load_act(data);
+                useLoadingStore().end_loading_act();
+            });
             
         });
     }
