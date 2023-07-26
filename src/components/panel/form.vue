@@ -27,7 +27,7 @@
             <div class="row m-auto mt-3">
                 <div class="col-6">
                     <div class="form-floating">
-                        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height:100px;" v-model="getProductModel.aciklama_en"></textarea>
+                        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height:100px;padding-top:35px;" v-model="getProductModel.aciklama_en"></textarea>
                         <label for="floatingTextarea2">Açıklama</label>
                     </div>
                 </div>
@@ -96,7 +96,7 @@
                 <div class="row m-auto mt-3">
                     <div class="col-6">
                         <div class="form-floating">
-                            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height:100px;" v-model="getProductModel.aciklama_fr"></textarea>
+                            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height:100px;padding-top:35px;" v-model="getProductModel.aciklama_fr"></textarea>
                             <label for="floatingTextarea2">Açıklama</label>
                         </div>
                     </div>
@@ -153,7 +153,7 @@
                     <div class="row m-auto mt-3">
                         <div class="col-6">
                             <div class="form-floating">
-                                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height:100px;" v-model="getProductModel.aciklama_es"></textarea>
+                                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height:100px;padding-top:35px;" v-model="getProductModel.aciklama_es"></textarea>
                                 <label for="floatingTextarea2">Açıklama</label>
                             </div>
                         </div>

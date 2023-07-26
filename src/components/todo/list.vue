@@ -125,7 +125,7 @@ export default {
             useLoadingStore().begin_loading_act();
             todoService.updateTodo(value).then(data => {
                 if (data.status) {
-                    socket.socketIO.emit('to_do_list_emit', localStorage.getItem('userId'));
+                    socket.socketIO.emit('to_do_list_emit');
                     useLoadingStore().end_loading_act();
                     this.$toast.add({ severity: 'success', detail: 'Başarıyla Kaydedildi', life: 3000 });
                 } else {
@@ -139,10 +139,11 @@ export default {
                 'status': status,
                 'yapildiTarihi': localDateService.getDateString(new Date()),
             };
+            console.log(value)
             useLoadingStore().begin_loading_act();
             todoService.updateTodo(value).then(data => {
                 if (data.status) {
-                    socket.socketIO.emit('to_do_list_emit', localStorage.getItem('userId'));
+                    socket.socketIO.emit('to_do_list_emit');
                     useLoadingStore().end_loading_act();
                     this.$toast.add({ severity: 'success', detail: 'Başarıyla Kaydedildi', life: 3000 });
                 } else {
@@ -155,7 +156,7 @@ export default {
                 useLoadingStore().begin_loading_act();
                 todoService.deleteTodo(id).then(data => {
                     if (data.status) {
-                        socket.socketIO.emit('to_do_list_emit', localStorage.getItem('userId'));
+                        socket.socketIO.emit('to_do_list_emit');
                         useLoadingStore().end_loading_act();
                         this.$toast.add({ severity: 'success', detail: 'Başarıyla Silindi', life: 3000 });
                     } else {

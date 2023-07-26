@@ -117,11 +117,11 @@
                     :showAddButton="false"
                 >
                 <template #body="slotProps">
-                            {{ $filters.formatDate(slotProps.data.yapildiTarihi) }}
-                        </template>
-                    <template #filter="{ filterModel, filterCallback }">
-                        <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter"/>
-                    </template>
+                    {{ slotProps.data.yapildiTarihi }}
+                </template>
+                <template #filter="{ filterModel, filterCallback }">
+                    <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter"/>
+                </template>
                 </Column>
                 <Column 
                         field="gorev_sahibi_adi"

@@ -17,7 +17,7 @@
             </div>
         <div class="col">
             <div class="form-floating">
-                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" v-model="getWorkmanshipModel.aciklama" :disabled="!disabled_new_button" style="height:150px;"></textarea>
+                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" v-model="getWorkmanshipModel.aciklama" :disabled="!disabled_new_button" style="height:150px;padding-top:35px;"></textarea>
                 <label for="floatingTextarea">Açıklama</label>
             </div>
         </div>

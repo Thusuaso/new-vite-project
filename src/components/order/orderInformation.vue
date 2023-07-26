@@ -93,13 +93,13 @@
                     <div class="row">
                         <div class="col-6">
                             <div class="form-floating">
-                            <textarea class="form-control" placeholder="Leave a comment here" :disabled="form_status" id="floatingTextarea" style="height:150px;" v-model="products.musteriAciklama"></textarea>
+                            <textarea class="form-control" placeholder="Leave a comment here" :disabled="form_status" id="floatingTextarea" style="height:150px;padding-top:35px;" v-model="products.musteriAciklama"></textarea>
                             <label for="floatingTextarea" :disabled="form_status">En</label>
                         </div>
                         </div>
                         <div class="col-6">
                             <div class="form-floating">
-                            <textarea class="form-control" placeholder="Leave a comment here" :disabled="form_status" id="floatingTextarea" style="height:150px;" v-model="products.uretimAciklama"></textarea>
+                            <textarea class="form-control" placeholder="Leave a comment here" :disabled="form_status" id="floatingTextarea" style="height:150px;padding-top:35px;" v-model="products.uretimAciklama"></textarea>
                             <label for="floatingTextarea" :disabled="form_status">Tr</label>
                         </div>
                             </div>

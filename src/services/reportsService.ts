@@ -166,5 +166,6 @@ export const reportsService = {
     },
     setOrderRepresentativeInfo(po:any,ss:any,op:any) {
         return api.get(`/uretim/satisci/change/${po}/${ss}/${op}`).then(response => response.data);
-    }
+    },
+
 }

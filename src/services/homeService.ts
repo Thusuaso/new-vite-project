@@ -6,5 +6,8 @@ export const homeService = {
     },
     dashboardSub() {
         return api.get('/raporlar/dashboard/dashboardSubData').then(response=>response.data)
+    },
+    getVadeControl() {
+        return api.get('/kontroller/finansVadeTakipIslem').then(response => response.data);
     }
 }

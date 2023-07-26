@@ -18,7 +18,7 @@
             <div class="row m-auto mt-3">
                 <div class="col">
                     <div class="form-floating">
-                        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px" v-model="getShopperModel.unvan"></textarea>
+                        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px;padding-top:35px;" v-model="getShopperModel.unvan"></textarea>
                         <label for="floatingTextarea2">Firma</label>
                     </div>
                 </div>
@@ -26,7 +26,7 @@
             <div class="row m-auto mt-3">
                 <div class="col">
                     <div class="form-floating">
-                        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px" v-model="getShopperModel.adres"></textarea>
+                        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px;padding-top:35px;" v-model="getShopperModel.adres"></textarea>
                         <label for="floatingTextarea2">Adres</label>
                     </div>
                 </div>
@@ -72,7 +72,7 @@
             <div class="row m-auto mt-4 ">
                 <div class="col">
                     <div class="form-floating">
-                        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" style="height:100px;" v-model="getShopperModel.notlar"></textarea>
+                        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" style="height:100px;padding-top:35px;" v-model="getShopperModel.notlar"></textarea>
                         <label for="floatingTextarea">Not</label>
                     </div>
                 </div>

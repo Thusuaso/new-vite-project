@@ -31,7 +31,7 @@
         </div>
         <div class="col">
             <div class="form-floating">
-                <textarea class="form-control h-100" placeholder="Leave a comment here" id="floatingTextarea" v-model="getShopperOfferModel.adress"></textarea>
+                <textarea class="form-control h-100" placeholder="Leave a comment here" id="floatingTextarea" v-model="getShopperOfferModel.adress" style="padding-top:35px;"></textarea>
                 <label for="floatingTextarea">Adres</label>
             </div>
         </div>

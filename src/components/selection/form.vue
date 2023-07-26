@@ -151,7 +151,7 @@
             </div>
             <br/>
             <div class="form-floating">
-                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" v-model="getSelectionModelList.aciklama"></textarea>
+                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" v-model="getSelectionModelList.aciklama" style="padding-top:35px;"></textarea>
                 <label for="floatingTextarea">Notlar</label>
             </div>
             

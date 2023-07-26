@@ -39,7 +39,7 @@
     <div class="row m-auto mt-3">
         <div class="col">
             <div class="form-floating">
-                <textarea class="form-control w-100 h-100" placeholder="Leave a comment here" id="floatingTextarea" v-model="getShopperBgpModel.adress"></textarea>
+                <textarea class="form-control w-100 h-100" placeholder="Leave a comment here" id="floatingTextarea" v-model="getShopperBgpModel.adress" style="padding-top:35px;"></textarea>
                 <label for="floatingTextarea">Adres</label>
             </div>
         </div>

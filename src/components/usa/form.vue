@@ -24,7 +24,7 @@
                         </div>
                         <div class="col">
                             <div class="form-floating">
-                                <textarea class="form-control"  id="floatingTextarea2" style="height: 100px" v-model="getUsaProductList.product_description"></textarea>
+                                <textarea class="form-control"  id="floatingTextarea2" style="height: 100px;padding-top:35px;" v-model="getUsaProductList.product_description"></textarea>
                                 <label for="floatingTextarea2">Ürün Açıklama</label>
                             </div>
                         </div>
@@ -168,7 +168,7 @@
                         </div>
                         <div class="col">
                             <div class="form-floating">
-                                <textarea class="form-control"  id="floatingTextarea2" style="height: 100px" v-model="getUsaProductList.product_description_fr"></textarea>
+                                <textarea class="form-control"  id="floatingTextarea2" style="height: 100px;padding-top:35px;" v-model="getUsaProductList.product_description_fr"></textarea>
                                 <label for="floatingTextarea2">Ürün Açıklama</label>
                             </div>
                         </div>
@@ -222,7 +222,7 @@
                             </div>
                             <div class="col">
                                 <div class="form-floating">
-                                    <textarea class="form-control"  id="floatingTextarea2" style="height: 100px" v-model="getUsaProductList.product_description_es"></textarea>
+                                    <textarea class="form-control"  id="floatingTextarea2" style="height: 100px;padding-top:35px;" v-model="getUsaProductList.product_description_es"></textarea>
                                     <label for="floatingTextarea2">Ürün Açıklama</label>
                                 </div>
                             </div>

@@ -488,8 +488,9 @@ export default {
     
     },
     created() {
-        const date = new Date()
-        this.month = this.getMonthName(date.getMonth())
+        const date = new Date();
+        this.month = this.getMonthName(date.getMonth());
+        homeService.getVadeControl();
   }
 }
 </script>

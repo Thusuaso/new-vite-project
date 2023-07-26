@@ -88,13 +88,13 @@
       <div class="row">
         <div class="col">
             <div class="form-floating">
-                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" v-model="getBgpListDetailModel.aciklama" style="height: 100px"></textarea>
+                <textarea class="form-control "  placeholder="Leave a comment here" id="floatingTextarea" v-model="getBgpListDetailModel.aciklama" style="height: 100px;padding-top:35px;"></textarea>
                 <label for="floatingTextarea">Açıklama</label>
             </div>
         </div>
         <div class="col">
                 <div class="form-floating">
-                    <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" v-model="getBgpListDetailModel.hatirlatmaAciklama" style="height: 100px"></textarea>
+                    <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" v-model="getBgpListDetailModel.hatirlatmaAciklama" style="height: 100px;padding-top:35px;"></textarea>
                     <label for="floatingTextarea">H.Açıklama</label>
                 </div>
             </div>

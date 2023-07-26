@@ -2,7 +2,7 @@
     <div class="row m-auto mt-3">
         <div class="col">
             <div class="form-floating">
-                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px" v-model="getModel.hata"></textarea>
+                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px;padding-top:35px;" v-model="getModel.hata"></textarea>
                 <label for="floatingTextarea2">Hata</label>
             </div>
         </div>

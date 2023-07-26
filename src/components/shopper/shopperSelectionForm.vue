@@ -29,7 +29,7 @@
             </div>
             <div class="col">
                 <div class="form-floating">
-                    <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" v-model="getShopperSelectionModel.adress"></textarea>
+                    <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" v-model="getShopperSelectionModel.adress" style="padding-top:35px;"></textarea>
                     <label for="floatingTextarea">Adres</label>
                 </div>
             </div>

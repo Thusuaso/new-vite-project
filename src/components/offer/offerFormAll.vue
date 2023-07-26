@@ -48,7 +48,7 @@
             <TabView>
                 <TabPanel header="Teklif Açıklama">
                     <div class="form-floating">
-                        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px" v-model="getOfferModelList.aciklama"></textarea>
+                        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px;padding-top:35px;" v-model="getOfferModelList.aciklama"></textarea>
                         <label for="floatingTextarea2">Açıklama</label>
                     </div>
                 </TabPanel>

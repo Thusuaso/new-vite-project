@@ -49,7 +49,7 @@
                 </div>
                 <div class="col">
                     <div class="form-floating">
-                        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px" v-model="getFinanceTestDetailPaymentList.musteri_model.aciklama"></textarea>
+                        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px;padding-top:35px;" v-model="getFinanceTestDetailPaymentList.musteri_model.aciklama"></textarea>
                         <label for="floatingTextarea2">Açıklama</label>
                     </div>
                 </div>

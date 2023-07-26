@@ -9,7 +9,7 @@
             <h5 class="card-title">{{ chatsData.kullaniciAdi }}</h5>
             <p class="card-text">
                 <div class="form-floating">
-                    <textarea  textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" v-model="message"></textarea>
+                    <textarea  class="form-control" placeholder="Leave a comment here" id="floatingTextarea" v-model="message" style="padding-top:35px;"></textarea>
                     <label for="floatingTextarea">Mesajınızı buraya yazınız...</label>
                 </div>
             </p>

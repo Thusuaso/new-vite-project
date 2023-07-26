@@ -12,7 +12,7 @@
          </div>
          
         <div class="form-floating">
-        <textarea v-model="getCustomerModel.aciklama" class="form-control" placeholder="Açıklama" id="floatingTextarea"  style="height: 100px"></textarea>
+        <textarea v-model="getCustomerModel.aciklama" class="form-control" placeholder="Açıklama" id="floatingTextarea"  style="height: 100px;padding-top:35px;"></textarea>
         <label for="floatingTextarea">Açıklama</label>
         </div>
         </div>
@@ -26,7 +26,7 @@
                     <input v-model="getCustomerModel.baslik" type="text" class="form-control" placeholder="Başlık" aria-label="Username" aria-describedby="basic-addon1">
              </div>
             <div class="form-floating">
-            <textarea v-model="getCustomerModel.hatirlatma_notu" class="form-control" placeholder="Hatırlatma Açıklaması" id="floatingTextarea"  style="height: 100px"></textarea>
+            <textarea v-model="getCustomerModel.hatirlatma_notu" class="form-control" placeholder="Hatırlatma Açıklaması" id="floatingTextarea"  style="height: 100px;padding-top:35px;"></textarea>
             <label for="floatingTextarea">Hatırlatma Açıklama</label>
             </div>
         </div>

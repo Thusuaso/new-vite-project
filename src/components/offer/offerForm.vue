@@ -48,7 +48,7 @@
             <TabView>
                 <TabPanel header="Teklif Açıklama">
                     <div class="form-floating">
-                        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px" v-model="getOfferModelList.aciklama"></textarea>
+                        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px;padding-top:35px;" v-model="getOfferModelList.aciklama"></textarea>
                         <label for="floatingTextarea2">Açıklama</label>
                     </div>
                 </TabPanel>
@@ -353,6 +353,8 @@ export default {
                 if (data.status) {
                     socket.socketIO.emit('offer_list_emit');
                     socket.socketIO.emit('offer_detail_list_emit');
+                    this.emitter.emit('offer_detail_dialog_close');
+
                     this.offer_save_disabled = false;
                     useLoadingStore().end_loading_act();
                     this.$toast.add({ severity: 'success', detail: 'Başarıyla Güncellendi', life: 3000 });

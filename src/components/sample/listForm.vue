@@ -36,7 +36,7 @@
                 <label for="customer">Ülke</label>
             </span>
             <div class="form-floating mb-4">
-                <textarea class="form-control w-100"  placeholder="Leave a comment here" id="floatingTextarea" style="height: 100px" v-model="getSampleModel.adres"></textarea>
+                <textarea class="form-control w-100"  placeholder="Leave a comment here" id="floatingTextarea" style="height: 100px;padding-top:35px;" v-model="getSampleModel.adres"></textarea>
                 <label for="floatingTextarea">Adres</label>
             </div>
             <span class="p-float-label mb-4">

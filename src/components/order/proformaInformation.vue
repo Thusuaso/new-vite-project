@@ -65,18 +65,18 @@
         </div>
         <div class="col-8">
             <div class="form-floating">
-                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" style="height:150px;" v-model="getProductionsDetailModel.siparis.uretimAciklama" @input="saveButtonControl"></textarea>
+                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" style="height:150px;padding-top:35px;" v-model="getProductionsDetailModel.siparis.uretimAciklama" @input="saveButtonControl"></textarea>
                 <label for="floatingTextarea">Üretim Açıklama</label>
             </div>
             <br/>
             <div class="form-floating">
-                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" style="height:150px;" v-model="getProductionsDetailModel.siparis.sevkiyatAciklama" @input="saveButtonControl"></textarea>
+                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" style="height:150px;padding-top:35px;" v-model="getProductionsDetailModel.siparis.sevkiyatAciklama" @input="saveButtonControl"></textarea>
                 <label for="floatingTextarea">Sevkiyat Açıklama</label>
             </div>
             <br/>
 
             <div class="form-floating">
-                <textarea   textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" style="height:150px;" v-model="getProductionsDetailModel.siparis.finansAciklama" @input="saveButtonControl"></textarea>
+                <textarea   textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" style="height:150px;padding-top:35px;" v-model="getProductionsDetailModel.siparis.finansAciklama" @input="saveButtonControl"></textarea>
                 <label for="floatingTextarea">Finans Açıklama</label>
             </div>
             <br/>

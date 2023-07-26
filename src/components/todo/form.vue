@@ -2,7 +2,7 @@
     <div class="row m-auto mt-3">
         <div class="col">
             <div class="form-floating">
-                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 150px;width:350px;" v-model="getModel.yapilacak"></textarea>
+                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 150px;width:350px;padding-top:35px;" v-model="getModel.yapilacak"></textarea>
                 <label for="floatingTextarea2">Yapılacak</label>
             </div>
         </div>
@@ -79,7 +79,7 @@ export default {
             this.getModel.girisTarihi = localDateService.getDateString(new Date());
             todoService.save(this.getModel).then(data => {
                 if (data.status) {
-                    socket.socketIO.emit('to_do_list_emit', localStorage.getItem('userId'));
+                    socket.socketIO.emit('to_do_list_emit');
                     this.reset();
                     this.to_do_save_disabled = false;
                     useLoadingStore().end_loading_act();
@@ -96,7 +96,7 @@ export default {
             useLoadingStore().begin_loading_act();
             todoService.update(this.getModel).then(data => {
                 if (data.status) {
-                    socket.socketIO.emit('to_do_list_emit', localStorage.getItem('userId'));
+                    socket.socketIO.emit('to_do_list_emit');
                     useLoadingStore().end_loading_act();
                     this.emitter.emit('todo_dialog_opened', false);
                     this.$toast.add({ severity: 'success', detail: 'Başarıyla Güncellendi', life: 3000 });
