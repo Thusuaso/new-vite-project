@@ -56,7 +56,7 @@
                     </Column>
                     <Column field="yapildiTarihi" header="Yapıldığı Tarih">
                         <template #body="slotProps">
-                            {{ $filters.formatDate(slotProps.data.yapildiTarihi) }}
+                            {{ slotProps.data.yapildiTarihi }}
                         </template>
                     </Column>
                     <Column field="gorev_sahibi_adi" header="Görev Sahibi"></Column>
