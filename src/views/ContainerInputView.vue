@@ -75,7 +75,7 @@
         </div>
     </div>
 
-    <Dialog v-model:visible="new_company_form" header="Yeni Firma" modal>
+    <Dialog v-model:visible="new_company_form" header="Yeni Firma" modal :style="{ 'width': '100vw' }">
         <company />
     </Dialog>
 </template>

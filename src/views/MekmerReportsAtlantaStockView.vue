@@ -151,7 +151,7 @@
             </DataTable>
         </div>
     </div>
-    <Dialog v-model:visible="atlanta_stock_form" header="" modal>
+    <Dialog v-model:visible="atlanta_stock_form" header="" modal :style="{ 'width': '100vw' }">
         <mekmerReportsStockAtlantaDetail/>
     </Dialog>
 </template>

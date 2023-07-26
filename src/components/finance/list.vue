@@ -89,7 +89,7 @@
                 </template>
             </Column>
         </DataTable>
-        <Dialog v-model:visible="finance_detail_form" :header="customer" modal>
+        <Dialog v-model:visible="finance_detail_form" :header="customer" modal :style="{ 'width': '100vw' }">
             <financeDetailList :customerId="customerId"/>
         </Dialog>
 </template>

@@ -134,17 +134,21 @@
 
 
                       </div>
-                      <div style="text-align:center;">
+                      <div style="text-align:center;" v-if="!getMobile">
                       <Chart type="bar" :data="dashboard.grafik" style="width:700px;height:400px;margin:auto;"/>
 
                       </div>
+                      <div style="text-align:center;" v-if="getMobile">
+                          <Chart type="bar" :data="dashboard.grafik" style="width:100%;margin:auto;"/>
+
+                          </div>
 
 
   </div>
   <button type="button" class="btn btn-primary" style="width:100%;" @click="subDataLoad" v-if="!sub_data_form">Devamı için tıklayınız</button>
   <br/>
   <br/>
-  <div class="container" v-if="sub_data_form">
+  <div class="container" v-if="sub_data_form" v-show="!getMobile">
     <DataTable :value="dashboardSub.konteynir" 
     :paginator="true"
               :rows="5"
@@ -385,12 +389,245 @@
       </div>
     </div>
   </div>
+  <div class="container" v-if="sub_data_form" v-show="getMobile">
+        <DataTable :value="dashboardSub.konteynir" 
+        :paginator="true"
+                  :rows="5"
+                  v-model:filters="filterCont"
+                  filterDisplay="row"
+                  style="font-size:85%;"
+    
+        >
+            <template #header>
+                    R14 : Konteynır Takip Listesi
+            </template>
+                <Column field="firmaAdi" header="Firma Adı" :showFilterMenu="false">
+                    <template #filter="{ filterModel, filterCallback }">
+                            <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
+                    
+                    
+                        </template>
+                </Column>
+                <Column field="siparisNo" header="Sipariş No" :showFilterMenu="false">
+                    <template #filter="{ filterModel, filterCallback }">
+                                <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
+                            </template>
+                </Column>
+                <Column field="siparisTarihi" header="Sipariş Tarihi"></Column>
+                <Column field="yuklemeTarihi" header="Yükleme Tarihi"></Column>
+                <Column field="etaTarihi" header="Eta Tarihi"></Column>
+                <Column field="konteynirNo" header="Konteynır No" :showFilterMenu="false">
+                <template #filter="{ filterModel, filterCallback }">
+                                <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
+                            </template>
+                </Column>
+                <Column field="line" header="Line"></Column>
+                <Column field="navlunFirma" header="Navlun Firma"></Column>
+                <Column field="kalan" header="Kalan Ödeme">
+                    <template #body="slotProps">
+                        {{ formatPrice(slotProps.data.kalan) }}
+                    </template>
+                    <template #footer>
+                        {{ formatDecimal(subDataSum.finansKalanTutarTop) }}
+                    </template>
+                </Column>
+
+
+          </DataTable>
+
+        <div class="container">
+
+              <DataTable :value="dashboardSub.tedarikci" 
+                    :paginator="true"
+                      :rows="5"
+                      v-model:filters="filterTedarikci"
+                      filterDisplay="row"
+                      style="font-size:85%;"
+    
+            >
+                <template #header>
+                        R16: 2023 'de Yapılan Sevkiyatın Üreticilere Göre Dağılımı (Mekmar)
+                </template>
+                    <Column field="tedarikci" header="Tedarikçi" :showFilterMenu="false">
+                        <template #filter="{ filterModel, filterCallback }">
+                                <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
+                    
+                    
+                            </template>
+                    </Column>
+                    <Column field="satisMiktar" header="Miktar">
+                        <template #body="slotProps">
+                            {{ formatDecimal(slotProps.data.satisMiktar) }}
+                        </template>
+                        <template #footer>
+                            {{ formatDecimal(this.subDataSum.tedarikciMiktarTop) }}
+                        </template>
+                    </Column>
+                    <Column field="satisToplam" header="Total">
+                        <template #body="slotProps">
+                                {{ formatPrice(slotProps.data.satisToplam) }}
+                            </template>
+                            <template #footer>
+                                {{ formatPrice(this.subDataSum.tedarikciSatisTop) }}
+                            </template>
+                    </Column>
+              </DataTable>
+
+              <DataTable :value="dashboardSub.ulkeyeGore" 
+                        :paginator="true"
+                          :rows="5"
+                          v-model:filters="filterUlkeyeGore"
+                          filterDisplay="row"
+                          style="font-size:85%;"
+    
+                >
+                    <template #header>
+                            R17: 2023'deki Ülkelere Göre Sevkiyat
+                    </template>
+                        <Column field="ulkeid" header="Id" >
+                            <template #footer>
+                                {{ subDataSum.ulkeyeGoreUlkeTop }}
+                            </template>    
+                        </Column>
+
+                        <Column field="ulkeadi" header="Ülke Adı" :showFilterMenu="false">
+                                <template #filter="{ filterModel, filterCallback }">
+                                    <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
+                    
+                            </template>
+                        </Column>
+                        <Column field="toplamsevkiyat" header="Toplam Sevkiyat">
+                            <template #body="slotProps">
+                                {{ formatPrice(slotProps.data.toplamsevkiyat) }}
+                            </template>
+                            <template #footer>
+                                {{ formatPrice(subDataSum.ulkeyeGoreSevkiyatTop) }}
+                            </template>
+                        </Column>
+                  </DataTable>
+
+              <DataTable :value="dashboardSub.musteriSiparisler" 
+                            :paginator="true"
+                            :rows="5"
+                            v-model:filters="filterMusteriyeGore"
+                            filterDisplay="row"
+                            style="font-size:85%;"
+    
+                    >
+                        <template #header>
+                                R18: 2023'deki Mevcut Siparişlerin Müşterilere Göre Dağılımı
+                        </template>
+                            <Column field="tedarikci" header="Firma Adı" :showFilterMenu="false">
+                                <template #filter="{ filterModel, filterCallback }">
+                                        <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
+                    
+                                </template>
+                            </Column>
+
+                            <Column field="satisMiktar" header="Miktar" >
+                                <template #body="slotProps">
+                                        {{ formatPrice(slotProps.data.satisMiktar) }}
+                                    </template>
+                            </Column>
+                            <Column field="satisToplam" header="Toplam Sevkiyat">
+                                <template #body="slotProps">
+                                    {{ formatPrice(slotProps.data.satisToplam) }}
+                                </template>
+    
+                            </Column>
+                      </DataTable>
+
+
+                <DataTable :value="dashboardSub.teklifler" 
+                                :paginator="true"
+                                :rows="5"
+                                v-model:filters="filterTekliflereGore"
+                                filterDisplay="row"
+                                style="font-size:85%;"
+    
+                        >
+                            <template #header>
+                                    R19: Takipteki {{ month }} Ayına Ait Teklifler
+                            </template>
+                                <Column field="teklifSahibi" header="Teklif Sahibi" :showFilterMenu="false">
+                                    <template #filter="{ filterModel, filterCallback }">
+                                            <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
+                    
+                                    </template>
+                                </Column>
+
+                                <Column field="teklifSayisi" header="Teklif Sayısı" >
+ 
+                                </Column>
+
+                </DataTable>
+                <DataTable :value="dashboardSub.tekliflerYillik" 
+                                    :paginator="true"
+                                    :rows="5"
+                                    v-model:filters="filterTekliflerYillik"
+                                    filterDisplay="row"
+                                    style="font-size:85%;"
+    
+                            >
+                                <template #header>
+                                        R20: {{ new Date().getFullYear() }} Yılına Ait Tüm Teklifler
+                                </template>
+                                    <Column field="teklifSahibi" header="Teklif Sahibi" :showFilterMenu="false">
+                                        <template #filter="{ filterModel, filterCallback }">
+                                                <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
+                    
+                                        </template>
+                                    </Column>
+
+                                    <Column field="teklifSayisi" header="Teklif Sayısı" >
+ 
+                                    </Column>
+
+                    </DataTable>
+
+                    <DataTable :value="dashboardSub.sonEklenenSiparisler" 
+                                
+                                        :paginator="true"
+                                        :rows="5"
+                                        style="font-size:85%;"
+    
+                                >
+                                    <template #header>
+                                           R22: {{ new Date().getFullYear() }} Yeni Eklenen Siparişler
+
+                                    </template>
+                                        <Column field="siparisNo" header="PO">
+   
+                                        </Column>
+
+                                        <Column field="satisci" header="Satışçı" >
+ 
+                                        </Column>
+                                        <Column field="satisToplami" header="Satış Toplamı" >
+                                            <template #body="slotProps">
+                                                {{ formatPrice(slotProps.data.satisToplami) }}
+                                            </template>
+                                        </Column>
+                                        <Column field="link" header="PI" bodyStyle="textAlign:center;">
+                                            <template #body="slotProps">
+                                            <button
+                                                type="button"
+                                                :disabled="!slotProps.data.evrakDurum"
+                                                @click="proformaDowload(slotProps.data.link)"
+                                            ><i class="pi pi-download"></i></button>
+                                            </template>
+                                        </Column>
+
+                        </DataTable>
+        </div>
+      </div>
   
 
 </template>
 <script>
 import { useHomeStore } from '../stores/home';
 import { useLoadingStore } from '../stores/loading';
+import { useMobilStore } from '../stores/mobil'; 
 import { FilterMatchMode } from 'primevue/api';
 
 import { mapState } from 'pinia';
@@ -432,7 +669,9 @@ export default {
     },
   computed: {
     ...mapState(useHomeStore, ['dashboard','dashboardSub']),
-    
+      ...mapState(useMobilStore, [
+            'getMobile',
+        ])
   },
     methods: {
         proformaDowload(dosya_link) {

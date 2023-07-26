@@ -113,10 +113,10 @@
             </DataTable>
         </div>
     </div>
-    <Dialog v-model:visible="finance_detail_collection_form" :header="customerPo" modal>
+    <Dialog v-model:visible="finance_detail_collection_form" :header="customerPo" modal :style="{ 'width': '100vw' }">
         <financeDetailCollection :collectionReminder="collectionReminder"/>
     </Dialog>
-    <Dialog v-model:visible="finance_date_detail_form" :header="financeDate" modal>
+    <Dialog v-model:visible="finance_date_detail_form" :header="financeDate" modal :style="{ 'width': '100vw' }">
         <financeDateDetail/>
     </Dialog>
 </template>

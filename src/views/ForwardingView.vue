@@ -1,132 +1,271 @@
 <template>
-    <div class="row m-auto mt-5 mb-5" >
-        <div class="col">
-            <span class="p-float-label">
-                <AutoComplete id="orders" v-model="selectedOrder" dropdown :suggestions="filterOrderList" optionLabel="siparisno" @complete="searchOrder($event)" @item-select="orderSelected($event)"/>
-                <label for="orders">Siparişler</label>
-            </span>
-        </div>
-        <div class="col">
-            <span class="p-float-label">
-                <Calendar id="f_date" v-model="f_date" showIcon dateFormat="dd/mm/yy"/>
-                <label for="f_date">Sevk Tarihi</label>
-            </span>
-        </div>
-        <div class="col">
-            <div class="input-group mb-3">
-                <span class="input-group-text" id="basic-addon1">Fatura No</span>
-                <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getModel.faturano">
+    <div v-if="!getMobile">
+        <div class="row m-auto mt-5 mb-5" >
+            <div class="col">
+                <span class="p-float-label">
+                    <AutoComplete id="orders" v-model="selectedOrder" dropdown :suggestions="filterOrderList" optionLabel="siparisno" @complete="searchOrder($event)" @item-select="orderSelected($event)"/>
+                    <label for="orders">Siparişler</label>
+                </span>
             </div>
-        </div>
-        <div class="col">
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" v-model="getModel.takip">
-                <label class="form-check-label" for="flexCheckDefault">
-                    Takip
-                </label>
+            <div class="col">
+                <span class="p-float-label">
+                    <Calendar id="f_date" v-model="f_date" showIcon dateFormat="dd/mm/yy"/>
+                    <label for="f_date">Sevk Tarihi</label>
+                </span>
             </div>
-        </div>
-        <div class="col">
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="normal" checked v-model="forwardingStatus" @change="forwardingStatusChange($event)">
-                <label class="form-check-label" for="flexRadioDefault1">
-                    Normal Sevk
-                </label>
+            <div class="col">
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1">Fatura No</span>
+                    <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getModel.faturano">
                 </div>
+            </div>
+            <div class="col">
                 <div class="form-check">
-                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" value="fast" v-model="forwardingStatus" @change="forwardingStatusChange($event)">
-                <label class="form-check-label" for="flexRadioDefault2">
-                    Hızlı Sevk
-                </label>
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" v-model="getModel.takip">
+                    <label class="form-check-label" for="flexCheckDefault">
+                        Takip
+                    </label>
+                </div>
             </div>
-        </div>
-        <div class="col"></div>
+            <div class="col">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="normal" checked v-model="forwardingStatus" @change="forwardingStatusChange($event)">
+                    <label class="form-check-label" for="flexRadioDefault1">
+                        Normal Sevk
+                    </label>
+                    </div>
+                    <div class="form-check">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" value="fast" v-model="forwardingStatus" @change="forwardingStatusChange($event)">
+                    <label class="form-check-label" for="flexRadioDefault2">
+                        Hızlı Sevk
+                    </label>
+                </div>
+            </div>
+            <div class="col"></div>
 
+        </div>
+        <div class="row m-auto mb-5">
+            <div class="col">
+                <Dropdown v-model="selectedOrderProduct" :options="getProductList" optionLabel="icerik" placeholder="Kalem Seçiniz" class="w-full md:w-14rem" @change="orderProductSelected($event)"/>
+            </div>
+            <div class="col">
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1">Sipariş</span>
+                    <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" disabled v-model="selectedOrderProduct.siparis">
+                </div>
+            </div>
+            <div class="col">
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1">Giden</span>
+                    <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" disabled v-model="selectedOrderProduct.uretim">
+                </div>
+            </div>
+            <div class="col">
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1">Kalan</span>
+                    <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" disabled v-model="remainder">
+                </div>
+            </div>
+            <div class="col">
+                <button type="button" class="btn btn-success" @click="save" :disabled="forwarding_form">Sevk Et</button>
+            </div>
+        </div>
+        <div class="row m-auto">
+            <div class="col">
+                <div class="row">
+                    <div class="col">
+                        <DataTable :value="forwardingCrateList" dataKey="kasano" ref="forwardingCrate" style="font-size:85%;">
+                            <Column headerStyle="width: 3rem" field="kasa_secim">
+                                <template #body="slotProps">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" v-model="slotProps.data.kasa_secim">
+                                    </div>
+                                </template>
+                            </Column>
+                            <Column field="kasano" header="No"></Column>
+                            <Column field="miktar" header="M">
+                            <template #body="slotProps">
+                                    {{ $filters.formatDecimal(slotProps.data.miktar) }}
+                                </template>
+                            </Column>
+                            <Column field="birimadi" header="B"></Column>
+                        </DataTable>
+                    </div>
+                    <div class="col">
+                        <button type="button" class="btn btn-primary mb-3" @click="sendCrate" :disabled="send_crate_disabled">Kasa Çık</button>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" v-model="allCrate" @click="allCrateSelected($event)">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                Hepsi
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            
+            </div>
+            <div class="col">
+                <DataTable  :value="getModel.kasalistesi" style="font-size:85%;">
+                    <Column field="kasano" header="Kasa No"></Column>
+                    <Column field="urunadi" header="Ürün"></Column>
+                    <Column field="yuzeyislem" header="Yüzey"></Column>
+                    <Column field="ebat" header="Ebat"></Column>
+                    <Column field="miktar" header="M">
+                        <template #body="slotProps">
+                            {{ $filters.formatDecimal(slotProps.data.miktar) }}
+                        </template>
+                        <template #footer>
+                            {{ $filters.formatDecimal(crateTotal.amount) }}
+                        </template>
+                    </Column>
+                    <Column field="birimadi" header="B"></Column>
+                    <Column header="Toplam">
+                        <template #body="slotProps">
+                            {{ $filters.formatPrice(slotProps.data.birimfiyat * slotProps.data.miktar) }}
+                        </template>
+                        <template #footer>
+                            {{ $filters.formatPrice(crateTotal.totalPrice) }}
+                        </template>
+                    </Column>
+                </DataTable>
+            </div>
+        </div>
     </div>
-    <div class="row m-auto mb-5">
-        <div class="col">
-            <Dropdown v-model="selectedOrderProduct" :options="getProductList" optionLabel="icerik" placeholder="Kalem Seçiniz" class="w-full md:w-14rem" @change="orderProductSelected($event)"/>
-        </div>
-        <div class="col">
-            <div class="input-group mb-3">
-                <span class="input-group-text" id="basic-addon1">Sipariş</span>
-                <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" disabled v-model="selectedOrderProduct.siparis">
+    <div v-if="getMobile">
+        <div class=" m-auto mt-5 mb-5" >
+            <div class="">
+                <span class="p-float-label">
+                    <AutoComplete class="w-100 mb-3" id="orders" v-model="selectedOrder" dropdown :suggestions="filterOrderList" optionLabel="siparisno" @complete="searchOrder($event)" @item-select="orderSelected($event)"/>
+                    <label for="orders">Siparişler</label>
+                </span>
             </div>
-        </div>
-        <div class="col">
-            <div class="input-group mb-3">
-                <span class="input-group-text" id="basic-addon1">Giden</span>
-                <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" disabled v-model="selectedOrderProduct.uretim">
+            <div class="">
+                <span class="p-float-label">
+                    <Calendar id="f_date" class="w-100 mb-3" v-model="f_date" showIcon dateFormat="dd/mm/yy"/>
+                    <label for="f_date">Sevk Tarihi</label>
+                </span>
             </div>
-        </div>
-        <div class="col">
-            <div class="input-group mb-3">
-                <span class="input-group-text" id="basic-addon1">Kalan</span>
-                <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" disabled v-model="remainder">
+            <div class="">
+                <div class="input-group mb-3">
+                    <span class="input-group-text"  id="basic-addon1">Fatura No</span>
+                    <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getModel.faturano">
+                </div>
             </div>
-        </div>
-        <div class="col">
-            <button type="button" class="btn btn-success" @click="save" :disabled="forwarding_form">Sevk Et</button>
-        </div>
-    </div>
-    <div class="row m-auto">
-        <div class="col">
             <div class="row">
                 <div class="col">
-                    <DataTable :value="forwardingCrateList" dataKey="kasano" ref="forwardingCrate" style="font-size:85%;">
-                        <Column headerStyle="width: 3rem" field="kasa_secim">
-                            <template #body="slotProps">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" v-model="slotProps.data.kasa_secim">
-                                </div>
-                            </template>
-                        </Column>
-                        <Column field="kasano" header="No"></Column>
-                        <Column field="miktar" header="M">
-                        <template #body="slotProps">
-                                {{ $filters.formatDecimal(slotProps.data.miktar) }}
-                            </template>
-                        </Column>
-                        <Column field="birimadi" header="B"></Column>
-                    </DataTable>
-                </div>
-                <div class="col">
-                    <button type="button" class="btn btn-primary mb-3" @click="sendCrate" :disabled="send_crate_disabled">Kasa Çık</button>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" v-model="allCrate" @click="allCrateSelected($event)">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" v-model="getModel.takip">
                         <label class="form-check-label" for="flexCheckDefault">
-                            Hepsi
+                            Takip
                         </label>
                     </div>
+                </div>
+                <div class="col">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="normal" checked v-model="forwardingStatus" @change="forwardingStatusChange($event)">
+                        <label class="form-check-label" for="flexRadioDefault1">
+                            Normal Sevk
+                        </label>
+                        </div>
+                </div>
+                <div class="col">
+                    <div class="form-check">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" value="fast" v-model="forwardingStatus" @change="forwardingStatusChange($event)">
+                    <label class="form-check-label" for="flexRadioDefault2">
+                        Hızlı Sevk
+                    </label>
+                </div>  
+                
+                    
+                </div>
+            </div>
+
+        </div>
+        <div class=" m-auto mb-5">
+            <div class="">
+                <Dropdown class="w-100 mb-3" v-model="selectedOrderProduct" :options="getProductList" optionLabel="icerik" placeholder="Kalem Seçiniz" @change="orderProductSelected($event)"/>
+            </div>
+            <div class="">
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1">Sipariş</span>
+                    <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" disabled v-model="selectedOrderProduct.siparis">
+                </div>
+            </div>
+            <div class="">
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1">Giden</span>
+                    <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" disabled v-model="selectedOrderProduct.uretim">
+                </div>
+            </div>
+            <div class="">
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1">Kalan</span>
+                    <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" disabled v-model="remainder">
                 </div>
             </div>
             
         </div>
-        <div class="col">
-            <DataTable  :value="getModel.kasalistesi" style="font-size:85%;">
-                <Column field="kasano" header="Kasa No"></Column>
-                <Column field="urunadi" header="Ürün"></Column>
-                <Column field="yuzeyislem" header="Yüzey"></Column>
-                <Column field="ebat" header="Ebat"></Column>
-                <Column field="miktar" header="M">
-                    <template #body="slotProps">
-                        {{ $filters.formatDecimal(slotProps.data.miktar) }}
-                    </template>
-                    <template #footer>
-                        {{ $filters.formatDecimal(crateTotal.amount) }}
-                    </template>
-                </Column>
-                <Column field="birimadi" header="B"></Column>
-                <Column header="Toplam">
-                    <template #body="slotProps">
-                        {{ $filters.formatPrice(slotProps.data.birimfiyat * slotProps.data.miktar) }}
-                    </template>
-                    <template #footer>
-                        {{ $filters.formatPrice(crateTotal.totalPrice) }}
-                    </template>
-                </Column>
-            </DataTable>
+        <div class=" m-auto">
+            <div class="">
+                <div class="">
+                    <div class="">
+                        <DataTable :value="forwardingCrateList" dataKey="kasano" ref="forwardingCrate" style="font-size:85%;">
+                            <Column headerStyle="width: 3rem" field="kasa_secim">
+                                <template #body="slotProps">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" v-model="slotProps.data.kasa_secim">
+                                    </div>
+                                </template>
+                            </Column>
+                            <Column field="kasano" header="No"></Column>
+                            <Column field="miktar" header="M">
+                            <template #body="slotProps">
+                                    {{ $filters.formatDecimal(slotProps.data.miktar) }}
+                                </template>
+                            </Column>
+                            <Column field="birimadi" header="B"></Column>
+                        </DataTable>
+                    </div>
+                    <div class="">
+                        <button type="button" class="btn btn-primary mb-3 w-100" @click="sendCrate" :disabled="send_crate_disabled">Kasa Çık</button>
+                        <div class="form-check m-auto">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" v-model="allCrate" @click="allCrateSelected($event)">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                Hepsi
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            
+            </div>
+            <div class="">
+                <DataTable  :value="getModel.kasalistesi" style="font-size:85%;">
+                    <Column field="kasano" header="Kasa No"></Column>
+                    <Column field="urunadi" header="Ürün"></Column>
+                    <Column field="yuzeyislem" header="Yüzey"></Column>
+                    <Column field="ebat" header="Ebat"></Column>
+                    <Column field="miktar" header="M">
+                        <template #body="slotProps">
+                            {{ $filters.formatDecimal(slotProps.data.miktar) }}
+                        </template>
+                        <template #footer>
+                            {{ $filters.formatDecimal(crateTotal.amount) }}
+                        </template>
+                    </Column>
+                    <Column field="birimadi" header="B"></Column>
+                    <Column header="Toplam">
+                        <template #body="slotProps">
+                            {{ $filters.formatPrice(slotProps.data.birimfiyat * slotProps.data.miktar) }}
+                        </template>
+                        <template #footer>
+                            {{ $filters.formatPrice(crateTotal.totalPrice) }}
+                        </template>
+                    </Column>
+                </DataTable>
+            </div>
         </div>
+        <div class="">
+                    <button type="button" class="btn btn-success w-100 mt-3 mb-5" @click="save" :disabled="forwarding_form">Sevk Et</button>
+                </div>
     </div>
 
 
@@ -134,6 +273,7 @@
 <script>
 import { useForwardingStore } from '../stores/forwarding';
 import { useLoadingStore } from '../stores/loading';
+import { useMobilStore } from '../stores/mobil';
 import { mapState } from 'pinia';
 
 import { forwardingService } from '../services/forwardingService';
@@ -145,6 +285,9 @@ export default {
             'getOrderList',
             'getProductList',
             'getCrateList'
+        ]),
+        ...mapState(useMobilStore, [
+            'getMobile'
         ])
     },
     data() {

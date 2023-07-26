@@ -1,7 +1,5 @@
 <template>
 
-    <div class="row m-auto mt-3">
-        <div class="col">
             <DataTable :value="getMekmarOrderSummaryDetailList" style="font-size:85%;">
                 <Column field="tarih" header="Tarih">
                     <template #body="slotProps">
@@ -74,8 +72,6 @@
 
 
             </DataTable>
-        </div>
-    </div>
 </template>
 <script>
 import { useReportsStore } from '../../stores/reports';

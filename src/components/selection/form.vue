@@ -1,200 +1,386 @@
 // eslint-disable-next-line vue/multi-word-component-names
 <template>
     <br/>
-    <div class="row">
-        <div class="col-4">
-            <Dropdown class="w-100" v-model="selectedSavedKind" :options="saveKindList" optionLabel="kayitTur" placeholder="Kayıt Tür"  @change="productSavedKindSelected($event)" :disabled="form.kind"/>
-            <br/>
-            <br/>
-            <AutoComplete placeholder="Po" class="w-100" v-model="searchProduct" :suggestions="productList" @complete="productSearch($event)" optionLabel="name" :disabled="form.po" @item-select="productItemSelected($event)" />
-            <br/>
-            <br/>
-            <Dropdown class="w-100" v-model="selectedProductDetail" :options="selectionProductDetail" optionLabel="tanim" placeholder="Sipariş Detay" :disabled="form.product" @change="productItemDetailSelected($event)"/>
-            <br/>
-            <br/>
-            <InputText class="w-100" v-model="getSelectionModelList.tanim" placeholder="Sipariş Ürün Kart" disabled/>
-            <br/>
-            <br/>
+    <div v-if="!getMobile">
             <div class="row">
-                    <div class="col">
-                        <input type="text" class="form-control" v-model="getSelectionModelList.urunkartid" disabled />
-                    </div>
-                    <div class="col">
-                        <button class="btn btn-secondary" @click="selection_card_form = !selection_card_form" :disabled="selectedSavedKind.id == 1 ? false : true">@</button>
-                    </div>
-            </div>
-            <br/>
-            <div class="row">
-                <div class="col">
-                    <div class="input-group mb-3 w-100">
-                        <span class="input-group-text" id="basic-addon1">Kasa No</span>
-                        <input type="text" class="form-control" v-model="getSelectionModelList.kasano" aria-label="Username" aria-describedby="basic-addon1">
-                    </div>
-                </div>
-                <div class="col">
-                    <AutoComplete  class="" v-model="searchMine" placeholder="Ocak" :suggestions="mineList" @complete="mineSearch($event)" optionLabel="name"  @item-select="productMineSelected($event)" :disabled="form.mine"/>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <div class="input-group mb-3 w-100">
-                        <span class="input-group-text" id="basic-addon1">Düzenleyen</span>
-                        <input type="text" class="form-control" v-model="getSelectionModelList.duzenleyen" aria-label="Username" aria-describedby="basic-addon1" :disabled="form.worker1">
-                    </div>
-                    </div>
-                <div class="col">
-                    <div class="input-group mb-3 w-100">
-                        <span class="input-group-text" id="basic-addon1">Kasalayan</span>
-                        <input type="text" class="form-control" v-model="getSelectionModelList.kasalayan" aria-label="Username" aria-describedby="basic-addon1" :disabled="form.worker2">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-4">
-            <span class="p-float-label">
-                <AutoComplete class="w-100" inputId="ac" v-model="searchSupplier" :suggestions="supplierList" @complete="supplierSearch($event)" optionLabel="name" @item-select="supplierItemSelected($event)" :disabled="form.supplier"/>
-
-                <label for="ac">Tedarikçi</label>
-            </span>
-            <br/>
-            <br/>
-            <Calendar v-model="p_date" @date-select="dateSelected($event)" :disabled="form.date" dateFormat="dd/mm/yy"/>
-            <br/>
-            <br/>
-            <div class="row">
-                <div class="col" v-for="item of getProductUnitList" :key="item">
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" v-model="selectedProductUnit" :value="item" @change="changeProductUnit($event)">
-                        <label class="form-check-label" for="flexRadioDefault1">
-                            {{ item.name }}
-                        </label>
-                    </div>
-                </div>  
-            </div>
-            <br/>
-            <br/>
-            <div class="row">
-                <div class="col">
-                    <span class="p-float-label">
-                        <InputText id="kutusayisi" class="form-control" aria-describedby="basic-addon1" v-model="getSelectionModelList.kutuadet" @input="calculateAmount($event)" :disabled="form.amountincreate"/>
-                        <label for="kutusayisi">Kutu Sayısı</label>
-                    </span>
-                </div>
-                <div class="col">
-                    <span class="p-float-label">
-                        <InputText id="kutuiciadet" class="form-control" aria-describedby="basic-addon1" v-model="getSelectionModelList.kutuiciadet" @input="inBoxPiece" :disabled="form.amountinbox"/>
-                        <label for="kutuiciadet">Kutu İçi</label>
-                    </span>
-                </div>
-                <div class="col">
-                    <span class="p-float-label">
-                        <InputText id="kutuiciadet" class="form-control" aria-describedby="basic-addon1" v-model="getSelectionModelList.adet" @input="calculateAmount($event)" :disabled="form.totalAmount"/>
-                        <label for="kutuiciadet">Toplam</label>
-                    </span>
-                </div>
-            </div>
-            <br/>
-            <div class="row">
-                <div class="col">
-                    <span class="p-float-label">
-                        <InputText id="miktar" class="form-control" aria-describedby="basic-addon1" v-model="getSelectionModelList.miktar" @input="getSelectionModelList.miktar = $filters.formatPoint($event.target.value)" :disabled="form.amount"/>
-                        <label for="miktar">Miktar</label>
-                    </span>
-                </div>
-                <div class="col">
-                    <span class="p-float-label">
-                        <InputText id="miktar" class="form-control" aria-describedby="basic-addon1" v-model="getSelectionModelList.ozelmiktar" @input="getSelectionModelList.ozelmiktar = $filters.formatPoint($event.target.value)" :disabled="form.speacial"/>
-                        <label for="miktar">Sqm</label>
-                    </span>
-                </div>
-                <div class="col">
-                    <span class="p-float-label">
-                        <InputText id="miktar" class="form-control" aria-describedby="basic-addon1" v-model="cratePiece" :disabled="form.createpiece"/>
-                        <label for="miktar">Kasa</label>
-                    </span>
-                </div>
-            </div>
-            <br/>
-            <div class="row">
-                <div class="col">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" v-model="getSelectionModelList.kutu">
-                        <label class="form-check-label" for="flexCheckDefault">
-                            Kutu
-                        </label>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault2" v-model="getSelectionModelList.bagli">
-                        <label class="form-check-label" for="flexCheckDefault2">
-                            Bağlı
-                        </label>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault3" v-model="getSelectionModelList.disarda">
-                        <label class="form-check-label" for="flexCheckDefault3">
-                            Dışarda
-                        </label>
-                    </div>
-                </div>
-                <div class="col">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault3" v-model="getSelectionModelList.bulunamayan">
-                            <label class="form-check-label" for="flexCheckDefault3">
-                                Bulunamadı
-                            </label>
+            <div class="col-4">
+                <Dropdown class="w-100" v-model="selectedSavedKind" :options="saveKindList" optionLabel="kayitTur" placeholder="Kayıt Tür"  @change="productSavedKindSelected($event)" :disabled="form.kind"/>
+                <br/>
+                <br/>
+                <AutoComplete placeholder="Po" class="w-100" v-model="searchProduct" :suggestions="productList" @complete="productSearch($event)" optionLabel="name" :disabled="form.po" @item-select="productItemSelected($event)" />
+                <br/>
+                <br/>
+                <Dropdown class="w-100" v-model="selectedProductDetail" :options="selectionProductDetail" optionLabel="tanim" placeholder="Sipariş Detay" :disabled="form.product" @change="productItemDetailSelected($event)"/>
+                <br/>
+                <br/>
+                <InputText class="w-100" v-model="getSelectionModelList.tanim" placeholder="Sipariş Ürün Kart" disabled/>
+                <br/>
+                <br/>
+                <div class="row">
+                        <div class="col">
+                            <input type="text" class="form-control" v-model="getSelectionModelList.urunkartid" disabled />
+                        </div>
+                        <div class="col">
+                            <button class="btn btn-secondary" @click="selection_card_form = !selection_card_form" :disabled="selectedSavedKind.id == 1 ? false : true">@</button>
                         </div>
                 </div>
+                <br/>
+                <div class="row">
+                    <div class="col">
+                        <div class="input-group mb-3 w-100">
+                            <span class="input-group-text" id="basic-addon1">Kasa No</span>
+                            <input type="text" class="form-control" v-model="getSelectionModelList.kasano" aria-label="Username" aria-describedby="basic-addon1">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <AutoComplete  class="" v-model="searchMine" placeholder="Ocak" :suggestions="mineList" @complete="mineSearch($event)" optionLabel="name"  @item-select="productMineSelected($event)" :disabled="form.mine"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="input-group mb-3 w-100">
+                            <span class="input-group-text" id="basic-addon1">Düzenleyen</span>
+                            <input type="text" class="form-control" v-model="getSelectionModelList.duzenleyen" aria-label="Username" aria-describedby="basic-addon1" :disabled="form.worker1">
+                        </div>
+                        </div>
+                    <div class="col">
+                        <div class="input-group mb-3 w-100">
+                            <span class="input-group-text" id="basic-addon1">Kasalayan</span>
+                            <input type="text" class="form-control" v-model="getSelectionModelList.kasalayan" aria-label="Username" aria-describedby="basic-addon1" :disabled="form.worker2">
+                        </div>
+                    </div>
+                </div>
             </div>
-            <br/>
-            <div class="form-floating">
-                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" v-model="getSelectionModelList.aciklama" style="padding-top:35px;"></textarea>
-                <label for="floatingTextarea">Notlar</label>
-            </div>
+            <div class="col-4">
+                <span class="p-float-label">
+                    <AutoComplete class="w-100" inputId="ac" v-model="searchSupplier" :suggestions="supplierList" @complete="supplierSearch($event)" optionLabel="name" @item-select="supplierItemSelected($event)" :disabled="form.supplier"/>
+
+                    <label for="ac">Tedarikçi</label>
+                </span>
+                <br/>
+                <br/>
+                <Calendar v-model="p_date" @date-select="dateSelected($event)" :disabled="form.date" dateFormat="dd/mm/yy"/>
+                <br/>
+                <br/>
+                <div class="row">
+                    <div class="col" v-for="item of getProductUnitList" :key="item">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" v-model="selectedProductUnit" :value="item" @change="changeProductUnit($event)">
+                            <label class="form-check-label" for="flexRadioDefault1">
+                                {{ item.name }}
+                            </label>
+                        </div>
+                    </div>  
+                </div>
+                <br/>
+                <br/>
+                <div class="row">
+                    <div class="col">
+                        <span class="p-float-label">
+                            <InputText id="kutusayisi" class="form-control" aria-describedby="basic-addon1" v-model="getSelectionModelList.kutuadet" @input="calculateAmount($event)" :disabled="form.amountincreate"/>
+                            <label for="kutusayisi">Kutu Sayısı</label>
+                        </span>
+                    </div>
+                    <div class="col">
+                        <span class="p-float-label">
+                            <InputText id="kutuiciadet" class="form-control" aria-describedby="basic-addon1" v-model="getSelectionModelList.kutuiciadet" @input="inBoxPiece" :disabled="form.amountinbox"/>
+                            <label for="kutuiciadet">Kutu İçi</label>
+                        </span>
+                    </div>
+                    <div class="col">
+                        <span class="p-float-label">
+                            <InputText id="kutuiciadet" class="form-control" aria-describedby="basic-addon1" v-model="getSelectionModelList.adet" @input="calculateAmount($event)" :disabled="form.totalAmount"/>
+                            <label for="kutuiciadet">Toplam</label>
+                        </span>
+                    </div>
+                </div>
+                <br/>
+                <div class="row">
+                    <div class="col">
+                        <span class="p-float-label">
+                            <InputText id="miktar" class="form-control" aria-describedby="basic-addon1" v-model="getSelectionModelList.miktar" @input="getSelectionModelList.miktar = $filters.formatPoint($event.target.value)" :disabled="form.amount"/>
+                            <label for="miktar">Miktar</label>
+                        </span>
+                    </div>
+                    <div class="col">
+                        <span class="p-float-label">
+                            <InputText id="miktar" class="form-control" aria-describedby="basic-addon1" v-model="getSelectionModelList.ozelmiktar" @input="getSelectionModelList.ozelmiktar = $filters.formatPoint($event.target.value)" :disabled="form.speacial"/>
+                            <label for="miktar">Sqm</label>
+                        </span>
+                    </div>
+                    <div class="col">
+                        <span class="p-float-label">
+                            <InputText id="miktar" class="form-control" aria-describedby="basic-addon1" v-model="cratePiece" :disabled="form.createpiece"/>
+                            <label for="miktar">Kasa</label>
+                        </span>
+                    </div>
+                </div>
+                <br/>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" v-model="getSelectionModelList.kutu">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                Kutu
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault2" v-model="getSelectionModelList.bagli">
+                            <label class="form-check-label" for="flexCheckDefault2">
+                                Bağlı
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault3" v-model="getSelectionModelList.disarda">
+                            <label class="form-check-label" for="flexCheckDefault3">
+                                Dışarda
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault3" v-model="getSelectionModelList.bulunamayan">
+                                <label class="form-check-label" for="flexCheckDefault3">
+                                    Bulunamadı
+                                </label>
+                            </div>
+                    </div>
+                </div>
+                <br/>
+                <div class="form-floating">
+                    <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" v-model="getSelectionModelList.aciklama" style="padding-top:35px;"></textarea>
+                    <label for="floatingTextarea">Notlar</label>
+                </div>
             
-        </div>
-        <div class="col-4">
-            <div class="row">
-                <div class="col">
-                    <input type="text" class="form-control" v-model="getSelectionModelList.kategoriadi" disabled/>
+            </div>
+            <div class="col-4">
+                <div class="row">
+                    <div class="col">
+                        <input type="text" class="form-control" v-model="getSelectionModelList.kategoriadi" disabled/>
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control" v-model="getSelectionModelList.urunadi" disabled/>
+                    </div>
                 </div>
-                <div class="col">
-                    <input type="text" class="form-control" v-model="getSelectionModelList.urunadi" disabled/>
+                <br/>
+                <div class="row">
+                    <div class="col">
+                        <input type="text" class="form-control" v-model="getSelectionModelList.kenarislem" disabled/>
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control" v-model="getSelectionModelList.ebat" disabled/>
+                    </div>
                 </div>
             </div>
-            <br/>
-            <div class="row">
-                <div class="col">
-                    <input type="text" class="form-control" v-model="getSelectionModelList.kenarislem" disabled/>
-                </div>
-                <div class="col">
-                    <input type="text" class="form-control" v-model="getSelectionModelList.ebat" disabled/>
-                </div>
+        </div>
+        <br/>    
+        <div class="row m-auto">
+            <div class="col">
+                <button type="button" class="btn btn-primary" @click="newForm" :disabled="new_button_form">Yeni</button>
+            </div>
+            <div class="col">
+                <button type="button" class="btn btn-secondary" @click="cancelForm" :disabled="cancel_button_form">Vazgeç</button>
+            </div>
+            <div class="col">
+                <button type="button" class="btn btn-success" @click="saveForm" :disabled="save_button_form">Kaydet</button>
+            </div>
+            <div class="col">
+                <button type="button" class="btn btn-warning" @click="updateForm" :disabled="update_button_form">Güncelle</button>
+            </div>
+            <div class="col">
+                <button type="button" class="btn btn-danger" @click="deleteForm" :disabled="delete_button_form">Sil</button>
             </div>
         </div>
     </div>
-    <br/>    
-    <div class="row m-auto">
-        <div class="col">
-            <button type="button" class="btn btn-primary" @click="newForm" :disabled="new_button_form">Yeni</button>
-        </div>
-        <div class="col">
-            <button type="button" class="btn btn-secondary" @click="cancelForm" :disabled="cancel_button_form">Vazgeç</button>
-        </div>
-        <div class="col">
-            <button type="button" class="btn btn-success" @click="saveForm" :disabled="save_button_form">Kaydet</button>
-        </div>
-        <div class="col">
-            <button type="button" class="btn btn-warning" @click="updateForm" :disabled="update_button_form">Güncelle</button>
-        </div>
-        <div class="col">
-            <button type="button" class="btn btn-danger" @click="deleteForm" :disabled="delete_button_form">Sil</button>
-        </div>
+    <div v-if="getMobile">
+            <div class="">
+                        <div class="">
+                            <div class="mb-3">
+                                <input type="text" class="form-control" v-model="getSelectionModelList.kategoriadi" disabled/>
+                            </div>
+                            <div class="mb-3">
+                                <input type="text" class="form-control" v-model="getSelectionModelList.urunadi" disabled/>
+                            </div>
+                        </div>
+                        <div class="">
+                            <div class="mb-3">
+                                <input type="text" class="form-control" v-model="getSelectionModelList.kenarislem" disabled/>
+                            </div>
+                            <div class="mb-3">
+                                <input type="text" class="form-control" v-model="getSelectionModelList.ebat" disabled/>
+                            </div>
+                        </div>
+                    </div>
+            <div class="">
+                <div class="">
+                    <Dropdown class="w-100" v-model="selectedSavedKind" :options="saveKindList" optionLabel="kayitTur" placeholder="Kayıt Tür"  @change="productSavedKindSelected($event)" :disabled="form.kind"/>
+                    <br/>
+                    <br/>
+                    <AutoComplete placeholder="Po" class="w-100" v-model="searchProduct" :suggestions="productList" @complete="productSearch($event)" optionLabel="name" :disabled="form.po" @item-select="productItemSelected($event)" />
+                    <br/>
+                    <br/>
+                    <Dropdown class="w-100" v-model="selectedProductDetail" :options="selectionProductDetail" optionLabel="tanim" placeholder="Sipariş Detay" :disabled="form.product" @change="productItemDetailSelected($event)"/>
+                    <br/>
+                    <br/>
+                    <InputText class="w-100" v-model="getSelectionModelList.tanim" placeholder="Sipariş Ürün Kart" disabled/>
+                    <br/>
+                    <br/>
+                    <div class="row">
+                            <div class="col">
+                                <input type="text" class="form-control" v-model="getSelectionModelList.urunkartid" disabled />
+                            </div>
+                            <div class="col">
+                                <button class="btn btn-secondary" @click="selection_card_form = !selection_card_form" :disabled="selectedSavedKind.id == 1 ? false : true">@</button>
+                            </div>
+                    </div>
+                    <br/>
+                    <div class="">
+                        <div class="">
+                            <div class="input-group mb-3 w-100">
+                                <span class="input-group-text" id="basic-addon1">Kasa No</span>
+                                <input type="text" class="form-control" v-model="getSelectionModelList.kasano" aria-label="Username" aria-describedby="basic-addon1">
+                            </div>
+                        </div>
+                        <div class="">
+                            <AutoComplete  class="w-100" style="width:100%;" v-model="searchMine" placeholder="Ocak" :suggestions="mineList" @complete="mineSearch($event)" optionLabel="name"  @item-select="productMineSelected($event)" :disabled="form.mine"/>
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="">
+                            <div class="input-group mb-3 mt-4 w-100">
+                                <span class="input-group-text" id="basic-addon1">Düzenleyen</span>
+                                <input type="text" class="form-control" v-model="getSelectionModelList.duzenleyen" aria-label="Username" aria-describedby="basic-addon1" :disabled="form.worker1">
+                            </div>
+                            </div>
+                        <div class="">
+                            <div class="input-group mb-3 w-100">
+                                <span class="input-group-text" id="basic-addon1">Kasalayan</span>
+                                <input type="text" class="form-control" v-model="getSelectionModelList.kasalayan" aria-label="Username" aria-describedby="basic-addon1" :disabled="form.worker2">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="">
+                    <span class="p-float-label mt-4 ">
+                        <AutoComplete class="w-100" inputId="ac" v-model="searchSupplier" :suggestions="supplierList" @complete="supplierSearch($event)" optionLabel="name" @item-select="supplierItemSelected($event)" :disabled="form.supplier"/>
+
+                        <label for="ac">Tedarikçi</label>
+                    </span>
+                    <br/>
+                    <Calendar v-model="p_date" @date-select="dateSelected($event)" :disabled="form.date" dateFormat="dd/mm/yy"/>
+                    <br/>
+                    <br/>
+                    <div class="row">
+                        <div class="col" v-for="item of getProductUnitList" :key="item">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" v-model="selectedProductUnit" :value="item" @change="changeProductUnit($event)">
+                                <label class="form-check-label" for="flexRadioDefault1">
+                                    {{ item.name }}
+                                </label>
+                            </div>
+                        </div>  
+                    </div>
+                    <br/>
+                    <br/>
+                    <div class="">
+                        <div class="">
+                            <span class="p-float-label mb-3">
+                                <InputText id="kutusayisi" class="form-control" aria-describedby="basic-addon1" v-model="getSelectionModelList.kutuadet" @input="calculateAmount($event)" :disabled="form.amountincreate"/>
+                                <label for="kutusayisi">Kutu Sayısı</label>
+                            </span>
+                        </div>
+                        <div class="">
+                            <span class="p-float-label mb-3">
+                                <InputText id="kutuiciadet" class="form-control" aria-describedby="basic-addon1" v-model="getSelectionModelList.kutuiciadet" @input="inBoxPiece" :disabled="form.amountinbox"/>
+                                <label for="kutuiciadet">Kutu İçi</label>
+                            </span>
+                        </div>
+                        <div class="">
+                            <span class="p-float-label mb-3">
+                                <InputText id="kutuiciadet" class="form-control" aria-describedby="basic-addon1" v-model="getSelectionModelList.adet" @input="calculateAmount($event)" :disabled="form.totalAmount"/>
+                                <label for="kutuiciadet">Toplam</label>
+                            </span>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="">
+                        <div class="">
+                            <span class="p-float-label mb-3">
+                                <InputText id="miktar" class="form-control" aria-describedby="basic-addon1" v-model="getSelectionModelList.miktar" @input="getSelectionModelList.miktar = $filters.formatPoint($event.target.value)" :disabled="form.amount"/>
+                                <label for="miktar">Miktar</label>
+                            </span>
+                        </div>
+                        <div class="">
+                            <span class="p-float-label mb-3">
+                                <InputText id="miktar" class="form-control" aria-describedby="basic-addon1" v-model="getSelectionModelList.ozelmiktar" @input="getSelectionModelList.ozelmiktar = $filters.formatPoint($event.target.value)" :disabled="form.speacial"/>
+                                <label for="miktar">Sqm</label>
+                            </span>
+                        </div>
+                        <div class="">
+                            <span class="p-float-label mb-3">
+                                <InputText id="miktar" class="form-control" aria-describedby="basic-addon1" v-model="cratePiece" :disabled="form.createpiece"/>
+                                <label for="miktar">Kasa</label>
+                            </span>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" v-model="getSelectionModelList.kutu">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    Kutu
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault2" v-model="getSelectionModelList.bagli">
+                                <label class="form-check-label" for="flexCheckDefault2">
+                                    Bağlı
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault3" v-model="getSelectionModelList.disarda">
+                                <label class="form-check-label" for="flexCheckDefault3">
+                                    Dışarda
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault3" v-model="getSelectionModelList.bulunamayan">
+                                    <label class="form-check-label" for="flexCheckDefault3">
+                                        Bulunamadı
+                                    </label>
+                                </div>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="form-floating">
+                        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" v-model="getSelectionModelList.aciklama" style="padding-top:35px;"></textarea>
+                        <label for="floatingTextarea">Notlar</label>
+                    </div>
+            
+                </div>
+                
+            </div>
+            <br/>    
+            <button type="button" class="btn btn-primary w-100 mb-2" @click="newForm" :disabled="new_button_form">Yeni</button>
+            <button type="button" class="btn btn-secondary w-100 mb-2" @click="cancelForm" :disabled="cancel_button_form">Vazgeç</button>
+            <button type="button" class="btn btn-success w-100 mb-2" @click="saveForm" :disabled="save_button_form">Kaydet</button>
+            <button type="button" class="btn btn-warning w-100 mb-2" @click="updateForm" :disabled="update_button_form">Güncelle</button>
+            <button type="button" class="btn btn-danger w-100 mb-2" @click="deleteForm" :disabled="delete_button_form">Sil</button>
     </div>
-    <Dialog v-model:visible="selection_card_form" header="Ürünler" modal>
+
+
+    <Dialog v-model:visible="selection_card_form" header="Ürünler" modal :style="{ 'width': '100vw' }">
         <card @productCardSelected="selectionCardSelected($event)"/>
     </Dialog>
 </template>
@@ -202,6 +388,7 @@
 import { useSelectionStore } from '../../stores/selection';
 import { useCardStore } from '../../stores/cards';
 import { useLoadingStore } from '../../stores/loading';
+import { useMobilStore } from '../../stores/mobil';
 import { mapState } from 'pinia';
 
 import { selectionService } from '../../services/selectionService';
@@ -226,6 +413,9 @@ export default {
         ...mapState(useCardStore, [
             'getCardList'
         ]),
+        ...mapState(useMobilStore, [
+            'getMobile'
+        ])
 
     },
     data() {

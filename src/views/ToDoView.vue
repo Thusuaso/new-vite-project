@@ -9,7 +9,7 @@
             <list/>
         </div>
     </div>
-    <Dialog v-model:visible="to_do_form" header="" modal style="width:100%;">
+    <Dialog v-model:visible="to_do_form" header="" modal :style="{ 'width': '100vw' }">
         <toDoForm />
     </Dialog>
 </template>

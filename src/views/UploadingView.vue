@@ -76,13 +76,13 @@
             </DataTable>
         </div>
     </div>
-    <Dialog v-model:visible="is_form" :header="folderName" modal>
+    <Dialog v-model:visible="is_form" :header="folderName" modal :style="{ 'width': '100vw' }">
         <invoiceForm :id="invoiceId" :po="po"/>
     </Dialog>
-    <Dialog v-model:visible="is_form2" header="" modal>
+    <Dialog v-model:visible="is_form2" header="" modal :style="{ 'width': '100vw' }">
         <supplierForm :po="selectedUploadingProduct.siparisno"/>
     </Dialog>
-    <Dialog v-model:visible="is_form3" header modal>
+    <Dialog v-model:visible="is_form3" header modal :style="{ 'width': '100vw' }">
         <workermanForm :po="selectedUploadingProduct.siparisno"/>
     </Dialog>
 </template>

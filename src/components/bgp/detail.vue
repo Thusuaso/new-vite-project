@@ -27,7 +27,7 @@
 
       </DataTable>
     </div>
-    <Dialog v-model:visible="bgp_detail_list_form" modal :style="{ width: '60vw' }">
+    <Dialog v-model:visible="bgp_detail_list_form" modal :style="{ 'width': '100vw' }">
         <detailForm :projectName="projectName" :ulkeAdi="ulkeAdi"/>
     </Dialog>
 </template>

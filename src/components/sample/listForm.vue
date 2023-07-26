@@ -1,5 +1,5 @@
 <template>
-    <div class="row m-auto mt-3">
+    <div class="row m-auto mt-3" v-if="!getMobile">
         <div class="col-9">
             <TabView>
                 <TabPanel header="Bilgiler">
@@ -53,9 +53,65 @@
             </div>
         </div>
     </div>
+
+    <div class="m-auto mt-3" v-if="getMobile">
+        <div class="">
+            <TabView>
+                <TabPanel header="Bilgiler">
+                    <info/>
+                </TabPanel>
+                <TabPanel header="Ödemeler">
+                    <paid/>
+                </TabPanel>
+                <TabPanel header="Fotoğraflar">
+                    <images />
+                </TabPanel>
+            </TabView>
+        </div>
+        <div class="">
+            <button type="button" class="btn btn-success mb-3 w-100" @click="sampleProcess">Kaydet</button>
+            <div class="input-group mb-4">
+                <span class="input-group-text" id="basic-addon1">Po</span>
+                <input type="text" class="form-control"  aria-describedby="basic-addon1" v-model="getSampleModel.numuneNo" :disabled="sample_no_disabled">
+            </div>
+            <span class="p-float-label mb-4">
+                <Calendar v-model="s_date" showIcon class="w-100" @date-select="sendingDateSelected($event)" dateFormat="dd/mm/yy"/>
+                <label for="customer">Giriş Tarihi</label>
+            </span>
+            <span class="p-float-label mb-4">
+                <Calendar v-model="l_date" showIcon class="w-100" @date-select="loadingDateSelected($event)" dateFormat="dd/mm/yy"/>
+                <label for="customer">Yükleme Tarihi</label>
+            </span>
+            <span class="p-float-label mb-4">
+                <AutoComplete id="customer" class="w-100" v-model="selectedCustomer" dropdown :suggestions="filteredCustomerList" optionLabel="musteriAdi" @complete="customerSearch($event)" @item-select="customerSelected($event)"/>
+                <label for="customer">Müşteri</label>
+            </span>
+            <span class="p-float-label mb-4">
+                <AutoComplete id="customer" class="w-100" v-model="selectedCountry" dropdown :suggestions="filteredCountryList" optionLabel="ulkeAdi" @complete="countrySearch($event)" @item-select="countrySelected($event)"/>
+                <label for="customer">Ülke</label>
+            </span>
+            <div class="form-floating mb-4">
+                <textarea class="form-control w-100"  placeholder="Leave a comment here" id="floatingTextarea" style="height: 100px;padding-top:35px;" v-model="getSampleModel.adres"></textarea>
+                <label for="floatingTextarea">Adres</label>
+            </div>
+            <span class="p-float-label mb-4">
+                <AutoComplete id="customer" class="w-100" v-model="selectedRepresentative" dropdown :suggestions="filteredRepresentativeList" optionLabel="name" @complete="representativeSearch($event)" @item-select="representativeSelected($event)"/>
+                <label for="customer">Temsilci</label>
+            </span>
+            <div class="input-group mb-4">
+                <span class="input-group-text" id="basic-addon1">T.No</span>
+                <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getSampleModel.takip_No">
+            </div>
+            <div class="input-group mb-4">
+                <span class="input-group-text" id="basic-addon1">Parite</span>
+                <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getSampleModel.parite" @input="getSampleModel.parite = $filters.formatPoint($event.target.value)">
+            </div>
+        </div>
+    </div>
 </template>
 <script>
 import { useSampleStore } from '../../stores/sample';
+import { useMobilStore } from '../../stores/mobil';
 import { mapState } from 'pinia';
 
 import { localDateService } from '../../services/localDateService';
@@ -74,6 +130,9 @@ export default {
             'getSampleCountryList',
             'getSampleRepresentativeList',
             'getSampleNewButton'
+        ]),
+        ...mapState(useMobilStore, [
+            'getMobile',
         ])
     },
     components: {

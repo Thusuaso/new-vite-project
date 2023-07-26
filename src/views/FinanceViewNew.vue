@@ -40,10 +40,10 @@
             <expiryList/>
         </div>
     </div>
-    <Dialog v-model:visible="is_collection_form" header="Tahsilat Listesi" modal>
+    <Dialog v-model:visible="is_collection_form" header="Tahsilat Listesi" modal :style="{ 'width': '100vw' }">
         <collectionList/>
     </Dialog>
-    <Dialog v-model:visible="is_advanced_payment_form" header="Peşinat" modal>
+    <Dialog v-model:visible="is_advanced_payment_form" header="Peşinat" modal :style="{ 'width': '100vw' }">
         <advancedPayment/>
     </Dialog>
 </template>

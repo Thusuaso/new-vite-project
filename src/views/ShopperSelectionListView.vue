@@ -9,7 +9,7 @@
             <shopperSelectionList   :item="item"/>
         </div>
     </div>
-    <Dialog v-model:visible="shopper_selection_form" header="" modal>
+    <Dialog v-model:visible="shopper_selection_form" header="" modal :style="{ 'width': '100vw' }">
         <shopperSelectionForm/>
     </Dialog>
 </template>

@@ -1,123 +1,230 @@
 <template>
-    <div class="row m-auto mt-3">
-        <div class="col">
-            <Dropdown v-model="selectedYear" :options="getSampleFinanceYearList" optionLabel="yil" class="w-full md:w-14rem" @change="sampleFinanceYearSelected($event)"/>
+    <div v-if="!getMobile">
+            <div class="row m-auto mt-3">
+            <div class="col">
+                <Dropdown v-model="selectedYear" :options="getSampleFinanceYearList" optionLabel="yil" class="w-full md:w-14rem" @change="sampleFinanceYearSelected($event)"/>
+            </div>
         </div>
-    </div>
-    <div class="row m-auto mt-3">
-        <div class="col-9">
-            <DataTable 
-                    :value="getSampleFinanceListSample" 
-                    style="font-size:85%;"
-                    v-model:selection="selectedFinanceSample"
-                    selectionMode="single"
-                    @row-click="financeSampleSelected($event)"
-                >
-                <template #header>
-                    Numune Finans Alacak Listesi
-                </template>
-                <Column field="musteriadi" header="Müşteri"></Column>
-                <Column field="kuryeAlis" header="Alış($)">
-                    <template #body="slotProps">
-                        {{ $filters.formatPrice(slotProps.data.kuryeAlis) }}
-                    </template>
-                    <template #footer>
-                        {{ $filters.formatPrice(getSampleFinanceListSampleTotal.buyingUsd) }}
-                    </template>
-                </Column>
-                <Column field="kuryeSatis" header="Satış($)">
-                    <template #body="slotProps">
-                        {{ $filters.formatPrice(slotProps.data.kuryeSatis) }}
-                    </template>
-                    <template #footer>
-                        {{ $filters.formatPrice(getSampleFinanceListSampleTotal.sellingUsd) }}
-                    </template>
-                </Column>
-                <Column field="Euro_Alis" header="Alış(€)">
-                    <template #body="slotProps">
-                        {{ $filters.formatPriceEuro(slotProps.data.Euro_Alis) }}
-                    </template>
-                    <template #footer>
-                        {{ $filters.formatPriceEuro(getSampleFinanceListSampleTotal.buyingEuro) }}
-                    </template>
-                </Column>
-                <Column field="Euro_Satis" header="Satış(€)">
-                    <template #body="slotProps">
-                        {{ $filters.formatPriceEuro(slotProps.data.Euro_Satis) }}
-                    </template>
-                    <template #footer>
-                        {{ $filters.formatPriceEuro(getSampleFinanceListSampleTotal.sellingEuro) }}
-                    </template>
-                </Column>
-                <Column field="TL_Alis" header="Alış(₺)">
-                    <template #body="slotProps">
-                        {{ $filters.formatPriceTl(slotProps.data.TL_Alis) }}
-                    </template>
-                    <template #footer>
-                        {{ $filters.formatPriceTl(getSampleFinanceListSampleTotal.buyingTl) }}
-                    </template>
-                </Column>
-                <Column field="TL_Satis" header="Satış(₺)">
-                    <template #body="slotProps">
-                        {{ $filters.formatPriceTl(slotProps.data.TL_Satis) }}
-                    </template>
-                    <template #footer>
-                        {{ $filters.formatPriceTl(getSampleFinanceListSampleTotal.sellingTl) }}
-                    </template>
-                </Column>
-            </DataTable>
-        </div>
-        <div class="col-3">
-            <DataTable 
-                :value="getSampleFinanceListBank" 
-                tableStyle="mb-4"
-                v-model:selection="selectedFinanceBank"
-                selectionMode="single"
-                @row-click="financeBankSelected($event)"
-                style="font-size:85%;"
-            >
+        <div class="row m-auto mt-3">
+            <div class="col-9">
+                <DataTable 
+                        :value="getSampleFinanceListSample" 
+                        style="font-size:85%;"
+                        v-model:selection="selectedFinanceSample"
+                        selectionMode="single"
+                        @row-click="financeSampleSelected($event)"
+                    >
                     <template #header>
-                        Banka Gelen
+                        Numune Finans Alacak Listesi
                     </template>
-                    <Column field="banka" header="Banka"></Column>
-                    <Column field="bedel" header="Gelen($)">
+                    <Column field="musteriadi" header="Müşteri"></Column>
+                    <Column field="kuryeAlis" header="Alış($)">
                         <template #body="slotProps">
-                            {{ $filters.formatPrice(slotProps.data.bedel) }}
+                            {{ $filters.formatPrice(slotProps.data.kuryeAlis) }}
                         </template>
                         <template #footer>
-                            {{ $filters.formatPrice(getSampleFinanceListBankTotal.usd) }}
+                            {{ $filters.formatPrice(getSampleFinanceListSampleTotal.buyingUsd) }}
                         </template>
                     </Column>
-            </DataTable>
-            <table class="table">
-                <thead>
-                    <tr>
-                    <th scope="col">Kar($)</th>
-                    <th scope="col">Kar(€)</th>
-                    <th scope="col">Kar(₺)</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>{{ $filters.formatPrice(getSampleFinanceListSampleTotal.sellingUsd - getSampleFinanceListSampleTotal.buyingUsd) }}</td>
-                        <td>{{ $filters.formatPriceEuro(getSampleFinanceListSampleTotal.sellingEuro - getSampleFinanceListSampleTotal.buyingEuro) }}</td>
-                        <td>{{ $filters.formatPriceTl(getSampleFinanceListSampleTotal.sellingTl - getSampleFinanceListSampleTotal.buyingTl) }}</td>
-                    </tr>
-                </tbody>
-                </table>
+                    <Column field="kuryeSatis" header="Satış($)">
+                        <template #body="slotProps">
+                            {{ $filters.formatPrice(slotProps.data.kuryeSatis) }}
+                        </template>
+                        <template #footer>
+                            {{ $filters.formatPrice(getSampleFinanceListSampleTotal.sellingUsd) }}
+                        </template>
+                    </Column>
+                    <Column field="Euro_Alis" header="Alış(€)">
+                        <template #body="slotProps">
+                            {{ $filters.formatPriceEuro(slotProps.data.Euro_Alis) }}
+                        </template>
+                        <template #footer>
+                            {{ $filters.formatPriceEuro(getSampleFinanceListSampleTotal.buyingEuro) }}
+                        </template>
+                    </Column>
+                    <Column field="Euro_Satis" header="Satış(€)">
+                        <template #body="slotProps">
+                            {{ $filters.formatPriceEuro(slotProps.data.Euro_Satis) }}
+                        </template>
+                        <template #footer>
+                            {{ $filters.formatPriceEuro(getSampleFinanceListSampleTotal.sellingEuro) }}
+                        </template>
+                    </Column>
+                    <Column field="TL_Alis" header="Alış(₺)">
+                        <template #body="slotProps">
+                            {{ $filters.formatPriceTl(slotProps.data.TL_Alis) }}
+                        </template>
+                        <template #footer>
+                            {{ $filters.formatPriceTl(getSampleFinanceListSampleTotal.buyingTl) }}
+                        </template>
+                    </Column>
+                    <Column field="TL_Satis" header="Satış(₺)">
+                        <template #body="slotProps">
+                            {{ $filters.formatPriceTl(slotProps.data.TL_Satis) }}
+                        </template>
+                        <template #footer>
+                            {{ $filters.formatPriceTl(getSampleFinanceListSampleTotal.sellingTl) }}
+                        </template>
+                    </Column>
+                </DataTable>
+            </div>
+            <div class="col-3">
+                <DataTable 
+                    :value="getSampleFinanceListBank" 
+                    tableStyle="mb-4"
+                    v-model:selection="selectedFinanceBank"
+                    selectionMode="single"
+                    @row-click="financeBankSelected($event)"
+                    style="font-size:85%;"
+                >
+                        <template #header>
+                            Banka Gelen
+                        </template>
+                        <Column field="banka" header="Banka"></Column>
+                        <Column field="bedel" header="Gelen($)">
+                            <template #body="slotProps">
+                                {{ $filters.formatPrice(slotProps.data.bedel) }}
+                            </template>
+                            <template #footer>
+                                {{ $filters.formatPrice(getSampleFinanceListBankTotal.usd) }}
+                            </template>
+                        </Column>
+                </DataTable>
+                <table class="table">
+                    <thead>
+                        <tr>
+                        <th scope="col">Kar($)</th>
+                        <th scope="col">Kar(€)</th>
+                        <th scope="col">Kar(₺)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{ $filters.formatPrice(getSampleFinanceListSampleTotal.sellingUsd - getSampleFinanceListSampleTotal.buyingUsd) }}</td>
+                            <td>{{ $filters.formatPriceEuro(getSampleFinanceListSampleTotal.sellingEuro - getSampleFinanceListSampleTotal.buyingEuro) }}</td>
+                            <td>{{ $filters.formatPriceTl(getSampleFinanceListSampleTotal.sellingTl - getSampleFinanceListSampleTotal.buyingTl) }}</td>
+                        </tr>
+                    </tbody>
+                    </table>
 
-        </div>  
+            </div>  
+        </div>
     </div>
-    <Dialog v-model:visible="finance_sample_detail_form" header="" modal>
+    <div v-if="getMobile">
+        <Dropdown v-model="selectedYear" :options="getSampleFinanceYearList" optionLabel="yil" class="w-100" @change="sampleFinanceYearSelected($event)"/>
+        <DataTable 
+                :value="getSampleFinanceListSample" 
+                style="font-size:85%;"
+                v-model:selection="selectedFinanceSample"
+                selectionMode="single"
+                @row-click="financeSampleSelected($event)"
+            >
+            <template #header>
+                Numune Finans Alacak Listesi
+            </template>
+            <Column field="musteriadi" header="Müşteri"></Column>
+            <Column field="kuryeAlis" header="Alış($)">
+                <template #body="slotProps">
+                    {{ $filters.formatPrice(slotProps.data.kuryeAlis) }}
+                </template>
+                <template #footer>
+                    {{ $filters.formatPrice(getSampleFinanceListSampleTotal.buyingUsd) }}
+                </template>
+            </Column>
+            <Column field="kuryeSatis" header="Satış($)">
+                <template #body="slotProps">
+                    {{ $filters.formatPrice(slotProps.data.kuryeSatis) }}
+                </template>
+                <template #footer>
+                    {{ $filters.formatPrice(getSampleFinanceListSampleTotal.sellingUsd) }}
+                </template>
+            </Column>
+            <Column field="Euro_Alis" header="Alış(€)">
+                <template #body="slotProps">
+                    {{ $filters.formatPriceEuro(slotProps.data.Euro_Alis) }}
+                </template>
+                <template #footer>
+                    {{ $filters.formatPriceEuro(getSampleFinanceListSampleTotal.buyingEuro) }}
+                </template>
+            </Column>
+            <Column field="Euro_Satis" header="Satış(€)">
+                <template #body="slotProps">
+                    {{ $filters.formatPriceEuro(slotProps.data.Euro_Satis) }}
+                </template>
+                <template #footer>
+                    {{ $filters.formatPriceEuro(getSampleFinanceListSampleTotal.sellingEuro) }}
+                </template>
+            </Column>
+            <Column field="TL_Alis" header="Alış(₺)">
+                <template #body="slotProps">
+                    {{ $filters.formatPriceTl(slotProps.data.TL_Alis) }}
+                </template>
+                <template #footer>
+                    {{ $filters.formatPriceTl(getSampleFinanceListSampleTotal.buyingTl) }}
+                </template>
+            </Column>
+            <Column field="TL_Satis" header="Satış(₺)">
+                <template #body="slotProps">
+                    {{ $filters.formatPriceTl(slotProps.data.TL_Satis) }}
+                </template>
+                <template #footer>
+                    {{ $filters.formatPriceTl(getSampleFinanceListSampleTotal.sellingTl) }}
+                </template>
+            </Column>
+        </DataTable>
+        <DataTable 
+            :value="getSampleFinanceListBank" 
+            tableStyle="mb-4"
+            v-model:selection="selectedFinanceBank"
+            selectionMode="single"
+            @row-click="financeBankSelected($event)"
+            style="font-size:85%;"
+        >
+                <template #header>
+                    Banka Gelen
+                </template>
+                <Column field="banka" header="Banka"></Column>
+                <Column field="bedel" header="Gelen($)">
+                    <template #body="slotProps">
+                        {{ $filters.formatPrice(slotProps.data.bedel) }}
+                    </template>
+                    <template #footer>
+                        {{ $filters.formatPrice(getSampleFinanceListBankTotal.usd) }}
+                    </template>
+                </Column>
+        </DataTable>
+        <table class="table">
+            <thead>
+                <tr>
+                <th scope="col">Kar($)</th>
+                <th scope="col">Kar(€)</th>
+                <th scope="col">Kar(₺)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ $filters.formatPrice(getSampleFinanceListSampleTotal.sellingUsd - getSampleFinanceListSampleTotal.buyingUsd) }}</td>
+                    <td>{{ $filters.formatPriceEuro(getSampleFinanceListSampleTotal.sellingEuro - getSampleFinanceListSampleTotal.buyingEuro) }}</td>
+                    <td>{{ $filters.formatPriceTl(getSampleFinanceListSampleTotal.sellingTl - getSampleFinanceListSampleTotal.buyingTl) }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+
+
+    <Dialog v-model:visible="finance_sample_detail_form" header="" modal :style="{ 'width': '100vw' }">
         <sampleFinanceDetail />
     </Dialog>
-    <Dialog v-model:visible="finance_bank_detail_form" header="" modal>
+    <Dialog v-model:visible="finance_bank_detail_form" header="" modal :style="{ 'width': '100vw' }">
         <bankFinanceDetail/>
     </Dialog>
 </template>
 <script>
 import { useSampleStore } from '../stores/sample';
 import { useLoadingStore } from '../stores/loading';
+import { useMobilStore } from '../stores/mobil';
 import { mapState } from 'pinia';
 
 import { sampleService } from '../services/sampleService';
@@ -132,6 +239,9 @@ export default {
             'getSampleFinanceListSampleTotal',
             'getSampleFinanceYearList',
             'getSampleFinanceListBankTotal'
+        ]),
+        ...mapState(useMobilStore, [
+            'getMobile',
         ])
     },
     components: {

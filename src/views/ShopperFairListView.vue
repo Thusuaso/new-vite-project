@@ -82,7 +82,7 @@
             </DataTable>
         </div>
     </div>
-    <Dialog v-model:visible="shopper_fair_form" header="" modal>
+    <Dialog v-model:visible="shopper_fair_form" header="" modal :style="{ 'width': '100vw' }">
         <shopperFairForm/>
     </Dialog>   
 </template>

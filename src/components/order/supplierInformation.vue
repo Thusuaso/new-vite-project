@@ -1,194 +1,384 @@
 <template>
     <br />
-    <div class="row m-auto mt-3">
-        <div class="col">
-            <span class="p-float-label">
-                    <AutoComplete id="tedarikci" v-model="tedarikci" :suggestions="filterTedarikciList"
-                        @complete="aramaTedarikci($event)" field="tedarikciadi" :dropdown="true" @item-select="tedarikciDegisim"
-                        @input="tedarikciler">
-                        <template #items="slotProps">
-                            <div class="p-clearfix p-autocomplete-brand-item">
-                                <div>{{ slotProps.tedarikciadi }}</div>
-                            </div>
-                        </template>
-                    </AutoComplete>
-                    <label for="tedarikci">Tedarikçi Adı</label>
-                </span>
-        </div>
-        <div class="col">
-            <span class="p-float-label">
-                <AutoComplete id="faturaTur" v-model="faturaTur1" :suggestions="filterFaturaTurList"
-                    @complete="aramaFaturaTur($event)" field="tur" :dropdown="true" @item-select="faturaTurDegisim">
-                    <template #items="slotProps">
-                        <div class="p-clearfix p-autocomplete-brand-item">
-                            <div>{{ slotProps.tur }}</div>
-                        </div>
-                    </template>
-                </AutoComplete>
-                <label for="faturaTur">Fatura Tür</label>
-            </span>
-        </div>
-        <div class="col">
-            <span class="p-float-label">
-                <Calendar id="sipTarih" v-model="teslimTarihi" :showIcon="true" dateFormat="dd/mm/yy"
-                    @date-select="siparisTarihiDegisim" />
-                <label for="sipTarih">Tarih</label>
-            </span>
-        </div>
-        <div class="col">
-            <span class="p-float-label">
-                    <AutoComplete id="teslimTur" v-model="teslimTur" :suggestions="filterTeslimTurList"
-                        @complete="aramaTeslimTur($event)" field="tur" :dropdown="true" @item-select="teslimTurDegisim">
+    <div v-if="!getMobile">
+            <div class="row m-auto mt-3">
+            <div class="col">
+                <span class="p-float-label">
+                        <AutoComplete id="tedarikci" v-model="tedarikci" :suggestions="filterTedarikciList"
+                            @complete="aramaTedarikci($event)" field="tedarikciadi" :dropdown="true" @item-select="tedarikciDegisim"
+                            @input="tedarikciler">
+                            <template #items="slotProps">
+                                <div class="p-clearfix p-autocomplete-brand-item">
+                                    <div>{{ slotProps.tedarikciadi }}</div>
+                                </div>
+                            </template>
+                        </AutoComplete>
+                        <label for="tedarikci">Tedarikçi Adı</label>
+                    </span>
+            </div>
+            <div class="col">
+                <span class="p-float-label">
+                    <AutoComplete id="faturaTur" v-model="faturaTur1" :suggestions="filterFaturaTurList"
+                        @complete="aramaFaturaTur($event)" field="tur" :dropdown="true" @item-select="faturaTurDegisim">
                         <template #items="slotProps">
                             <div class="p-clearfix p-autocomplete-brand-item">
                                 <div>{{ slotProps.tur }}</div>
                             </div>
                         </template>
                     </AutoComplete>
-                    <label for="teslimTur">Teslim Tür</label>
+                    <label for="faturaTur">Fatura Tür</label>
                 </span>
-        </div>
-        <div class="col">
-            <div class="field-checkbox">
-                    <Checkbox inputId="city1" name="city" v-model="is_two_isf_form" :binary="true" />
-
-                    <label for="city1">ISF 2</label>
-                </div>
-        </div>
-    </div>
-    <div class="row m-auto mt-3">
-        <div class="col">
-            <span class="p-float-label">
-                    <Textarea id="m4" @input="metinDegisim($event)" v-model="madde4" rows="3" cols="50" />
-                    <label for="m4">M4</label>
-                </span>
-        </div>
-        <div class="col">
-            <span class="p-float-label">
-                <Textarea id="m5" v-model="madde5" @input="metinDegisim($event)" rows="3" cols="50" />
-                <label for="m5">M5</label>
-            </span>
-        </div>
-    </div>
-
-    <div class="row m-auto mt-3">
-        <div class="col">
-            <DataTable style="font-size:85%;" v-model:value="urunList" v-model:selection="selectUrun"
-                :scrollable="true" scrollHeight="200px" :resizableColumns="true" columnResizeMode="fit" showGridlines
-                responsiveLayout="scroll">
-                <Column field="urunAdi" header="Ürün Adı">
-                    <template #body="slotProps">
-                        {{ slotProps.data.urunAdi }}
-                    </template>
-                </Column>
-                <Column field="yuzeyIslem" header="Yüzey İşlemi">
-                    <template #body="slotProps">
-                        {{ slotProps.data.yuzeyIslem }}
-                    </template>
-                </Column>
-                <Column header="Ölçü (cm)">
-                    <template #body="slotProps">
-                        {{
-                            slotProps.data.en +
-                            "x" +
-                            slotProps.data.boy +
-                            "x" +
-                            slotProps.data.kenar
-                        }}
-                    </template>
-                </Column>
-                <Column field="m2" header="M2" bodyStyle="text-align:center;">
-                    <template #body="slotProps">
-                        {{ formatDecimal(slotProps.data.m2) }}
-                    </template>
-                    <template #footer>
-                        {{ formatDecimal(toplam_m2) }}
-                    </template>
-                </Column>
-                <Column field="adet" header="Adet" bodyStyle="text-align:center;">
-                    <template #body="slotProps">
-                        {{ formatDecimal(slotProps.data.adet) }}
-                    </template>
-                    <template #footer>
-                        {{ formatDecimal(toplam_adet) }}
-                    </template>
-                </Column>
-                <Column field="mt" header="Mt" bodyStyle="text-align:center;">
-                    <template #body="slotProps">
-                        {{ formatDecimal(slotProps.data.mt) }}
-                    </template>
-                    <template #footer>
-                        {{ formatDecimal(toplam_mt) }}
-                    </template>
-                </Column>
-                <Column field="ton" header="Ton" bodyStyle="text-align:center;">
-                    <template #body="slotProps">
-                        {{ formatDecimal(slotProps.data.ton) }}
-                    </template>
-                    <template #footer>
-                        {{ formatDecimal(toplam_ton) }}
-                    </template>
-                </Column>
-
-                <Column field="alisFiyati" header="Alış Fiyatı" bodyStyle="text-align:center;">
-                    <template #body="slotProps">
-                        {{ formatPrice(slotProps.data.alisFiyati) }}
-                    </template>
-                </Column>
-                <Column header="Toplam" bodyStyle="text-align:center;">
-                    <template #body="slotProps">
-                        {{ formatPrice(slotProps.data.alisFiyati * slotProps.data.miktar) }}
-                    </template>
-
-                    <template #footer>
-                        {{ formatPrice(toplam_alis) }}
-                    </template>
-                </Column>
-            </DataTable>
-        </div>
-    </div>
-    <Card>
-        <template #content>
-            <div class="row m-auto mt-3">
-                <div class="col">
-                    <InputText @input="metinDegisim($event)" v-model="ek_id" style="width: 55px" />
-                    <span style="font-size: 13px; text-decoration: underline; color: red">
-                        Açıklama eklemek istediğiniz ürünün kalem numarası ile birlikte
-                        açıklamayı yazınız .
-                    </span>
-                    <InputText type="text" @input="metinDegisim($event)" v-model="ek_aciklama" style="width: 100%" />
-                </div>
             </div>
-        </template>
-    </Card>
-    <div class="row m-auto mt-3">
-        <div class="col" style="margin-left: 65px">
-            <button icon="fas fa-file-excel" @click="excel_cikti_click" style="
+            <div class="col">
+                <span class="p-float-label">
+                    <Calendar id="sipTarih" v-model="teslimTarihi" :showIcon="true" dateFormat="dd/mm/yy"
+                        @date-select="siparisTarihiDegisim" />
+                    <label for="sipTarih">Tarih</label>
+                </span>
+            </div>
+            <div class="col">
+                <span class="p-float-label">
+                        <AutoComplete id="teslimTur" v-model="teslimTur" :suggestions="filterTeslimTurList"
+                            @complete="aramaTeslimTur($event)" field="tur" :dropdown="true" @item-select="teslimTurDegisim">
+                            <template #items="slotProps">
+                                <div class="p-clearfix p-autocomplete-brand-item">
+                                    <div>{{ slotProps.tur }}</div>
+                                </div>
+                            </template>
+                        </AutoComplete>
+                        <label for="teslimTur">Teslim Tür</label>
+                    </span>
+            </div>
+            <div class="col">
+                <div class="field-checkbox">
+                        <Checkbox inputId="city1" name="city" v-model="is_two_isf_form" :binary="true" />
+
+                        <label for="city1">ISF 2</label>
+                    </div>
+            </div>
+        </div>
+        <div class="row m-auto mt-3">
+            <div class="col">
+                <span class="p-float-label">
+                        <Textarea id="m4" @input="metinDegisim($event)" v-model="madde4" rows="3" cols="50" />
+                        <label for="m4">M4</label>
+                    </span>
+            </div>
+            <div class="col">
+                <span class="p-float-label">
+                    <Textarea id="m5" v-model="madde5" @input="metinDegisim($event)" rows="3" cols="50" />
+                    <label for="m5">M5</label>
+                </span>
+            </div>
+        </div>
+
+        <div class="row m-auto mt-3">
+            <div class="col">
+                <DataTable style="font-size:85%;" v-model:value="urunList" v-model:selection="selectUrun"
+                    :scrollable="true" scrollHeight="200px" :resizableColumns="true" columnResizeMode="fit" showGridlines
+                    responsiveLayout="scroll">
+                    <Column field="urunAdi" header="Ürün Adı">
+                        <template #body="slotProps">
+                            {{ slotProps.data.urunAdi }}
+                        </template>
+                    </Column>
+                    <Column field="yuzeyIslem" header="Yüzey İşlemi">
+                        <template #body="slotProps">
+                            {{ slotProps.data.yuzeyIslem }}
+                        </template>
+                    </Column>
+                    <Column header="Ölçü (cm)">
+                        <template #body="slotProps">
+                            {{
+                                slotProps.data.en +
+                                "x" +
+                                slotProps.data.boy +
+                                "x" +
+                                slotProps.data.kenar
+                            }}
+                        </template>
+                    </Column>
+                    <Column field="m2" header="M2" bodyStyle="text-align:center;">
+                        <template #body="slotProps">
+                            {{ formatDecimal(slotProps.data.m2) }}
+                        </template>
+                        <template #footer>
+                            {{ formatDecimal(toplam_m2) }}
+                        </template>
+                    </Column>
+                    <Column field="adet" header="Adet" bodyStyle="text-align:center;">
+                        <template #body="slotProps">
+                            {{ formatDecimal(slotProps.data.adet) }}
+                        </template>
+                        <template #footer>
+                            {{ formatDecimal(toplam_adet) }}
+                        </template>
+                    </Column>
+                    <Column field="mt" header="Mt" bodyStyle="text-align:center;">
+                        <template #body="slotProps">
+                            {{ formatDecimal(slotProps.data.mt) }}
+                        </template>
+                        <template #footer>
+                            {{ formatDecimal(toplam_mt) }}
+                        </template>
+                    </Column>
+                    <Column field="ton" header="Ton" bodyStyle="text-align:center;">
+                        <template #body="slotProps">
+                            {{ formatDecimal(slotProps.data.ton) }}
+                        </template>
+                        <template #footer>
+                            {{ formatDecimal(toplam_ton) }}
+                        </template>
+                    </Column>
+
+                    <Column field="alisFiyati" header="Alış Fiyatı" bodyStyle="text-align:center;">
+                        <template #body="slotProps">
+                            {{ formatPrice(slotProps.data.alisFiyati) }}
+                        </template>
+                    </Column>
+                    <Column header="Toplam" bodyStyle="text-align:center;">
+                        <template #body="slotProps">
+                            {{ formatPrice(slotProps.data.alisFiyati * slotProps.data.miktar) }}
+                        </template>
+
+                        <template #footer>
+                            {{ formatPrice(toplam_alis) }}
+                        </template>
+                    </Column>
+                </DataTable>
+            </div>
+        </div>
+        <Card>
+            <template #content>
+                <div class="row m-auto mt-3">
+                    <div class="col">
+                        <InputText @input="metinDegisim($event)" v-model="ek_id" style="width: 55px" />
+                        <span style="font-size: 13px; text-decoration: underline; color: red">
+                            Açıklama eklemek istediğiniz ürünün kalem numarası ile birlikte
+                            açıklamayı yazınız .
+                        </span>
+                        <InputText type="text" @input="metinDegisim($event)" v-model="ek_aciklama" style="width: 100%" />
+                    </div>
+                </div>
+            </template>
+        </Card>
+        <div class="row m-auto mt-3">
+            <div class="col" style="margin-left: 65px">
+                <button icon="fas fa-file-excel" @click="excel_cikti_click" style="
             margin: 20px;
             height: 50px;
             width: 150px;
             background-color: green;
         " >ISF-Excel</button>
-        </div>
-        <div class="col">
-            <button icon="fas fa-file-pdf" @click="download"
-                style="margin: 20px; height: 50px; width: 150px; background-color: red" >ISF-PDF</button>
-        </div>
-        <div class="col">
-            <custom-file-input baslik="ISF Form Yükle " style="margin: 20px; height: 50px; width: 150px"
-                @sunucuDosyaYolla="faturaDosyaGonder($event)" :isISFForm="isISFForm" />
-            <!-- <FileUpload
+            </div>
+            <div class="col">
+                <button icon="fas fa-file-pdf" @click="download"
+                    style="margin: 20px; height: 50px; width: 150px; background-color: red" >ISF-PDF</button>
+            </div>
+            <div class="col">
+                <custom-file-input baslik="ISF Form Yükle " style="margin: 20px; height: 50px; width: 150px"
+                    @sunucuDosyaYolla="faturaDosyaGonder($event)" :isISFForm="isISFForm" />
+                <!-- <FileUpload
         v-model="file"
         mode="basic"
         @select="faturaDosyaGonder($event)"
         style="margin-top: 25px"
       /> -->
+            </div>
         </div>
     </div>
+    <div v-if="getMobile">
+        <div class=" m-auto mt-3">
+            <div class=" mb-3">
+                <span class="p-float-label">
+                        <AutoComplete class="w-100" id="tedarikci" v-model="tedarikci" :suggestions="filterTedarikciList"
+                            @complete="aramaTedarikci($event)" field="tedarikciadi" :dropdown="true" @item-select="tedarikciDegisim"
+                            @input="tedarikciler">
+                            <template #items="slotProps">
+                                <div class="p-clearfix p-autocomplete-brand-item">
+                                    <div>{{ slotProps.tedarikciadi }}</div>
+                                </div>
+                            </template>
+                        </AutoComplete>
+                        <label for="tedarikci">Tedarikçi Adı</label>
+                    </span>
+            </div>
+            <div class="mb-3">
+                <span class="p-float-label">
+                    <AutoComplete id="faturaTur" class="w-100" v-model="faturaTur1" :suggestions="filterFaturaTurList"
+                        @complete="aramaFaturaTur($event)" field="tur" :dropdown="true" @item-select="faturaTurDegisim">
+                        <template #items="slotProps">
+                            <div class="p-clearfix p-autocomplete-brand-item">
+                                <div>{{ slotProps.tur }}</div>
+                            </div>
+                        </template>
+                    </AutoComplete>
+                    <label for="faturaTur">Fatura Tür</label>
+                </span>
+            </div>
+            <div class="mb-3">
+                <span class="p-float-label">
+                    <Calendar id="sipTarih" class="w-100" v-model="teslimTarihi" :showIcon="true" dateFormat="dd/mm/yy"
+                        @date-select="siparisTarihiDegisim" />
+                    <label for="sipTarih">Tarih</label>
+                </span>
+            </div>
+            <div class="mb-3">
+                <span class="p-float-label">
+                        <AutoComplete id="teslimTur" class="w-100" v-model="teslimTur" :suggestions="filterTeslimTurList"
+                            @complete="aramaTeslimTur($event)" field="tur" :dropdown="true" @item-select="teslimTurDegisim">
+                            <template #items="slotProps">
+                                <div class="p-clearfix p-autocomplete-brand-item">
+                                    <div>{{ slotProps.tur }}</div>
+                                </div>
+                            </template>
+                        </AutoComplete>
+                        <label for="teslimTur">Teslim Tür</label>
+                    </span>
+            </div>
+            <div class="">
+                <div class="field-checkbox">
+                        <Checkbox style="margin-right:8px;" inputId="city1" name="city" v-model="is_two_isf_form" :binary="true" />
+
+                        <label for="city1">ISF 2</label>
+                    </div>
+            </div>
+        </div>
+        <div class=" m-auto mt-3">
+            <div class="ml-3">
+                <span class="p-float-label">
+                        <Textarea class="w-100 ml-3" id="m4" @input="metinDegisim($event)" v-model="madde4" rows="4"  />
+                        <label for="m4">M4</label>
+                    </span>
+            </div>
+            <div class="ml-3">
+                <span class="p-float-label">
+                    <Textarea class="w-100 ml-3" id="m5" v-model="madde5" @input="metinDegisim($event)" rows="4"  />
+                    <label for="m5">M5</label>
+                </span>
+            </div>
+        </div>
+
+        <div class=" m-auto mt-3">
+            <div class="">
+                <DataTable style="font-size:85%;" v-model:value="urunList" v-model:selection="selectUrun"
+                    :scrollable="true" scrollHeight="200px" :resizableColumns="true" columnResizeMode="fit" showGridlines
+                    responsiveLayout="scroll">
+                    <Column field="urunAdi" header="Ürün Adı">
+                        <template #body="slotProps">
+                            {{ slotProps.data.urunAdi }}
+                        </template>
+                    </Column>
+                    <Column field="yuzeyIslem" header="Yüzey İşlemi">
+                        <template #body="slotProps">
+                            {{ slotProps.data.yuzeyIslem }}
+                        </template>
+                    </Column>
+                    <Column header="Ölçü (cm)">
+                        <template #body="slotProps">
+                            {{
+                                slotProps.data.en +
+                                "x" +
+                                slotProps.data.boy +
+                                "x" +
+                                slotProps.data.kenar
+                            }}
+                        </template>
+                    </Column>
+                    <Column field="m2" header="M2" bodyStyle="text-align:center;">
+                        <template #body="slotProps">
+                            {{ formatDecimal(slotProps.data.m2) }}
+                        </template>
+                        <template #footer>
+                            {{ formatDecimal(toplam_m2) }}
+                        </template>
+                    </Column>
+                    <Column field="adet" header="Adet" bodyStyle="text-align:center;">
+                        <template #body="slotProps">
+                            {{ formatDecimal(slotProps.data.adet) }}
+                        </template>
+                        <template #footer>
+                            {{ formatDecimal(toplam_adet) }}
+                        </template>
+                    </Column>
+                    <Column field="mt" header="Mt" bodyStyle="text-align:center;">
+                        <template #body="slotProps">
+                            {{ formatDecimal(slotProps.data.mt) }}
+                        </template>
+                        <template #footer>
+                            {{ formatDecimal(toplam_mt) }}
+                        </template>
+                    </Column>
+                    <Column field="ton" header="Ton" bodyStyle="text-align:center;">
+                        <template #body="slotProps">
+                            {{ formatDecimal(slotProps.data.ton) }}
+                        </template>
+                        <template #footer>
+                            {{ formatDecimal(toplam_ton) }}
+                        </template>
+                    </Column>
+
+                    <Column field="alisFiyati" header="Alış Fiyatı" bodyStyle="text-align:center;">
+                        <template #body="slotProps">
+                            {{ formatPrice(slotProps.data.alisFiyati) }}
+                        </template>
+                    </Column>
+                    <Column header="Toplam" bodyStyle="text-align:center;">
+                        <template #body="slotProps">
+                            {{ formatPrice(slotProps.data.alisFiyati * slotProps.data.miktar) }}
+                        </template>
+
+                        <template #footer>
+                            {{ formatPrice(toplam_alis) }}
+                        </template>
+                    </Column>
+                </DataTable>
+            </div>
+        </div>
+        <Card>
+            <template #content>
+                <div class=" m-auto mt-3">
+                    <div class="">
+                        <InputText @input="metinDegisim($event)" v-model="ek_id" style="width: 55px" />
+                        <span style="font-size: 13px; text-decoration: underline; color: red">
+                            Açıklama eklemek istediğiniz ürünün kalem numarası ile birlikte
+                            açıklamayı yazınız .
+                        </span>
+                        <InputText type="text" @input="metinDegisim($event)" v-model="ek_aciklama" style="width: 100%" />
+                    </div>
+                </div>
+            </template>
+        </Card>
+        <div class=" m-auto mt-3">
+            <div class="mb-3" >
+                <button icon="fas fa-file-excel" @click="excel_cikti_click" style="
+            height: 50px;
+            width: 100%;
+            background-color: green;
+        " >ISF-Excel</button>
+            </div>
+            <div class="mb-3">
+                <button icon="fas fa-file-pdf" @click="download"
+                    style=" height: 50px; width: 100%; background-color: red" >ISF-PDF</button>
+            </div>
+            <div class="m-auto">
+                <custom-file-input baslik="ISF Form Yükle " style="height: 50px; width: 100%"
+                    @sunucuDosyaYolla="faturaDosyaGonder($event)" :isISFForm="isISFForm" />
+                <!-- <FileUpload
+        v-model="file"
+        mode="basic"
+        @select="faturaDosyaGonder($event)"
+        style="margin-top: 25px"
+      /> -->
+            </div>
+        </div>
+    </div>
+
 </template>
 <script>
 import { useProductionsStore } from '../../stores/productions';
 import { useLocalStore } from '../../stores/local';
+import { useMobilStore } from '../../stores/mobil';
 import { mapState } from 'pinia';
 
 import { localDateService } from '../../services/localDateService';
@@ -221,6 +411,9 @@ export default {
         ]),
         ...mapState(useLocalStore, [
             'getLocalServiceUrl'
+        ]),
+        ...mapState(useMobilStore, [
+            'getMobile'
         ])
 
     },

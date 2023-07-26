@@ -9,7 +9,7 @@
             <list/>
         </div>
     </div>
-    <Dialog v-model:visible="usa_products_new_form" header="" modal>
+    <Dialog v-model:visible="usa_products_new_form" header="" modal :style="{ 'width': '100vw' }">
         <newForm/>
     </Dialog>
 </template>

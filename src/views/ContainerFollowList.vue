@@ -69,7 +69,7 @@
         </Column>
 
     </DataTable>
-    <Dialog v-model:visible="is_container_form" :header="header" modal>
+    <Dialog v-model:visible="is_container_form" :header="header" modal :style="{ 'width': '100vw' }">
         <followForm :value="selectedContainer"/>
     </Dialog>
 </template>

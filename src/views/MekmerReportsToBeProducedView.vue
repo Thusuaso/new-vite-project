@@ -128,7 +128,7 @@
             </DataTable>
         </div>
     </div>
-    <Dialog v-model:visible="to_be_produced_form" header="" modal>
+    <Dialog v-model:visible="to_be_produced_form" header="" modal :style="{'width':'100vw'}">
         <mekmerReportsToBeProducedDetail />
     </Dialog>
 </template>

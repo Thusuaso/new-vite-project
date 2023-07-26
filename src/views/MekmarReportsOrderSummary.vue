@@ -310,7 +310,7 @@
             </DataTable>
         </div>
     </div>
-    <Dialog v-model:visible="order_summary_form" header="" modal>
+    <Dialog v-model:visible="order_summary_form" header="" modal :style="{'width':'100vw'}">
         <mekmarReportsOrderSummaryDetail />
     </Dialog>
 </template>

@@ -1,155 +1,155 @@
  <template>
-    <div class="row m-auto mt-3">
-        <div class="col">
-            <DataTable 
-                v-model:value="getOffersAllList" 
-                paginator 
-                :rows="15"
-                v-model:filters="filters"
-                filterDisplay="row"
-                v-model:selection="selectedOffers"
-                selectionMode="single"
-                @row-click="offersSelected($event)"
-                style="font-size:85%;"
-            >
-                <Column 
-                        field="teklifno" 
-                        header="Teklif No"
-                        :showFilterMenu="false"
-                        :showFilterOperator="false"
-                        :showClearButton="false"
-                        :showApplyButton="false"
-                        :showFilterMatchModes="false"
-                        :showAddButton="false"
-                >
-                    <template #filter="{ filterModel, filterCallback }">
-                        <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
-                    </template>
-                </Column>
-                <Column 
-                        field="tarih" 
-                        header="Tarih"
-                        :showFilterMenu="false"
-                        :showFilterOperator="false"
-                        :showClearButton="false"
-                        :showApplyButton="false"
-                        :showFilterMatchModes="false"
-                        :showAddButton="false"
-                >
-                    <template #body="slotProps">
-                        {{ $filters.formatDate(slotProps.data.tarih) }}
-                    </template>
-                    <template #filter="{ filterModel, filterCallback }">
-                        <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
-                    </template>
-                </Column>
-                <Column
-                         field="musteriadi" 
-                         header="Müşteri"
-                        :showFilterMenu="false"
-                        :showFilterOperator="false"
-                        :showClearButton="false"
-                        :showApplyButton="false"
-                        :showFilterMatchModes="false"
-                        :showAddButton="false"
-                
-                >
-                    <template #filter="{ filterModel, filterCallback }">
-                        <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
-                    </template>
-                </Column>
-                <Column 
-                        field="ulkeadi" 
-                        header="Ülke"
-                        :showFilterMenu="false"
-                        :showFilterOperator="false"
-                        :showClearButton="false"
-                        :showApplyButton="false"
-                        :showFilterMatchModes="false"
-                        :showAddButton="false"
-                    >
-                    <template #filter="{ filterModel, filterCallback }">
-                        <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
-                    </template>
-                </Column>
-                <Column 
-                        field="kategoriadi" 
-                        header="Kategori"
-                        :showFilterMenu="false"
-                        :showFilterOperator="false"
-                        :showClearButton="false"
-                        :showApplyButton="false"
-                        :showFilterMatchModes="false"
-                        :showAddButton="false"
-                    >
-                    <template #filter="{ filterModel, filterCallback }">
-                        <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
-                    </template>
-                </Column>
-                <Column 
-                        field="urunadi" 
-                        header="Ürün"
-                        :showFilterMenu="false"
-                        :showFilterOperator="false"
-                        :showClearButton="false"
-                        :showApplyButton="false"
-                        :showFilterMatchModes="false"
-                        :showAddButton="false"
-                    >
-                    <template #filter="{ filterModel, filterCallback }">
-                        <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
-                    </template>
-                </Column>
-                <Column 
-                        field="islemadi" 
-                        header="Yüzey"
-                        :showFilterMenu="false"
-                        :showFilterOperator="false"
-                        :showClearButton="false"
-                        :showApplyButton="false"
-                        :showFilterMatchModes="false"
-                        :showAddButton="false"
-                    >
-                    <template #filter="{ filterModel, filterCallback }">
-                        <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
-                    </template>
-                </Column>
-                <Column 
-                        field="enboy" 
-                        header="EnxBoy"
-                        :showFilterMenu="false"
-                        :showFilterOperator="false"
-                        :showClearButton="false"
-                        :showApplyButton="false"
-                        :showFilterMatchModes="false"
-                        :showAddButton="false"
-                        
-                    >
-                    <template #filter="{ filterModel, filterCallback }">
-                        <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
-                    </template>
-                </Column>
-                <Column 
-                        field="kullaniciadi" 
-                        header="Kullanıcı"
-                        :showFilterMenu="false"
-                        :showFilterOperator="false"
-                        :showClearButton="false"
-                        :showApplyButton="false"
-                        :showFilterMatchModes="false"
-                        :showAddButton="false"
+    <div class="card">
+        <DataTable 
+                     v-model:value="getOffersAllList" 
+                     paginator 
+                     :rows="15"
+                     v-model:filters="filters"
+                     filterDisplay="row"
+                     v-model:selection="selectedOffers"
+                     selectionMode="single"
+                     @row-click="offersSelected($event)"
+                     style="font-size:85%;width:70%;"
+                     scrollable scrollHeight="400px"
 
-                    >
-                    <template #filter="{ filterModel, filterCallback }">
-                        <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
-                    </template>
-                </Column>
-                <Column field="fobfiyat" header="Fiyat"></Column>
-                <Column field="birim" header="Birim"></Column>
-            </DataTable>
-        </div>
+                 >
+                     <Column 
+                             field="teklifno" 
+                             header="Teklif No"
+                             :showFilterMenu="false"
+                             :showFilterOperator="false"
+                             :showClearButton="false"
+                             :showApplyButton="false"
+                             :showFilterMatchModes="false"
+                             :showAddButton="false"
+                     >
+                         <template #filter="{ filterModel, filterCallback }">
+                             <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
+                         </template>
+                     </Column>
+                     <Column 
+                             field="tarih" 
+                             header="Tarih"
+                             :showFilterMenu="false"
+                             :showFilterOperator="false"
+                             :showClearButton="false"
+                             :showApplyButton="false"
+                             :showFilterMatchModes="false"
+                             :showAddButton="false"
+                     >
+                         <template #body="slotProps">
+                             {{ slotProps.data.tarih }}
+                         </template>
+                         <template #filter="{ filterModel, filterCallback }">
+                             <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
+                         </template>
+                     </Column>
+                     <Column
+                              field="musteriadi" 
+                              header="Müşteri"
+                             :showFilterMenu="false"
+                             :showFilterOperator="false"
+                             :showClearButton="false"
+                             :showApplyButton="false"
+                             :showFilterMatchModes="false"
+                             :showAddButton="false"
+                
+                     >
+                         <template #filter="{ filterModel, filterCallback }">
+                             <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
+                         </template>
+                     </Column>
+                     <Column 
+                             field="ulkeadi" 
+                             header="Ülke"
+                             :showFilterMenu="false"
+                             :showFilterOperator="false"
+                             :showClearButton="false"
+                             :showApplyButton="false"
+                             :showFilterMatchModes="false"
+                             :showAddButton="false"
+                         >
+                         <template #filter="{ filterModel, filterCallback }">
+                             <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
+                         </template>
+                     </Column>
+                     <Column 
+                             field="kategoriadi" 
+                             header="Kategori"
+                             :showFilterMenu="false"
+                             :showFilterOperator="false"
+                             :showClearButton="false"
+                             :showApplyButton="false"
+                             :showFilterMatchModes="false"
+                             :showAddButton="false"
+                         >
+                         <template #filter="{ filterModel, filterCallback }">
+                             <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
+                         </template>
+                     </Column>
+                     <Column 
+                             field="urunadi" 
+                             header="Ürün"
+                             :showFilterMenu="false"
+                             :showFilterOperator="false"
+                             :showClearButton="false"
+                             :showApplyButton="false"
+                             :showFilterMatchModes="false"
+                             :showAddButton="false"
+                         >
+                         <template #filter="{ filterModel, filterCallback }">
+                             <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
+                         </template>
+                     </Column>
+                     <Column 
+                             field="islemadi" 
+                             header="Yüzey"
+                             :showFilterMenu="false"
+                             :showFilterOperator="false"
+                             :showClearButton="false"
+                             :showApplyButton="false"
+                             :showFilterMatchModes="false"
+                             :showAddButton="false"
+                         >
+                         <template #filter="{ filterModel, filterCallback }">
+                             <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
+                         </template>
+                     </Column>
+                     <Column 
+                             field="enboy" 
+                             header="EnxBoy"
+                             :showFilterMenu="false"
+                             :showFilterOperator="false"
+                             :showClearButton="false"
+                             :showApplyButton="false"
+                             :showFilterMatchModes="false"
+                             :showAddButton="false"
+                        
+                         >
+                         <template #filter="{ filterModel, filterCallback }">
+                             <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
+                         </template>
+                     </Column>
+                     <Column 
+                             field="kullaniciadi" 
+                             header="Kullanıcı"
+                             :showFilterMenu="false"
+                             :showFilterOperator="false"
+                             :showClearButton="false"
+                             :showApplyButton="false"
+                             :showFilterMatchModes="false"
+                             :showAddButton="false"
+
+                         >
+                         <template #filter="{ filterModel, filterCallback }">
+                             <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
+                         </template>
+                     </Column>
+                     <Column field="fobfiyat" header="Fiyat"></Column>
+                     <Column field="birim" header="Birim"></Column>
+                 </DataTable>
     </div>
-    <Dialog v-model:visible="offer_detail_form" header="" modal>
+    <Dialog v-model:visible="offer_detail_form" header="" modal :style="{ width: '100vw' }">
         <offerForm/>
     </Dialog>
  </template>

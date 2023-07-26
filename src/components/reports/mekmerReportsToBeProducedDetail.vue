@@ -1,6 +1,5 @@
 <template>
-    <div class="row m-auto mt-3">
-        <div class="col">
+
             <DataTable :value="getMekmerToBeProducedDetailList" style="font-size:85%;">
                 <Column field="siparisNo" header="Po"></Column>
                 <Column field="kategori" header="Kategori"></Column>
@@ -18,8 +17,6 @@
                     </template>
                 </Column>
             </DataTable>
-        </div>
-    </div>
 </template>
 <script>
 import { useReportsStore } from '../../stores/reports';

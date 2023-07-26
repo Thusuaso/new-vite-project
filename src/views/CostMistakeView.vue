@@ -7,7 +7,7 @@
             <list />
         </div>
     </div>
-    <Dialog v-model:visible="cost_mistake_form" header="" modal>
+    <Dialog v-model:visible="cost_mistake_form" header="" modal :style="{ 'width': '100vw' }">
         <mistakeForm />
     </Dialog>
 </template>

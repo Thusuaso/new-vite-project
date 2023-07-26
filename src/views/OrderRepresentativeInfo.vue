@@ -98,7 +98,7 @@
             </DataTable>
         </div>
     </div>
-    <Dialog v-model:visible="info_visible_form" header="" modal>
+    <Dialog v-model:visible="info_visible_form" header="" modal :style="{ 'width': '100vw' }">
         <div class="row m-auto mt-3">
             <div class="col-6">
                 <span class="p-float-label">

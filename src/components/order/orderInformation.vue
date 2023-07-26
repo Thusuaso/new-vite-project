@@ -1,211 +1,418 @@
 <template>
-    <div class="row">
-        <div class="col-12">
+    <div v-if="!getMobile">
             <div class="row">
-                <div class="col-5">
-                    <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon1" style="width:30%;">Kod</span>
-                        <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" disabled v-model="products.urunKartId">
-                        <button class="btn btn-secondary" @click="showProductCard" :disabled="form_status">@</button>
-                    </div>
-                    <div class="input-group mb-3">
-                            <span class="input-group-text " id="basic-addon1" style="width:30%;">Kategori</span>
-                            <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" disabled v-model="products.kategoriAdi">
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-5">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1" style="width:30%;">Kod</span>
+                            <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" disabled v-model="products.urunKartId">
+                            <button class="btn btn-secondary" @click="showProductCard" :disabled="form_status">@</button>
                         </div>
-                    <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon1" style="width:30%;">Ürün</span>
-                        <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" disabled v-model="products.urunAdi">
-                    </div>
-                    <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon1" style="width:30%;">Yüzey</span>
-                        <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" disabled v-model="products.yuzeyIslem">
-                    </div>
-                    <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon1" style="width:30%;">Ebat</span>
-                        <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" disabled v-model="products.ebat">
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <Dropdown v-model="selectedSupplier"  :options="getProductSupplierList" filter :disabled="form_status" aria-describedby="basic-addon1" optionLabel="firmaAdi" placeholder="Tedarikçi" class="w-full md:w-14rem" style="width:100%;" />
-                        </div>
-                        <div class="col">
-                            <div class="input-group mb-3 ">
-                                <span class="input-group-text" id="basic-addon1" style="width:40%;height:50px;">Alış $</span>
-                                <input type="text" class="form-control" aria-label="Username" :disabled="form_status" aria-describedby="basic-addon1" v-model="products.alisFiyati" @input="products.alisFiyati = $filters.formatPoint($event.target.value)">
+                        <div class="input-group mb-3">
+                                <span class="input-group-text " id="basic-addon1" style="width:30%;">Kategori</span>
+                                <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" disabled v-model="products.kategoriAdi">
                             </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1" style="width:30%;">Ürün</span>
+                            <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" disabled v-model="products.urunAdi">
                         </div>
-                    </div>
-                    <div class="row">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1" style="width:30%;">Yüzey</span>
+                            <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" disabled v-model="products.yuzeyIslem">
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1" style="width:30%;">Ebat</span>
+                            <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" disabled v-model="products.ebat">
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <Dropdown v-model="selectedSupplier"  :options="getProductSupplierList" filter :disabled="form_status" aria-describedby="basic-addon1" optionLabel="firmaAdi" placeholder="Tedarikçi" class="w-full md:w-14rem" style="width:100%;" />
+                            </div>
                             <div class="col">
                                 <div class="input-group mb-3 ">
-                                        <span class="input-group-text" id="basic-addon1" style="width:40%;height:50px;">Alış ₺</span>
-                                        <input type="text" class="form-control" aria-label="Username" :disabled="form_status" aria-describedby="basic-addon1" v-model="products.alisFiyati_Tl">
+                                    <span class="input-group-text" id="basic-addon1" style="width:40%;height:50px;">Alış $</span>
+                                    <input type="text" class="form-control" aria-label="Username" :disabled="form_status" aria-describedby="basic-addon1" v-model="products.alisFiyati" @input="products.alisFiyati = $filters.formatPoint($event.target.value)">
                                 </div>
                             </div>
+                        </div>
+                        <div class="row">
+                                <div class="col">
+                                    <div class="input-group mb-3 ">
+                                            <span class="input-group-text" id="basic-addon1" style="width:40%;height:50px;">Alış ₺</span>
+                                            <input type="text" class="form-control" aria-label="Username" :disabled="form_status" aria-describedby="basic-addon1" v-model="products.alisFiyati_Tl">
+                                    </div>
+                                </div>
                     
+                                <div class="col">
+                                    <div class="input-group mb-3 ">
+                                        <span class="input-group-text" id="basic-addon1" style="width:40%;height:50px;">Satış $</span>
+                                        <input type="text" class="form-control" aria-label="Username" :disabled="form_status" aria-describedby="basic-addon1"  v-model="products.satisFiyati" @input="products.satisFiyati = $filters.formatPoint($event.target.value)">
+                                    </div>
+                                </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                  <Dropdown v-model="selectedUnit"  :options="getProductUnitList" :disabled="form_status" aria-describedby="basic-addon1" optionLabel="birimAdi" placeholder="Birim" class="w-full md:w-14rem" style="width:100%;" />
+                            </div>
                             <div class="col">
                                 <div class="input-group mb-3 ">
-                                    <span class="input-group-text" id="basic-addon1" style="width:40%;height:50px;">Satış $</span>
-                                    <input type="text" class="form-control" aria-label="Username" :disabled="form_status" aria-describedby="basic-addon1"  v-model="products.satisFiyati" @input="products.satisFiyati = $filters.formatPoint($event.target.value)">
-                                </div>
-                            </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                              <Dropdown v-model="selectedUnit"  :options="getProductUnitList" :disabled="form_status" aria-describedby="basic-addon1" optionLabel="birimAdi" placeholder="Birim" class="w-full md:w-14rem" style="width:100%;" />
-                        </div>
-                        <div class="col">
-                            <div class="input-group mb-3 ">
-                                    <span class="input-group-text" id="basic-addon1" style="width:40%;height:50px;">M</span>
-                                    <input type="text" class="form-control" aria-label="Username" :disabled="form_status" aria-describedby="basic-addon1" v-model="products.miktar" @input="products.miktar = $filters.formatPoint($event.target.value)">
-                                </div>
-                        </div>
-                        <div class="col">
-                            <div class="input-group mb-3 ">
-                                    <span class="input-group-text" id="basic-addon1" style="width:40%;height:50px;">K</span>
-                                    <input type="text" class="form-control" aria-label="Username" :disabled="form_status" aria-describedby="basic-addon1" v-model="products.kasaAdet">
-                                </div>
-                        </div>
-                        <div class="col">
-                            <div class="input-group mb-3 ">
-                                    <span class="input-group-text" id="basic-addon1" style="width:40%;height:50px;">S</span>
-                                    <input type="text" class="form-control" aria-label="Username" :disabled="form_status" aria-describedby="basic-addon1" v-model="products.siraNo">
-                                </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                            <div class="col-3">
-                                <div class="input-group mb-3 ">
-                                        <span class="input-group-text" id="basic-addon1" style="width:40%;height:50px;">Ö.M</span>
-                                        <input type="text" class="form-control" aria-label="Username" :disabled="form_status" aria-describedby="basic-addon1" v-model="products.ozelMiktar" @input="products.ozelMiktar = $filters.formatPoint($event.target.value)">
+                                        <span class="input-group-text" id="basic-addon1" style="width:40%;height:50px;">M</span>
+                                        <input type="text" class="form-control" aria-label="Username" :disabled="form_status" aria-describedby="basic-addon1" v-model="products.miktar" @input="products.miktar = $filters.formatPoint($event.target.value)">
                                     </div>
                             </div>
-                            <div class="col-3">
+                            <div class="col">
                                 <div class="input-group mb-3 ">
-                                        <span class="input-group-text" id="basic-addon1" style="width:40%;height:50px;">T</span>
-                                        <input type="text" class="form-control" aria-label="Username" :disabled="form_status" aria-describedby="basic-addon1" v-model="products.ton" @input="products.ton = $filters.formatPoint($event.target.value)">
+                                        <span class="input-group-text" id="basic-addon1" style="width:40%;height:50px;">K</span>
+                                        <input type="text" class="form-control" aria-label="Username" :disabled="form_status" aria-describedby="basic-addon1" v-model="products.kasaAdet">
                                     </div>
                             </div>
-                    </div>
-                    <button type="button" class="btn btn-secondary w-100" @click="workmanship_form = true" v-if="workmanshipButton" :disabled="workmanship_disabled">İşçilik</button>
-                </div>
-                <div class="col-7">
-                    <div class="row">
-                        <div class="col-6">
-                            <div class="form-floating">
-                            <textarea class="form-control" placeholder="Leave a comment here" :disabled="form_status" id="floatingTextarea" style="height:150px;padding-top:35px;" v-model="products.musteriAciklama"></textarea>
-                            <label for="floatingTextarea" :disabled="form_status">En</label>
-                        </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="form-floating">
-                            <textarea class="form-control" placeholder="Leave a comment here" :disabled="form_status" id="floatingTextarea" style="height:150px;padding-top:35px;" v-model="products.uretimAciklama"></textarea>
-                            <label for="floatingTextarea" :disabled="form_status">Tr</label>
-                        </div>
+                            <div class="col">
+                                <div class="input-group mb-3 ">
+                                        <span class="input-group-text" id="basic-addon1" style="width:40%;height:50px;">S</span>
+                                        <input type="text" class="form-control" aria-label="Username" :disabled="form_status" aria-describedby="basic-addon1" v-model="products.siraNo">
+                                    </div>
                             </div>
-                    </div>
-                    <div class="h-50">
-
-                    </div>
-
-                    <div class="row">
-                        <div class="col">
-                            <button type="button" class="btn btn-primary w-75" @click="newForm" :disabled="new_form_status">Yeni</button>
                         </div>
-                        <div class="col">
-                                <button type="button" class="btn btn-secondary w-75" :disabled="form_status" @click="cancelForm">Vazgeç</button>
-
+                        <div class="row">
+                                <div class="col-3">
+                                    <div class="input-group mb-3 ">
+                                            <span class="input-group-text" id="basic-addon1" style="width:40%;height:50px;">Ö.M</span>
+                                            <input type="text" class="form-control" aria-label="Username" :disabled="form_status" aria-describedby="basic-addon1" v-model="products.ozelMiktar" @input="products.ozelMiktar = $filters.formatPoint($event.target.value)">
+                                        </div>
                                 </div>
-                        <div class="col">
-                            <button type="button" class="btn btn-success w-75" :disabled="form_status_add" @click="addForm">Ekle</button>
+                                <div class="col-3">
+                                    <div class="input-group mb-3 ">
+                                            <span class="input-group-text" id="basic-addon1" style="width:40%;height:50px;">T</span>
+                                            <input type="text" class="form-control" aria-label="Username" :disabled="form_status" aria-describedby="basic-addon1" v-model="products.ton" @input="products.ton = $filters.formatPoint($event.target.value)">
+                                        </div>
+                                </div>
+                        </div>
+                        <button type="button" class="btn btn-secondary w-100" @click="workmanship_form = true" v-if="workmanshipButton" :disabled="workmanship_disabled">İşçilik</button>
+                    </div>
+                    <div class="col-7">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-floating">
+                                <textarea class="form-control" placeholder="Leave a comment here" :disabled="form_status" id="floatingTextarea" style="height:150px;padding-top:35px;" v-model="products.musteriAciklama"></textarea>
+                                <label for="floatingTextarea" :disabled="form_status">En</label>
+                            </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-floating">
+                                <textarea class="form-control" placeholder="Leave a comment here" :disabled="form_status" id="floatingTextarea" style="height:150px;padding-top:35px;" v-model="products.uretimAciklama"></textarea>
+                                <label for="floatingTextarea" :disabled="form_status">Tr</label>
+                            </div>
+                                </div>
+                        </div>
+                        <div class="h-50">
 
                         </div>
-                        <div class="col">
-                            <button type="button" class="btn btn-warning w-75" :disabled="form_status" @click="updateForm">Değiştir</button>
+
+                        <div class="row">
+                            <div class="col">
+                                <button type="button" class="btn btn-primary w-75" @click="newForm" :disabled="new_form_status">Yeni</button>
+                            </div>
+                            <div class="col">
+                                    <button type="button" class="btn btn-secondary w-75" :disabled="form_status" @click="cancelForm">Vazgeç</button>
+
+                                    </div>
+                            <div class="col">
+                                <button type="button" class="btn btn-success w-75" :disabled="form_status_add" @click="addForm">Ekle</button>
 
                             </div>
                             <div class="col">
-                            <button type="button" class="btn btn-danger w-75" :disabled="form_status" @click="deleteForm">Sil</button>
+                                <button type="button" class="btn btn-warning w-75" :disabled="form_status" @click="updateForm">Değiştir</button>
 
-                            </div>
-                    </div>
+                                </div>
+                                <div class="col">
+                                <button type="button" class="btn btn-danger w-75" :disabled="form_status" @click="deleteForm">Sil</button>
+
+                                </div>
+                        </div>
                     
+                    </div>
                 </div>
             </div>
+
+        </div>
+        <br/>
+        <DataTable 
+            :value="getProductionsDetailModel.siparisUrunler" 
+            style="font-size:85%;"
+            v-model:selection="productSelected"
+            selectionMode="single"
+            @row-click="product_select_item($event)"
+            sortField="siraNo" 
+            :sortOrder="1"
+        >
+            <Column field="siraNo" header="S"></Column>
+            <Column field="tedarikciAdi" header="Kimden"></Column>
+            <Column field="iscilik" header="İşçilik"></Column>
+            <Column field="urunAdi" header="Ürün"></Column>
+            <Column field="en" header="E"></Column>
+            <Column field="boy" header="B"></Column>
+            <Column field="kenar" header="K"></Column>
+            <Column field="yuzeyIslem" header="İşlem"></Column>
+            <Column field="m2" header="M2">
+                <template #body="slotProps">
+                    {{ $filters.formatDecimal(slotProps.data.m2) }}
+                </template>
+                <template #footer>
+                    {{ $filters.formatDecimal(productsSum.m2) }}
+                </template>
+            </Column>
+            <Column field="adet" header="Adet">
+                <template #body="slotProps">
+                        {{ $filters.formatDecimal(slotProps.data.adet) }}
+                    </template>
+                <template #footer>
+                        {{ $filters.formatDecimal(productsSum.piece) }}
+                    </template>
+            </Column>
+            <Column field="mt" header="Mt">
+                <template #body="slotProps">
+                            {{ $filters.formatDecimal(slotProps.data.mt) }}
+                        </template>
+                <template #footer>
+                            {{ $filters.formatDecimal(productsSum.piece) }}
+                </template>
+            </Column>
+            <Column field="ton" header="Ton">
+                <template #body="slotProps">
+                                {{ $filters.formatDecimal(slotProps.data.ton) }}
+                            </template>
+                <template #footer>
+                                {{ $filters.formatDecimal(productsSum.ton) }}
+                    </template>
+            </Column>
+            <Column field="kasaAdet" header="Kasa">
+                <template #body="slotProps">
+                                    {{ $filters.formatDecimal(slotProps.data.kasaAdet) }}
+                                </template>
+                <template #footer>
+                                {{ $filters.formatDecimal(productsSum.crate) }}
+                    </template>
+            </Column>
+            <Column field="satisToplam" header="Toplam">
+                <template #body="slotProps">
+                    {{ $filters.formatPrice(slotProps.data.satisToplam) }}
+                </template>
+                <template #footer>
+                                {{ $filters.formatPrice(productsSum.salesTotal) }}
+                    </template>
+            </Column>
+        </DataTable>
+    </div>
+        <div v-if="getMobile">
+            <div class="row">
+                <div class="col-12">
+                    <div class="">
+                        <div class="">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="basic-addon1" style="width:30%;">Kod</span>
+                                <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" disabled v-model="products.urunKartId">
+                                <button class="btn btn-secondary" @click="showProductCard" :disabled="form_status">@</button>
+                            </div>
+                            <div class="input-group mb-3">
+                                    <span class="input-group-text " id="basic-addon1" style="width:30%;">Kategori</span>
+                                    <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" disabled v-model="products.kategoriAdi">
+                                </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="basic-addon1" style="width:30%;">Ürün</span>
+                                <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" disabled v-model="products.urunAdi">
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="basic-addon1" style="width:30%;">Yüzey</span>
+                                <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" disabled v-model="products.yuzeyIslem">
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="basic-addon1" style="width:30%;">Ebat</span>
+                                <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" disabled v-model="products.ebat">
+                            </div>
+                            <div class="">
+                                <div class=" mb-3">
+                                    <Dropdown v-model="selectedSupplier"  :options="getProductSupplierList" filter :disabled="form_status" aria-describedby="basic-addon1" optionLabel="firmaAdi" placeholder="Tedarikçi" class="w-full md:w-14rem" style="width:100%;" />
+                                </div>
+                                <div class="">
+                                    <div class="input-group mb-3 ">
+                                        <span class="input-group-text" id="basic-addon1" style="width:40%;height:50px;">Alış $</span>
+                                        <input type="text" class="form-control" aria-label="Username" :disabled="form_status" aria-describedby="basic-addon1" v-model="products.alisFiyati" @input="products.alisFiyati = $filters.formatPoint($event.target.value)">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="">                    
+                                    <div class="">
+                                        <div class="input-group mb-3 ">
+                                            <span class="input-group-text" id="basic-addon1" style="width:40%;height:50px;">Satış $</span>
+                                            <input type="text" class="form-control" aria-label="Username" :disabled="form_status" aria-describedby="basic-addon1"  v-model="products.satisFiyati" @input="products.satisFiyati = $filters.formatPoint($event.target.value)">
+                                        </div>
+                                    </div>
+                            </div>
+                            <div class="">
+                                <div class="mb-3">
+                                    <Dropdown v-model="selectedUnit"  :options="getProductUnitList" :disabled="form_status" aria-describedby="basic-addon1" optionLabel="birimAdi" placeholder="Birim" class="w-full md:w-14rem" style="width:100%;" />
+                                </div>
+                                <div class="">
+                                    <div class="input-group mb-3 ">
+                                            <span class="input-group-text" id="basic-addon1" style="width:40%;height:50px;">M</span>
+                                            <input type="text" class="form-control" aria-label="Username" :disabled="form_status" aria-describedby="basic-addon1" v-model="products.miktar" @input="products.miktar = $filters.formatPoint($event.target.value)">
+                                        </div>
+                                </div>
+                                <div class="">
+                                    <div class="input-group mb-3 ">
+                                            <span class="input-group-text" id="basic-addon1" style="width:40%;height:50px;">K</span>
+                                            <input type="text" class="form-control" aria-label="Username" :disabled="form_status" aria-describedby="basic-addon1" v-model="products.kasaAdet">
+                                        </div>
+                                </div>
+                                <div class="">
+                                    <div class="input-group mb-3 ">
+                                            <span class="input-group-text" id="basic-addon1" style="width:40%;height:50px;">S</span>
+                                            <input type="text" class="form-control" aria-label="Username" :disabled="form_status" aria-describedby="basic-addon1" v-model="products.siraNo">
+                                        </div>
+                                </div>
+                            </div>
+                            <div class="">
+                                    <div class="">
+                                        <div class="input-group mb-3 ">
+                                                <span class="input-group-text" id="basic-addon1" style="width:40%;height:50px;">Ö.M</span>
+                                                <input type="text" class="form-control" aria-label="Username" :disabled="form_status" aria-describedby="basic-addon1" v-model="products.ozelMiktar" @input="products.ozelMiktar = $filters.formatPoint($event.target.value)">
+                                            </div>
+                                    </div>
+                                    <div class="">
+                                        <div class="input-group mb-3 ">
+                                                <span class="input-group-text" id="basic-addon1" style="width:40%;height:50px;">T</span>
+                                                <input type="text" class="form-control" aria-label="Username" :disabled="form_status" aria-describedby="basic-addon1" v-model="products.ton" @input="products.ton = $filters.formatPoint($event.target.value)">
+                                            </div>
+                                    </div>
+                            </div>
+                            <button type="button" class="btn btn-secondary w-100" @click="workmanship_form = true" v-if="workmanshipButton" :disabled="workmanship_disabled">İşçilik</button>
+                        </div>
+                        <div class="">
+                            <div class="">
+                                <div class="mb-3">
+                                    <div class="form-floating">
+                                    <textarea class="form-control" placeholder="Leave a comment here" :disabled="form_status" id="floatingTextarea" style="height:150px;padding-top:35px;" v-model="products.musteriAciklama"></textarea>
+                                    <label for="floatingTextarea" :disabled="form_status">En</label>
+                                </div>
+                                </div>
+                                <div class="mb-3">
+                                    <div class="form-floating">
+                                    <textarea class="form-control" placeholder="Leave a comment here" :disabled="form_status" id="floatingTextarea" style="height:150px;padding-top:35px;" v-model="products.uretimAciklama"></textarea>
+                                    <label for="floatingTextarea" :disabled="form_status">Tr</label>
+                                </div>
+                                    </div>
+                            </div>
+                            <div class="h-50">
+
+                            </div>
+
+                            <div class="">
+                                <div class="">
+                                    <button type="button" class="btn btn-primary w-100 mb-3" @click="newForm" :disabled="new_form_status">Yeni</button>
+                                </div>
+                                <div class="">
+                                        <button type="button" class="btn btn-secondary w-100 mb-3" :disabled="form_status" @click="cancelForm">Vazgeç</button>
+
+                                        </div>
+                                <div class="">
+                                    <button type="button" class="btn btn-success w-100 mb-3" :disabled="form_status_add" @click="addForm">Ekle</button>
+
+                                </div>
+                                <div class="">
+                                    <button type="button" class="btn btn-warning w-100 mb-3" :disabled="form_status" @click="updateForm">Değiştir</button>
+
+                                    </div>
+                                    <div class="">
+                                    <button type="button" class="btn btn-danger w-100 mb-3" :disabled="form_status" @click="deleteForm">Sil</button>
+
+                                    </div>
+                            </div>
+                    
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br/>
+            <DataTable 
+                :value="getProductionsDetailModel.siparisUrunler" 
+                style="font-size:85%;"
+                v-model:selection="productSelected"
+                selectionMode="single"
+                @row-click="product_select_item($event)"
+                sortField="siraNo" 
+                :sortOrder="1"
+            >
+                <Column field="siraNo" header="S"></Column>
+                <Column field="tedarikciAdi" header="Kimden"></Column>
+                <Column field="iscilik" header="İşçilik"></Column>
+                <Column field="urunAdi" header="Ürün"></Column>
+                <Column field="en" header="E"></Column>
+                <Column field="boy" header="B"></Column>
+                <Column field="kenar" header="K"></Column>
+                <Column field="yuzeyIslem" header="İşlem"></Column>
+                <Column field="m2" header="M2">
+                    <template #body="slotProps">
+                        {{ $filters.formatDecimal(slotProps.data.m2) }}
+                    </template>
+                    <template #footer>
+                        {{ $filters.formatDecimal(productsSum.m2) }}
+                    </template>
+                </Column>
+                <Column field="adet" header="Adet">
+                    <template #body="slotProps">
+                            {{ $filters.formatDecimal(slotProps.data.adet) }}
+                        </template>
+                    <template #footer>
+                            {{ $filters.formatDecimal(productsSum.piece) }}
+                        </template>
+                </Column>
+                <Column field="mt" header="Mt">
+                    <template #body="slotProps">
+                                {{ $filters.formatDecimal(slotProps.data.mt) }}
+                            </template>
+                    <template #footer>
+                                {{ $filters.formatDecimal(productsSum.piece) }}
+                    </template>
+                </Column>
+                <Column field="ton" header="Ton">
+                    <template #body="slotProps">
+                                    {{ $filters.formatDecimal(slotProps.data.ton) }}
+                                </template>
+                    <template #footer>
+                                    {{ $filters.formatDecimal(productsSum.ton) }}
+                        </template>
+                </Column>
+                <Column field="kasaAdet" header="Kasa">
+                    <template #body="slotProps">
+                                        {{ $filters.formatDecimal(slotProps.data.kasaAdet) }}
+                                    </template>
+                    <template #footer>
+                                    {{ $filters.formatDecimal(productsSum.crate) }}
+                        </template>
+                </Column>
+                <Column field="satisToplam" header="Toplam">
+                    <template #body="slotProps">
+                        {{ $filters.formatPrice(slotProps.data.satisToplam) }}
+                    </template>
+                    <template #footer>
+                                    {{ $filters.formatPrice(productsSum.salesTotal) }}
+                        </template>
+                </Column>
+            </DataTable>
         </div>
 
-    </div>
-    <br/>
-    <DataTable 
-        :value="getProductionsDetailModel.siparisUrunler" 
-        style="font-size:85%;"
-        v-model:selection="productSelected"
-        selectionMode="single"
-        @row-click="product_select_item($event)"
-        sortField="siraNo" 
-        :sortOrder="1"
-    >
-        <Column field="siraNo" header="S"></Column>
-        <Column field="tedarikciAdi" header="Kimden"></Column>
-        <Column field="iscilik" header="İşçilik"></Column>
-        <Column field="urunAdi" header="Ürün"></Column>
-        <Column field="en" header="E"></Column>
-        <Column field="boy" header="B"></Column>
-        <Column field="kenar" header="K"></Column>
-        <Column field="yuzeyIslem" header="İşlem"></Column>
-        <Column field="m2" header="M2">
-            <template #body="slotProps">
-                {{ $filters.formatDecimal(slotProps.data.m2) }}
-            </template>
-            <template #footer>
-                {{ $filters.formatDecimal(productsSum.m2) }}
-            </template>
-        </Column>
-        <Column field="adet" header="Adet">
-            <template #body="slotProps">
-                    {{ $filters.formatDecimal(slotProps.data.adet) }}
-                </template>
-            <template #footer>
-                    {{ $filters.formatDecimal(productsSum.piece) }}
-                </template>
-        </Column>
-        <Column field="mt" header="Mt">
-            <template #body="slotProps">
-                        {{ $filters.formatDecimal(slotProps.data.mt) }}
-                    </template>
-            <template #footer>
-                        {{ $filters.formatDecimal(productsSum.piece) }}
-            </template>
-        </Column>
-        <Column field="ton" header="Ton">
-            <template #body="slotProps">
-                            {{ $filters.formatDecimal(slotProps.data.ton) }}
-                        </template>
-            <template #footer>
-                            {{ $filters.formatDecimal(productsSum.ton) }}
-                </template>
-        </Column>
-        <Column field="kasaAdet" header="Kasa">
-            <template #body="slotProps">
-                                {{ $filters.formatDecimal(slotProps.data.kasaAdet) }}
-                            </template>
-            <template #footer>
-                            {{ $filters.formatDecimal(productsSum.crate) }}
-                </template>
-        </Column>
-        <Column field="satisToplam" header="Toplam">
-            <template #body="slotProps">
-                {{ $filters.formatPrice(slotProps.data.satisToplam) }}
-            </template>
-            <template #footer>
-                            {{ $filters.formatPrice(productsSum.salesTotal) }}
-                </template>
-        </Column>
-    </DataTable>
-    <Dialog v-model:visible="product_card_form" header="Ürünler" modal :closeOnEscape="false">
+
+
+
+
+
+
+
+    <Dialog v-model:visible="product_card_form" header="Ürünler" modal :closeOnEscape="false" :style="{ 'width': '100vw' }">
         <cards @productCardSelected="productCardSelected($event)"/>
     </Dialog>
-    <Dialog v-model:visible="workmanship_form" header="İşçilik" modal :closeOnEscape="false">
+    <Dialog v-model:visible="workmanship_form" header="İşçilik" modal :closeOnEscape="false" :style="{ 'width': '100vw' }">
         <workmanship :orderNo="getProductionsDetailModel.siparis.siparisNo" :productId="products.urunKartId"/>
     </Dialog>
 </template>
@@ -216,6 +423,7 @@ import workmanship from './forms/workmanship.vue';
 import { useProductionsStore } from '../../stores/productions';
 import { mapState } from 'pinia';
 import { useCardStore } from '../../stores/cards';
+import { useMobilStore } from '../../stores/mobil';
 export default {
     computed: {
         ...mapState(useProductionsStore, [
@@ -229,6 +437,9 @@ export default {
         ]),
         ...mapState(useCardStore, [
             'getCardList'
+        ]),
+        ...mapState(useMobilStore, [
+            'getMobile',
         ])
 
     },

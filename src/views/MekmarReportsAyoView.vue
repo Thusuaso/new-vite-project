@@ -1,5 +1,6 @@
 <template>
-    <div class="row m-auto mt-3">
+
+    <div class="row m-auto mt-3" v-if="!getMobile">
         <div class="col">
             <Dropdown v-model="selectedYear" :options="getMekmarAyoYearList" optionLabel="yil" class="w-full md:w-14rem" @change="yearChange($event)" :disabled="mekmar_ayo_date_form"/>
         </div>
@@ -48,6 +49,61 @@
         </div>
 
     </div>
+
+        <div class=" m-auto mt-3" v-if="getMobile">
+            <div class="">
+                <Dropdown v-model="selectedYear" :options="getMekmarAyoYearList" optionLabel="yil" class="w-100 mb-3" @change="yearChange($event)" :disabled="mekmar_ayo_date_form"/>
+            </div>
+            <div class="">
+                <Dropdown v-model="selectedMonth" :options="getMekmarAyoMonthList" optionLabel="ay_str" class="w-100 mb-3" @change="monthChange($event)" :disabled="mekmar_ayo_date_form"/>
+            </div>
+            <div class="">
+                <div class="form-check mt-2 mb-3">
+                    <input class="form-check-input" type="checkbox" value="hepsi" id="flexCheckDefault" v-model="allAyoReports" @change="allAyoReportsChange($event)">
+                    <label class="form-check-label" for="flexCheckDefault">
+                        Hepsi
+                    </label>
+                </div>
+            </div>
+            
+            <div class="">
+                <Dropdown
+                    v-model="selected_quarter"
+                    :disabled="is_quarter_dropdown"
+                    @change="quarter_year_change"
+                    :options="quarter_year"
+                    optionLabel="quarter"
+                    placeholder="Select a Quarter"
+                    class="w-100 mb-3"
+                  />
+            </div>
+            <div class="">
+                    <button type="button" class="btn btn-primary w-100 mb-3" @click="excel_output">Excel</button>
+                </div>
+            <div class="">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Profit ($)</th>
+                            <th scope="col">Profit (₺)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">Toplam</th>
+                            <td>{{ $filters.formatPrice(getMekmarAyoTotalList.gain_usd) }}</td>
+                            <td>{{ $filters.formatPriceTl(getMekmarAyoTotalList.gain_tl) }}</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+
+
     <div class="row m-auto mt-3">
         <div class="col">
             <DataTable 
@@ -560,7 +616,7 @@
             </DataTable>
         </div>
     </div>
-    <Dialog v-model:visible="ayo_detail_form" :header="po" modal>
+    <Dialog v-model:visible="ayo_detail_form" :header="po" modal :style="{'width':'100vw'}">
         <mekmarReportsAyoDetail />
     </Dialog>
 </template>
@@ -568,6 +624,7 @@
 import { useReportsStore } from '../stores/reports';
 import { useLoadingStore } from '../stores/loading';
 import { useLocalStore } from '../stores/local';
+import { useMobilStore } from '../stores/mobil';
 import { mapState } from 'pinia';
 
 import { reportsService } from '../services/reportsService';
@@ -585,6 +642,9 @@ export default {
         ]),
         ...mapState(useLocalStore, [
             'getLocalServiceUrl'
+        ]),
+        ...mapState(useMobilStore, [
+            'getMobile'
         ])
     },
     components: {

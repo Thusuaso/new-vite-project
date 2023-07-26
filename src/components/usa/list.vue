@@ -88,7 +88,7 @@
         </Column>
 
     </DataTable>
-    <Dialog v-model:visible="usa_products_detail_form" modal header="">
+    <Dialog v-model:visible="usa_products_detail_form" modal header="" :style="{ 'width': '100vw' }">
         <detailForm/>
     </Dialog>
 </template>

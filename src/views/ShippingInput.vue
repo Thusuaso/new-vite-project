@@ -104,7 +104,7 @@
             <FileUpload mode="basic" accept=".pdf" :maxFileSize="1000000" @select="uploadDocument($event)" chooseLabel="Evrak Yükle" class="bg-black bg-gradient" :disabled="file_disabled_form"/>
         </div>
     </div>
-    <Dialog v-model:visible="new_company_form" header="Yeni Firma Ekle" modal>
+    <Dialog v-model:visible="new_company_form" header="Yeni Firma Ekle" modal :style="{ 'width': '100vw' }">
         <company />
     </Dialog>
 </template>

@@ -136,7 +136,7 @@
             </DataTable>
         </div>
     </div>
-    <Dialog v-model:visible="mekmer_reports_stock_form" header="" modal>
+    <Dialog v-model:visible="mekmer_reports_stock_form" header="" modal :style="{ 'width': '100vw' }">
         <mekmerReportsStockPricesDetail :status="stocks_radio_button" :productId="selectedStock.urunKartId" :price="selectedStock.price"/>
     </Dialog>
 </template>

@@ -1,154 +1,306 @@
 <template>
-    <div class="row m-auto mt-3">
-        <div class="col-9">
+    <div v-if="!getMobile">
             <div class="row m-auto mt-3">
-                <div class="col">
-                    <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon1">Müşteri</span>
-                        <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="getShopperModel.musteri_adi">
+            <div class="col-9">
+                <div class="row m-auto mt-3">
+                    <div class="col">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1">Müşteri</span>
+                            <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="getShopperModel.musteri_adi">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1">Mail</span>
+                            <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="getShopperModel.mail_adresi">
+                        </div>
                     </div>
                 </div>
-                <div class="col">
-                    <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon1">Mail</span>
-                        <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="getShopperModel.mail_adresi">
+                <div class="row m-auto mt-3">
+                    <div class="col">
+                        <div class="form-floating">
+                            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px;padding-top:35px;" v-model="getShopperModel.unvan"></textarea>
+                            <label for="floatingTextarea2">Firma</label>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="row m-auto mt-3">
-                <div class="col">
-                    <div class="form-floating">
-                        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px;padding-top:35px;" v-model="getShopperModel.unvan"></textarea>
-                        <label for="floatingTextarea2">Firma</label>
+                <div class="row m-auto mt-3">
+                    <div class="col">
+                        <div class="form-floating">
+                            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px;padding-top:35px;" v-model="getShopperModel.adres"></textarea>
+                            <label for="floatingTextarea2">Adres</label>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="row m-auto mt-3">
-                <div class="col">
-                    <div class="form-floating">
-                        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px;padding-top:35px;" v-model="getShopperModel.adres"></textarea>
-                        <label for="floatingTextarea2">Adres</label>
+                <div class="row m-auto mt-4">
+                    <div class="col">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1">Pazarlama</span>
+                            <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="getShopperModel.marketing">
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div class="row m-auto mt-4">
-                <div class="col">
-                    <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon1">Pazarlama</span>
-                        <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="getShopperModel.marketing">
+                    <div class="col">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1">Telefon</span>
+                            <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="getShopperModel.telefon">
+                        </div>
                     </div>
-                </div>
-                <div class="col">
-                    <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon1">Telefon</span>
-                        <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="getShopperModel.telefon">
+                    <div class="col">
+                        <span class="p-float-label">
+                            <AutoComplete v-model="selectedCountry" dropdown :suggestions="filteredCountryList" optionLabel="ulke_adi" @complete="searchCountry($event)" @item-select="countrySelected($event)"/>
+                            <label for="username">Ülke</label>
+                        </span>
                     </div>
-                </div>
-                <div class="col">
-                    <span class="p-float-label">
-                        <AutoComplete v-model="selectedCountry" dropdown :suggestions="filteredCountryList" optionLabel="ulke_adi" @complete="searchCountry($event)" @item-select="countrySelected($event)"/>
-                        <label for="username">Ülke</label>
-                    </span>
-                </div>
                 
-            </div>
-            <div class="row m-auto mt-4">
-                <div class="col">
-                    <span class="p-float-label">
-                        <AutoComplete v-model="selectedRepresentative" dropdown :suggestions="filteredRepresentativeList" optionLabel="kullanici_adi" @complete="searchRepresentative($event)" @item-select="representativeSelected($event)"/>
-                        <label for="username">Temsilci</label>
-                    </span>
                 </div>
-                <div class="col">
-                    <span class="p-float-label">
-                        <AutoComplete v-model="selectedSeller" dropdown :suggestions="filteredSellerList" optionLabel="kullanici_adi" @complete="searchSeller($event)" @item-select="sellerSelected($event)"/>
-                        <label for="username">Satışçı</label>
-                    </span>
+                <div class="row m-auto mt-4">
+                    <div class="col">
+                        <span class="p-float-label">
+                            <AutoComplete v-model="selectedRepresentative" dropdown :suggestions="filteredRepresentativeList" optionLabel="kullanici_adi" @complete="searchRepresentative($event)" @item-select="representativeSelected($event)"/>
+                            <label for="username">Temsilci</label>
+                        </span>
+                    </div>
+                    <div class="col">
+                        <span class="p-float-label">
+                            <AutoComplete v-model="selectedSeller" dropdown :suggestions="filteredSellerList" optionLabel="kullanici_adi" @complete="searchSeller($event)" @item-select="sellerSelected($event)"/>
+                            <label for="username">Satışçı</label>
+                        </span>
+                    </div>
+                    <div class="col">
+                        <Dropdown v-model="selectedPriority" :options="priorityList" optionLabel="priority" placeholder="Öncelik Seç" @change="prioritySelected($event)" class="w-full md:w-14rem" />
+                    </div>
                 </div>
-                <div class="col">
-                    <Dropdown v-model="selectedPriority" :options="priorityList" optionLabel="priority" placeholder="Öncelik Seç" @change="prioritySelected($event)" class="w-full md:w-14rem" />
+                <div class="row m-auto mt-4 ">
+                    <div class="col">
+                        <div class="form-floating">
+                            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" style="height:100px;padding-top:35px;" v-model="getShopperModel.notlar"></textarea>
+                            <label for="floatingTextarea">Not</label>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="row m-auto mt-4 ">
-                <div class="col">
-                    <div class="form-floating">
-                        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" style="height:100px;padding-top:35px;" v-model="getShopperModel.notlar"></textarea>
-                        <label for="floatingTextarea">Not</label>
+                <div class="row m-auto mt-4">
+                    <div class="col">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" v-model="getShopperModel.devir">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                Devir
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" v-model="getShopperModel.ozel">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                Özel
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" v-model="getShopperModel.takip">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                Takip
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" v-model="getShopperModel.sonkullanici">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                Son Kullanıcı
+                            </label>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="row m-auto mt-4">
-                <div class="col">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" v-model="getShopperModel.devir">
-                        <label class="form-check-label" for="flexCheckDefault">
-                            Devir
-                        </label>
+            <div class="col-3">
+                <div class="row m-auto">
+                    <div class="col">
+                        <DataTable 
+                        :value="getShopperBuyingList"
+                        v-model:selection="selectedBuying"
+                        selectionMode="single"
+                        @row-click="buyingSelected($event)"
+                        style="font-size:85%;"
+                    >
+                        <Column field="Yil" header="Yıl"></Column>
+                        <Column field="Total" header="Toplam">
+                            <template #body="slotProps">
+                                {{ $filters.formatPrice(slotProps.data.Total) }}
+                            </template>
+                        </Column>
+                    </DataTable>
                     </div>
                 </div>
-                <div class="col">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" v-model="getShopperModel.ozel">
-                        <label class="form-check-label" for="flexCheckDefault">
-                            Özel
-                        </label>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" v-model="getShopperModel.takip">
-                        <label class="form-check-label" for="flexCheckDefault">
-                            Takip
-                        </label>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" v-model="getShopperModel.sonkullanici">
-                        <label class="form-check-label" for="flexCheckDefault">
-                            Son Kullanıcı
-                        </label>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-3">
-            <div class="row m-auto">
-                <div class="col">
-                    <DataTable 
-                    :value="getShopperBuyingList"
-                    v-model:selection="selectedBuying"
-                    selectionMode="single"
-                    @row-click="buyingSelected($event)"
-                    style="font-size:85%;"
-                >
-                    <Column field="Yil" header="Yıl"></Column>
-                    <Column field="Total" header="Toplam">
-                        <template #body="slotProps">
-                            {{ $filters.formatPrice(slotProps.data.Total) }}
-                        </template>
-                    </Column>
-                </DataTable>
-                </div>
-            </div>
             
+            </div>
+        </div>
+        <div class="row m-auto mt-3">
+            <div class="col">
+                <button type="button" class="btn btn-success w-100" @click="shopperProcess">Kaydet</button>
+            </div>
+            <div class="col" v-if="!getShopperNewButton">
+                <button type="button" class="btn btn-danger w-100" @click="deleteShopper">Sil</button>
+            </div>
         </div>
     </div>
-    <div class="row m-auto mt-3">
-        <div class="col">
-            <button type="button" class="btn btn-success w-100" @click="shopperProcess">Kaydet</button>
+    <div v-if="getMobile">
+            <div class=" m-auto mt-3">
+            <div class="">
+                <div class=" m-auto mt-3">
+                    <div class="">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1">Müşteri</span>
+                            <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="getShopperModel.musteri_adi">
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1">Mail</span>
+                            <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="getShopperModel.mail_adresi">
+                        </div>
+                    </div>
+                </div>
+                <div class=" m-auto mt-3">
+                    <div class="">
+                        <div class="form-floating">
+                            <textarea class="form-control w-100" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px;padding-top:35px;" v-model="getShopperModel.unvan"></textarea>
+                            <label for="floatingTextarea2">Firma</label>
+                        </div>
+                    </div>
+                </div>
+                <div class=" m-auto mt-3">
+                    <div class="">
+                        <div class="form-floating">
+                            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px;padding-top:35px;" v-model="getShopperModel.adres"></textarea>
+                            <label for="floatingTextarea2">Adres</label>
+                        </div>
+                    </div>
+                </div>
+                <div class=" m-auto mt-4">
+                    <div class="">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1">Pazarlama</span>
+                            <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="getShopperModel.marketing">
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1">Telefon</span>
+                            <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="getShopperModel.telefon">
+                        </div>
+                    </div>
+                    <div class="">
+                        <span class="p-float-label">
+                            <AutoComplete class="w-100" v-model="selectedCountry" dropdown :suggestions="filteredCountryList" optionLabel="ulke_adi" @complete="searchCountry($event)" @item-select="countrySelected($event)"/>
+                            <label for="username">Ülke</label>
+                        </span>
+                    </div>
+                
+                </div>
+                <div class=" m-auto mt-4">
+                    <div class="">
+                        <span class="p-float-label">
+                            <AutoComplete class="w-100 mb-3" v-model="selectedRepresentative" dropdown :suggestions="filteredRepresentativeList" optionLabel="kullanici_adi" @complete="searchRepresentative($event)" @item-select="representativeSelected($event)"/>
+                            <label for="username">Temsilci</label>
+                        </span>
+                    </div>
+                    <div class="">
+                        <span class="p-float-label">
+                            <AutoComplete class="w-100 mb-3" v-model="selectedSeller" dropdown :suggestions="filteredSellerList" optionLabel="kullanici_adi" @complete="searchSeller($event)" @item-select="sellerSelected($event)"/>
+                            <label for="username">Satışçı</label>
+                        </span>
+                    </div>
+                    <div class="">
+                        <Dropdown v-model="selectedPriority" :options="priorityList" optionLabel="priority" placeholder="Öncelik Seç" @change="prioritySelected($event)" class="w-100" />
+                    </div>
+                </div>
+                <div class=" m-auto mt-4 ">
+                    <div class="">
+                        <div class="form-floating">
+                            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" style="height:100px;padding-top:35px;" v-model="getShopperModel.notlar"></textarea>
+                            <label for="floatingTextarea">Not</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row m-auto mt-4">
+                    <div class="col">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" v-model="getShopperModel.devir">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                Devir
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" v-model="getShopperModel.ozel">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                Özel
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" v-model="getShopperModel.takip">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                Takip
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" v-model="getShopperModel.sonkullanici">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                Son Kullanıcı
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
-        <div class="col" v-if="!getShopperNewButton">
-            <button type="button" class="btn btn-danger w-100" @click="deleteShopper">Sil</button>
+        <div class=" m-auto mt-3 mb-3">
+            <div class="">
+                <button type="button" class="btn btn-success w-100 mb-3" @click="shopperProcess">Kaydet</button>
+            </div>
+            <div class="" v-if="!getShopperNewButton">
+                <button type="button" class="btn btn-danger w-100" @click="deleteShopper">Sil</button>
+            </div>
         </div>
+                    <div class="mb-5">
+                    <div class=" m-auto">
+                        <div class="">
+                            <DataTable 
+                            :value="getShopperBuyingList"
+                            v-model:selection="selectedBuying"
+                            selectionMode="single"
+                            @row-click="buyingSelected($event)"
+                            style="font-size:85%;"
+                        >
+                            <Column field="Yil" header="Yıl"></Column>
+                            <Column field="Total" header="Toplam">
+                                <template #body="slotProps">
+                                    {{ $filters.formatPrice(slotProps.data.Total) }}
+                                </template>
+                            </Column>
+                        </DataTable>
+                        </div>
+                    </div>
+            
+                </div>
     </div>
-    <Dialog v-model:visible="is_seller_form" header="" modal> 
+
+
+
+    <Dialog v-model:visible="is_seller_form" header="" modal :style="{'width':'100vw'}"> 
         <shopperSellerForm/>
     </Dialog>
 </template>
 <script>
 import { useShopperStore } from '../../stores/shopper';
 import { useLoadingStore } from '../../stores/loading';
+import { useMobilStore } from '../../stores/mobil';
 import { mapState } from 'pinia';
 
 import { shopperService } from '../../services/shopperService';
@@ -165,6 +317,9 @@ export default {
             'getShopperCountryList',
             'getShopperNewButton',
             'getShopperBuyingList',
+        ]),
+        ...mapState(useMobilStore, [
+            'getMobile'
         ])
     },
     components: {

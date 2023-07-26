@@ -18,10 +18,12 @@
 
     </div>
     <list />
-    <Dialog v-model:visible="payment_list_form" header="Tahsilat Listesi" modal>
+
+
+    <Dialog v-model:visible="payment_list_form" header="Tahsilat Listesi" modal :style="{'width':'100vw'}">
         <collectionList/>
     </Dialog>
-    <Dialog v-model:visible="advanced_payment_form" header="Peşinat" modal>
+    <Dialog v-model:visible="advanced_payment_form" header="Peşinat" modal :style="{ 'width': '100vw' }">
         <advancedPayment/>
     </Dialog>
 </template>

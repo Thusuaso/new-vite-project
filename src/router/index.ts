@@ -46,6 +46,7 @@ import { useTodoStore } from '@/stores/todo';
 import { useCostStore } from '@/stores/cost';
 import { useFinanceTestStore } from '@/stores/financetest';
 import { useProductionsStore } from '@/stores/productions';
+import { useMobilStore } from '@/stores/mobil';
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -231,9 +232,6 @@ const router = createRouter({
         })
       }
     },
-
-
-
     {
       path: '/operation/cards',
       component: () => import('@/views/ProductCardsView.vue'),
@@ -734,10 +732,17 @@ const router = createRouter({
 });
 router.beforeEach(
   (to, from, next) => {
+    const mobile = window.innerWidth;
+    if (mobile <= 600) {
+      useMobilStore().mobile_load_act(true);
+    } else {
+      useMobilStore().mobile_load_act(false);
+    }
     todoService.getList(localStorage.getItem('userId')).then(data => {
       useTodoStore().to_do_list_load_act(data);
+      next();
+
     });
-    next();
   }
 )
 

@@ -83,7 +83,7 @@
             </DataTable>
         </div>
     </div>
-    <Dialog v-model:visible="ayo_detail_form" header="" modal style="width:100%;">
+    <Dialog v-model:visible="ayo_detail_form" header="" modal :style="{ 'width': '100vw' }">
         <ayoDetailCost :ayo_detail_list="ayo_detail_list"/>
     </Dialog>
 </template>

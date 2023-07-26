@@ -28,7 +28,7 @@
         </Column>
         <Column field="siparis_sayisi" header="Toplam Sipariş"></Column>
     </DataTable>
-    <Dialog v-model:visible="supplier_form" :header="supplier_form_header" modal>
+    <Dialog v-model:visible="supplier_form" :header="supplier_form_header" modal :style="{ 'width': '100vw' }">
         <supplierForm :selectedSupplier="selectedSupplier"/>
     </Dialog>   
 </template>

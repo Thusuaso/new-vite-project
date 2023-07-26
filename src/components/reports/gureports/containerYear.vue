@@ -144,13 +144,13 @@
             </DataTable>
         </div>
     </div>
-    <Dialog v-model:visible="container_by_country_detail_form" header="" modal>
+    <Dialog v-model:visible="container_by_country_detail_form" header="" modal :style="{ 'width': '100vw' }">
         <containerByCountryDetail/>
     </Dialog>
-    <Dialog v-model:visible="container_by_customer_detail_form" header="" modal>
+    <Dialog v-model:visible="container_by_customer_detail_form" header="" modal :style="{ 'width': '100vw' }">
         <containerByCustomerDetail/>
     </Dialog>
-    <Dialog v-model:visible="container_by_supplier_detail_form" header="" modal>
+    <Dialog v-model:visible="container_by_supplier_detail_form" header="" modal :style="{ 'width': '100vw' }">
         <containerBySupplierDetail/>
     </Dialog>
 </template>

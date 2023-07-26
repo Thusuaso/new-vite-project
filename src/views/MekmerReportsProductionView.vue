@@ -1,5 +1,6 @@
 <template>
-    <div class="row m-auto mt-3">
+
+    <div class="row m-auto mt-3" v-if="!getMobile">
         <div class="col-2">
             <Calendar v-model="m_r_date" selectionMode="range" :manualInput="false" placeholder="Bir Tarih Aralığı Seçiniz" dateFormat="dd/mm/yy"/>
         </div>
@@ -13,6 +14,25 @@
             <button type="button" class="btn btn-secondary" @click="excel_mekmer_reports_list">Excel</button>
         </div>
     </div>
+
+    <div class=" m-auto mt-3" v-if="getMobile">
+            <div class="">
+                <Calendar class="w-100 mb-3" v-model="m_r_date" selectionMode="range" :manualInput="false" placeholder="Bir Tarih Aralığı Seçiniz" dateFormat="dd/mm/yy"/>
+            </div>
+            <div class="">
+                <button type="button"  class="btn btn-secondary w-100 mb-3" @click="m_r_date = null">Temizle</button>
+            </div>
+            <div class="">
+                <button type="button" class="btn btn-success w-100 mb-3" @click="getSelectedRangeDate">Ara</button>
+            </div>
+            <div class="">
+                <button type="button" class="btn btn-secondary w-100 mb-3" @click="excel_mekmer_reports_list">Excel</button>
+            </div>
+        </div>
+
+
+
+
     <div class="row m-auto mt-3">
         <div class="col">
             <DataTable 
@@ -202,6 +222,7 @@
 import { useReportsStore } from '../stores/reports';
 import { useLoadingStore } from '../stores/loading';
 import { useLocalStore } from '../stores/local';
+import { useMobilStore } from '../stores/mobil';
 import { mapState } from 'pinia';
 
 import { reportsService } from '../services/reportsService';
@@ -215,6 +236,9 @@ export default {
         ]),
         ...mapState(useLocalStore, [
             'getLocalServiceUrl'
+        ]),
+        ...mapState(useMobilStore, [
+            'getMobile'
         ])
     },
     data() {

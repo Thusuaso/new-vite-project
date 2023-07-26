@@ -1,5 +1,5 @@
 <template>
-    <div class="row">
+    <div class="row mt-5" style="margin-top:8px;">
         <div class="col">
             <Dropdown v-model="selectedYear" :options="getCollectionYearList" optionLabel="yil" class="w-full md:w-14rem" @change="yearChange($event)"/>
         </div>

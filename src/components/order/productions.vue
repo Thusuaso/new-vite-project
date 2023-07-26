@@ -1,84 +1,169 @@
 <template>
-    <div class="container text-center">
-        <div class="row m-auto">
-            <div class="col">
-                <div class="row m-auto">
-                    <div class="col">
-                        <button type="button" class="btn btn-success h-100" @click="newForm">Yeni</button>
-                    </div>
-                    <div class="col">
-                        <Dropdown v-model="selectedYear" :options="years" optionLabel="year" class="w-full md:w-14rem" @change="changeYear($event)" />
-                    </div>
-                    <div class="col">
-                        <button class="pi pi-file-excel btn btn-secondary h-100" type="button" @click="excel_output_tr"> TR</button>
+    <div v-if="!getMobile">
+            <div class="container text-center">
+            <div class="row m-auto">
+                <div class="col element">
+                    <div class="row m-auto">
+                        <div class="col">
+                            <button type="button" class="btn btn-success h-100" @click="newForm">Yeni</button>
+                        </div>
+                        <div class="col">
+                            <Dropdown v-model="selectedYear" :options="years" optionLabel="year" class="w-full md:w-14rem" @change="changeYear($event)" />
+                        </div>
+                        <div class="col">
+                            <button class="pi pi-file-excel btn btn-secondary h-100" type="button" @click="excel_output_tr"> TR</button>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col m-auto">
-                <div class="row m-auto">
-                    <div class="col">
-                        Tedarikçi:
-                    </div>
-                    <div class="col">
-                        <div class="form-check">
-                            <input class="form-check-input" value="Hepsi" type="radio" name="flexRadioDefault"
-                                id="flexRadioDefault1" v-model="supplierRadio" @change="supplierRadioInput"> 
-                            <label class="form-check-label" for="flexRadioDefault1">
-                                Hepsi
-                            </label>
+                <div class="col m-auto">
+                    <div class="row m-auto">
+                        <div class="col">
+                            Tedarikçi:
                         </div>
-                    </div>
-                    <div class="col">
-                        <div class="form-check">
-                            <input class="form-check-input" value="Mekmer" type="radio" name="flexRadioDefault"
-                                id="flexRadioDefault1" v-model="supplierRadio" @change="supplierRadioInput">
-                            <label class="form-check-label" for="flexRadioDefault1">
-                                Mekmer
-                            </label>
+                        <div class="col">
+                            <div class="form-check">
+                                <input class="form-check-input" value="Hepsi" type="radio" name="flexRadioDefault"
+                                    id="flexRadioDefault1" v-model="supplierRadio" @change="supplierRadioInput"> 
+                                <label class="form-check-label" for="flexRadioDefault1">
+                                    Hepsi
+                                </label>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col">
-                        <div class="form-check">
-                            <input class="form-check-input" value="Dis" type="radio" name="flexRadioDefault"
-                                id="flexRadioDefault1" v-model="supplierRadio" @change="supplierRadioInput">
-                            <label class="form-check-label" for="flexRadioDefault1">
-                                Dış
-                            </label>
+                        <div class="col">
+                            <div class="form-check">
+                                <input class="form-check-input" value="Mekmer" type="radio" name="flexRadioDefault"
+                                    id="flexRadioDefault1" v-model="supplierRadio" @change="supplierRadioInput">
+                                <label class="form-check-label" for="flexRadioDefault1">
+                                    Mekmer
+                                </label>
+                            </div>
                         </div>
-                    </div>
-
-                </div>
-                <div class="row m-auto">
-                    <div class="col">
-                        Satışçı:
-                    </div>
-                    <div class="col">
-                        <div class="form-check">
-                            <input class="form-check-input" value="Hepsi" type="radio" name="flexRadioDefault1"
-                                id="flexRadioDefault2" v-model="sellerRadio" @change="sellerRadioChange">
-                            <label class="form-check-label" for="flexRadioDefault2">
-                                Hepsi
-                            </label>
+                        <div class="col">
+                            <div class="form-check">
+                                <input class="form-check-input" value="Dis" type="radio" name="flexRadioDefault"
+                                    id="flexRadioDefault1" v-model="supplierRadio" @change="supplierRadioInput">
+                                <label class="form-check-label" for="flexRadioDefault1">
+                                    Dış
+                                </label>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col">
-                        <div class="form-check">
-                            <input class="form-check-input" value="Mekmar" type="radio" name="flexRadioDefault1"
-                                id="flexRadioDefault2" v-model="sellerRadio" @change="sellerRadioChange">
-                            <label class="form-check-label" for="flexRadioDefault2">
-                                Mekmar
-                            </label>
-                        </div>
-                    </div>
-                    <div class="col">
 
                     </div>
+                    <div class="row m-auto">
+                        <div class="col">
+                            Satışçı:
+                        </div>
+                        <div class="col">
+                            <div class="form-check">
+                                <input class="form-check-input" value="Hepsi" type="radio" name="flexRadioDefault1"
+                                    id="flexRadioDefault2" v-model="sellerRadio" @change="sellerRadioChange">
+                                <label class="form-check-label" for="flexRadioDefault2">
+                                    Hepsi
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-check">
+                                <input class="form-check-input" value="Mekmar" type="radio" name="flexRadioDefault1"
+                                    id="flexRadioDefault2" v-model="sellerRadio" @change="sellerRadioChange">
+                                <label class="form-check-label" for="flexRadioDefault2">
+                                    Mekmar
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col">
 
+                        </div>
+
+                    </div>
                 </div>
             </div>
         </div>
+        <productionsList :title="title"/>
     </div>
-    <productionsList :title="title"/>
+    <div v-if="getMobile">
+            <div class="container text-center">
+            <div class="">
+                <div class="">
+                    <div class="">
+                        <div class="">
+                            <button type="button" class="btn btn-success h-100 w-100 mb-3" @click="newForm">Yeni</button>
+                        </div>
+
+                        <div class="">
+                            <button class="pi pi-file-excel btn btn-secondary h-100 w-100 mb-3" type="button" @click="excel_output_tr"> TR</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="m-auto mb-3">
+                    <div class="row m-auto">
+                        <div class="col">
+                            Tedarikçi:
+                        </div>
+                        <div class="col">
+                            <div class="form-check">
+                                <input class="form-check-input" value="Hepsi" type="radio" name="flexRadioDefault"
+                                    id="flexRadioDefault1" v-model="supplierRadio" @change="supplierRadioInput"> 
+                                <label class="form-check-label" for="flexRadioDefault1">
+                                    Hepsi
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-check">
+                                <input class="form-check-input" value="Mekmer" type="radio" name="flexRadioDefault"
+                                    id="flexRadioDefault1" v-model="supplierRadio" @change="supplierRadioInput">
+                                <label class="form-check-label" for="flexRadioDefault1">
+                                    Mekmer
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-check">
+                                <input class="form-check-input" value="Dis" type="radio" name="flexRadioDefault"
+                                    id="flexRadioDefault1" v-model="supplierRadio" @change="supplierRadioInput">
+                                <label class="form-check-label" for="flexRadioDefault1">
+                                    Dış
+                                </label>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row m-auto">
+                        <div class="col">
+                            Satışçı:
+                        </div>
+                        <div class="col">
+                            <div class="form-check">
+                                <input class="form-check-input" value="Hepsi" type="radio" name="flexRadioDefault1"
+                                    id="flexRadioDefault2" v-model="sellerRadio" @change="sellerRadioChange">
+                                <label class="form-check-label" for="flexRadioDefault2">
+                                    Hepsi
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-check">
+                                <input class="form-check-input" value="Mekmar" type="radio" name="flexRadioDefault1"
+                                    id="flexRadioDefault2" v-model="sellerRadio" @change="sellerRadioChange">
+                                <label class="form-check-label" for="flexRadioDefault2">
+                                    Mekmar
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col">
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <productionsList :title="title"/>
+    </div>
+
+
+
     <Dialog v-model:visible="order_form" header="Yeni Sipariş" modal :style="{ width: '100vw' }" :closeOnEscape="false">
         <orderForm/>
     </Dialog>
@@ -88,6 +173,7 @@ import productionsList from './productionsList.vue';
 import { productionsService } from '../../services/productions';
 import { useProductionsStore } from '../../stores/productions';
 import { useLocalStore } from '../../stores/local';
+import { useMobilStore } from '../../stores/mobil';
 import { mapState } from 'pinia';
 import orderForm from '../../components/order/orderForm.vue';
 export default {
@@ -103,6 +189,9 @@ export default {
         ]),
         ...mapState(useLocalStore, [
             'getLocalServiceUrl'
+        ]),
+        ...mapState(useMobilStore, [
+            'getMobile'
         ])
     },
     data() {
@@ -192,3 +281,6 @@ export default {
     }
 }
 </script>
+<style scoped>
+
+</style>

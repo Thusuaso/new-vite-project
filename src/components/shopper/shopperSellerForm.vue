@@ -10,7 +10,7 @@
         <Column field="Satisci" header="Satışçı"></Column>
         <Column field="Operasyon" header="Operasyon"></Column>
     </DataTable>
-    <Dialog v-model:visible="is_seller_product_form" header modal>
+    <Dialog v-model:visible="is_seller_product_form" header modal :style="{ 'width': '100vw' }">
         <shopperSellerProductForm/>
     </Dialog>
 </template>

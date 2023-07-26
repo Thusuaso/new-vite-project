@@ -1,5 +1,5 @@
 <template>
-    <div class="row">
+    <div class="row" v-if="!getMobile">
         <div class="col-9">
             <TabView>
             <TabPanel header="Sipariş">
@@ -36,7 +36,53 @@
             <productInformation/>
         </div>
     </div>
-    <Dialog v-model:visible="order_divide_form" header="" modal>
+
+    <div class="" v-if="getMobile">
+            <div class="">
+                <TabView>
+                <TabPanel header="Sipariş">
+                    <orderInformation/>
+                </TabPanel>
+                <TabPanel header="Proforma">
+                    <proformaInformation />
+                </TabPanel>
+                <TabPanel header="Masraf" v-if="!getProductionsNewButton">
+                    <costInformation/>
+                </TabPanel>
+                <TabPanel header="Tedarikçi" v-if="!getProductionsNewButton">
+                    <supplierInformation :po="po"/>
+                </TabPanel>
+                <TabPanel header="Evrak" v-if="!getProductionsNewButton">
+                    <documentInformation/>
+                </TabPanel>
+                <TabPanel header="Çeki" v-if="!getProductionsNewButton">
+                    <checkInformation/>
+                </TabPanel>
+                <TabPanel header="Chat" v-if="!getProductionsNewButton">
+                    <chatInformation :po="po"/>
+                </TabPanel>
+                <TabPanel header="Kalan" v-if="!getProductionsNewButton">
+                    <remainingInformation/>       
+                </TabPanel>
+            </TabView>
+    
+            </div>
+            <div class="">
+                <button type="button" class="btn btn-success w-100 mb-3" @click="saveProcess" :disabled="getProductsSaveButtonStatus">Kaydet</button>
+                <button type="button" class="btn btn-primary w-100" @click="orderDivide">Böl</button>
+
+                <productInformation/>
+            </div>
+        </div>
+    
+
+
+
+
+
+
+
+    <Dialog v-model:visible="order_divide_form" header="" modal :style="{ 'width': '100vw' }">
         <orderDivide :sipBilgiler="getProductionsDetailModel"/>
     </Dialog>
 </template>
@@ -55,6 +101,7 @@ import orderDivide from './orderDivide.vue';
 import { productionsService } from '../../services/productions';
 import { useProductionsStore } from '../../stores/productions';
 import { useLoadingStore } from '../../stores/loading';
+import { useMobilStore } from '../../stores/mobil';
 import { mapState } from 'pinia';
 import { socket } from '../../services/customServices/realTimeService';
 
@@ -77,7 +124,10 @@ export default {
             'getProductionsDetailModel',
             'getProductionsNewButton',
             'getProductsSaveButtonStatus'
-      ])  
+        ]),
+        ...mapState(useMobilStore, [
+            'getMobile'
+        ])
     },
     data() {
         return {

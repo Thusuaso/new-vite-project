@@ -95,7 +95,7 @@
       </div>
     </div>
 
-    <Dialog v-model:visible="customer_forms" modal header="Ayrıntı">
+    <Dialog v-model:visible="customer_forms" modal header="Ayrıntı" :style="{ 'width': '100vw' }">
       <customerDetail :customerName="customerName" :priority="priority" :followStatus="followStatus"/>
     </Dialog>
     

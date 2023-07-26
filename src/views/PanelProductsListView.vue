@@ -5,7 +5,7 @@
         </div>
     </div>
     <list @openPanelDetailForm="panel_products_form = true"/>
-    <Dialog v-model:visible="panel_products_form" header="" modal>
+    <Dialog v-model:visible="panel_products_form" header="" modal :style="{ 'width': '100vw' }">
         <panelForm/>
     </Dialog>
 </template>

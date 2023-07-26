@@ -1,18 +1,30 @@
 <template>
-    <div class="row m-auto mt-3">
+    <div class="row m-auto mt-3" v-if="!getMobile">
         <div class="col-6">
             <FileUpload class="mb-3" mode="basic"  accept="image/*" :maxFileSize="1000000" @select="firstImageUpload($event)" chooseLabel="Ön"/>
-            <img class="mb-3" :src="sampleLink1" width="400" height="400"/>
+            <img class="mb-3 w-100" :src="sampleLink1"/>
         </div>
         <div class="col-6">
             <FileUpload class="mb-3" mode="basic"  accept="image/*" :maxFileSize="1000000" @select="secondImageUpload($event)" chooseLabel="Arka"/>
-            <img class="mb-3" :src="sampleLink2" width="400" height="400"/>
+            <img class="mb-3 w-100" :src="sampleLink2" />
 
         </div>
     </div>
+    <div class=" m-auto mt-3" v-if="getMobile">
+            <div class="">
+                <FileUpload class="mb-3" mode="basic"  accept="image/*" :maxFileSize="1000000" @select="firstImageUpload($event)" chooseLabel="Ön"/>
+                <img class="mb-3 w-100" :src="sampleLink1" />
+            </div>
+            <div class="">
+                <FileUpload class="mb-3" mode="basic"  accept="image/*" :maxFileSize="1000000" @select="secondImageUpload($event)" chooseLabel="Arka"/>
+                <img class="mb-3 w-100" :src="sampleLink2"/>
+
+            </div>
+        </div>
 </template>
 <script>
 import { useSampleStore } from '../../../stores/sample';
+import { useMobilStore } from '../../../stores/mobil';
 import { mapState } from 'pinia';
 
 import { fileService } from '../../../services/fileService';
@@ -21,6 +33,9 @@ export default {
     computed: {
         ...mapState(useSampleStore, [
             'getSampleModel'
+        ]),
+        ...mapState(useMobilStore, [
+            'getMobile',
         ])
     },
     data() {

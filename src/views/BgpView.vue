@@ -54,14 +54,14 @@
 
       </div>
     </div>
-    <Dialog v-model:visible="bgp_new_project_form" modal header="Yeni Proje">
+    <Dialog v-model:visible="bgp_new_project_form" modal header="Yeni Proje" :style="{ 'width': '100vw' }">
         <br/>
         <newProject/>
     </Dialog>
-    <Dialog v-model:visible="bgp_detail_form" modal header="Detay">
+    <Dialog v-model:visible="bgp_detail_form" modal header="Detay" :style="{ 'width': '100vw' }">
         <detail :projectName="projectName" :ulkeAdi="ulkeAdi"/>
     </Dialog>
-    <Dialog v-model:visible="bgp_statistic_form" modal header="İstatistikler">
+    <Dialog v-model:visible="bgp_statistic_form" modal header="İstatistikler" :style="{ 'width': '100vw' }">
         <statistics/>
     </Dialog>
 

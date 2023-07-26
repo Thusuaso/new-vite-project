@@ -145,7 +145,7 @@
             </DataTable>
         </div>
     </div>
-    <Dialog v-model:visible="is_shopper_form" header="" modal>
+    <Dialog v-model:visible="is_shopper_form" header="" modal :style="{'width':'100vw'}">
         <shopperForm/>
     </Dialog>
 </template>

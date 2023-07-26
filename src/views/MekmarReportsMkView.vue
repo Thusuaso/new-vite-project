@@ -1,5 +1,5 @@
 <template>
-    <div class="row m-auto mt-3">
+    <div class="row m-auto mt-3" v-if="!getMobile">
         <div class="col-2">
             <Dropdown v-model="selectedYear" :options="getMekmarMkYearsList" optionLabel="yil" class="w-full md:w-14rem w-100" @change="yearSelected($event)"/>
         </div>
@@ -7,6 +7,14 @@
             <button type="button" class="btn btn-secondary" @click="excel_output_mk">Excel</button>
         </div>
     </div>
+    <div class=" m-auto mt-3" v-if="getMobile">
+            <div class="">
+                <Dropdown v-model="selectedYear" :options="getMekmarMkYearsList" optionLabel="yil" class="w-100 mb-3" @change="yearSelected($event)"/>
+            </div>
+            <div class="">
+                <button type="button" class="btn btn-secondary w-100 " @click="excel_output_mk">Excel</button>
+            </div>
+        </div>
     <div class="row m-auto mt-3">
         <div class="col">
             <TabView>
@@ -34,6 +42,7 @@
 import { useReportsStore } from '../stores/reports';
 import { useLoadingStore } from '../stores/loading';
 import { useLocalStore } from '../stores/local';
+import { useMobilStore } from '../stores/mobil';
 import { mapState } from 'pinia';
 
 import { reportsService } from '../services/reportsService';
@@ -58,6 +67,9 @@ export default {
         ]),
         ...mapState(useLocalStore, [
             'getLocalServiceUrl'
+        ]),
+        ...mapState(useMobilStore, [
+            'getMobile'
         ])
     },
     data() {

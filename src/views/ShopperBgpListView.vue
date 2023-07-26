@@ -81,7 +81,7 @@
             </DataTable>
         </div>
     </div>
-    <Dialog v-model:visible="shopper_bgp_from" header="" modal>
+    <Dialog v-model:visible="shopper_bgp_from" header="" modal :style="{ 'width': '100vw' }">
         <shopperBgpForm />
     </Dialog>   
 </template>

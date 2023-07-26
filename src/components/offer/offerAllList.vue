@@ -1,217 +1,425 @@
 <template>
-    <div class="row m-auto mt-3">
-        <div class="col">
-            <DataTable 
-                    :value="getOfferAllListA" 
-                    scrollable 
-                    scrollHeight="400px" 
-                    style="font-size:85%;"
-                    v-model:filters="filters1"
-                    filterDisplay="row"
-                    @filter="offerAllListAFilter($event)"
-                    v-model:selection="selectedOfferListA"
-                    selectionMode="single"
-                    @row-click="offerListASelected($event)"  
-                    :sortField="['teklifOncelik','sira']"
-                    sortOrder="-1"          
-                >
-                <template #header>
-                    Teklifler A Listesi
-                </template>
-                <Column 
-                        field="tarih" 
-                        header="Tarih"
-                        :showFilterMenu="false"
-                        :showFilterOperator="false"
-                        :showClearButton="false"
-                        :showApplyButton="false"
-                        :showFilterMatchModes="false"
-                        :showAddButton="false"
+    <div v-if="!getMobile">
+            <div class="row m-auto mt-3">
+            <div class="col">
+                <DataTable 
+                        :value="getOfferAllListA" 
+                        scrollable 
+                        scrollHeight="400px" 
+                        style="font-size:85%;"
+                        v-model:filters="filters1"
+                        filterDisplay="row"
+                        @filter="offerAllListAFilter($event)"
+                        v-model:selection="selectedOfferListA"
+                        selectionMode="single"
+                        @row-click="offerListASelected($event)"  
+                        :sortField="['teklifOncelik', 'sira']"
+                        sortOrder="-1"          
                     >
-                    <template #body="slotProps">
-                        {{ $filters.formatDate(slotProps.data.tarih) }}
+                    <template #header>
+                        Teklifler A Listesi
                     </template>
-                    <template #filter="{ filterModel, filterCallback }">
-                        <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
-                    </template>
-                </Column>
-                <Column 
-                        field="sira" 
-                        header="Sira"
-                        :showFilterMenu="false"
-                        :showFilterOperator="false"
-                        :showClearButton="false"
-                        :showApplyButton="false"
-                        :showFilterMatchModes="false"
-                        :showAddButton="false"
-                    >
-                    <template #filter="{ filterModel, filterCallback }">
-                        <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
-                    </template>
-                </Column>
-                <Column 
-                        field="musteriAdi" 
-                        header="Müşteri"
-                        :showFilterMenu="false"
-                        :showFilterOperator="false"
-                        :showClearButton="false"
-                        :showApplyButton="false"
-                        :showFilterMatchModes="false"
-                        :showAddButton="false"
-                    >
-                    <template #body="slotProps">
-                        <div :style="{'backgroundColor':slotProps.data.goruldu ? '':'yellow'}">
-                            {{ slotProps.data.musteriAdi }}
-                        </div>
+                    <Column 
+                            field="tarih" 
+                            header="Tarih"
+                            :showFilterMenu="false"
+                            :showFilterOperator="false"
+                            :showClearButton="false"
+                            :showApplyButton="false"
+                            :showFilterMatchModes="false"
+                            :showAddButton="false"
+                        >
+                        <template #body="slotProps">
+                            {{ $filters.formatDate(slotProps.data.tarih) }}
+                        </template>
+                        <template #filter="{ filterModel, filterCallback }">
+                            <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
+                        </template>
+                    </Column>
+                    <Column 
+                            field="sira" 
+                            header="Sira"
+                            :showFilterMenu="false"
+                            :showFilterOperator="false"
+                            :showClearButton="false"
+                            :showApplyButton="false"
+                            :showFilterMatchModes="false"
+                            :showAddButton="false"
+                        >
+                        <template #filter="{ filterModel, filterCallback }">
+                            <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
+                        </template>
+                    </Column>
+                    <Column 
+                            field="musteriAdi" 
+                            header="Müşteri"
+                            :showFilterMenu="false"
+                            :showFilterOperator="false"
+                            :showClearButton="false"
+                            :showApplyButton="false"
+                            :showFilterMatchModes="false"
+                            :showAddButton="false"
+                        >
+                        <template #body="slotProps">
+                            <div :style="{ 'backgroundColor': slotProps.data.goruldu ? '' : 'yellow' }">
+                                {{ slotProps.data.musteriAdi }}
+                            </div>
 
-                    </template>
-                    <template #footer>
-                        {{ getOfferAllListATotal }}
-                    </template>
-                    <template #filter="{ filterModel, filterCallback }">
-                        <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
-                    </template>
-                </Column>
-                <Column 
-                        field="ulkeAdi" 
-                        header="Ülke"
-                        :showFilterMenu="false"
-                        :showFilterOperator="false"
-                        :showClearButton="false"
-                        :showApplyButton="false"
-                        :showFilterMatchModes="false"
-                        :showAddButton="false"
-                    >
-                    <template #filter="{ filterModel, filterCallback }">
-                        <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
-                    </template>
-                </Column>
-                <Column 
-                        field="temsilciAdi" 
-                        header="Temsilci"
-                        :showFilterMenu="false"
-                        :showFilterOperator="false"
-                        :showClearButton="false"
-                        :showApplyButton="false"
-                        :showFilterMatchModes="false"
-                        :showAddButton="false"
-                    >
-                    <template #filter="{ filterModel, filterCallback }">
-                        <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
-                    </template>
-                </Column>
-                <Column field="teklifOncelik" header="Öncelik"></Column>
-            </DataTable>
+                        </template>
+                        <template #footer>
+                            {{ getOfferAllListATotal }}
+                        </template>
+                        <template #filter="{ filterModel, filterCallback }">
+                            <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
+                        </template>
+                    </Column>
+                    <Column 
+                            field="ulkeAdi" 
+                            header="Ülke"
+                            :showFilterMenu="false"
+                            :showFilterOperator="false"
+                            :showClearButton="false"
+                            :showApplyButton="false"
+                            :showFilterMatchModes="false"
+                            :showAddButton="false"
+                        >
+                        <template #filter="{ filterModel, filterCallback }">
+                            <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
+                        </template>
+                    </Column>
+                    <Column 
+                            field="temsilciAdi" 
+                            header="Temsilci"
+                            :showFilterMenu="false"
+                            :showFilterOperator="false"
+                            :showClearButton="false"
+                            :showApplyButton="false"
+                            :showFilterMatchModes="false"
+                            :showAddButton="false"
+                        >
+                        <template #filter="{ filterModel, filterCallback }">
+                            <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
+                        </template>
+                    </Column>
+                    <Column field="teklifOncelik" header="Öncelik"></Column>
+                </DataTable>
+            </div>
         </div>
-    </div>
-    <div class="row m-auto mt-3">
-        <div class="col">
-            <Chart type="bar" :data="getOfferAllChartListA" :options="chartOptions" class="w-100 mb-3 mt-3"  />
+        <div class="row m-auto mt-3">
+            <div class="col">
+                <Chart type="bar" :data="getOfferAllChartListA" :options="chartOptions" class="w-100 mb-3 mt-3"  />
+            </div>
         </div>
-    </div>
 
-    <div class="row m-auto mt-3">
-        <div class="col">
-            <DataTable 
-                    :value="getOfferAllListB" 
-                    scrollable 
-                    scrollHeight="400px" 
-                    style="font-size:85%;"
-                    v-model:filters="filters2"
-                    filterDisplay="row"
-                    @filter="offerAllListBFilter($event)"
-                    v-model:selection="selectedOfferListB"
-                    selectionMode="single"
-                    @row-click="offerListBSelected($event)"  
-                >
-                <template #header>
-                    Teklifler B Listesi
-                </template>
-                <Column 
-                        field="tarih" 
-                        header="Tarih"
-                        :showFilterMenu="false"
-                        :showFilterOperator="false"
-                        :showClearButton="false"
-                        :showApplyButton="false"
-                        :showFilterMatchModes="false"
-                        :showAddButton="false"
+        <div class="row m-auto mt-3">
+            <div class="col">
+                <DataTable 
+                        :value="getOfferAllListB" 
+                        scrollable 
+                        scrollHeight="400px" 
+                        style="font-size:85%;"
+                        v-model:filters="filters2"
+                        filterDisplay="row"
+                        @filter="offerAllListBFilter($event)"
+                        v-model:selection="selectedOfferListB"
+                        selectionMode="single"
+                        @row-click="offerListBSelected($event)"  
+                    >
+                    <template #header>
+                        Teklifler B Listesi
+                    </template>
+                    <Column 
+                            field="tarih" 
+                            header="Tarih"
+                            :showFilterMenu="false"
+                            :showFilterOperator="false"
+                            :showClearButton="false"
+                            :showApplyButton="false"
+                            :showFilterMatchModes="false"
+                            :showAddButton="false"
                         
+                            >
+                        <template #filter="{ filterModel, filterCallback }">
+                            <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
+                        </template>
+                    </Column>
+                    <Column 
+                            field="sira" 
+                            header="Sira"
+                            :showFilterMenu="false"
+                            :showFilterOperator="false"
+                            :showClearButton="false"
+                            :showApplyButton="false"
+                            :showFilterMatchModes="false"
+                            :showAddButton="false"
                         >
-                    <template #filter="{ filterModel, filterCallback }">
-                        <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
-                    </template>
-                </Column>
-                <Column 
-                        field="sira" 
-                        header="Sira"
-                        :showFilterMenu="false"
-                        :showFilterOperator="false"
-                        :showClearButton="false"
-                        :showApplyButton="false"
-                        :showFilterMatchModes="false"
-                        :showAddButton="false"
-                    >
-                    <template #filter="{ filterModel, filterCallback }">
-                        <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
-                    </template>
-                </Column>
-                <Column 
-                        field="musteriAdi" 
-                        header="Müşteri"
-                        :showFilterMenu="false"
-                        :showFilterOperator="false"
-                        :showClearButton="false"
-                        :showApplyButton="false"
-                        :showFilterMatchModes="false"
-                        :showAddButton="false"
+                        <template #filter="{ filterModel, filterCallback }">
+                            <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
+                        </template>
+                    </Column>
+                    <Column 
+                            field="musteriAdi" 
+                            header="Müşteri"
+                            :showFilterMenu="false"
+                            :showFilterOperator="false"
+                            :showClearButton="false"
+                            :showApplyButton="false"
+                            :showFilterMatchModes="false"
+                            :showAddButton="false"
+                            >
+                        <template #footer>
+                            {{ getOfferAllListBTotal }}
+                        </template>
+                        <template #filter="{ filterModel, filterCallback }">
+                            <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
+                        </template>
+                    </Column>
+                    <Column 
+                            field="ulkeAdi" 
+                            header="Ülke"
+                            :showFilterMenu="false"
+                            :showFilterOperator="false"
+                            :showClearButton="false"
+                            :showApplyButton="false"
+                            :showFilterMatchModes="false"
+                            :showAddButton="false"
+                            >
+                        <template #filter="{ filterModel, filterCallback }">
+                            <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
+                        </template>
+                    </Column>
+                    <Column 
+                            field="temsilciAdi" 
+                            header="Temsilci"
+                            :showFilterMenu="false"
+                            :showFilterOperator="false"
+                            :showClearButton="false"
+                            :showApplyButton="false"
+                            :showFilterMatchModes="false"
+                            :showAddButton="false"
                         >
-                    <template #footer>
-                        {{ getOfferAllListBTotal }}
-                    </template>
-                    <template #filter="{ filterModel, filterCallback }">
-                        <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
-                    </template>
-                </Column>
-                <Column 
-                        field="ulkeAdi" 
-                        header="Ülke"
-                        :showFilterMenu="false"
-                        :showFilterOperator="false"
-                        :showClearButton="false"
-                        :showApplyButton="false"
-                        :showFilterMatchModes="false"
-                        :showAddButton="false"
-                        >
-                    <template #filter="{ filterModel, filterCallback }">
-                        <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
-                    </template>
-                </Column>
-                <Column 
-                        field="temsilciAdi" 
-                        header="Temsilci"
-                        :showFilterMenu="false"
-                        :showFilterOperator="false"
-                        :showClearButton="false"
-                        :showApplyButton="false"
-                        :showFilterMatchModes="false"
-                        :showAddButton="false"
-                    >
-                    <template #filter="{ filterModel, filterCallback }">
-                        <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
-                    </template>
-                </Column>
-                <Column field="teklifOncelik" header="Öncelik"></Column>
+                        <template #filter="{ filterModel, filterCallback }">
+                            <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
+                        </template>
+                    </Column>
+                    <Column field="teklifOncelik" header="Öncelik"></Column>
 
-            </DataTable>
+                </DataTable>
+            </div>
+        </div>
+        <div class="row m-auto mt-3">
+            <div class="col">
+                <Chart type="bar" :data="getOfferAllChartListB" :options="chartOptions" class=" mb-3 mt-3"  />
+            </div>
         </div>
     </div>
-    <div class="row m-auto mt-3">
-        <div class="col">
-            <Chart type="bar" :data="getOfferAllChartListB" :options="chartOptions" class=" mb-3 mt-3"  />
-        </div>
+    <div v-if="getMobile">
+
+                <DataTable 
+                        :value="getOfferAllListA" 
+                        scrollable 
+                        scrollHeight="400px" 
+                        style="font-size:85%;"
+                        v-model:filters="filters1"
+                        filterDisplay="row"
+                        @filter="offerAllListAFilter($event)"
+                        v-model:selection="selectedOfferListA"
+                        selectionMode="single"
+                        @row-click="offerListASelected($event)"  
+                        :sortField="['teklifOncelik', 'sira']"
+                        sortOrder="-1"          
+                    >
+                    <template #header>
+                        Teklifler A Listesi
+                    </template>
+                    <Column 
+                            field="tarih" 
+                            header="Tarih"
+                            :showFilterMenu="false"
+                            :showFilterOperator="false"
+                            :showClearButton="false"
+                            :showApplyButton="false"
+                            :showFilterMatchModes="false"
+                            :showAddButton="false"
+                        >
+                        <template #body="slotProps">
+                            {{ $filters.formatDate(slotProps.data.tarih) }}
+                        </template>
+                        <template #filter="{ filterModel, filterCallback }">
+                            <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
+                        </template>
+                    </Column>
+                    <Column 
+                            field="sira" 
+                            header="Sira"
+                            :showFilterMenu="false"
+                            :showFilterOperator="false"
+                            :showClearButton="false"
+                            :showApplyButton="false"
+                            :showFilterMatchModes="false"
+                            :showAddButton="false"
+                        >
+                        <template #filter="{ filterModel, filterCallback }">
+                            <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
+                        </template>
+                    </Column>
+                    <Column 
+                            field="musteriAdi" 
+                            header="Müşteri"
+                            :showFilterMenu="false"
+                            :showFilterOperator="false"
+                            :showClearButton="false"
+                            :showApplyButton="false"
+                            :showFilterMatchModes="false"
+                            :showAddButton="false"
+                        >
+                        <template #body="slotProps">
+                            <div :style="{ 'backgroundColor': slotProps.data.goruldu ? '' : 'yellow' }">
+                                {{ slotProps.data.musteriAdi }}
+                            </div>
+
+                        </template>
+                        <template #footer>
+                            {{ getOfferAllListATotal }}
+                        </template>
+                        <template #filter="{ filterModel, filterCallback }">
+                            <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
+                        </template>
+                    </Column>
+                    <Column 
+                            field="ulkeAdi" 
+                            header="Ülke"
+                            :showFilterMenu="false"
+                            :showFilterOperator="false"
+                            :showClearButton="false"
+                            :showApplyButton="false"
+                            :showFilterMatchModes="false"
+                            :showAddButton="false"
+                        >
+                        <template #filter="{ filterModel, filterCallback }">
+                            <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
+                        </template>
+                    </Column>
+                    <Column 
+                            field="temsilciAdi" 
+                            header="Temsilci"
+                            :showFilterMenu="false"
+                            :showFilterOperator="false"
+                            :showClearButton="false"
+                            :showApplyButton="false"
+                            :showFilterMatchModes="false"
+                            :showAddButton="false"
+                        >
+                        <template #filter="{ filterModel, filterCallback }">
+                            <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
+                        </template>
+                    </Column>
+                    <Column field="teklifOncelik" header="Öncelik"></Column>
+                </DataTable>
+
+ 
+                <Chart type="bar" :data="getOfferAllChartListA" :options="chartOptions" class="w-100 mb-3 mt-3"  />
+
+                <DataTable 
+                        :value="getOfferAllListB" 
+                        scrollable 
+                        scrollHeight="400px" 
+                        style="font-size:85%;"
+                        v-model:filters="filters2"
+                        filterDisplay="row"
+                        @filter="offerAllListBFilter($event)"
+                        v-model:selection="selectedOfferListB"
+                        selectionMode="single"
+                        @row-click="offerListBSelected($event)"  
+                    >
+                    <template #header>
+                        Teklifler B Listesi
+                    </template>
+                    <Column 
+                            field="tarih" 
+                            header="Tarih"
+                            :showFilterMenu="false"
+                            :showFilterOperator="false"
+                            :showClearButton="false"
+                            :showApplyButton="false"
+                            :showFilterMatchModes="false"
+                            :showAddButton="false"
+                        
+                            >
+                        <template #filter="{ filterModel, filterCallback }">
+                            <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
+                        </template>
+                    </Column>
+                    <Column 
+                            field="sira" 
+                            header="Sira"
+                            :showFilterMenu="false"
+                            :showFilterOperator="false"
+                            :showClearButton="false"
+                            :showApplyButton="false"
+                            :showFilterMatchModes="false"
+                            :showAddButton="false"
+                        >
+                        <template #filter="{ filterModel, filterCallback }">
+                            <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
+                        </template>
+                    </Column>
+                    <Column 
+                            field="musteriAdi" 
+                            header="Müşteri"
+                            :showFilterMenu="false"
+                            :showFilterOperator="false"
+                            :showClearButton="false"
+                            :showApplyButton="false"
+                            :showFilterMatchModes="false"
+                            :showAddButton="false"
+                            >
+                        <template #footer>
+                            {{ getOfferAllListBTotal }}
+                        </template>
+                        <template #filter="{ filterModel, filterCallback }">
+                            <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
+                        </template>
+                    </Column>
+                    <Column 
+                            field="ulkeAdi" 
+                            header="Ülke"
+                            :showFilterMenu="false"
+                            :showFilterOperator="false"
+                            :showClearButton="false"
+                            :showApplyButton="false"
+                            :showFilterMatchModes="false"
+                            :showAddButton="false"
+                            >
+                        <template #filter="{ filterModel, filterCallback }">
+                            <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
+                        </template>
+                    </Column>
+                    <Column 
+                            field="temsilciAdi" 
+                            header="Temsilci"
+                            :showFilterMenu="false"
+                            :showFilterOperator="false"
+                            :showClearButton="false"
+                            :showApplyButton="false"
+                            :showFilterMatchModes="false"
+                            :showAddButton="false"
+                        >
+                        <template #filter="{ filterModel, filterCallback }">
+                            <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
+                        </template>
+                    </Column>
+                    <Column field="teklifOncelik" header="Öncelik"></Column>
+
+                </DataTable>
+                <Chart type="bar" :data="getOfferAllChartListB" :options="chartOptions" class=" mb-3 mt-3"  />
+
     </div>
-    <Dialog v-model:visible="offer_detail_form" header="" modal>
+
+
+
+
+    <Dialog v-model:visible="offer_detail_form" header="" modal :style="{ width: '100vw' }">
         <offerForm/>
     </Dialog>
 
@@ -219,6 +427,7 @@
 <script>
 import { useOfferStore } from '../../stores/offer';
 import { useLoadingStore } from '../../stores/loading';
+import { useMobilStore } from '../../stores/mobil';
 import { mapState } from 'pinia';
 
 import { FilterMatchMode } from 'primevue/api';
@@ -237,6 +446,9 @@ export default {
             'getOfferAllChartListA',
             'getOfferAllChartListB',
             'getOfferAllButton'
+        ]),
+        ...mapState(useMobilStore, [
+            'getMobile'
         ])
     },
     components: {

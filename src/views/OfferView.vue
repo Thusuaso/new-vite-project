@@ -1,12 +1,25 @@
 <template>
     <div class="row m-auto mt-3">
-        <div class="col-3">
+        <div class="col">
             <div class="card" style="width: 100%;">
             <div class="card-body">
                 <p class="card-text">
                     <div class="row m-auto mt-3">
                         <div class="col">
-                            <button type="button" class="btn btn-success" @click="allOfferList">Hepsi</button>
+                            <div class="row m-auto">
+                                <div class="col">
+                                    <button type="button" class="btn btn-success mr-3" @click="newForm" style="margin-right:15px;">Yeni</button>
+                                </div>
+                                <div class="col">
+                                    <button type="button" class="btn btn-info ml-3" @click="allOffersList">Tüm Teklifler</button>
+
+                                </div>
+                                <div class="col">
+                                    <button type="button" class="btn btn-success" @click="allOfferList">Hepsi</button>
+
+
+                                </div>
+                            </div>
                             <offerRepresentativeList/>
                             <offerCustomerList/>
                             <offerCustomerCountList/>
@@ -16,29 +29,28 @@
             </div>
             </div>
         </div>
-        <div class="col-9">
+        <!-- <div class="col-9">
             <div class="card" style="width: 100%;">
             <div class="card-body">
                 <p class="card-text">
                     <div class="row m-auto mt-3">
                         <div class="col">
-                            <button type="button" class="btn btn-success mr-3" @click="newForm" style="margin-right:15px;">Yeni</button>
-                            <button type="button" class="btn btn-info ml-3" @click="allOffersList">Tüm Teklifler</button>
-                            <offerCalendarList/>
+                            
+                             <offerCalendarList/> 
                         </div>
                     </div>
                 </p>
             </div>
             </div>
-        </div>
+        </div> -->
     </div>
-    <Dialog v-model:visible="offer_all_list_visible" header="" modal>
+    <Dialog v-model:visible="offer_all_list_visible" header="" modal :style="{ width: '100vw' }">
         <offerAllList/>
     </Dialog>
-    <Dialog v-model:visible="offer_form_visible" header="" modal>
+    <Dialog v-model:visible="offer_form_visible" header="" modal :style="{ width: '100vw' }">
         <offerForm/>
     </Dialog>
-    <Dialog v-model:visible="offers_all_list_form" header="" modal>
+    <Dialog v-model:visible="offers_all_list_form" header="" modal :style="{ width: '100vw' }">
         <offersAllList/>
     </Dialog>
 </template>
@@ -53,7 +65,7 @@ import { socket } from '../services/customServices/realTimeService';
 import offerCustomerCountList from '../components/offer/offerCustomerCountList.vue';
 import offerCustomerList from '../components/offer/offerCustomerList.vue';
 import offerRepresentativeList from '../components/offer/offerRepresentativeList.vue';
-import offerCalendarList from '../components/offer/offerCalendarList.vue';
+// import offerCalendarList from '../components/offer/offerCalendarList.vue';
 import offerAllList from '../components/offer/offerAllList.vue';
 import offerForm from '../components/offer/offerForm.vue';
 import offersAllList from '../components/offer/offersAllList.vue';
@@ -67,7 +79,7 @@ export default {
         offerRepresentativeList,
         offerCustomerList,
         offerCustomerCountList,
-        offerCalendarList,
+        // offerCalendarList,
         offerAllList,
         offerForm,
         offersAllList

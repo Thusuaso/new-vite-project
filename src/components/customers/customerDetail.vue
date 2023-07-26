@@ -55,7 +55,7 @@
 
     </DataTable>
 
-    <Dialog v-model:visible="customer_detail_new_form" modal header="Yeni" style="min-width:80rem;">
+    <Dialog v-model:visible="customer_detail_new_form" modal header="Yeni" :style="{ 'width': '100vw' }">
         <customerDetailForm :customerName="customerName"/>
     </Dialog>
 </template>

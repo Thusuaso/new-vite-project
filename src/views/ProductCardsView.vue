@@ -120,7 +120,7 @@
             </template>
         </Column>
     </DataTable>
-    <Dialog v-model:visible="new_card_form" header="Yeni Kart" modal>
+    <Dialog v-model:visible="new_card_form" header="Yeni Kart" modal :style="{ 'width': '100vw' }">
         <newForm :selectedCard="selectedCard"/>
     </Dialog>
 </template>

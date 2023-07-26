@@ -1,224 +1,448 @@
 <template>
-    <div class="row">
-        <div class="col-4">
-            <div class="input-group mb-3" >
-                <span class="input-group-text" id="basic-addon1">T.Tür</span>
-                <Dropdown v-model="selectedDelivery" filter  :options="getProductDeliveryList" optionLabel="teslimTurAdi"  class="w-full md:w-14rem form-control" @change="changeDelivery($event)"/>
-            </div>
-            <div class="input-group mb-3" >
-                    <span class="input-group-text" id="basic-addon1">Ö.Tür</span>
-                    <Dropdown v-model="selectedPayment" filter  :options="getProductPaymentList" optionLabel="odemeTurAdi"  class="w-full md:w-14rem form-control" @change="changePayment($event)"/>
-            </div>
-
-            <Calendar class="w-100 mb-3" v-model="v_date"  showIcon inputId="birth_date" @date-select="selectedVDate($event)" dateFormat="dd/mm/yy"/>
-
-
-
-            <div class="input-group mb-3" >
-                <span class="input-group-text" id="basic-addon1">Ülke</span>
-                <Dropdown v-model="selectedCountry" filter  :options="getCountryList" optionLabel="ulkeAdi"  class="w-full md:w-14rem form-control" @change="changeCountry($event)"/>
-            </div>
-            <div class="input-group mb-3">
-                <span class="input-group-text" id="basic-addon1">Ö.Açıklama</span>
-                <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.odemeAciklama">
-            </div>
-            <div class="input-group mb-3">
-                <span class="input-group-text" id="basic-addon1">Liman</span>
-                <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.liman">
-            </div>
-            <div class="input-group mb-3">
-                <span class="input-group-text" id="basic-addon1">K.Ayrıntı</span>
-                <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.konteynerAyrinti">
-            </div>
-            <div class="input-group mb-3">
-                    <span class="input-group-text" id="basic-addon1">E.Gideri</span>
-                    <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.evrakGideri" @input="changeCost">
-            </div>
-            <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon1">Komisyon</span>
-                        <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.komisyon" @input="changeCost">
+    <div v-if="!getMobile">
+            <div class="row">
+            <div class="col-4">
+                <div class="input-group mb-3" >
+                    <span class="input-group-text" id="basic-addon1">T.Tür</span>
+                    <Dropdown v-model="selectedDelivery" filter  :options="getProductDeliveryList" optionLabel="teslimTurAdi"  class="w-full md:w-14rem form-control" @change="changeDelivery($event)"/>
                 </div>
-            <div class="input-group mb-3">
-                    <span class="input-group-text" id="basic-addon1">İade</span>
-                    <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.iade">
-            </div>
-            <div class="input-group mb-3" >
-                <span class="input-group-text" id="basic-addon1">Fatura</span>
-                <Dropdown v-model="selectedInvoice" filter  :options="getInvoiceList" optionLabel="faturaKesimTurAdi"  class="w-full md:w-14rem form-control" @change="changeInvoice($event)"/>
-            </div>
+                <div class="input-group mb-3" >
+                        <span class="input-group-text" id="basic-addon1">Ö.Tür</span>
+                        <Dropdown v-model="selectedPayment" filter  :options="getProductPaymentList" optionLabel="odemeTurAdi"  class="w-full md:w-14rem form-control" @change="changePayment($event)"/>
+                </div>
+
+                <Calendar class="w-100 mb-3" v-model="v_date"  showIcon inputId="birth_date" @date-select="selectedVDate($event)" dateFormat="dd/mm/yy"/>
+
+
+
+                <div class="input-group mb-3" >
+                    <span class="input-group-text" id="basic-addon1">Ülke</span>
+                    <Dropdown v-model="selectedCountry" filter  :options="getCountryList" optionLabel="ulkeAdi"  class="w-full md:w-14rem form-control" @change="changeCountry($event)"/>
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1">Ö.Açıklama</span>
+                    <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.odemeAciklama">
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1">Liman</span>
+                    <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.liman">
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1">K.Ayrıntı</span>
+                    <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.konteynerAyrinti">
+                </div>
+                <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">E.Gideri</span>
+                        <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.evrakGideri" @input="changeCost">
+                </div>
+                <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1">Komisyon</span>
+                            <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.komisyon" @input="changeCost">
+                    </div>
+                <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">İade</span>
+                        <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.iade">
+                </div>
+                <div class="input-group mb-3" >
+                    <span class="input-group-text" id="basic-addon1">Fatura</span>
+                    <Dropdown v-model="selectedInvoice" filter  :options="getInvoiceList" optionLabel="faturaKesimTurAdi"  class="w-full md:w-14rem form-control" @change="changeInvoice($event)"/>
+                </div>
             
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" v-model="getProductionsDetailModel.siparis.depo">
-                <label class="form-check-label" for="flexCheckDefault">
-                    Atlanta SM
-                </label>
-            </div>
-            <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault2" v-model="getProductionsDetailModel.siparis.maya" @input="saveButtonControl">
-                    <label class="form-check-label" for="flexCheckDefault2">
-                        Maya Odeme
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" v-model="getProductionsDetailModel.siparis.depo">
+                    <label class="form-check-label" for="flexCheckDefault">
+                        Atlanta SM
                     </label>
                 </div>
-
-
-
-        </div>
-        <div class="col-8">
-            <div class="form-floating">
-                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" style="height:150px;padding-top:35px;" v-model="getProductionsDetailModel.siparis.uretimAciklama" @input="saveButtonControl"></textarea>
-                <label for="floatingTextarea">Üretim Açıklama</label>
-            </div>
-            <br/>
-            <div class="form-floating">
-                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" style="height:150px;padding-top:35px;" v-model="getProductionsDetailModel.siparis.sevkiyatAciklama" @input="saveButtonControl"></textarea>
-                <label for="floatingTextarea">Sevkiyat Açıklama</label>
-            </div>
-            <br/>
-
-            <div class="form-floating">
-                <textarea   textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" style="height:150px;padding-top:35px;" v-model="getProductionsDetailModel.siparis.finansAciklama" @input="saveButtonControl"></textarea>
-                <label for="floatingTextarea">Finans Açıklama</label>
-            </div>
-            <br/>
-            <FileUpload mode="basic" accept=".pdf" :maxFileSize="1000000" @select="onProformaUpload($event)" :auto="true" chooseLabel="Proforma"/>
-
-
-        </div>
-    </div>
-    <br/>
-    <div class="row">
-        <div class="col">
-            <div class="input-group mb-3">
-      <span class="input-group-text" id="basic-addon1">N. Satış</span>
-      <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.navlunSatis" @input="changeCost">
-    </div>
-        </div>
-        <div class="col">
-            <div class="input-group mb-3">
-      <span class="input-group-text" id="basic-addon1">N. Firma</span>
-      <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.navlunFirma" @input="store.products_save_button_status_load_act(false)">
-    </div>
-        </div>
-        <div class="col">
-            <div class="input-group mb-3">
-      <span class="input-group-text" id="basic-addon1">N. Alış</span>
-      <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.navlunAlis" @input="changeCost">
-    </div>
-        </div>
-        <div class="col">
-            <div class="input-group mb-3">
-                <span class="input-group-text" id="basic-addon1">N. Alış Not</span>
-                <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.navlunMekmarNot" @input="store.products_save_button_status_load_act(false)">
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col">
-            <div class="input-group mb-3">
-                <span class="input-group-text" id="basic-addon1">D1 Satış</span>
-                <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.detayTutar_1" @input="changeCost">
-            </div>
-        </div>
-        <div class="col">
-            <div class="input-group mb-3">
-                    <span class="input-group-text" id="basic-addon1">Açıklama</span>
-                    <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.detayAciklama_1" @input="store.products_save_button_status_load_act(false)">
-                </div>
-        </div>
-        <div class="col">
-            <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon1">D1 Alış</span>
-                        <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.detayAlis_1" @input="changeCost">
+                <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault2" v-model="getProductionsDetailModel.siparis.maya" @input="saveButtonControl">
+                        <label class="form-check-label" for="flexCheckDefault2">
+                            Maya Odeme
+                        </label>
                     </div>
+
+
+
+            </div>
+            <div class="col-8">
+                <div class="form-floating">
+                    <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" style="height:150px;padding-top:35px;" v-model="getProductionsDetailModel.siparis.uretimAciklama" @input="saveButtonControl"></textarea>
+                    <label for="floatingTextarea">Üretim Açıklama</label>
+                </div>
+                <br/>
+                <div class="form-floating">
+                    <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" style="height:150px;padding-top:35px;" v-model="getProductionsDetailModel.siparis.sevkiyatAciklama" @input="saveButtonControl"></textarea>
+                    <label for="floatingTextarea">Sevkiyat Açıklama</label>
+                </div>
+                <br/>
+
+                <div class="form-floating">
+                    <textarea   textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" style="height:150px;padding-top:35px;" v-model="getProductionsDetailModel.siparis.finansAciklama" @input="saveButtonControl"></textarea>
+                    <label for="floatingTextarea">Finans Açıklama</label>
+                </div>
+                <br/>
+                <FileUpload mode="basic" accept=".pdf" :maxFileSize="1000000" @select="onProformaUpload($event)" :auto="true" chooseLabel="Proforma"/>
+
+
+            </div>
         </div>
-        <div class="col">
-            <div class="input-group mb-3">
-                            <span class="input-group-text" id="basic-addon1">Açıklama</span>
-                            <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.detayMekmarNot_1" @input="store.products_save_button_status_load_act(false)">
-                        </div>
-        </div>
-    </div>
-    <div class="row">
+        <br/>
+        <div class="row">
             <div class="col">
                 <div class="input-group mb-3">
-                    <span class="input-group-text" id="basic-addon1">D2 Satış</span>
-                    <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.detayTutar_2" @input="changeCost">
+          <span class="input-group-text" id="basic-addon1">N. Satış</span>
+          <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.navlunSatis" @input="changeCost">
+        </div>
+            </div>
+            <div class="col">
+                <div class="input-group mb-3">
+          <span class="input-group-text" id="basic-addon1">N. Firma</span>
+          <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.navlunFirma" @input="store.products_save_button_status_load_act(false)">
+        </div>
+            </div>
+            <div class="col">
+                <div class="input-group mb-3">
+          <span class="input-group-text" id="basic-addon1">N. Alış</span>
+          <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.navlunAlis" @input="changeCost">
+        </div>
+            </div>
+            <div class="col">
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1">N. Alış Not</span>
+                    <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.navlunMekmarNot" @input="store.products_save_button_status_load_act(false)">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1">D1 Satış</span>
+                    <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.detayTutar_1" @input="changeCost">
                 </div>
             </div>
             <div class="col">
                 <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">Açıklama</span>
-                        <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.detayAciklama_2" @input="store.products_save_button_status_load_act(false)">
+                        <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.detayAciklama_1" @input="store.products_save_button_status_load_act(false)">
                     </div>
             </div>
             <div class="col">
                 <div class="input-group mb-3">
-                            <span class="input-group-text" id="basic-addon1">D2 Alış</span>
-                            <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.detayAlis_2" @input="changeCost">
+                            <span class="input-group-text" id="basic-addon1">D1 Alış</span>
+                            <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.detayAlis_1" @input="changeCost">
                         </div>
             </div>
             <div class="col">
                 <div class="input-group mb-3">
                                 <span class="input-group-text" id="basic-addon1">Açıklama</span>
-                                <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.detayMekmarNot_2" @input="store.products_save_button_status_load_act(false)">
+                                <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.detayMekmarNot_1" @input="store.products_save_button_status_load_act(false)">
                             </div>
             </div>
-    </div>
-    <div class="row">
-            <div class="col">
-                <div class="input-group mb-3">
-                    <span class="input-group-text" id="basic-addon1">D3 Satış</span>
-                    <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.detayTutar_3" @input="changeCost">
-                </div>
-            </div>
-            <div class="col">
-                <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon1">Açıklama</span>
-                        <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.detayAciklama_3" @input="store.products_save_button_status_load_act(false)">
-                    </div>
-            </div>
-            <div class="col">
-                <div class="input-group mb-3">
-                            <span class="input-group-text" id="basic-addon1">D3 Alış</span>
-                            <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.detayAlis_3" @input="changeCost">
-                        </div>
-            </div>
-            <div class="col">
-                <div class="input-group mb-3">
-                                <span class="input-group-text" id="basic-addon1">Açıklama</span>
-                                <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.detayMekmarNot_3" @input="store.products_save_button_status_load_act(false)">
-                            </div>
-            </div>
-    </div>
-    <div class="row">
+        </div>
+        <div class="row">
                 <div class="col">
                     <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon1">Mekus</span>
-                        <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.detayTutar_4" @input="changeCost">
+                        <span class="input-group-text" id="basic-addon1">D2 Satış</span>
+                        <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.detayTutar_2" @input="changeCost">
                     </div>
                 </div>
                 <div class="col">
+                    <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1">Açıklama</span>
+                            <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.detayAciklama_2" @input="store.products_save_button_status_load_act(false)">
+                        </div>
+                </div>
+                <div class="col">
+                    <div class="input-group mb-3">
+                                <span class="input-group-text" id="basic-addon1">D2 Alış</span>
+                                <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.detayAlis_2" @input="changeCost">
+                            </div>
+                </div>
+                <div class="col">
+                    <div class="input-group mb-3">
+                                    <span class="input-group-text" id="basic-addon1">Açıklama</span>
+                                    <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.detayMekmarNot_2" @input="store.products_save_button_status_load_act(false)">
+                                </div>
+                </div>
+        </div>
+        <div class="row">
+                <div class="col">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">D3 Satış</span>
+                        <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.detayTutar_3" @input="changeCost">
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1">Açıklama</span>
+                            <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.detayAciklama_3" @input="store.products_save_button_status_load_act(false)">
+                        </div>
+                </div>
+                <div class="col">
+                    <div class="input-group mb-3">
+                                <span class="input-group-text" id="basic-addon1">D3 Alış</span>
+                                <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.detayAlis_3" @input="changeCost">
+                            </div>
+                </div>
+                <div class="col">
+                    <div class="input-group mb-3">
+                                    <span class="input-group-text" id="basic-addon1">Açıklama</span>
+                                    <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.detayMekmarNot_3" @input="store.products_save_button_status_load_act(false)">
+                                </div>
+                </div>
+        </div>
+        <div class="row">
+                    <div class="col">
                         <div class="input-group mb-3">
-                            <span class="input-group-text" id="basic-addon1">Açıklama</span>
-                            <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.detayAciklama_4" @input="store.products_save_button_status_load_act(false)">
+                            <span class="input-group-text" id="basic-addon1">Mekus</span>
+                            <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.detayTutar_4" @input="changeCost">
                         </div>
                     </div>
-                <div class="col">
-                    <div class="input-group mb-3">
-                            <span class="input-group-text" id="basic-addon1">S. Satış</span>
-                            <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.sigorta_tutar_satis" @input="changeCost">
+                    <div class="col">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="basic-addon1">Açıklama</span>
+                                <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.detayAciklama_4" @input="store.products_save_button_status_load_act(false)">
+                            </div>
                         </div>
-                </div>
-                <div class="col">
-                    <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon1">S. Alış</span>
-                        <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.sigorta_tutar" @input="changeCost">
+                    <div class="col">
+                        <div class="input-group mb-3">
+                                <span class="input-group-text" id="basic-addon1">S. Satış</span>
+                                <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.sigorta_tutar_satis" @input="changeCost">
+                            </div>
                     </div>
-                </div>
+                    <div class="col">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1">S. Alış</span>
+                            <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.sigorta_tutar" @input="changeCost">
+                        </div>
+                    </div>
+        </div>
     </div>
+
+    <div v-if="getMobile">
+            <div class="">
+                <div class="">
+                    <div class="input-group mb-3 w-100" >
+                        <span class="input-group-text" id="basic-addon1">T.Tür</span>
+                        <Dropdown v-model="selectedDelivery" filter  :options="getProductDeliveryList" optionLabel="teslimTurAdi"  class="w-full md:w-14rem form-control" @change="changeDelivery($event)"/>
+                    </div>
+                    <div class="input-group mb-3 " >
+                            <span class="input-group-text" id="basic-addon1">Ö.Tür</span>
+                            <Dropdown v-model="selectedPayment" filter  :options="getProductPaymentList" optionLabel="odemeTurAdi"  class="w-full md:w-14rem form-control" @change="changePayment($event)"/>
+                    </div>
+
+                    <Calendar class="w-100 mb-3" v-model="v_date"  showIcon inputId="birth_date" @date-select="selectedVDate($event)" dateFormat="dd/mm/yy"/>
+
+
+
+                    <div class="input-group mb-3" >
+                        <span class="input-group-text" id="basic-addon1">Ülke</span>
+                        <Dropdown v-model="selectedCountry" filter  :options="getCountryList" optionLabel="ulkeAdi"  class="w-full md:w-14rem form-control" @change="changeCountry($event)"/>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">Ö.Açıklama</span>
+                        <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.odemeAciklama">
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">Liman</span>
+                        <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.liman">
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">K.Ayrıntı</span>
+                        <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.konteynerAyrinti">
+                    </div>
+                    <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1">E.Gideri</span>
+                            <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.evrakGideri" @input="changeCost">
+                    </div>
+                    <div class="input-group mb-3">
+                                <span class="input-group-text" id="basic-addon1">Komisyon</span>
+                                <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.komisyon" @input="changeCost">
+                        </div>
+                    <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1">İade</span>
+                            <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.iade">
+                    </div>
+                    <div class="input-group mb-3" >
+                        <span class="input-group-text" id="basic-addon1">Fatura</span>
+                        <Dropdown v-model="selectedInvoice" filter  :options="getInvoiceList" optionLabel="faturaKesimTurAdi"  class="w-full md:w-14rem form-control" @change="changeInvoice($event)"/>
+                    </div>
+            
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" v-model="getProductionsDetailModel.siparis.depo">
+                        <label class="form-check-label" for="flexCheckDefault">
+                            Atlanta SM
+                        </label>
+                    </div>
+                    <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault2" v-model="getProductionsDetailModel.siparis.maya" @input="saveButtonControl">
+                            <label class="form-check-label" for="flexCheckDefault2">
+                                Maya Odeme
+                            </label>
+                        </div>
+
+
+
+                </div>
+                <div class="">
+                    <div class="form-floating">
+                        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" style="height:150px;padding-top:35px;" v-model="getProductionsDetailModel.siparis.uretimAciklama" @input="saveButtonControl"></textarea>
+                        <label for="floatingTextarea">Üretim Açıklama</label>
+                    </div>
+                    <br/>
+                    <div class="form-floating">
+                        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" style="height:150px;padding-top:35px;" v-model="getProductionsDetailModel.siparis.sevkiyatAciklama" @input="saveButtonControl"></textarea>
+                        <label for="floatingTextarea">Sevkiyat Açıklama</label>
+                    </div>
+                    <br/>
+
+                    <div class="form-floating">
+                        <textarea   textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" style="height:150px;padding-top:35px;" v-model="getProductionsDetailModel.siparis.finansAciklama" @input="saveButtonControl"></textarea>
+                        <label for="floatingTextarea">Finans Açıklama</label>
+                    </div>
+                    <br/>
+                    <FileUpload class="w-100" mode="basic" accept=".pdf" :maxFileSize="1000000" @select="onProformaUpload($event)" :auto="true" chooseLabel="Proforma"/>
+
+
+                </div>
+            </div>
+            <br/>
+            <div class="">
+                <div class="">
+                    <div class="input-group mb-3">
+              <span class="input-group-text" id="basic-addon1">N. Satış</span>
+              <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.navlunSatis" @input="changeCost">
+            </div>
+                </div>
+                <div class="">
+                    <div class="input-group mb-3">
+              <span class="input-group-text" id="basic-addon1">N. Firma</span>
+              <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.navlunFirma" @input="store.products_save_button_status_load_act(false)">
+            </div>
+                </div>
+                <div class="">
+                    <div class="input-group mb-3">
+              <span class="input-group-text" id="basic-addon1">N. Alış</span>
+              <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.navlunAlis" @input="changeCost">
+            </div>
+                </div>
+                <div class="">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">N. Alış Not</span>
+                        <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.navlunMekmarNot" @input="store.products_save_button_status_load_act(false)">
+                    </div>
+                </div>
+            </div>
+            <div class="">
+                <div class="">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">D1 Satış</span>
+                        <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.detayTutar_1" @input="changeCost">
+                    </div>
+                </div>
+                <div class="">
+                    <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1">Açıklama</span>
+                            <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.detayAciklama_1" @input="store.products_save_button_status_load_act(false)">
+                        </div>
+                </div>
+                <div class="">
+                    <div class="input-group mb-3">
+                                <span class="input-group-text" id="basic-addon1">D1 Alış</span>
+                                <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.detayAlis_1" @input="changeCost">
+                            </div>
+                </div>
+                <div class="">
+                    <div class="input-group mb-3">
+                                    <span class="input-group-text" id="basic-addon1">Açıklama</span>
+                                    <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.detayMekmarNot_1" @input="store.products_save_button_status_load_act(false)">
+                                </div>
+                </div>
+            </div>
+            <div class="">
+                    <div class="">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1">D2 Satış</span>
+                            <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.detayTutar_2" @input="changeCost">
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="input-group mb-3">
+                                <span class="input-group-text" id="basic-addon1">Açıklama</span>
+                                <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.detayAciklama_2" @input="store.products_save_button_status_load_act(false)">
+                            </div>
+                    </div>
+                    <div class="">
+                        <div class="input-group mb-3">
+                                    <span class="input-group-text" id="basic-addon1">D2 Alış</span>
+                                    <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.detayAlis_2" @input="changeCost">
+                                </div>
+                    </div>
+                    <div class="">
+                        <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1">Açıklama</span>
+                                        <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.detayMekmarNot_2" @input="store.products_save_button_status_load_act(false)">
+                                    </div>
+                    </div>
+            </div>
+            <div class="">
+                    <div class="">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1">D3 Satış</span>
+                            <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.detayTutar_3" @input="changeCost">
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="input-group mb-3">
+                                <span class="input-group-text" id="basic-addon1">Açıklama</span>
+                                <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.detayAciklama_3" @input="store.products_save_button_status_load_act(false)">
+                            </div>
+                    </div>
+                    <div class="">
+                        <div class="input-group mb-3">
+                                    <span class="input-group-text" id="basic-addon1">D3 Alış</span>
+                                    <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.detayAlis_3" @input="changeCost">
+                                </div>
+                    </div>
+                    <div class="">
+                        <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1">Açıklama</span>
+                                        <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.detayMekmarNot_3" @input="store.products_save_button_status_load_act(false)">
+                                    </div>
+                    </div>
+            </div>
+            <div class="">
+                        <div class="">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="basic-addon1">Mekus</span>
+                                <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.detayTutar_4" @input="changeCost">
+                            </div>
+                        </div>
+                        <div class="">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="basic-addon1">Açıklama</span>
+                                    <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.detayAciklama_4" @input="store.products_save_button_status_load_act(false)">
+                                </div>
+                            </div>
+                        <div class="">
+                            <div class="input-group mb-3">
+                                    <span class="input-group-text" id="basic-addon1">S. Satış</span>
+                                    <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.sigorta_tutar_satis" @input="changeCost">
+                                </div>
+                        </div>
+                        <div class="">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="basic-addon1">S. Alış</span>
+                                <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.sigorta_tutar" @input="changeCost">
+                            </div>
+                        </div>
+            </div>
+        </div>
+
 </template>
 <script>
 import { useProductionsStore } from "../../stores/productions";
+import { useMobilStore } from '../../stores/mobil';
 import { mapState } from 'pinia';
 import { localDateService } from '../../services/localDateService';
 import { fileService } from '../../services/fileService';
@@ -233,6 +457,9 @@ export default {
             'getInvoiceList',
             'getProductionsDetailModel',
             'productionNewButton',
+        ]),
+        ...mapState(useMobilStore, [
+            'getMobile'
         ])
     },
     data() {

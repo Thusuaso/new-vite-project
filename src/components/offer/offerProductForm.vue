@@ -1,173 +1,344 @@
 <template>
-    <div class="row m-auto mt-3">
-        <div class="col">
-            <span class="p-float-label">
-                <Calendar id="p_date" v-model="p_date" showIcon @date-select="productDateSelected($event)" dateFormat="dd/mm/yy"/>
-                <label for="p_date">Tarih</label>
-            </span>
-        </div>
-        <div class="col">
-            <span class="p-float-label">
-                <AutoComplete id="category" v-model="selectedCategory" :suggestions="filteredOfferCategoryList" optionLabel="name" @complete="offerCategorySearch($event)" @item-select="offerCategorySelected($event)" />
-                <label for="category">Kategori</label>
-            </span>
-        </div>
-        <div class="col">
-            <span class="p-float-label">
-                <AutoComplete id="category" v-model="selectedProduct" :suggestions="filteredOfferProductList" optionLabel="name" @complete="offerProductSearch($event)" @item-select="offerProductSelected($event)" />
-                <label for="category">Ürün</label>
-            </span>
-        </div>
-        <div class="col">
-            <span class="p-float-label">
-                <AutoComplete id="category" v-model="selectedSize" :suggestions="filteredOfferSizeList" optionLabel="name" @complete="offerSizeSearch($event)" @item-select="offerSizeSelected($event)" />
-                <label for="category">EnxBoy</label>
-            </span>
-        </div>
-        <div class="col">
-            <span class="p-float-label">
-                <AutoComplete id="category" v-model="selectedEdge" :suggestions="filteredOfferEdgeList" optionLabel="name" @complete="offerEdgeSearch($event)" @item-select="offerEdgeSelected($event)" />
-                <label for="category">Kalınlık</label>
-            </span>
-        </div>
-        <div class="col">
-            <span class="p-float-label">
-                <AutoComplete id="category" v-model="selectedSurface" :suggestions="filteredOfferSurfaceList" optionLabel="name" @complete="offerSurfaceSearch($event)" @item-select="offerSurfaceSelected($event)" />
-                <label for="category">Yüzey</label>
-            </span>
-        </div>
-        <div class="col">
-            <span class="p-float-label">
-                <Dropdown id="unit" v-model="selectedUnit" :options="units" optionLabel="name" class="w-full md:w-14rem" @change="unitSelected($event)"/>
-                <label for="unit">Birim</label>
-            </span>
-        </div>
-    </div>
-    <div class="row m-auto mt-3">
-        <div class="col">
-            <div class="input-group mb-3">
-                <span class="input-group-text" id="basic-addon1">Fob</span>
-                <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="product.fobFiyat" @input="product.fobFiyat = $filters.formatPoint($event.target.value)">
+    <div v-if="!getMobile">
+            <div class="row m-auto mt-3">
+            <div class="col">
+                <span class="p-float-label">
+                    <Calendar id="p_date" v-model="p_date" showIcon @date-select="productDateSelected($event)" dateFormat="dd/mm/yy"/>
+                    <label for="p_date">Tarih</label>
+                </span>
+            </div>
+            <div class="col">
+                <span class="p-float-label">
+                    <AutoComplete id="category" v-model="selectedCategory" :suggestions="filteredOfferCategoryList" optionLabel="name" @complete="offerCategorySearch($event)" @item-select="offerCategorySelected($event)" />
+                    <label for="category">Kategori</label>
+                </span>
+            </div>
+            <div class="col">
+                <span class="p-float-label">
+                    <AutoComplete id="category" v-model="selectedProduct" :suggestions="filteredOfferProductList" optionLabel="name" @complete="offerProductSearch($event)" @item-select="offerProductSelected($event)" />
+                    <label for="category">Ürün</label>
+                </span>
+            </div>
+            <div class="col">
+                <span class="p-float-label">
+                    <AutoComplete id="category" v-model="selectedSize" :suggestions="filteredOfferSizeList" optionLabel="name" @complete="offerSizeSearch($event)" @item-select="offerSizeSelected($event)" />
+                    <label for="category">EnxBoy</label>
+                </span>
+            </div>
+            <div class="col">
+                <span class="p-float-label">
+                    <AutoComplete id="category" v-model="selectedEdge" :suggestions="filteredOfferEdgeList" optionLabel="name" @complete="offerEdgeSearch($event)" @item-select="offerEdgeSelected($event)" />
+                    <label for="category">Kalınlık</label>
+                </span>
+            </div>
+            <div class="col">
+                <span class="p-float-label">
+                    <AutoComplete id="category" v-model="selectedSurface" :suggestions="filteredOfferSurfaceList" optionLabel="name" @complete="offerSurfaceSearch($event)" @item-select="offerSurfaceSelected($event)" />
+                    <label for="category">Yüzey</label>
+                </span>
+            </div>
+            <div class="col">
+                <span class="p-float-label">
+                    <Dropdown id="unit" v-model="selectedUnit" :options="units" optionLabel="name" class="w-full md:w-14rem" @change="unitSelected($event)"/>
+                    <label for="unit">Birim</label>
+                </span>
             </div>
         </div>
-        <div class="col">
-            <div class="input-group mb-3">
-                <span class="input-group-text" id="basic-addon1">Fca</span>
-                <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="product.fcaFiyat" @input="product.fcaFiyat = $filters.formatPoint($event.target.value)">
-            </div>
-        </div>
-        <div class="col">
-            <div class="input-group mb-3">
-                <span class="input-group-text" id="basic-addon1">C</span>
-                <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="product.cFiyat" @input="product.cFiyat = $filters.formatPoint($event.target.value)">
-            </div>
-        </div>
-        <div class="col">
-            <div class="input-group mb-3">
-                <span class="input-group-text" id="basic-addon1">D</span>
-                <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="product.dFiyat" @input="product.dFiyat = $filters.formatPoint($event.target.value)">
-            </div>
-        </div>
-    </div>
-    <div class="row m-auto mt-3">
-        <div class="col">
-            <button type="button" class="btn btn-success" @click="add">Ekle</button>
-        </div>
-        <div class="col">
-            <button type="button" class="btn btn-warning" @click="update">Güncelle</button>
-        </div>
-        <div class="col">
-            <button type="button" class="btn btn-danger" @click="deleteForm">Sil</button>
-        </div>
-        <div class="col">
-            <button type="button" class="btn btn-secondary" @click="cancel">Vazgeç</button>
-        </div>
-        <div class="col">
-          <button type="button" @click="addEnBoy" class="btn btn-primary">EnxBoy Ekle</button>
-          <OverlayPanel ref="op" appendTo="body" :showCloseIcon="true" :dismissable="true" style="width: 500px">
-            <div class="grid" style="text-align:center;">
-              <div class="col">
-              <InputText v-model="en" placeholder="En" @input="isEn"></InputText>
-
-              </div>
-              <div class="col"> 
-              <InputText v-model="boy" placeholder="Boy" @input="isBoy"></InputText>
-
-              </div>
-              <div class="col">
-              <button type="button" class="btn btn-success" @click="addEbat" :disabled="isEnBoyButton">Kaydet</button>
-
-              </div>
-            </div>
-          </OverlayPanel>
-        </div>
-    </div>
-    <div class="row m-auto mt-3">
-        <div class="col-9">
-            <DataTable 
-                    :value="getOfferProductsList" 
-                    style="font-size:85%;"
-                    v-model:selection="selectedProductList"
-                    selectionMode="single"
-                    @row-click="productListSelected($event)"
-                >
-                <Column field="tarih" header="Tarih"></Column>
-                <Column field="kategoriAdi" header="Kategori"></Column>
-                <Column field="urunAdi" header="Ürün"></Column>
-                <Column field="yuzeyIslem" header="Yüzey"></Column>
-                <Column field="enBoy" header="EnxBoy"></Column>
-                <Column field="kalinlik" header="Kalınlık"></Column>
-                <Column field="fobFiyat" header="Fob">
-                    <template #body="slotProps">
-                        {{ $filters.formatPrice(slotProps.data.fobFiyat) }}
-                    </template>
-                </Column>
-                <Column field="fcaFiyat" header="Fca">
-                    <template #body="slotProps">
-                        {{ $filters.formatPrice(slotProps.data.fcaFiyat) }}
-                    </template>
-                </Column>
-                <Column field="cFiyat" header="C">
-                    <template #body="slotProps">
-                        {{ $filters.formatPrice(slotProps.data.cFiyat) }}
-                    </template>
-                </Column>
-                <Column field="dFiyat" header="D">
-                    <template #body="slotProps">
-                        {{ $filters.formatPrice(slotProps.data.dFiyat) }}
-                    </template>
-                </Column>
-                <Column field="birim" header="Birim"></Column>
-            </DataTable>
-        </div>
-        <div class="col-3">
-                <div class="row m-auto mt-3">
-                    <div class="col">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" v-model="getOfferModelList.goruldu">
-                            <label class="form-check-label" for="flexCheckDefault">
-                                Görüldü
-                            </label>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" v-model="getOfferModelList.blist">
-                            <label class="form-check-label" for="flexCheckDefault">
-                                B Liste
-                            </label>
-                        </div>
-                    </div>
-
+        <div class="row m-auto mt-3">
+            <div class="col">
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1">Fob</span>
+                    <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="product.fobFiyat" @input="product.fobFiyat = $filters.formatPoint($event.target.value)">
                 </div>
+            </div>
+            <div class="col">
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1">Fca</span>
+                    <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="product.fcaFiyat" @input="product.fcaFiyat = $filters.formatPoint($event.target.value)">
+                </div>
+            </div>
+            <div class="col">
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1">C</span>
+                    <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="product.cFiyat" @input="product.cFiyat = $filters.formatPoint($event.target.value)">
+                </div>
+            </div>
+            <div class="col">
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1">D</span>
+                    <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="product.dFiyat" @input="product.dFiyat = $filters.formatPoint($event.target.value)">
+                </div>
+            </div>
+        </div>
+        <div class="row m-auto mt-3">
+            <div class="col">
+                <button type="button" class="btn btn-success" @click="add">Ekle</button>
+            </div>
+            <div class="col">
+                <button type="button" class="btn btn-warning" @click="update">Güncelle</button>
+            </div>
+            <div class="col">
+                <button type="button" class="btn btn-danger" @click="deleteForm">Sil</button>
+            </div>
+            <div class="col">
+                <button type="button" class="btn btn-secondary" @click="cancel">Vazgeç</button>
+            </div>
+            <div class="col">
+              <button type="button" @click="addEnBoy" class="btn btn-primary">EnxBoy Ekle</button>
+              <OverlayPanel ref="op" appendTo="body" :showCloseIcon="true" :dismissable="true" style="width: 500px">
+                <div class="grid" style="text-align:center;">
+                  <div class="col">
+                  <InputText v-model="en" placeholder="En" @input="isEn"></InputText>
+
+                  </div>
+                  <div class="col"> 
+                  <InputText v-model="boy" placeholder="Boy" @input="isBoy"></InputText>
+
+                  </div>
+                  <div class="col">
+                  <button type="button" class="btn btn-success" @click="addEbat" :disabled="isEnBoyButton">Kaydet</button>
+
+                  </div>
+                </div>
+              </OverlayPanel>
+            </div>
+        </div>
+        <div class="row m-auto mt-3">
+            <div class="col-9">
+                <DataTable 
+                        :value="getOfferProductsList" 
+                        style="font-size:85%;"
+                        v-model:selection="selectedProductList"
+                        selectionMode="single"
+                        @row-click="productListSelected($event)"
+                    >
+                    <Column field="tarih" header="Tarih"></Column>
+                    <Column field="kategoriAdi" header="Kategori"></Column>
+                    <Column field="urunAdi" header="Ürün"></Column>
+                    <Column field="yuzeyIslem" header="Yüzey"></Column>
+                    <Column field="enBoy" header="EnxBoy"></Column>
+                    <Column field="kalinlik" header="Kalınlık"></Column>
+                    <Column field="fobFiyat" header="Fob">
+                        <template #body="slotProps">
+                            {{ $filters.formatPrice(slotProps.data.fobFiyat) }}
+                        </template>
+                    </Column>
+                    <Column field="fcaFiyat" header="Fca">
+                        <template #body="slotProps">
+                            {{ $filters.formatPrice(slotProps.data.fcaFiyat) }}
+                        </template>
+                    </Column>
+                    <Column field="cFiyat" header="C">
+                        <template #body="slotProps">
+                            {{ $filters.formatPrice(slotProps.data.cFiyat) }}
+                        </template>
+                    </Column>
+                    <Column field="dFiyat" header="D">
+                        <template #body="slotProps">
+                            {{ $filters.formatPrice(slotProps.data.dFiyat) }}
+                        </template>
+                    </Column>
+                    <Column field="birim" header="Birim"></Column>
+                </DataTable>
+            </div>
+            <div class="col-3">
+                    <div class="row m-auto mt-3">
+                        <div class="col">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" v-model="getOfferModelList.goruldu">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    Görüldü
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" v-model="getOfferModelList.blist">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    B Liste
+                                </label>
+                            </div>
+                        </div>
+
+                    </div>
             
             
+            </div>
         </div>
     </div>
+    <div v-if="getMobile">
+            <div class=" m-auto mt-3">
+            <div class="">
+                <span class="p-float-label w-100">
+                    <Calendar class="w-100 mb-3"  id="p_date" v-model="p_date" showIcon @date-select="productDateSelected($event)" dateFormat="dd/mm/yy"/>
+                    <label for="p_date">Tarih</label>
+                </span>
+            </div>
+            <div class="w-100" style="width:100%;">
+                <span class="p-float-label w-100" style="width:100%;">
+                    <AutoComplete class="w-100 mb-3" id="category" style="width:100%;" v-model="selectedCategory" :suggestions="filteredOfferCategoryList" optionLabel="name" @complete="offerCategorySearch($event)" @item-select="offerCategorySelected($event)" />
+                    <label for="category">Kategori</label>
+                </span>
+            </div>
+            <div class="">
+                <span class="p-float-label">
+                    <AutoComplete class="w-100 mb-3" id="category" v-model="selectedProduct" :suggestions="filteredOfferProductList" optionLabel="name" @complete="offerProductSearch($event)" @item-select="offerProductSelected($event)" />
+                    <label for="category">Ürün</label>
+                </span>
+            </div>
+            <div class="">
+                <span class="p-float-label">
+                    <AutoComplete class="w-100 mb-3" id="category" v-model="selectedSize" :suggestions="filteredOfferSizeList" optionLabel="name" @complete="offerSizeSearch($event)" @item-select="offerSizeSelected($event)" />
+                    <label for="category">EnxBoy</label>
+                </span>
+            </div>
+            <div class="">
+                <span class="p-float-label">
+                    <AutoComplete class="w-100 mb-3" id="category" v-model="selectedEdge" :suggestions="filteredOfferEdgeList" optionLabel="name" @complete="offerEdgeSearch($event)" @item-select="offerEdgeSelected($event)" />
+                    <label for="category">Kalınlık</label>
+                </span>
+            </div>
+            <div class="">
+                <span class="p-float-label">
+                    <AutoComplete class="w-100 mb-3" id="category" v-model="selectedSurface" :suggestions="filteredOfferSurfaceList" optionLabel="name" @complete="offerSurfaceSearch($event)" @item-select="offerSurfaceSelected($event)" />
+                    <label for="category">Yüzey</label>
+                </span>
+            </div>
+            <div class="">
+                <span class="p-float-label">
+                    <Dropdown  id="unit" v-model="selectedUnit" :options="units" optionLabel="name" class="w-100 mb-3" @change="unitSelected($event)"/>
+                    <label for="unit">Birim</label>
+                </span>
+            </div>
+        </div>
+        <div class=" m-auto mt-3">
+            <div class="">
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1">Fob</span>
+                    <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="product.fobFiyat" @input="product.fobFiyat = $filters.formatPoint($event.target.value)">
+                </div>
+            </div>
+            <div class="">
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1">Fca</span>
+                    <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="product.fcaFiyat" @input="product.fcaFiyat = $filters.formatPoint($event.target.value)">
+                </div>
+            </div>
+            <div class="">
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1">C</span>
+                    <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="product.cFiyat" @input="product.cFiyat = $filters.formatPoint($event.target.value)">
+                </div>
+            </div>
+            <div class="">
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1">D</span>
+                    <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="product.dFiyat" @input="product.dFiyat = $filters.formatPoint($event.target.value)">
+                </div>
+            </div>
+        </div>
+        <div class=" m-auto mt-3">
+            <div class="mb-3">
+                <button type="button" class="btn btn-success w-100" @click="add">Ekle</button>
+            </div>
+            <div class="mb-3">
+                <button type="button" class="btn btn-warning w-100" @click="update">Güncelle</button>
+            </div>
+            <div class="mb-3">
+                <button type="button" class="btn btn-danger w-100" @click="deleteForm">Sil</button>
+            </div>
+            <div class="mb-3">
+                <button type="button" class="btn btn-secondary w-100" @click="cancel">Vazgeç</button>
+            </div>
+            <div class="">
+              <button type="button" @click="addEnBoy" class="btn btn-primary w-100">EnxBoy Ekle</button>
+              <OverlayPanel ref="op" appendTo="body" :showCloseIcon="true" :dismissable="true" style="width: 500px">
+                <div class="" style="text-align:center;">
+                  <div class="">
+                  <InputText v-model="en" placeholder="En" @input="isEn"></InputText>
+
+                  </div>
+                  <div class=""> 
+                  <InputText v-model="boy" placeholder="Boy" @input="isBoy"></InputText>
+
+                  </div>
+                  <div class="">
+                  <button type="button" class="btn btn-success" @click="addEbat" :disabled="isEnBoyButton">Kaydet</button>
+
+                  </div>
+                </div>
+              </OverlayPanel>
+            </div>
+        </div>
+        <div class=" m-auto mt-3">
+            <div class="">
+                <DataTable 
+                        :value="getOfferProductsList" 
+                        style="font-size:85%;"
+                        v-model:selection="selectedProductList"
+                        selectionMode="single"
+                        @row-click="productListSelected($event)"
+                    >
+                    <Column field="tarih" header="Tarih"></Column>
+                    <Column field="kategoriAdi" header="Kategori"></Column>
+                    <Column field="urunAdi" header="Ürün"></Column>
+                    <Column field="yuzeyIslem" header="Yüzey"></Column>
+                    <Column field="enBoy" header="EnxBoy"></Column>
+                    <Column field="kalinlik" header="Kalınlık"></Column>
+                    <Column field="fobFiyat" header="Fob">
+                        <template #body="slotProps">
+                            {{ $filters.formatPrice(slotProps.data.fobFiyat) }}
+                        </template>
+                    </Column>
+                    <Column field="fcaFiyat" header="Fca">
+                        <template #body="slotProps">
+                            {{ $filters.formatPrice(slotProps.data.fcaFiyat) }}
+                        </template>
+                    </Column>
+                    <Column field="cFiyat" header="C">
+                        <template #body="slotProps">
+                            {{ $filters.formatPrice(slotProps.data.cFiyat) }}
+                        </template>
+                    </Column>
+                    <Column field="dFiyat" header="D">
+                        <template #body="slotProps">
+                            {{ $filters.formatPrice(slotProps.data.dFiyat) }}
+                        </template>
+                    </Column>
+                    <Column field="birim" header="Birim"></Column>
+                </DataTable>
+            </div>
+            <div class="">
+                    <div class="row m-auto mt-3">
+                        <div class="col">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" v-model="getOfferModelList.goruldu">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    Görüldü
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" v-model="getOfferModelList.blist">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    B Liste
+                                </label>
+                            </div>
+                        </div>
+
+                    </div>
+            
+            
+            </div>
+        </div>
+    </div>
+
     
 </template>
 <script>
 import { useOfferStore } from '../../stores/offer';
+import { useMobilStore } from '../../stores/mobil';
 import { mapState } from 'pinia';
 
 import { localDateService } from '../../services/localDateService';
@@ -185,6 +356,9 @@ export default {
             'getOfferNewButton',
             'getOfferUpdatingProductsList'
 
+        ]),
+        ...mapState(useMobilStore, [
+            'getMobile'
         ])
     },
     data() {

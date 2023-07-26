@@ -1,5 +1,5 @@
 <template>
-    <div class="row m-auto mb-3"> 
+    <div class="row m-auto mb-3" v-if="!getMobile"> 
         <div class="col-1">
             <Dropdown v-model="selectedYear" :options="getMekmarLoadingYearList" optionLabel="yil" class="w-full md:w-14rem" @change="changeYear($event)"/>
         </div>
@@ -27,6 +27,43 @@
             <button type="button" class="btn btn-secondary" @click="excel_output_year">Excel Yıl</button>
         </div>
     </div>
+
+    <div class=" m-auto mb-3" v-if="getMobile"> 
+            <div class="">
+                <Dropdown v-model="selectedYear" :options="getMekmarLoadingYearList" optionLabel="yil" class="w-100 mb-3" @change="changeYear($event)"/>
+            </div>
+            <div class="">
+                <Dropdown v-model="selectedMonth" :options="getMekmarLoadingMonthList" optionLabel="ay_str" class="w-100 mb-3" @change="changeMonth($event)"/>
+            </div>
+            <div class="row mb-3">
+                <div class="col">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" value="musteri" id="flexRadioDefault1" v-model="selectedKind" @input="kindSelected($event)">
+                        <label class="form-check-label" for="flexRadioDefault1">
+                            Müşteri
+                        </label>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" value="po" id="flexRadioDefault2" checked v-model="selectedKind" @input="kindSelected($event)">
+                        <label class="form-check-label" for="flexRadioDefault2">
+                            Po
+                        </label>
+                    </div>
+                </div>
+                
+                
+            </div>
+            <div class="">
+                <button type="button" class="btn btn-secondary w-100 mb-3" @click="excel_output_month">Excel Ay</button>
+            </div>
+            <div class="">
+                <button type="button" class="btn btn-secondary w-100 mb-3" @click="excel_output_year">Excel Yıl</button>
+            </div>
+        </div>
+
+
     <div class="row m-auto mb-3">
         <div class="col">
             <DataTable 
@@ -162,6 +199,7 @@
 import { useReportsStore } from '../stores/reports';
 import { useLoadingStore } from '../stores/loading';
 import { useLocalStore } from '../stores/local';
+import { useMobilStore } from '../stores/mobil';
 import { mapState } from 'pinia';
 
 import { FilterMatchMode } from 'primevue/api';
@@ -182,6 +220,9 @@ export default {
         ]),
         ...mapState(useLocalStore, [
             'getLocalServiceUrl',
+        ]),
+        ...mapState(useMobilStore, [
+            'getMobile'
         ])
     },
     data() {
