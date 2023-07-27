@@ -57,8 +57,14 @@ const router = createRouter({
         useLoadingStore().begin_loading_act()
         homeService.dashboard().then(data => {
           useHomeStore().dashboard_load_act(data)
-          useLoadingStore().end_loading_act()
+
+          todoService.getList(localStorage.getItem('userId')).then(data => {
+            useTodoStore().to_do_list_load_act(data);
+            useLoadingStore().end_loading_act()
           next()
+
+          });
+          
 
 
         })
@@ -738,11 +744,8 @@ router.beforeEach(
     } else {
       useMobilStore().mobile_load_act(false);
     }
-    todoService.getList(localStorage.getItem('userId')).then(data => {
-      useTodoStore().to_do_list_load_act(data);
-      next();
-
-    });
+    next();
+    
   }
 )
 
