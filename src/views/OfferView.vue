@@ -126,6 +126,7 @@ export default {
             this.offer_all_list_visible = data;
         });
         this.emitter.on('offer_detail_dialog_close', () => {
+            console.log('offer_detail_dialog_close')
             this.offer_form_visible = false;
         })
         socket.socketIO.on('offer_list_on', () => {

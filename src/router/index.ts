@@ -57,13 +57,10 @@ const router = createRouter({
         useLoadingStore().begin_loading_act()
         homeService.dashboard().then(data => {
           useHomeStore().dashboard_load_act(data)
-
-          todoService.getList(localStorage.getItem('userId')).then(data => {
-            useTodoStore().to_do_list_load_act(data);
             useLoadingStore().end_loading_act()
-          next()
 
-          });
+          next();
+         
           
 
 

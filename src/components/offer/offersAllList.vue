@@ -1,5 +1,4 @@
  <template>
-    <div class="card">
         <DataTable 
                      v-model:value="getOffersAllList" 
                      paginator 
@@ -9,7 +8,6 @@
                      v-model:selection="selectedOffers"
                      selectionMode="single"
                      @row-click="offersSelected($event)"
-                     style="font-size:85%;width:70%;"
                      scrollable scrollHeight="400px"
 
                  >
@@ -147,8 +145,8 @@
                      </Column>
                      <Column field="fobfiyat" header="Fiyat"></Column>
                      <Column field="birim" header="Birim"></Column>
-                 </DataTable>
-    </div>
+        </DataTable>
+
     <Dialog v-model:visible="offer_detail_form" header="" modal :style="{ width: '100vw' }">
         <offerForm/>
     </Dialog>

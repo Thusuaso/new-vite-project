@@ -33,12 +33,15 @@
 
 <script lang="javascript">
 import { RouterView } from 'vue-router';
-import navBar from '@/components/shared/navbarShared.vue';
-import { useLoginStore } from '@/stores/login';
-import { useLoadingStore } from '@/stores/loading';
+import navBar from './components/shared/navbarShared.vue';
 
 
+import { useLoginStore } from './stores/login';
+import { useLoadingStore } from './stores/loading';
+import { useTodoStore } from './stores/todo';
 import { mapState } from 'pinia';
+
+import { todoService } from './services/todoService';
 export default ({
   computed: {
     ...mapState(useLoginStore, ['getAuthentication']),
@@ -64,8 +67,15 @@ export default ({
       this.$router.push('/login');
       useLoginStore().login_authentication_act(false);
     };
+     
 
 
+  },
+  created() {
+    todoService.getList(localStorage.getItem('userId')).then(data => {
+      useTodoStore().to_do_list_load_act(data);
+
+    });
   }
 })
 </script>

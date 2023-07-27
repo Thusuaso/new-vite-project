@@ -1,5 +1,5 @@
 <template>
-    <div class="container text-center">
+    <div class="container text-center" v-if="!getMobile">
       <div class="row">
         <div class="col-4" v-for="item of getCustomerListA" :key="item" >
           <div class="card text-center" style="border-style: solid;border-width: 1px;"
@@ -95,6 +95,106 @@
       </div>
     </div>
 
+
+
+        <div class="container text-center" v-if="getMobile">
+        <div class="">
+          <div class="mb-3" v-for="item of getCustomerListA" :key="item" >
+            <div class="card text-center" style="border-style: solid;border-width: 1px;"
+              :style="{ borderColor: item.oncelikBackground }"
+            >
+            <div class="card-header">
+              {{ item.musteriadi }} ({{ item.oncelik }})
+            </div>
+            <div class="card-body">
+              <p class="card-text">{{ item.aciklama }}</p>
+            </div>
+            <div class="card-footer text-body-secondary">
+            
+              <div class="container text-center">
+                  <div class="row">
+                      <div class="col">
+                          <button class="btn btn-primary" @click="musteri_sec(item, 'A')">Detay</button>
+                      </div>
+                      <div class="col">
+                          {{ item.temsilci }}
+                      </div>
+                      <!-- <div class="col">
+                        <button class="btn btn-danger">Delete</button>
+
+                    </div> -->
+                  </div>
+                  </div>
+
+            </div>
+          </div>
+          </div>
+          <div class="mb-3" v-for="item of getCustomerListB" :key="item" >
+                <div class="card text-center" style="border-style: solid;border-width: 1px;"
+                  :style="{ borderColor: item.oncelikBackground }"
+                >
+                <div class="card-header">
+                  {{ item.musteriadi }} ({{ item.oncelik }})
+                </div>
+                <div class="card-body">
+                  <p class="card-text">{{ item.aciklama }}</p>
+                </div>
+                <div class="card-footer text-body-secondary">
+            
+                  <div class="container text-center">
+                      <div class="row">
+                          <div class="col">
+                              <button class="btn btn-primary" @click="musteri_sec(item, 'B')">Detay</button>
+                          </div>
+                          <div class="col">
+                              {{ item.temsilci }}
+                          </div>
+                          <!-- <div class="col">
+                            <button class="btn btn-danger">Delete</button>
+
+                        </div> -->
+                      </div>
+                      </div>
+
+                </div>
+              </div>
+          </div>
+          <div class="mb-3" v-for="item of getCustomerListC" :key="item" >
+                    <div class="card text-center" style="border-style: solid;border-width: 1px;"
+                      :style="{ borderColor: item.oncelikBackground }"
+                    >
+                    <div class="card-header">
+                      {{ item.musteriadi }} ({{ item.oncelik }})
+                    </div>
+                    <div class="card-body">
+                      <p class="card-text">{{ item.aciklama }}</p>
+                    </div>
+                    <div class="card-footer text-body-secondary">
+            
+                      <div class="container text-center">
+                          <div class="row">
+                              <div class="col">
+                                  <button class="btn btn-primary" @click="musteri_sec(item, 'C')">Detay</button>
+                              </div>
+                              <div class="col">
+                                  {{ item.temsilci }}
+                              </div>
+                              <!-- <div class="col">
+                                <button class="btn btn-danger">Delete</button>
+
+                            </div> -->
+                          </div>
+                          </div>
+
+                    </div>
+                  </div>
+          </div>
+
+        </div>
+      </div>
+
+
+
     <Dialog v-model:visible="customer_forms" modal header="Ayrıntı" :style="{ 'width': '100vw' }">
       <customerDetail :customerName="customerName" :priority="priority" :followStatus="followStatus"/>
     </Dialog>
@@ -104,9 +204,12 @@
 <script>
 import { useCustomerStore } from '../stores/customers';
 import { useLoadingStore } from '../stores/loading';
+import { useMobilStore } from '../stores/mobil';
 import { mapState } from 'pinia';
-import { customerService } from '../services/customerService'
+
 import customerDetail from '../components/customers/customerDetail.vue';
+
+import { customerService } from '../services/customerService'
 import { socket } from '../services/customServices/realTimeService';
 export default {
   components: {
@@ -126,7 +229,10 @@ export default {
                 'getCustomerListA',
                 'getCustomerListB',
                 'getCustomerListC',
-            ])
+          ]),
+      ...mapState(useMobilStore, [
+        'getMobile'
+      ])
     },
     methods: {
         musteri_sec(event, priority) {
