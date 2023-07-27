@@ -438,7 +438,7 @@
 
 
 
-    <Dialog v-model:visible="product_detail_form" :header="po" modal :style="{ width: '100vw' }" :closeOnEscape="false"> 
+    <Dialog v-model:visible="product_detail_form" :header="po" modal :style="{ width: '100vw' }" :closeOnEscape="false" :closable="false"> 
         <orderForm :po="po"/>
     </Dialog>
 

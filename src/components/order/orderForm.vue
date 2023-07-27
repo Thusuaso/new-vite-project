@@ -32,6 +32,7 @@
         <div class="col-3">
             <button type="button" class="btn btn-success w-100" @click="saveProcess" :disabled="getProductsSaveButtonStatus">Kaydet</button>
             <button type="button" class="btn btn-primary w-100" @click="orderDivide">Böl</button>
+            <button type="button" class="btn btn-danger w-100" @click="closed">Çık</button>
 
             <productInformation/>
         </div>
@@ -70,18 +71,13 @@
             <div class="">
                 <button type="button" class="btn btn-success w-100 mb-3" @click="saveProcess" :disabled="getProductsSaveButtonStatus">Kaydet</button>
                 <button type="button" class="btn btn-primary w-100" @click="orderDivide">Böl</button>
+                
+
 
                 <productInformation/>
             </div>
         </div>
     
-
-
-
-
-
-
-
     <Dialog v-model:visible="order_divide_form" header="" modal :style="{ 'width': '100vw' }">
         <orderDivide :sipBilgiler="getProductionsDetailModel"/>
     </Dialog>
@@ -135,6 +131,11 @@ export default {
         }
     },
     methods: {
+        closed() {
+            if (confirm('Çıkmak istediğinize emin misiniz?')) {
+                this.emitter.emit('products_closed_dialog');
+            }
+        },
         orderDivide() {
             this.order_divide_form = true;
         },

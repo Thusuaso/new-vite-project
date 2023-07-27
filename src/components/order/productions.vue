@@ -164,7 +164,7 @@
 
 
 
-    <Dialog v-model:visible="order_form" header="Yeni Sipariş" modal :style="{ width: '100vw' }" :closeOnEscape="false">
+    <Dialog v-model:visible="order_form" header="Yeni Sipariş" modal :style="{ width: '100vw' }" :closeOnEscape="false" :closable="false">
         <orderForm/>
     </Dialog>
 </template>
