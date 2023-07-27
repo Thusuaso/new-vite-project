@@ -409,8 +409,6 @@ export default {
                 if (data.status) {
                     socket.socketIO.emit('offer_list_emit');
                     socket.socketIO.emit('offer_detail_list_all_emit');
-
-
                     this.emitter.emit('offer_detail_dialog_close');
                     this.offer_save_disabled = false;
                     useLoadingStore().end_loading_act();
@@ -462,7 +460,9 @@ export default {
             offerService.delete(this.getOfferModelList.id).then(data => {
                 if (data.status) {
                     socket.socketIO.emit('offer_list_emit');
-                    socket.socketIO.emit('offer_detail_list_emit');
+                    socket.socketIO.emit('offer_detail_list_all_emit');
+
+
                     this.emitter.emit('offer_detail_dialog_close');
                     this.$toast.add({ severity: 'success', detail: 'Başarıyla Silindi', life: 3000 });
                     useLoadingStore().end_loading_act();

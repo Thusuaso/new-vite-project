@@ -267,7 +267,8 @@ export default {
             'getOfferDeletingProductsList',
             'getOfferAddingProductsList',
             'getOfferUpdatingProductsList',
-            'getOfferAllButton'
+            'getOfferAllButton',
+            'getOfferRepresentativeId'
         ]),
 
         ...mapState(useMobilStore, [
@@ -415,7 +416,7 @@ export default {
             offerService.save(data).then(data => {
                 if (data.status) {
                     socket.socketIO.emit('offer_list_emit');
-                    socket.socketIO.emit('offer_detail_list_emit');
+                    socket.socketIO.emit('offer_detail_load_list_emit', this.getOfferRepresentativeId);
 
 
                     this.emitter.emit('offer_detail_dialog_close');
@@ -451,7 +452,7 @@ export default {
             offerService.update(data).then(data => {
                 if (data.status) {
                     socket.socketIO.emit('offer_list_emit');
-                    socket.socketIO.emit('offer_detail_list_emit');
+                    socket.socketIO.emit('offer_detail_load_list_emit', this.getOfferRepresentativeId);
                     this.emitter.emit('offer_detail_dialog_close');
 
                     this.offer_save_disabled = false;
@@ -469,7 +470,7 @@ export default {
             offerService.delete(this.getOfferModelList.id).then(data => {
                 if (data.status) {
                     socket.socketIO.emit('offer_list_emit');
-                    socket.socketIO.emit('offer_detail_list_emit');
+                    socket.socketIO.emit('offer_detail_load_list_emit', this.getOfferRepresentativeId);
                     this.emitter.emit('offer_detail_dialog_close');
                     this.$toast.add({ severity: 'success', detail: 'Başarıyla Silindi', life: 3000 });
                     useLoadingStore().end_loading_act();

@@ -435,7 +435,7 @@ import { FilterMatchMode } from 'primevue/api';
 import { offerService } from '../../services/offerService';
 import { socket } from '../../services/customServices/realTimeService';
 
-import offerForm from '../../components/offer/offerFormAll.vue';
+import offerForm from '../../components/offer/offerForm.vue';
 export default {
     computed: {
         ...mapState(useOfferStore, [
@@ -509,13 +509,13 @@ export default {
         this.emitter.on('offer_detail_dialog_close', () => {
             this.offer_detail_form = false;
         });
-        socket.socketIO.on('offer_detail_list_all_on', () => {
+        socket.socketIO.on('offer_detail_load_list_on', (userId) => {
             useLoadingStore().begin_loading_act();
-            offerService.getOfferAllList().then(data => {
+            offerService.getOfferAllRepresentativeList(userId).then(data => {
                 useOfferStore().offer_all_list_load_act(data);
                 useLoadingStore().end_loading_act();
-            });
-        });
+            })
+        })
     }
 }
 </script>

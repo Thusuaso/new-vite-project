@@ -39,10 +39,11 @@ export default {
     methods: {
         offerRepresentativeSelected(event) {
             useLoadingStore().begin_loading_act();
+            useOfferStore().representative_id_load_act(event.data.temsilci_id);
             offerService.getOfferAllRepresentativeList(event.data.temsilci_id).then(data => {
                 useOfferStore().offer_all_list_load_act(data);
                 useLoadingStore().end_loading_act();
-                this.emitter.emit('offer_all_representative_dialog', true);
+                this.emitter.emit('offer_all_representative_dialog2', true);
             })
         }
     },

@@ -48,6 +48,9 @@
     <Dialog v-model:visible="offer_all_list_visible" header="" modal :style="{ width: '100vw' }">
         <offerAllList/>
     </Dialog>
+    <Dialog v-model:visible="offer_all_list_visible2" header="" modal :style="{ width: '100vw' }">
+            <offerAllList2/>
+        </Dialog>
     <Dialog v-model:visible="offer_form_visible" header="" modal :style="{ width: '100vw' }">
         <offerForm/>
     </Dialog>
@@ -68,8 +71,11 @@ import offerCustomerList from '../components/offer/offerCustomerList.vue';
 import offerRepresentativeList from '../components/offer/offerRepresentativeList.vue';
 // import offerCalendarList from '../components/offer/offerCalendarList.vue';
 import offerAllList from '../components/offer/offerAllList.vue';
+import offerAllList2 from '../components/offer/offerAllList2.vue';
+
 import offerForm from '../components/offer/offerForm.vue';
 import offersAllList from '../components/offer/offersAllList.vue';
+
 export default {
     computed: {
         ...mapState(useOfferStore, [
@@ -83,13 +89,15 @@ export default {
         // offerCalendarList,
         offerAllList,
         offerForm,
-        offersAllList
+        offersAllList,
+        offerAllList2
     },
     data() {
         return {
             offer_all_list_visible: false,
             offer_form_visible: false,
             offers_all_list_form:false,
+            offer_all_list_visible2:false,
         }
     },
     methods: {
@@ -122,11 +130,13 @@ export default {
         }
     },
     mounted() {
+        this.emitter.on('offer_all_representative_dialog2', (data) => {
+            this.offer_all_list_visible2 = data;
+        });
         this.emitter.on('offer_all_representative_dialog', (data) => {
             this.offer_all_list_visible = data;
         });
         this.emitter.on('offer_detail_dialog_close', () => {
-            console.log('offer_detail_dialog_close')
             this.offer_form_visible = false;
         })
         socket.socketIO.on('offer_list_on', () => {

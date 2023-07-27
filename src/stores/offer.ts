@@ -32,10 +32,14 @@ export const useOfferStore = defineStore('offer', {
             offerUpdatingProductsList: [],
             offerAddingProductsList: [],
             offersAllList: [],
-            offerAllButton:false,
+            offerAllButton: false,
+            offerRepresentativeId:null,
         }
     },
     actions: {
+        representative_id_load_act(data: any) {
+            this.offerRepresentativeId = data;
+        },
         offer_all_button_load_act(data:any){
             this.offerAllButton = data;  
         },
@@ -117,6 +121,9 @@ export const useOfferStore = defineStore('offer', {
 
     },
     getters: {
+        getOfferRepresentativeId(state) {
+            return state.offerRepresentativeId;
+        },
         getOfferAllButton(state) {
             return state.offerAllButton;  
         },
