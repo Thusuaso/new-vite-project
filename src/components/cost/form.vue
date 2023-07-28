@@ -1,33 +1,64 @@
 <template>
-    <div class="row m-auto mt-3">
-        <div class="col">
-            <div class="form-floating">
-                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px;padding-top:35px;" v-model="getModel.hata"></textarea>
-                <label for="floatingTextarea2">Hata</label>
+    <div v-if="!getMobile">
+            <div class="row m-auto mt-3">
+            <div class="col">
+                <div class="form-floating">
+                    <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px;padding-top:35px;" v-model="getModel.hata"></textarea>
+                    <label for="floatingTextarea2">Hata</label>
+                </div>
+            </div>
+            <div class="col">
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1">Masraf</span>
+                    <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="getModel.maliyet" @input="getModel.maliyet = $filters.formatPoint($event.target.value)">
+                </div>
+            </div>
+            <div class="col">
+                <Dropdown v-model="selectedUser" :options="getUsers" optionLabel="name" placeholder="Select a User" class="w-full md:w-14rem" @change="userSelected($event)"/>
+            </div>
+            <div class="col">
+                <Calendar v-model="c_m_date" dateFormat="dd/mm/yy"/>
             </div>
         </div>
-        <div class="col">
-            <div class="input-group mb-3">
-                <span class="input-group-text" id="basic-addon1">Masraf</span>
-                <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="getModel.maliyet" @input="getModel.maliyet = $filters.formatPoint($event.target.value)">
+        <div class="row m-auto mt-3">
+            <div class="col">
+                <button type="button" class="btn btn-success" @click="process">Kaydet</button>
             </div>
         </div>
-        <div class="col">
-            <Dropdown v-model="selectedUser" :options="getUsers" optionLabel="name" placeholder="Select a User" class="w-full md:w-14rem" @change="userSelected($event)"/>
-        </div>
-        <div class="col">
-            <Calendar v-model="c_m_date" dateFormat="dd/mm/yy"/>
-        </div>
     </div>
-    <div class="row m-auto mt-3">
-        <div class="col">
-            <button type="button" class="btn btn-success" @click="process">Kaydet</button>
+        <div v-if="getMobile">
+                <div class=" m-auto mt-3">
+                <div class="mb-3">
+                    <div class="form-floating">
+                        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px;padding-top:35px;" v-model="getModel.hata"></textarea>
+                        <label for="floatingTextarea2">Hata</label>
+                    </div>
+                </div>
+                <div class="">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">Masraf</span>
+                        <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="getModel.maliyet" @input="getModel.maliyet = $filters.formatPoint($event.target.value)">
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <Dropdown v-model="selectedUser" :options="getUsers" optionLabel="name" placeholder="Select a User" class="w-100" @change="userSelected($event)"/>
+                </div>
+                <div class="mb-3">
+                    <Calendar class="w-100" v-model="c_m_date" dateFormat="dd/mm/yy"/>
+                </div>
+            </div>
+            <div class=" m-auto mt-3">
+                <div class="">
+                    <button type="button" class="btn btn-success w-100 mb-3" @click="process">Kaydet</button>
+                </div>
+            </div>
         </div>
-    </div>
+
 </template>
 <script>
 import { useCostStore } from '../../stores/cost';
 import { useLoadingStore } from '../../stores/loading';
+import { useMobilStore } from '../../stores/mobil';
 import { mapState } from 'pinia';
 
 import { costService } from '../../services/costService';
@@ -39,6 +70,9 @@ export default {
             'getModel',
             'getNewButton',
             'getUsers'
+        ]),
+        ...mapState(useMobilStore, [
+            'getMobile',
         ])
     },
     data() {

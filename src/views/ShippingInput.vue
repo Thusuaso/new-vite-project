@@ -1,116 +1,228 @@
 <template>
-    <div class="row m-auto">
-        <div class="col">
-            <button type="button" class="btn btn-primary" @click="newCompanyList">Yeni Firma</button>
+    <div v-if="!getMobile">
+            <div class="row m-auto">
+            <div class="col">
+                <button type="button" class="btn btn-primary" @click="newCompanyList">Yeni Firma</button>
+            </div>
         </div>
-    </div>
-    <div class="row m-auto mt-5">
-        <div class="col">
-            <span class="p-float-label">
-                <AutoComplete id="company" v-model="selectedCompany" dropdown :suggestions="filteredCompanyList" optionLabel="firma_adi" @complete="searchCompany($event)" @item-select="companySelected($event)"/>
-                <label for="company">Firma Seç</label>
-            </span>
+        <div class="row m-auto mt-5">
+            <div class="col">
+                <span class="p-float-label">
+                    <AutoComplete id="company" v-model="selectedCompany" dropdown :suggestions="filteredCompanyList" optionLabel="firma_adi" @complete="searchCompany($event)" @item-select="companySelected($event)"/>
+                    <label for="company">Firma Seç</label>
+                </span>
+            </div>
+            <div class="col">
+                <span class="p-float-label">
+                    <Calendar id="date" v-model="s_date" showIcon @date-select="shippingDateSelect($event)" dateFormat="dd/mm/yy"/>
+                    <label for="date">Tarih</label>
+                </span>
+            </div>
+            <div class="col">
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1">Fatura No</span>
+                    <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="shippingModel.faturaNo">
+                </div>
+            </div>
         </div>
-        <div class="col">
-            <span class="p-float-label">
-                <Calendar id="date" v-model="s_date" showIcon @date-select="shippingDateSelect($event)" dateFormat="dd/mm/yy"/>
-                <label for="date">Tarih</label>
-            </span>
+        <div class="row m-auto mt-3">
+            <div class="col">
+                <span class="p-float-label">
+                    <AutoComplete id="po" v-model="selectedPo" dropdown :suggestions="filteredPoList" optionLabel="siparisno" @complete="searchPo($event)" @item-select="poSelected($event)" :disabled="!is_company_selected"/>
+                    <label for="po">Sipariş No</label>
+                </span>
+            </div>
+            <div class="col">
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1">₺</span>
+                    <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="shippingModel.Tutar_tl" :disabled="!is_company_selected" @input="shippingTlInput($event)">
+                </div>
+            </div>
+            <div class="col">
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1">Kur</span>
+                    <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="shippingModel.kur" disabled>
+                </div>
+            </div>
+            <div class="col">
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1">$</span>
+                    <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="shippingModel.Tutar_dolar" disabled>
+                </div>
+            </div>
         </div>
-        <div class="col">
-            <div class="input-group mb-3">
-                <span class="input-group-text" id="basic-addon1">Fatura No</span>
-                <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="shippingModel.faturaNo">
+        <div class="row m-auto mt-3 text-center">
+            <div class="col">
+                <button type="button" class="btn btn-primary" @click="newForm">Yeni</button>
+            </div>
+            <div class="col">
+                <button type="button" class="btn btn-success" @click="save">Kaydet</button>
+            </div>
+            <div class="col">
+                <button type="button" class="btn btn-warning" @click="update">Değiştir</button>
+            </div>
+            <div class="col">
+                <button type="button" class="btn btn-danger" @click="deleteForm">Sil</button>
+            </div>
+        </div> 
+        <div class="row m-auto mt-3">
+            <div class="col">
+                <DataTable 
+                    :value="newShippingList" 
+                    v-model:selection="selectedNewShipping"
+                    selectionMode="single"
+                    @row-click="newShippingSelected($event)"
+                    sortField="siparisno"
+                    :sortOrder="-1"
+                    style="font-size:85%;"
+                >
+                    <Column field="siparisno" header="Po"></Column>
+                    <Column field="Tutar_tl" header="₺">
+                        <template #body="slotProps">
+                            {{ $filters.formatPrice(slotProps.data.Tutar_tl) }}
+                        </template>
+                    </Column>
+                    <Column field="Tutar_dolar" header="$">
+                        <template #body="slotProps">
+                            {{ $filters.formatPrice(slotProps.data.Tutar_dolar) }}
+                        </template>
+                    </Column>
+                    <Column field="kur" header="Kur">
+                        <template #body="slotProps">
+                            {{ $filters.formatPrice(slotProps.data.kur) }}
+                        </template>
+                    </Column>
+                </DataTable>
+            </div>
+        </div>
+        <div class="row m-auto mt-3 w-100">
+            <div class="col">
+                <button type="button" class="btn btn-success w-100" @click="informationSave" :disabled="save_disabled_form">Kaydet</button>
+            </div>
+        </div>
+        <div class="row m-auto mt-3 w-100">
+            <div class="col">
+                <FileUpload mode="basic" accept=".pdf" :maxFileSize="1000000" @select="uploadDocument($event)" chooseLabel="Evrak Yükle" class="bg-black bg-gradient" :disabled="file_disabled_form"/>
             </div>
         </div>
     </div>
-    <div class="row m-auto mt-3">
-        <div class="col">
-            <span class="p-float-label">
-                <AutoComplete id="po" v-model="selectedPo" dropdown :suggestions="filteredPoList" optionLabel="siparisno" @complete="searchPo($event)" @item-select="poSelected($event)" :disabled="!is_company_selected"/>
-                <label for="po">Sipariş No</label>
-            </span>
-        </div>
-        <div class="col">
-            <div class="input-group mb-3">
-                <span class="input-group-text" id="basic-addon1">₺</span>
-                <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="shippingModel.Tutar_tl" :disabled="!is_company_selected" @input="shippingTlInput($event)">
+
+        <div v-if="getMobile">
+                <div class=" m-auto">
+                <div class="">
+                    <button type="button" class="btn btn-primary w-100 mb-3" @click="newCompanyList">Yeni Firma</button>
+                </div>
+            </div>
+            <div class=" m-auto mt-5">
+                <div class="">
+                    <span class="p-float-label">
+                        <AutoComplete class="w-100 mb-3" id="company" v-model="selectedCompany" dropdown :suggestions="filteredCompanyList" optionLabel="firma_adi" @complete="searchCompany($event)" @item-select="companySelected($event)"/>
+                        <label for="company">Firma Seç</label>
+                    </span>
+                </div>
+                <div class="">
+                    <span class="p-float-label">
+                        <Calendar id="date" class="w-100 mb-3" v-model="s_date" showIcon @date-select="shippingDateSelect($event)" dateFormat="dd/mm/yy"/>
+                        <label for="date">Tarih</label>
+                    </span>
+                </div>
+                <div class="">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">Fatura No</span>
+                        <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="shippingModel.faturaNo">
+                    </div>
+                </div>
+            </div>
+            <div class=" m-auto mt-3">
+                <div class="">
+                    <span class="p-float-label">
+                        <AutoComplete class="w-100 mb-3" id="po" v-model="selectedPo" dropdown :suggestions="filteredPoList" optionLabel="siparisno" @complete="searchPo($event)" @item-select="poSelected($event)" :disabled="!is_company_selected"/>
+                        <label for="po">Sipariş No</label>
+                    </span>
+                </div>
+                <div class="">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">₺</span>
+                        <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="shippingModel.Tutar_tl" :disabled="!is_company_selected" @input="shippingTlInput($event)">
+                    </div>
+                </div>
+                <div class="">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">Kur</span>
+                        <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="shippingModel.kur" disabled>
+                    </div>
+                </div>
+                <div class="">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">$</span>
+                        <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="shippingModel.Tutar_dolar" disabled>
+                    </div>
+                </div>
+            </div>
+            <div class=" m-auto mt-3 text-center">
+                <div class="">
+                    <button type="button" class="btn btn-primary w-100 mb-3" @click="newForm">Yeni</button>
+                </div>
+                <div class="">
+                    <button type="button" class="btn btn-success w-100 mb-3" @click="save">Kaydet</button>
+                </div>
+                <div class="">
+                    <button type="button" class="btn btn-warning w-100 mb-3" @click="update">Değiştir</button>
+                </div>
+                <div class="">
+                    <button type="button" class="btn btn-danger w-100 mb-3" @click="deleteForm">Sil</button>
+                </div>
+            </div> 
+            <div class=" m-auto mt-3">
+                <div class="">
+                    <DataTable 
+                        :value="newShippingList" 
+                        v-model:selection="selectedNewShipping"
+                        selectionMode="single"
+                        @row-click="newShippingSelected($event)"
+                        sortField="siparisno"
+                        :sortOrder="-1"
+                        style="font-size:85%;"
+                    >
+                        <Column field="siparisno" header="Po"></Column>
+                        <Column field="Tutar_tl" header="₺">
+                            <template #body="slotProps">
+                                {{ $filters.formatPrice(slotProps.data.Tutar_tl) }}
+                            </template>
+                        </Column>
+                        <Column field="Tutar_dolar" header="$">
+                            <template #body="slotProps">
+                                {{ $filters.formatPrice(slotProps.data.Tutar_dolar) }}
+                            </template>
+                        </Column>
+                        <Column field="kur" header="Kur">
+                            <template #body="slotProps">
+                                {{ $filters.formatPrice(slotProps.data.kur) }}
+                            </template>
+                        </Column>
+                    </DataTable>
+                </div>
+            </div>
+            <div class=" m-auto mt-3 w-100">
+                <div class="">
+                    <button type="button" class="btn btn-success w-100 mb-3" @click="informationSave" :disabled="save_disabled_form">Kaydet</button>
+                </div>
+            </div>
+            <div class=" m-auto mt-3 w-100">
+                <div class="">
+                    <FileUpload mode="basic" accept=".pdf" :maxFileSize="1000000" @select="uploadDocument($event)" chooseLabel="Evrak Yükle" class="bg-black bg-gradient w-100 mb-3" :disabled="file_disabled_form"/>
+                </div>
             </div>
         </div>
-        <div class="col">
-            <div class="input-group mb-3">
-                <span class="input-group-text" id="basic-addon1">Kur</span>
-                <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="shippingModel.kur" disabled>
-            </div>
-        </div>
-        <div class="col">
-            <div class="input-group mb-3">
-                <span class="input-group-text" id="basic-addon1">$</span>
-                <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="shippingModel.Tutar_dolar" disabled>
-            </div>
-        </div>
-    </div>
-    <div class="row m-auto mt-3 text-center">
-        <div class="col">
-            <button type="button" class="btn btn-primary" @click="newForm">Yeni</button>
-        </div>
-        <div class="col">
-            <button type="button" class="btn btn-success" @click="save">Kaydet</button>
-        </div>
-        <div class="col">
-            <button type="button" class="btn btn-warning" @click="update">Değiştir</button>
-        </div>
-        <div class="col">
-            <button type="button" class="btn btn-danger" @click="deleteForm">Sil</button>
-        </div>
-    </div> 
-    <div class="row m-auto mt-3">
-        <div class="col">
-            <DataTable 
-                :value="newShippingList" 
-                v-model:selection="selectedNewShipping"
-                selectionMode="single"
-                @row-click="newShippingSelected($event)"
-                sortField="siparisno"
-                :sortOrder="-1"
-                style="font-size:85%;"
-            >
-                <Column field="siparisno" header="Po"></Column>
-                <Column field="Tutar_tl" header="₺">
-                    <template #body="slotProps">
-                        {{ $filters.formatPrice(slotProps.data.Tutar_tl) }}
-                    </template>
-                </Column>
-                <Column field="Tutar_dolar" header="$">
-                    <template #body="slotProps">
-                        {{ $filters.formatPrice(slotProps.data.Tutar_dolar) }}
-                    </template>
-                </Column>
-                <Column field="kur" header="Kur">
-                    <template #body="slotProps">
-                        {{ $filters.formatPrice(slotProps.data.kur) }}
-                    </template>
-                </Column>
-            </DataTable>
-        </div>
-    </div>
-    <div class="row m-auto mt-3 w-100">
-        <div class="col">
-            <button type="button" class="btn btn-success w-100" @click="informationSave" :disabled="save_disabled_form">Kaydet</button>
-        </div>
-    </div>
-    <div class="row m-auto mt-3 w-100">
-        <div class="col">
-            <FileUpload mode="basic" accept=".pdf" :maxFileSize="1000000" @select="uploadDocument($event)" chooseLabel="Evrak Yükle" class="bg-black bg-gradient" :disabled="file_disabled_form"/>
-        </div>
-    </div>
+
     <Dialog v-model:visible="new_company_form" header="Yeni Firma Ekle" modal :style="{ 'width': '100vw' }">
         <company />
     </Dialog>
 </template>
 <script>
 import { useShippingStore } from '../stores/shipping';
-import {useLoadingStore} from '../stores/loading';
+import { useLoadingStore } from '../stores/loading';
+import { useMobilStore } from '../stores/mobil';
 import { mapState } from 'pinia';
 
 import { localDateService } from '../services/localDateService';
@@ -125,6 +237,9 @@ export default {
         ...mapState(useShippingStore, [
             'getShippingCompanyList',
             'getShippingProductList'
+        ]),
+        ...mapState(useMobilStore, [
+            'getMobile',
         ])
     },
     components: {

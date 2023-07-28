@@ -448,7 +448,7 @@ import orderForm from './orderForm.vue';
 
 import { useProductionsStore } from '../../stores/productions';
 import { useLoadingStore } from '../../stores/loading';
-
+import { useProductCostStore } from '../../stores/productcost';
 import { mapState } from 'pinia';
 import { FilterMatchMode } from "primevue/api";
 import { productionsService } from '../../services/productions';
@@ -515,6 +515,7 @@ export default {
       useLoadingStore().begin_loading_act();
       useProductionsStore().productions_new_button_load_act(false);
       this.po = event.data.siparisNo;
+      useProductCostStore().masraflarResetAct();
       productionsService.getOrderDetail(event.data.siparisNo).then(data => {
         useProductionsStore().product_detail_cost_list(data.costList);
         useProductionsStore().product_total_load_act(data.productList);

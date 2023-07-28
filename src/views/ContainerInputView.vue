@@ -1,79 +1,156 @@
 <template>
-    <div class="row m-auto">
-        <div class="col">
-            <button type="button" class="btn btn-primary" @click="newCompany">Yeni Firma</button>
-        </div>
-    </div>
-    <div class="row m-auto mt-5">
-        <div class="col">
-            <span class="p-float-label">
-                <AutoComplete id="company" v-model="selectedContainerCompany" dropdown :suggestions="filteredContainerInputCompanyList" optionLabel="firma_adi" @complete="searchContainerCompany($event)" @item-select="containerCompanySelected($event)"/>
-                <label for="company">Firma Seç</label>
-            </span>
-        </div>
-        <div class="col">
-            <span class="p-float-label">
-                    <AutoComplete id="product" v-model="selectedContainerProduct" dropdown :suggestions="filteredContainerInputProductList" optionLabel="siparisno" @complete="searchContainerProduct($event)" @item-select="containerProductSelected($event)"/>
-                    <label for="product">Po Seç</label>
-                </span>
-        </div>
-        <div class="col">
-            <Dropdown v-model="selectedInvoice" :options="invoiceKindList" optionLabel="name" placeholder="Fatura Tür Seç" class="w-full md:w-14rem" />
-        </div>
-        <div class="col">
-            <Calendar v-model="c_date" showIcon  @date-select="containerDateSelect($event)" dateFormat="dd/mm/yy"/>
-        </div>
-        <div class="col">
-            <div class="input-group mb-3">
-                <span class="input-group-text" id="basic-addon1">Fatura No</span>
-                <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="containerModel.faturaNo">
-            </div>
-        </div>
-    </div>
-    <div class="row m-auto mt-3">
-        <div class="col">
-            <div class="input-group mb-3">
-                <span class="input-group-text" id="basic-addon1">₺</span>
-                <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="containerModel.Tutar_tl" @input="containerTlInput($event)">
-            </div>
-        </div>
-        <div class="col">
-            <div class="input-group mb-3">
-                <span class="input-group-text" id="basic-addon1">Kur</span>
-                <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="containerModel.kur">
-            </div>
-        </div>
-        <div class="col">
-            <div class="input-group mb-3">
-                <span class="input-group-text" id="basic-addon1">$</span>
-                <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="containerModel.Tutar_dolar" @input="containerUsdInput($event)">
-            </div>
-        </div>
-    </div>
-       <div class="row m-auto mt-3">
+    <div v-if="!getMobile">
+            <div class="row m-auto">
             <div class="col">
-                <div class="form-floating">
-                    <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px;padding-top:35px;" v-model="containerModel.aciklama"></textarea>
-                    <label for="floatingTextarea2">Açıklama</label>
+                <button type="button" class="btn btn-primary" @click="newCompany">Yeni Firma</button>
+            </div>
+        </div>
+        <div class="row m-auto mt-5">
+            <div class="col">
+                <span class="p-float-label">
+                    <AutoComplete id="company" v-model="selectedContainerCompany" dropdown :suggestions="filteredContainerInputCompanyList" optionLabel="firma_adi" @complete="searchContainerCompany($event)" @item-select="containerCompanySelected($event)"/>
+                    <label for="company">Firma Seç</label>
+                </span>
+            </div>
+            <div class="col">
+                <span class="p-float-label">
+                        <AutoComplete id="product" v-model="selectedContainerProduct" dropdown :suggestions="filteredContainerInputProductList" optionLabel="siparisno" @complete="searchContainerProduct($event)" @item-select="containerProductSelected($event)"/>
+                        <label for="product">Po Seç</label>
+                    </span>
+            </div>
+            <div class="col">
+                <Dropdown v-model="selectedInvoice" :options="invoiceKindList" optionLabel="name" placeholder="Fatura Tür Seç" class="w-full md:w-14rem" />
+            </div>
+            <div class="col">
+                <Calendar v-model="c_date" showIcon  @date-select="containerDateSelect($event)" dateFormat="dd/mm/yy"/>
+            </div>
+            <div class="col">
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1">Fatura No</span>
+                    <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="containerModel.faturaNo">
                 </div>
             </div>
         </div>
-    <div class="row m-auto mt-3">
-        <div class="col">
-            <button type="button" class="btn btn-primary w-100" @click="newForm" :disabled="new_disabled_form">Yeni Kayıt</button>
+        <div class="row m-auto mt-3">
+            <div class="col">
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1">₺</span>
+                    <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="containerModel.Tutar_tl" @input="containerTlInput($event)">
+                </div>
+            </div>
+            <div class="col">
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1">Kur</span>
+                    <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="containerModel.kur">
+                </div>
+            </div>
+            <div class="col">
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1">$</span>
+                    <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="containerModel.Tutar_dolar" @input="containerUsdInput($event)">
+                </div>
+            </div>
         </div>
-        <div class="col">
-            <button type="button" class="btn btn-success w-100" @click="save" :disabled="save_disabled_form">Kaydet</button>
-        </div>
+           <div class="row m-auto mt-3">
+                <div class="col">
+                    <div class="form-floating">
+                        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px;padding-top:35px;" v-model="containerModel.aciklama"></textarea>
+                        <label for="floatingTextarea2">Açıklama</label>
+                    </div>
+                </div>
+            </div>
+        <div class="row m-auto mt-3">
+            <div class="col">
+                <button type="button" class="btn btn-primary w-100" @click="newForm" :disabled="new_disabled_form">Yeni Kayıt</button>
+            </div>
+            <div class="col">
+                <button type="button" class="btn btn-success w-100" @click="save" :disabled="save_disabled_form">Kaydet</button>
+            </div>
         
-    </div>
- 
-
-    <div class="row m-auto mt-3">
-        <div class="col">
-            <FileUpload mode="basic" accept=".pdf" chooseLabel="Evrak Yükle" :maxFileSize="1000000" @select="uploadContainerFile($event)" class="bg-black bg-gradient" :disabled="file_disabled_form" />
+        </div>
+        <div class="row m-auto mt-3">
+            <div class="col">
+                <FileUpload mode="basic" accept=".pdf" chooseLabel="Evrak Yükle" :maxFileSize="1000000" @select="uploadContainerFile($event)" class="bg-black bg-gradient" :disabled="file_disabled_form" />
+            </div>
         </div>
     </div>
+
+        <div v-if="getMobile">
+                <div class=" m-auto">
+                <div class="">
+                    <button type="button" class="btn btn-primary w-100 mb-3" @click="newCompany">Yeni Firma</button>
+                </div>
+            </div>
+            <div class=" m-auto">
+                <div class="">
+                    <span class="p-float-label">
+                        <AutoComplete class="w-100 mb-3" id="company" v-model="selectedContainerCompany" dropdown :suggestions="filteredContainerInputCompanyList" optionLabel="firma_adi" @complete="searchContainerCompany($event)" @item-select="containerCompanySelected($event)"/>
+                        <label for="company">Firma Seç</label>
+                    </span>
+                </div>
+                <div class="">
+                    <span class="p-float-label">
+                            <AutoComplete class="w-100 mb-3" id="product" v-model="selectedContainerProduct" dropdown :suggestions="filteredContainerInputProductList" optionLabel="siparisno" @complete="searchContainerProduct($event)" @item-select="containerProductSelected($event)"/>
+                            <label for="product">Po Seç</label>
+                        </span>
+                </div>
+                <div class="">
+                    <Dropdown v-model="selectedInvoice" :options="invoiceKindList" optionLabel="name" placeholder="Fatura Tür Seç" class="w-100 mb-3" />
+                </div>
+                <div class="">
+                    <Calendar class="w-100 mb-3" v-model="c_date" showIcon  @date-select="containerDateSelect($event)" dateFormat="dd/mm/yy"/>
+                </div>
+                <div class="">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">Fatura No</span>
+                        <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="containerModel.faturaNo">
+                    </div>
+                </div>
+            </div>
+            <div class=" m-auto mt-3">
+                <div class="">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">₺</span>
+                        <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="containerModel.Tutar_tl" @input="containerTlInput($event)">
+                    </div>
+                </div>
+                <div class="">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">Kur</span>
+                        <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="containerModel.kur">
+                    </div>
+                </div>
+                <div class="">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">$</span>
+                        <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="containerModel.Tutar_dolar" @input="containerUsdInput($event)">
+                    </div>
+                </div>
+            </div>
+               <div class=" m-auto mt-3">
+                    <div class="">
+                        <div class="form-floating">
+                            <textarea class="form-control w-100 mb-3 h-100" placeholder="Leave a comment here" id="floatingTextarea2"  v-model="containerModel.aciklama"></textarea>
+                            <label for="floatingTextarea2">Açıklama</label>
+                        </div>
+                    </div>
+                </div>
+            <div class=" m-auto ">
+                <div class="">
+                    <button type="button" class="btn btn-primary w-100 mb-3" @click="newForm" :disabled="new_disabled_form">Yeni Kayıt</button>
+                </div>
+                <div class="">
+                    <button type="button" class="btn btn-success w-100 mb-3" @click="save" :disabled="save_disabled_form">Kaydet</button>
+                </div>
+        
+            </div>
+            <div class=" m-auto">
+                <div class="">
+                    <FileUpload  mode="basic" accept=".pdf" chooseLabel="Evrak Yükle" :maxFileSize="1000000" @select="uploadContainerFile($event)" class="bg-black bg-gradient w-100 mb-3"  :disabled="file_disabled_form" />
+                </div>
+            </div>
+        </div>
+
 
     <Dialog v-model:visible="new_company_form" header="Yeni Firma" modal :style="{ 'width': '100vw' }">
         <company />
@@ -84,6 +161,7 @@
 import { useContainerStore } from '../stores/container';
 import { useShippingStore } from '../stores/shipping';
 import { useLoadingStore } from '../stores/loading';
+import { useMobilStore } from '../stores/mobil';
 import { mapState } from 'pinia';
 
 import { containerService } from '../services/containerService';
@@ -97,6 +175,9 @@ export default {
         ...mapState(useContainerStore, [
             'getContainerInputCompanyList',
             'getContainerInputProductList'
+        ]),
+        ...mapState(useMobilStore, [
+            'getMobile',
         ])
     },
     components: {

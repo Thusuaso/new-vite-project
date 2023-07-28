@@ -149,9 +149,11 @@ export const useProductionsStore = defineStore('productions',{
                 )
             if (this.productDetailCostList.length > 0) {
                 for (const item of this.productDetailCostList) {
-                    if (item.tur != 'Navlun') {
-                       this.productCost.fob += item.tutar;
-                    } 
+                    if (item.tur == 'Navlun' || item.tur == 'Özel İşçilik') {
+                        continue;
+                    } else {
+                        this.productCost.fob += item.tutar;
+                    }
                 } 
             }
             

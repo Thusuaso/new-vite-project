@@ -40,15 +40,14 @@
 
     </div>
 
-        <div class="container text-center" v-if="getMobile">
+        <div class="container " v-if="getMobile">
             <div class="">
-                <div class="mt-3">
-
+                <div class="mt-3 mb-3">
                     <span class="p-float-label">
-                        <Calendar id="date" v-model="gTarih" dateFormat="dd/mm/yy" />
-                        <label for="date">Kayıt Tarihi</label>
+                        <Calendar class="w-100" v-model="gTarih" dateFormat="dd/mm/yy" inputId="save_date" />
+                        <label for="save_date">Kayıt Tarihi</label>
                     </span>
-                <div class="input-group mb-3">
+                <div class="input-group mb-3 mt-3">
                     <span class="input-group-text" id="basic-addon1">Müşteri</span>
                     <input v-model="getCustomerModel.musteriadi" type="text" :disabled="true" class="form-control" placeholder="Müşteri Adı" aria-label="Username" aria-describedby="basic-addon1">
                 </div>
@@ -59,10 +58,10 @@
                 </div>
                 </div>
                 <div class="">
-                    <div class="input-group mb-3">
-                            <span class="input-group-text" id="basic-addon1">Hatırlatma T.</span>
-                            <Calendar v-model="hTarih" showIcon dateFormat="dd/mm/yy" />
-                    </div>
+                    <span class="p-float-label mb-3">
+                            <Calendar class="w-100" v-model="hTarih" dateFormat="dd/mm/yy" inputId="rem_date" />
+                            <label for="rem_date">Hatırlatma T.</label>
+                        </span>
                     <div class="input-group mb-3">
                             <span class="input-group-text" id="basic-addon1">Başlık</span>
                             <input v-model="getCustomerModel.baslik" type="text" class="form-control" placeholder="Başlık" aria-label="Username" aria-describedby="basic-addon1">
@@ -76,9 +75,9 @@
             </div>
             <br/>
         
-            <button type="button" class="btn btn-success" @click="save" v-if="getCustomerNewButtonStatus">Kaydet</button>
-            <button type="button" class="btn btn-warning" @click="update" v-if="!getCustomerNewButtonStatus">Güncelle</button>
-            <button type="button" class="btn btn-danger" @click="deleted" v-if="!getCustomerNewButtonStatus">Sil</button>
+            <button type="button" class="btn btn-success w-100 mb-3" @click="save" v-if="getCustomerNewButtonStatus">Kaydet</button>
+            <button type="button" class="btn btn-warning w-100 mb-3" @click="update" v-if="!getCustomerNewButtonStatus">Güncelle</button>
+            <button type="button" class="btn btn-danger w-100" @click="deleted" v-if="!getCustomerNewButtonStatus">Sil</button>
 
         </div>
 

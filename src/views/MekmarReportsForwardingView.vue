@@ -1,5 +1,5 @@
 <template>
-    <div class="row m-auto mt-3">
+    <div class="row m-auto mt-3" v-if="!getMobile">
         <div class="col-2">
             <Calendar v-model="f_dates" selectionMode="range" :manualInput="false" dateFormat="dd/mm/yy"/>
         </div>
@@ -13,6 +13,20 @@
             <button type="button" class="btn btn-secondary" @click="excelOutput">Excel</button>
         </div>
     </div>
+    <div class=" m-auto mt-3" v-if="getMobile">
+            <div class="">
+                <Calendar class="w-100 mb-3" v-model="f_dates" selectionMode="range" :manualInput="false" dateFormat="dd/mm/yy"/>
+            </div>
+            <div class="">
+                <button type="button" class="btn btn-success w-100 mb-3" @click="searchForwardingDate">Ara</button>
+            </div>
+            <div class="">
+                <button type="button" class="btn btn-primary w-100 mb-3" @click="f_dates = null">Temizle</button>
+            </div>
+            <div class="">
+                <button type="button" class="btn btn-secondary w-100 mb-3" @click="excelOutput">Excel</button>
+            </div>
+        </div>
     <div class="row m-auto mt-3">
         <div class="col">
             <DataTable 
@@ -235,6 +249,7 @@
 import { useReportsStore } from '../stores/reports';
 import { useLocalStore } from '../stores/local';
 import { useLoadingStore } from '../stores/loading';
+import { useMobilStore } from '../stores/mobil';
 
 import { mapState } from 'pinia';
 
@@ -251,6 +266,9 @@ export default {
         ]),
         ...mapState(useLocalStore, [
             'getLocalServiceUrl'
+        ]),
+        ...mapState(useMobilStore, [
+            'getMobile',
         ])
     },
     data() {

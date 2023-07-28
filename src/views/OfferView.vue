@@ -7,20 +7,36 @@
                 <p class="card-text">
                     <div class="row m-auto mt-3">
                         <div class="col">
-                            <div class="row m-auto">
+                            <div class="row m-auto" v-if="!getMobile">
                                 <div class="col">
                                     <button type="button" class="btn btn-success mr-3" @click="newForm" style="margin-right:15px;">Yeni</button>
                                 </div>
+                                                                <div class="col">
+                                        <button type="button" class="btn btn-secondary" @click="allOfferList">Hepsi</button>
+
+
+                                    </div>
                                 <div class="col">
                                     <button type="button" class="btn btn-info ml-3" @click="allOffersList">Tüm Teklifler</button>
 
                                 </div>
-                                <div class="col">
-                                    <button type="button" class="btn btn-success" @click="allOfferList">Hepsi</button>
 
-
-                                </div>
                             </div>
+                            <div class=" m-auto" v-if="getMobile">
+                                    <div class="">
+                                        <button type="button" class="btn btn-success  w-100 mb-3" @click="newForm">Yeni</button>
+                                    </div>
+                                                                       <div class="">
+                                            <button type="button" class="btn btn-secondary w-100 mb-3" @click="allOfferList">Hepsi</button>
+
+
+                                        </div>
+                                    <div class="">
+                                        <button type="button" class="btn btn-info  w-100 mb-3" @click="allOffersList">Tüm Teklifler</button>
+
+                                    </div>
+ 
+                                </div>
                             <offerRepresentativeList/>
                             <offerCustomerList/>
                             <offerCustomerCountList/>
@@ -61,6 +77,7 @@
 <script>
 import { useOfferStore } from '../stores/offer';
 import { useLoadingStore } from '../stores/loading';
+import { useMobilStore } from '../stores/mobil';
 import { mapState } from 'pinia';
 
 import { offerService } from '../services/offerService';
@@ -80,6 +97,9 @@ export default {
     computed: {
         ...mapState(useOfferStore, [
             'getOfferMainPageList',
+        ]),
+        ...mapState(useMobilStore, [
+            'getMobile',
         ])
     },
     components: {

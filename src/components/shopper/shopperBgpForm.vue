@@ -1,61 +1,121 @@
 <template>
-    <div class="row m-auto mt-3">
-        <div class="col">
-            <div class="input-group mb-3">
-                <span span class="input-group-text" id="basic-addon1">Müşteri</span>
-                <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="getShopperBgpModel.customer">
+    <div v-if="!getMobile">
+            <div class="row m-auto mt-3">
+            <div class="col">
+                <div class="input-group mb-3">
+                    <span span class="input-group-text" id="basic-addon1">Müşteri</span>
+                    <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="getShopperBgpModel.customer">
+                </div>
+            </div>
+            <div class="col">
+                <div class="input-group mb-3">
+                    <span span class="input-group-text" id="basic-addon1">Şirket</span>
+                    <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="getShopperBgpModel.company">
+                </div>
+            </div>
+            <div class="col">
+                <div class="input-group mb-3">
+                    <span span class="input-group-text" id="basic-addon1">Mail</span>
+                    <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="getShopperBgpModel.email">
+                </div>
             </div>
         </div>
-        <div class="col">
-            <div class="input-group mb-3">
-                <span span class="input-group-text" id="basic-addon1">Şirket</span>
-                <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="getShopperBgpModel.company">
+        <div class="row m-auto mt3">
+            <div class="col">
+                <AutoComplete class="w-100" v-model="selectedCountry" dropdown :suggestions="filteredCountryList" placeholder="Ülke Seçiniz" optionLabel="ulkeAdi" @complete="searchCountry($event)" @item-select="countrySelected($event)" />
+            </div>
+            <div class="col">
+                <div class="input-group mb-3">
+                    <span span class="input-group-text" id="basic-addon1">Telefon</span>
+                    <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="getShopperBgpModel.phone">
+                </div>
+            </div>
+            <div class="col">
+                <div class="input-group mb-3">
+                    <span span class="input-group-text" id="basic-addon1">Satışçı</span>
+                    <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="getShopperBgpModel.satisci">
+                </div>
             </div>
         </div>
-        <div class="col">
-            <div class="input-group mb-3">
-                <span span class="input-group-text" id="basic-addon1">Mail</span>
-                <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="getShopperBgpModel.email">
+        <div class="row m-auto mt-3">
+            <div class="col">
+                <div class="form-floating">
+                    <textarea class="form-control w-100 h-100" placeholder="Leave a comment here" id="floatingTextarea" v-model="getShopperBgpModel.adress" style="padding-top:35px;"></textarea>
+                    <label for="floatingTextarea">Adres</label>
+                </div>
+            </div>
+        </div>
+        <div class="row m-auto mt-3">
+            <div class="col">
+                <button type="button" class="btn btn-success w-100" @click="bgpProcess">Kaydet</button>
+            </div>
+            <div class="col" v-if="!getShopperBgpNewButton">
+                <button type="button" class="btn btn-danger w-100" @click="deleteForm">Sil</button>
             </div>
         </div>
     </div>
-    <div class="row m-auto mt3">
-        <div class="col">
-            <AutoComplete class="w-100" v-model="selectedCountry" dropdown :suggestions="filteredCountryList" placeholder="Ülke Seçiniz" optionLabel="ulkeAdi" @complete="searchCountry($event)" @item-select="countrySelected($event)" />
-        </div>
-        <div class="col">
-            <div class="input-group mb-3">
-                <span span class="input-group-text" id="basic-addon1">Telefon</span>
-                <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="getShopperBgpModel.phone">
+
+        <div v-if="getMobile">
+                <div class=" m-auto mt-3">
+                <div class="">
+                    <div class="input-group mb-3">
+                        <span span class="input-group-text" id="basic-addon1">Müşteri</span>
+                        <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="getShopperBgpModel.customer">
+                    </div>
+                </div>
+                <div class="">
+                    <div class="input-group mb-3">
+                        <span span class="input-group-text" id="basic-addon1">Şirket</span>
+                        <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="getShopperBgpModel.company">
+                    </div>
+                </div>
+                <div class="">
+                    <div class="input-group mb-3">
+                        <span span class="input-group-text" id="basic-addon1">Mail</span>
+                        <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="getShopperBgpModel.email">
+                    </div>
+                </div>
+            </div>
+            <div class=" m-auto mt3">
+                <div class="">
+                    <AutoComplete class="w-100 mb-3" v-model="selectedCountry" dropdown :suggestions="filteredCountryList" placeholder="Ülke Seçiniz" optionLabel="ulkeAdi" @complete="searchCountry($event)" @item-select="countrySelected($event)" />
+                </div>
+                <div class="">
+                    <div class="input-group mb-3">
+                        <span span class="input-group-text" id="basic-addon1">Telefon</span>
+                        <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="getShopperBgpModel.phone">
+                    </div>
+                </div>
+                <div class="">
+                    <div class="input-group mb-3">
+                        <span span class="input-group-text" id="basic-addon1">Satışçı</span>
+                        <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="getShopperBgpModel.satisci">
+                    </div>
+                </div>
+            </div>
+            <div class=" m-auto mt-3">
+                <div class="">
+                    <div class="form-floating">
+                        <textarea class="form-control w-100 h-100 mb-3" placeholder="Leave a comment here" id="floatingTextarea" v-model="getShopperBgpModel.adress"></textarea>
+                        <label for="floatingTextarea">Adres</label>
+                    </div>
+                </div>
+            </div>
+            <div class=" m-auto mt-3">
+                <div class="">
+                    <button type="button" class="btn btn-success w-100 mb-3" @click="bgpProcess">Kaydet</button>
+                </div>
+                <div class="" v-if="!getShopperBgpNewButton">
+                    <button type="button" class="btn btn-danger w-100 mb-3" @click="deleteForm">Sil</button>
+                </div>
             </div>
         </div>
-        <div class="col">
-            <div class="input-group mb-3">
-                <span span class="input-group-text" id="basic-addon1">Satışçı</span>
-                <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="getShopperBgpModel.satisci">
-            </div>
-        </div>
-    </div>
-    <div class="row m-auto mt-3">
-        <div class="col">
-            <div class="form-floating">
-                <textarea class="form-control w-100 h-100" placeholder="Leave a comment here" id="floatingTextarea" v-model="getShopperBgpModel.adress" style="padding-top:35px;"></textarea>
-                <label for="floatingTextarea">Adres</label>
-            </div>
-        </div>
-    </div>
-    <div class="row m-auto mt-3">
-        <div class="col">
-            <button type="button" class="btn btn-success w-100" @click="bgpProcess">Kaydet</button>
-        </div>
-        <div class="col" v-if="!getShopperBgpNewButton">
-            <button type="button" class="btn btn-danger w-100" @click="deleteForm">Sil</button>
-        </div>
-    </div>
+
 </template>
 <script>
 import { useShopperStore } from '../../stores/shopper';
 import { useLoadingStore } from '../../stores/loading';
+import { useMobilStore } from '../../stores/mobil';
 import { mapState } from 'pinia';
 
 import { shopperService } from '../../services/shopperService';
@@ -66,7 +126,11 @@ export default {
             'getShopperBgpModel',
             'getShopperBgpCountryList',
             'getShopperBgpNewButton'
+        ]),
+        ...mapState(useMobilStore, [
+            'getMobile'
         ])
+
     },
     data() {
         return {

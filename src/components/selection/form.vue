@@ -469,9 +469,9 @@ export default {
     methods: {
         
         calculateAmount(event) {
-            const size = this.getSelectionModelList.ebat.split('X');
-            const width = size[0];
-            const height = size[1];
+            const card = this.getCardList.find(x => x.id == this.getSelectionModelList.urunkartid);
+            const width = card.en;
+            const height = card.boy;
             if (this.getSelectionModelList.urunbirimid == 1) {
                 if (width == 'ANT' && height == 'PAT') {
                     this.getSelectionModelList.miktar = this.formatRound(this.getSelectionModelList.kutuadet * 0.74338688);
@@ -481,12 +481,12 @@ export default {
                     this.getSelectionModelList.miktar = this.formatRound(this.getSelectionModelList.kutuadet * 0.494914);
                     this.getSelectionModelList.ozelmiktar = this.getSelectionModelList.miktar;
                 } else if (
-                    this.boy == "FREE" ||
-                    this.boy == "SLAB" ||
-                    this.boy == "VAR" ||
-                    this.boy == "Free" ||
-                    this.boy == "Various" ||
-                    this.boy == "Random"
+                    height == "FREE" ||
+                    height == "SLAB" ||
+                    height == "VAR" ||
+                    height == "Free" ||
+                    height == "Various" ||
+                    height == "Random"
                 ) {
                     this.getSelectionModelList.miktar = 0;
                     this.getSelectionModelList.ozelmiktar = 0;
@@ -499,7 +499,7 @@ export default {
                     }
                     
                 };
-            }else if (this.getSelectionModelList.urunbirimid) {
+            }else if (this.getSelectionModelList.urunbirimid == 2) {
                 if (width == 'ANT' && height == 'PAT') {
                     this.getSelectionModelList.miktar = this.getSelectionModelList.adet;
                     this.getSelectionModelList.ozelmiktar = this.formatRound(this.getSelectionModelList.kutuadet * 0.74338688);

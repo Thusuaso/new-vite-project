@@ -99,30 +99,55 @@
         </div>
     </div>
     <Dialog v-model:visible="info_visible_form" header="" modal :style="{ 'width': '100vw' }">
-        <div class="row m-auto mt-3">
-            <div class="col-6">
-                <span class="p-float-label">
-                    <Dropdown v-model="selectedOrderer" :options="getOrderRepresentativeInfoList.kullaniciList" optionLabel="kullaniciAdi" style="width:250px;" />
-                    <label for="username">Siparişçi</label>
-                </span>
+        <div v-if="!getMobile">
+                    <div class="row m-auto mt-3">
+                <div class="col-6">
+                    <span class="p-float-label">
+                        <Dropdown v-model="selectedOrderer" :options="getOrderRepresentativeInfoList.kullaniciList" optionLabel="kullaniciAdi" style="width:250px;" />
+                        <label for="username">Siparişçi</label>
+                    </span>
+                </div>
+                <div class="col-6">
+                    <span class="p-float-label">
+                        <Dropdown v-model="selectedOperation" :options="getOrderRepresentativeInfoList.kullaniciList" optionLabel="kullaniciAdi" style="width:250px;" />
+                        <label for="username">Operasyon</label>
+                    </span>
+                </div>
             </div>
-            <div class="col-6">
-                <span class="p-float-label">
-                    <Dropdown v-model="selectedOperation" :options="getOrderRepresentativeInfoList.kullaniciList" optionLabel="kullaniciAdi" style="width:250px;" />
-                    <label for="username">Operasyon</label>
-                </span>
+            <div class="row m-auto mt-3">
+                <div class="col">
+                    <button type="button" class="btn btn-success" @click="save">Kaydet</button>
+                </div>
             </div>
         </div>
-        <div class="row m-auto mt-3">
-            <div class="col">
-                <button type="button" class="btn btn-success" @click="save">Kaydet</button>
+        <div v-if="getMobile">
+                        <div class=" m-auto mt-3">
+                    <div class="">
+                        <span class="p-float-label">
+                            <Dropdown v-model="selectedOrderer" :options="getOrderRepresentativeInfoList.kullaniciList" optionLabel="kullaniciAdi" class="w-100 mb-3"  />
+                            <label for="username">Siparişçi</label>
+                        </span>
+                    </div>
+                    <div class="">
+                        <span class="p-float-label">
+                            <Dropdown v-model="selectedOperation" :options="getOrderRepresentativeInfoList.kullaniciList" optionLabel="kullaniciAdi" class="w-100 mb-3" />
+                            <label for="username">Operasyon</label>
+                        </span>
+                    </div>
+                </div>
+                <div class=" m-auto mt-3">
+                    <div class=" ">
+                        <button type="button" class="btn btn-success w-100 mb-3" @click="save">Kaydet</button>
+                    </div>
+                </div>
             </div>
-        </div>
+
     </Dialog>
 </template>
 <script>
 import { useReportsStore } from '../stores/reports';
 import { useLoadingStore } from '../stores/loading';
+import { useMobilStore } from '../stores/mobil';
 import { mapState } from 'pinia';
 import { FilterMatchMode } from 'primevue/api';
 
@@ -133,6 +158,9 @@ export default {
         ...mapState(useReportsStore, [
             'getOrderRepresentativeInfoList',
             'getOrderRepresentativeInfoTotal'
+        ]),
+        ...mapState(useMobilStore, [
+            'getMobile'
         ])
     },
     data() {

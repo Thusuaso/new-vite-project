@@ -1,53 +1,106 @@
 <template>
-    <div class="row m-auto mt-3">
-        <div class="col">
-            <AutoComplete
-            :dropdown="true"
-            size="20%;"
-            v-model="selectedSupplier"
-            :suggestions="filterSupplierList"
-            @complete="searchSupplier($event)"
-            field="tedarikci"
-            @item-select="supplierKindSelected($event)"
-          >
-            <template #items="slotProps">
-              <div class="p-clearfix p-autocomplete-brand-item">
-                <div>
-                  {{ slotProps.tedarikci }}
+    <div v-if="!getMobile">
+            <div class="row m-auto mt-3">
+            <div class="col">
+                <AutoComplete
+                :dropdown="true"
+                size="20%;"
+                v-model="selectedSupplier"
+                :suggestions="filterSupplierList"
+                @complete="searchSupplier($event)"
+                field="tedarikci"
+                @item-select="supplierKindSelected($event)"
+              >
+                <template #items="slotProps">
+                  <div class="p-clearfix p-autocomplete-brand-item">
+                    <div>
+                      {{ slotProps.tedarikci }}
+                    </div>
+                  </div>
+                </template>
+              </AutoComplete>
+            </div>
+            <div class="col">
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1">Fatura No</span>
+                    <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="invoiceNo">
                 </div>
-              </div>
-            </template>
-          </AutoComplete>
-        </div>
-        <div class="col">
-            <div class="input-group mb-3">
-                <span class="input-group-text" id="basic-addon1">Fatura No</span>
-                <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="invoiceNo">
+            </div>
+            <div class="col">
+                <a :href="supplierLink" ref="download" target="_blank">
+
+                </a>
+                <button type="button" class="pi pi-download btn btn-success" @click="$refs.download.click()" :disabled="supplier_link_form"></button>
             </div>
         </div>
-        <div class="col">
-            <a :href="supplierLink" ref="download" target="_blank">
+        <div class="row m-auto mt-3">
+            <div class="col">
+                <custom-file-input
+                    baslik="  Dosya Yükle  "
+                    @sunucuDosyaYolla="invoiceSend($event)"
+                    :isISFForm="supplier_document_form"
+                />
+            </div>
+            <div class="col">
+                <button type="button" class="btn btn-success" :disabled="product_save_form" @click="productSave">Kaydet</button>
+            </div>
+        </div>
+    </div>
+        <div v-if="getMobile">
+                <div class=" m-auto mt-3">
+                <div class="">
+                    <AutoComplete
+                    class="w-100 mb-3"
+                    :dropdown="true"
+                    size="20%;"
+                    v-model="selectedSupplier"
+                    :suggestions="filterSupplierList"
+                    @complete="searchSupplier($event)"
+                    field="tedarikci"
+                    @item-select="supplierKindSelected($event)"
+                  >
+                    <template #items="slotProps">
+                      <div class="p-clearfix p-autocomplete-brand-item">
+                        <div>
+                          {{ slotProps.tedarikci }}
+                        </div>
+                      </div>
+                    </template>
+                  </AutoComplete>
+                </div>
+                <div class="">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">Fatura No</span>
+                        <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="invoiceNo">
+                    </div>
+                </div>
+                <div class="">
+                    <a :href="supplierLink" ref="download" target="_blank">
 
-            </a>
-            <button type="button" class="pi pi-download btn btn-success" @click="$refs.download.click()" :disabled="supplier_link_form"></button>
+                    </a>
+                    <button type="button" class="pi pi-download btn btn-success w-100 mb-3" @click="$refs.download.click()" :disabled="supplier_link_form"></button>
+                </div>
+            </div>
+            <div class=" m-auto mt-3">
+                <div class="">
+                    <custom-file-input
+                        class="m-100 mb-3 m-auto"
+                        baslik="  Dosya Yükle  "
+                        @sunucuDosyaYolla="invoiceSend($event)"
+                        :isISFForm="supplier_document_form"
+                    />
+                </div>
+                <div class="">
+                    <button type="button" class="btn btn-success w-100 mb-3" :disabled="product_save_form" @click="productSave">Kaydet</button>
+                </div>
+            </div>
         </div>
-    </div>
-    <div class="row m-auto mt-3">
-        <div class="col">
-            <custom-file-input
-                baslik="  Dosya Yükle  "
-                @sunucuDosyaYolla="invoiceSend($event)"
-                :isISFForm="supplier_document_form"
-            />
-        </div>
-        <div class="col">
-            <button type="button" class="btn btn-success" :disabled="product_save_form" @click="productSave">Kaydet</button>
-        </div>
-    </div>
+
 </template>
 <script>
 import { useLoadingStore } from '../../stores/loading';
 import { useUploadingStore } from '../../stores/uploading';
+import { useMobilStore } from '../../stores/mobil';
 import { mapState } from 'pinia';
 
 import { uploadingService } from '../../services/uploadingService';
@@ -59,6 +112,9 @@ export default {
     computed: {
         ...mapState(useUploadingStore, [
             'getUploadingSupplierList',
+        ]),
+        ...mapState(useMobilStore, [
+            'getMobile'
         ])
     },
     components: {

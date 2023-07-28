@@ -1,5 +1,6 @@
 <template>
-    <div class="row">
+    <br/>
+    <div class="row" v-if="!getMobile">
         <div class="col">
             <FileUpload mode="basic" accept=".pdf" :maxFileSize="1000000" @select="save($event)" chooseLabel="Yükle"/>
         </div>
@@ -9,9 +10,20 @@
             </a>
         </div>
     </div>
+    <div class="" v-if="getMobile">
+        <div class="">
+            <FileUpload class="w-100 mb-3" mode="basic" accept=".pdf" :maxFileSize="1000000" @select="save($event)" chooseLabel="Yükle"/>
+        </div>
+        <div class="">
+            <a :href="productFolder.Draft" >
+                <button class="btn btn-success w-100 mb-3" :disabled="productFolder.Draft == '' ? true : false" type="button">İndir</button>
+            </a>
+        </div>
+    </div>
 </template>
 <script>
 import { useUploadingStore } from '../../stores/uploading';
+import { useMobilStore } from '../../stores/mobil';
 import { mapState } from 'pinia';
 
 import { uploadingService } from '../../services/uploadingService';
@@ -22,6 +34,9 @@ export default  {
     computed: {
         ...mapState(useUploadingStore, [
             'getUploadingProductFolderList'
+        ]),
+        ...mapState(useMobilStore, [
+            'getMobile'
         ])
     },
     data() {

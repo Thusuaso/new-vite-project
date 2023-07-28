@@ -1,12 +1,27 @@
 <template>
-    <div class="row m-auto">
+    <div class="row m-auto" v-if="!getMobile">
         <div class="col">
             <button type="button" class="btn btn-success" @click="newCustomer">Yeni</button>
         </div>
         <div class="col">
-            <AutoComplete v-model="selectedPo" :suggestions="filteredShopperPoList" optionLabel="po" @complete="searchPo($event)" @item-select="poSelected($event)" @clear="clearPo($event)"/>
+            <AutoComplete placeholder="Po ile Müşteri Ara" v-model="selectedPo" :suggestions="filteredShopperPoList" optionLabel="po" @complete="searchPo($event)" @item-select="poSelected($event)" @clear="clearPo($event)"/>
         </div>
     </div>
+    <div class=" m-auto" v-if="getMobile">
+        <div class="">
+            <button type="button" class="btn btn-success w-100 mb-3" @click="newCustomer">Yeni</button>
+        </div>
+        <div class="w-100">
+            <span class="p-float-label w-100">
+                <AutoComplete inputId="ac" class="w-100 mb-3"  v-model="selectedPo" :suggestions="filteredShopperPoList" optionLabel="po" @complete="searchPo($event)" @item-select="poSelected($event)" @clear="clearPo($event)"/>
+
+                <label for="ac">Po ile Müşteri Ara</label>
+            </span>
+
+        </div>
+    </div>
+
+
     <div class="row m-auto mt-3">
         <div class="col">
             <DataTable 
@@ -152,6 +167,7 @@
 <script>
 import { useShopperStore } from '../stores/shopper';
 import { useLoadingStore } from '../stores/loading';
+import { useMobilStore } from '../stores/mobil';
 import { mapState } from 'pinia';
 import { FilterMatchMode } from 'primevue/api';
 
@@ -165,6 +181,9 @@ export default {
         ...mapState(useShopperStore, [
             'getShopperList',
             'getShopperPoList',
+        ]),
+        ...mapState(useMobilStore, [
+            'getMobile'
         ])
     },
     components: {

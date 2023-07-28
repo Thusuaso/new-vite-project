@@ -98,6 +98,7 @@ import { productionsService } from '../../services/productions';
 import { useProductionsStore } from '../../stores/productions';
 import { useLoadingStore } from '../../stores/loading';
 import { useMobilStore } from '../../stores/mobil';
+import { useProductCostStore } from '../../stores/productcost';
 import { mapState } from 'pinia';
 import { socket } from '../../services/customServices/realTimeService';
 
@@ -123,6 +124,9 @@ export default {
         ]),
         ...mapState(useMobilStore, [
             'getMobile'
+        ]),
+        ...mapState(useProductCostStore, [
+            'getMasraflar'
         ])
     },
     data() {
@@ -132,9 +136,14 @@ export default {
     },
     methods: {
         closed() {
-            if (confirm('Çıkmak istediğinize emin misiniz?')) {
+            if (!this.getProductsSaveButtonStatus) {
+                if (confirm('Çıkmak istediğinize emin misiniz?')) {
+                    this.emitter.emit('products_closed_dialog');
+                }
+            } else {
                 this.emitter.emit('products_closed_dialog');
             }
+            
         },
         orderDivide() {
             this.order_divide_form = true;
@@ -183,7 +192,7 @@ export default {
             useLoadingStore().begin_loading_act();
             useProductionsStore().products_save_button_status_load_act(true);
 
-            this.getProductionsDetailModel.degisimMasraflar = [];
+            this.getProductionsDetailModel.degisimMasraflar = this.getMasraflar;
             this.getProductionsDetailModel.siparis.kullaniciId = localStorage.getItem('userId');
             this.getProductionsDetailModel.siparis.kayit_kisi = localStorage.getItem('username');
             productionsService.updateProductions(this.getProductionsDetailModel).then(data => {
@@ -211,16 +220,16 @@ export default {
 
                     useLoadingStore().end_loading_act();
                     this.$toast.add({ severity: 'success', detail: 'Başarıyla Kaydedildi', life: 3000 });
-            useProductionsStore().products_save_button_status_load_act(false);
+                    useProductionsStore().products_save_button_status_load_act(false);
 
                 } else {
                     useLoadingStore().end_loading_act();
                     this.$toast.add({ severity: 'error', detail: 'Kayıt İşlemi Başarısız', life: 3000 });
-            useProductionsStore().products_save_button_status_load_act(false);
+                    useProductionsStore().products_save_button_status_load_act(false);
 
 
-                }
-            })
+                };
+            });
         },
         saveProcess() {
             if (this.getProductionsNewButton) {

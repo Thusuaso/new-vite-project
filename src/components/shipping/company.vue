@@ -1,35 +1,73 @@
 <template>
-    <div class="row">
-        <div class="col">
-            <div class="input-group mb-3">
-                <span class="input-group-text" id="basic-addon1">Firma Adı</span>
-                <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="companyModel.firma_adi">
+    <br/>
+    <div v-if="!getMobile">
+            <div class="row">
+            <div class="col">
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1">Firma Adı</span>
+                    <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="companyModel.firma_adi">
+                </div>
+            </div>
+            <div class="col">
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1">Mail Adres</span>
+                    <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="companyModel.mail">
+                </div>
+            </div>
+            <div class="col">
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1">Telefon</span>
+                    <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="companyModel.telefon">
+                </div>
+            </div>
+            <div class="col">
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1">Not</span>
+                    <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="companyModel.aciklama">
+                </div>
             </div>
         </div>
-        <div class="col">
-            <div class="input-group mb-3">
-                <span class="input-group-text" id="basic-addon1">Mail Adres</span>
-                <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="companyModel.mail">
-            </div>
-        </div>
-        <div class="col">
-            <div class="input-group mb-3">
-                <span class="input-group-text" id="basic-addon1">Telefon</span>
-                <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="companyModel.telefon">
-            </div>
-        </div>
-        <div class="col">
-            <div class="input-group mb-3">
-                <span class="input-group-text" id="basic-addon1">Not</span>
-                <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="companyModel.aciklama">
+        <div class="row mb-3">
+            <div class="col">
+                <button type="button" class="btn btn-success w-100" @click="save">Kaydet</button>
             </div>
         </div>
     </div>
-    <div class="row mb-3">
-        <div class="col">
-            <button type="button" class="btn btn-success w-100" @click="save">Kaydet</button>
+
+        <div v-if="getMobile">
+                <div class="">
+                <div class="">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">Firma Adı</span>
+                        <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="companyModel.firma_adi">
+                    </div>
+                </div>
+                <div class="">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">Mail Adres</span>
+                        <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="companyModel.mail">
+                    </div>
+                </div>
+                <div class="">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">Telefon</span>
+                        <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="companyModel.telefon">
+                    </div>
+                </div>
+                <div class="">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">Not</span>
+                        <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="companyModel.aciklama">
+                    </div>
+                </div>
+            </div>
+            <div class=" mb-3">
+                <div class="">
+                    <button type="button" class="btn btn-success w-100 mb-3" @click="save">Kaydet</button>
+                </div>
+            </div>
         </div>
-    </div>
+
     <DataTable :value="getShippingCompanyListDetail" style="font-size:85%;">
         <Column field="id" header="#"></Column>
         <Column field="firma_adi" header="Firma"></Column>
@@ -40,6 +78,7 @@
 </template>
 <script>
 import { useShippingStore } from '../../stores/shipping';
+import { useMobilStore } from '../../stores/mobil';
 import { mapState } from 'pinia';
 
 import { shippingService } from '../../services/shippingService';
@@ -48,6 +87,9 @@ export default {
     computed: {
         ...mapState(useShippingStore, [
             'getShippingCompanyListDetail'
+        ]),
+        ...mapState(useMobilStore, [
+            'getMobile'
         ])
     },
     data() {

@@ -1,9 +1,16 @@
 <template>
-    <div class="row m-auto mt-3">
+    <div class="row m-auto mt-3" v-if="!getMobile">
         <div class="col">
-            <button type="button" class="btn btn-success" @click="newForm">Yeni</button>
+            <button type="button" class="btn btn-success " @click="newForm">Yeni</button>
         </div>
     </div>
+
+    <div class=" m-auto mt-3" v-if="getMobile">
+        <div class="">
+            <button type="button" class="btn btn-success w-100 mb-3" @click="newForm">Yeni</button>
+        </div>
+    </div>
+
     <div class="row m-auto mt-3">
         <div class="col">
             <DataTable 
@@ -89,6 +96,7 @@
 <script>
 import { useShopperStore } from '../stores/shopper';
 import { useLoadingStore } from '../stores/loading';
+import { useMobilStore } from '../stores/mobil';
 import { mapState } from 'pinia';
 
 import { FilterMatchMode } from 'primevue/api';
@@ -102,6 +110,9 @@ export default {
     computed: {
         ...mapState(useShopperStore, [
             'getShopperFairList'
+        ]),
+        ...mapState(useMobilStore, [
+            'getMobile',
         ])
     },
     components: {

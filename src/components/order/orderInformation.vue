@@ -51,41 +51,44 @@
                                     </div>
                                 </div>
                         </div>
-                        <div class="row">
-                            <div class="col">
+                        <div class="row mb-3 mt-3">
+                            <div class="col-4">
                                   <Dropdown v-model="selectedUnit"  :options="getProductUnitList" :disabled="form_status" aria-describedby="basic-addon1" optionLabel="birimAdi" placeholder="Birim" class="w-full md:w-14rem" style="width:100%;" />
                             </div>
-                            <div class="col">
-                                <div class="input-group mb-3 ">
-                                        <span class="input-group-text" id="basic-addon1" style="width:40%;height:50px;">M</span>
-                                        <input type="text" class="form-control" aria-label="Username" :disabled="form_status" aria-describedby="basic-addon1" v-model="products.miktar" @input="products.miktar = $filters.formatPoint($event.target.value)">
-                                    </div>
+                            <div class="col-4">
+                                <span class="p-float-label">
+                                    <InputText  class="w-75" id="amount" :disabled="form_status" v-model="products.miktar" @input="products.miktar = $filters.formatPoint($event.target.value)"/>
+                                    <label for="amount">Miktar</label>
+                                </span>
+   
                             </div>
-                            <div class="col">
-                                <div class="input-group mb-3 ">
-                                        <span class="input-group-text" id="basic-addon1" style="width:40%;height:50px;">K</span>
-                                        <input type="text" class="form-control" aria-label="Username" :disabled="form_status" aria-describedby="basic-addon1" v-model="products.kasaAdet">
-                                    </div>
+                            <div class="col-4">
+                                    <span class="p-float-label">
+                                        <InputText class="w-75" id="crate" :disabled="form_status"  v-model="products.kasaAdet" @input="products.kasaAdet = $filters.formatPoint($event.target.value)"/>
+                                        <label for="crate">Kasa</label>
+                                    </span>
                             </div>
-                            <div class="col">
-                                <div class="input-group mb-3 ">
-                                        <span class="input-group-text" id="basic-addon1" style="width:40%;height:50px;">S</span>
-                                        <input type="text" class="form-control" aria-label="Username" :disabled="form_status" aria-describedby="basic-addon1" v-model="products.siraNo">
-                                    </div>
-                            </div>
+                            
                         </div>
-                        <div class="row">
-                                <div class="col-3">
-                                    <div class="input-group mb-3 ">
-                                            <span class="input-group-text" id="basic-addon1" style="width:40%;height:50px;">Ö.M</span>
-                                            <input type="text" class="form-control" aria-label="Username" :disabled="form_status" aria-describedby="basic-addon1" v-model="products.ozelMiktar" @input="products.ozelMiktar = $filters.formatPoint($event.target.value)">
-                                        </div>
+                        <div class="row mb-3">
+                            <div class="col-4">
+                                    <span class="p-float-label">
+                                        <InputText class="w-75" id="sira" :disabled="form_status" aria-describedby="basic-addon1" v-model="products.siraNo" @input="products.siraNo = $filters.formatPoint($event.target.value)"/>
+                                        <label for="sira">Sıra</label>
+                                    </span>
                                 </div>
-                                <div class="col-3">
-                                    <div class="input-group mb-3 ">
-                                            <span class="input-group-text" id="basic-addon1" style="width:40%;height:50px;">T</span>
-                                            <input type="text" class="form-control" aria-label="Username" :disabled="form_status" aria-describedby="basic-addon1" v-model="products.ton" @input="products.ton = $filters.formatPoint($event.target.value)">
-                                        </div>
+                                <div class="col-4">
+                                    <span class="p-float-label">
+                                        <InputText class="w-75" id="m2" :disabled="form_status" aria-describedby="basic-addon1" v-model="products.ozelMiktar" @input="products.ozelMiktar = $filters.formatPoint($event.target.value)"/>
+                                        <label for="m2">Öngörülen M2</label>
+                                    </span>
+                                </div>
+                                <div class="col-4">
+
+                                    <span class="p-float-label">
+                                            <InputText class="w-75" id="ton" :disabled="form_status" aria-describedby="basic-addon1" v-model="products.ton" @input="products.ton = $filters.formatPoint($event.target.value)"/>
+                                            <label for="ton">Ton</label>
+                                        </span>
                                 </div>
                         </div>
                         <button type="button" class="btn btn-secondary w-100" @click="workmanship_form = true" v-if="workmanshipButton" :disabled="workmanship_disabled">İşçilik</button>

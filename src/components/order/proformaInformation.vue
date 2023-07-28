@@ -33,11 +33,11 @@
                 </div>
                 <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">E.Gideri</span>
-                        <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.evrakGideri" @input="changeCost">
+                        <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.evrakGideri" @input="changeCost('Evrak Gideri')">
                 </div>
                 <div class="input-group mb-3">
                             <span class="input-group-text" id="basic-addon1">Komisyon</span>
-                            <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.komisyon" @input="changeCost">
+                            <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.komisyon" @input="changeCost('Komisyon')">
                     </div>
                 <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">İade</span>
@@ -91,7 +91,7 @@
             <div class="col">
                 <div class="input-group mb-3">
           <span class="input-group-text" id="basic-addon1">N. Satış</span>
-          <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.navlunSatis" @input="changeCost">
+          <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.navlunSatis" @input="changeCost('Navlun Satış')">
         </div>
             </div>
             <div class="col">
@@ -103,7 +103,7 @@
             <div class="col">
                 <div class="input-group mb-3">
           <span class="input-group-text" id="basic-addon1">N. Alış</span>
-          <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.navlunAlis" @input="changeCost">
+          <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.navlunAlis" @input="changeCost('Navlun Alış')">
         </div>
             </div>
             <div class="col">
@@ -117,7 +117,7 @@
             <div class="col">
                 <div class="input-group mb-3">
                     <span class="input-group-text" id="basic-addon1">D1 Satış</span>
-                    <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.detayTutar_1" @input="changeCost">
+                    <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.detayTutar_1" @input="changeCost('Detay Satış 1')">
                 </div>
             </div>
             <div class="col">
@@ -129,7 +129,7 @@
             <div class="col">
                 <div class="input-group mb-3">
                             <span class="input-group-text" id="basic-addon1">D1 Alış</span>
-                            <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.detayAlis_1" @input="changeCost">
+                            <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.detayAlis_1" @input="changeCost('Detay Alış 1')">
                         </div>
             </div>
             <div class="col">
@@ -143,7 +143,7 @@
                 <div class="col">
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">D2 Satış</span>
-                        <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.detayTutar_2" @input="changeCost">
+                        <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.detayTutar_2" @input="changeCost('Detay Satış 2')">
                     </div>
                 </div>
                 <div class="col">
@@ -155,7 +155,7 @@
                 <div class="col">
                     <div class="input-group mb-3">
                                 <span class="input-group-text" id="basic-addon1">D2 Alış</span>
-                                <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.detayAlis_2" @input="changeCost">
+                                <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.detayAlis_2" @input="changeCost('Detay Alış 2')">
                             </div>
                 </div>
                 <div class="col">
@@ -169,7 +169,7 @@
                 <div class="col">
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">D3 Satış</span>
-                        <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.detayTutar_3" @input="changeCost">
+                        <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.detayTutar_3" @input="changeCost('Detay Satış 3')">
                     </div>
                 </div>
                 <div class="col">
@@ -181,7 +181,7 @@
                 <div class="col">
                     <div class="input-group mb-3">
                                 <span class="input-group-text" id="basic-addon1">D3 Alış</span>
-                                <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.detayAlis_3" @input="changeCost">
+                                <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.detayAlis_3" @input="changeCost('Detay Alış 3')">
                             </div>
                 </div>
                 <div class="col">
@@ -195,7 +195,7 @@
                     <div class="col">
                         <div class="input-group mb-3">
                             <span class="input-group-text" id="basic-addon1">Mekus</span>
-                            <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.detayTutar_4" @input="changeCost">
+                            <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.detayTutar_4" @input="changeCost('Mekus Masrafı')">
                         </div>
                     </div>
                     <div class="col">
@@ -207,13 +207,13 @@
                     <div class="col">
                         <div class="input-group mb-3">
                                 <span class="input-group-text" id="basic-addon1">S. Satış</span>
-                                <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.sigorta_tutar_satis" @input="changeCost">
+                                <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.sigorta_tutar_satis" @input="changeCost('Sigorta Satış')">
                             </div>
                     </div>
                     <div class="col">
                         <div class="input-group mb-3">
                             <span class="input-group-text" id="basic-addon1">S. Alış</span>
-                            <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.sigorta_tutar" @input="changeCost">
+                            <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getProductionsDetailModel.siparis.sigorta_tutar" @input="changeCost('Sigorta Alış')">
                         </div>
                     </div>
         </div>
@@ -443,6 +443,7 @@
 <script>
 import { useProductionsStore } from "../../stores/productions";
 import { useMobilStore } from '../../stores/mobil';
+import { useProductCostStore } from '../../stores/productcost';
 import { mapState } from 'pinia';
 import { localDateService } from '../../services/localDateService';
 import { fileService } from '../../services/fileService';
@@ -484,7 +485,32 @@ export default {
         saveButtonControl() {
             useProductionsStore().products_save_button_status_load_act(false);
         },
-        changeCost() {
+        changeCost(event) {
+            if(event=='Navlun Satış'){
+                useProductCostStore().navlun_satis_change_act(this.getProductionsDetailModel.siparis.navlunSatis);
+            } else if(event == 'Navlun Alış'){
+                useProductCostStore().navlun_alis_change_act(this.getProductionsDetailModel.siparis.navlunAlis);
+            } else if (event == 'Detay Satış 1') {
+                useProductCostStore().detay_tutar1_change_act(this.getProductionsDetailModel.siparis.detayTutar_1);
+            } else if (event == 'Detay Alış 1') {
+                useProductCostStore().detay_alis1_change_act(this.getProductionsDetailModel.siparis.detayAlis_1);
+            } else if (event == 'Detay Satış 2') {
+                useProductCostStore().detay_tutar2_change_act(this.getProductionsDetailModel.siparis.detayTutar_2);
+            } else if (event == 'Detay Alış 2') {
+                useProductCostStore().detay_alis2_change_act(this.getProductionsDetailModel.siparis.detayAlis_2);
+            } else if (event == 'Detay Satış 3') {
+                useProductCostStore().detay_tutar3_change_act(this.getProductionsDetailModel.siparis.detayTutar_3);
+            } else if (event == 'Detay Alış 3') {
+                useProductCostStore().detay_alis3_change_act(this.getProductionsDetailModel.siparis.detayAlis_3);
+            } else if (event == 'Mekus Masrafı') {
+                useProductCostStore().mekus_masrafi_change_act(this.getProductionsDetailModel.siparis.detayTutar_4);
+            } else if (event == 'Sigorta Satış') {
+                useProductCostStore().sigorta_satis_change_act(this.getProductionsDetailModel.siparis.sigorta_tutar_satis);
+            } else if (event == 'Sigorta Alış') {
+                useProductCostStore().sigorta_alis_change_act(this.getProductionsDetailModel.siparis.sigorta_tutar);
+            } else if (event == 'Navlun Alış') {
+                useProductCostStore().navlun_alis_change_act(this.getProductionsDetailModel.siparis.navlunAlis);
+            }
             useProductionsStore().product_total_load_act(this.getProductionsDetailModel);
             useProductionsStore().products_save_button_status_load_act(false);
         },

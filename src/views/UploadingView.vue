@@ -1,5 +1,5 @@
 <template>
-    <div class="row m-auto mt-3">
+    <div class="row m-auto mt-3" v-if="!getMobile">
         <div class="col-6">
             <div class="row mb-5">
                 <div class="col">
@@ -76,6 +76,85 @@
             </DataTable>
         </div>
     </div>
+
+        <div class=" m-auto mt-3" v-if="getMobile">
+            <div class="">
+                <div class="">
+                    <div class="">
+                        <AutoComplete class="w-100 mb-3" v-model="selectedUploadingProduct" dropdown :suggestions="filteredUploadingProductList" optionLabel="siparisno" @complete="searchUploadingProduct($event)" @item-select="uploadingProductSelected($event)" />
+                    </div>
+                    <div class="">
+                        <div class="input-group flex-nowrap mb-3">
+                            <span class="input-group-text" id="addon-wrapping">Müşteri Adı</span>
+                            <input type="text" class="form-control" aria-describedby="addon-wrapping" v-model="uploadingProductInfo.customer" disabled>
+                        </div>
+                    </div>
+                </div>
+                <div class="">
+                    <div class="">
+                        <div class="input-group flex-nowrap mb-3">
+                            <span class="input-group-text" id="addon-wrapping">Mail</span>
+                            <input type="text" class="form-control" aria-describedby="addon-wrapping" v-model="uploadingProductInfo.email" disabled>
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="input-group flex-nowrap mb-3">
+                            <span class="input-group-text" id="addon-wrapping">Not</span>
+                            <input type="text" class="form-control" aria-describedby="addon-wrapping" v-model="uploadingProductInfo.line" disabled>
+                        </div>
+                    </div>
+                </div>
+                <div class="">
+                    <div class="">
+                        <div class="input-group flex-nowrap mb-3">
+                            <span class="input-group-text" id="addon-wrapping">Teslim</span>
+                            <input type="text" class="form-control" aria-describedby="addon-wrapping" v-model="uploadingProductInfo.delivery" disabled>
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="input-group flex-nowrap mb-3">
+                            <span class="input-group-text" id="addon-wrapping">Ödeme</span>
+                            <input type="text" class="form-control" aria-describedby="addon-wrapping" v-model="uploadingProductInfo.payment" disabled>
+                        </div>
+                    </div>
+                </div>
+                <div class="">
+                    <div class="">
+                        <div class="input-group flex-nowrap mb-3">
+                            <span class="input-group-text" id="addon-wrapping">Navlun A.</span>
+                            <input type="text" class="form-control" aria-describedby="addon-wrapping" v-model="uploadingProductInfo.freightIn" disabled>
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="input-group flex-nowrap mb-3">
+                            <span class="input-group-text" id="addon-wrapping">Navlun S.</span>
+                            <input type="text" class="form-control" aria-describedby="addon-wrapping" v-model="uploadingProductInfo.freightOut" disabled>
+                        </div>
+                    </div>
+                </div>
+            
+                <FileUpload class="w-100 mb-3" v-if="uploadButtonForm" mode="basic" accept=".pdf" :maxFileSize="1000000" @select="uploadingFolders($event)" multiple chooseLabel="Evrak Yükleme" showUploadButton/>
+            </div>
+            <div class="">
+                <DataTable 
+                    :value="getUploadingFolderList" 
+                    style="font-size:85%;"
+                    v-model:selection="selectedUploadingFolder" 
+                    selectionMode="single" 
+                    @row-click="uploadingFolderSelected($event)"
+                >
+                    <Column field="Faturaid" header="#"></Column>
+                    <Column field="faturaadi" header="Fatura Adı">
+                        <template #body="slotProps">
+                            <div :style="{ 'backgroundColor': slotProps.data.renk, 'color': 'white' }">
+                                {{ slotProps.data.faturaadi }}
+                            </div>
+                        </template>
+                    </Column>
+                </DataTable>
+            </div>
+        </div>
+
     <Dialog v-model:visible="is_form" :header="folderName" modal :style="{ 'width': '100vw' }">
         <invoiceForm :id="invoiceId" :po="po"/>
     </Dialog>
@@ -89,6 +168,7 @@
 <script>
 import { useUploadingStore } from '../stores/uploading';
 import { useLoadingStore } from '../stores/loading';
+import { useMobilStore } from '../stores/mobil';
 import { mapState } from 'pinia';
 
 import { fileService } from '../services/fileService';
@@ -104,6 +184,9 @@ export default {
             'getUploadingProductList',
             'getUploadingFolderList',
             'getUploadingProductFolderList'
+        ]),
+        ...mapState(useMobilStore, [
+            'getMobile',
         ])
     },
     components: {

@@ -1,5 +1,5 @@
 <template>
-    <div class="container text-center">
+    <div class="container text-center" v-if="!getMobile">
       <div class="row">
         <div class="col-6">
           <div class="input-group mb-3">
@@ -16,9 +16,28 @@
       </div>
       <button type="button" class="btn btn-success" @click="save">Kaydet</button>
     </div>
+
+        <div class="container text-center" v-if="getMobile">
+        <div class="">
+          <div class="">
+            <div class="input-group mb-3 w-100">
+              <span class="input-group-text" id="basic-addon1">Proje Adı</span>
+              <input v-model="project.name" type="text" class="form-control"  aria-label="Username" aria-describedby="basic-addon1" >
+            </div>
+          </div>
+          <div class="">
+            <Dropdown class="w-100 mb-3" v-model="selectedCountry" :options="countryList" filter optionLabel="ulkeAdi" >
+                
+              </Dropdown>
+          </div>
+
+        </div>
+        <button type="button" class="btn btn-success w-100 mb-3" @click="save">Kaydet</button>
+      </div>
 </template>
 <script>
 import { useBgpStore } from '../../stores/bgp';
+import { useMobilStore } from '../../stores/mobil';
 import { mapState } from 'pinia';
 import { bgpService } from '../../services/bgpService';
 import { socket } from '../../services/customServices/realTimeService';
@@ -35,7 +54,8 @@ export default {
       }  
     },
     computed: {
-        ...mapState(useBgpStore,['countryList'])
+      ...mapState(useBgpStore, ['countryList']),
+        ...mapState(useMobilStore,['getMobile']),
     },
     methods: {
         save() {

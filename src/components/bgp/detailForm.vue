@@ -1,6 +1,6 @@
 <template>
     <br/>
-    <div class="container text-center">
+    <div class="container text-center" v-if="!getMobile">
       <div class="row">
         <div class="col">
           <div class="input-group mb-3">
@@ -106,14 +106,123 @@
         <button type="button" class="btn btn-danger" v-if="!getbgpProjectNewButtonStatus" @click="deleteProject" >Sil</button>
 
     </div>
+        <div class="container text-center" v-if="getMobile">
+          <div class="">
+            <div class="">
+              <div class="input-group mb-3 w-100">
+                <span class="input-group-text" id="basic-addon1">Firma Adı</span>
+                <input v-model="getBgpListDetailModel.firmaAdi" type="text" class="form-control " aria-label="Username" aria-describedby="basic-addon1">
+              </div>
+            </div>
+        
+            <div class="">
+              <div class="input-group mb-3 w-100">
+                <span class="input-group-text" id="basic-addon1">Email</span>
+                <input v-model="getBgpListDetailModel.email" type="text" class="form-control"  aria-label="Username" aria-describedby="basic-addon1">
+              </div>
+            </div>
+            <div class="">
+                  <div class="input-group mb-3 w-100">
+            <span class="input-group-text" id="basic-addon1">Tel</span>
+            <input v-model="getBgpListDetailModel.phoneNumber" type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
+            </div>
+            </div>
+          </div>
+          <br/>
+          <div class="">
+                <div class="">
+                  <div class="btn-group w-100 mb-3" role="group" aria-label="Basic checkbox toggle button group">
+                    <input type="checkbox" class="btn-check w-100" id="btncheck1" autocomplete="off" v-model="getBgpListDetailModel.wrongNumber">
+                    <label class="btn btn-outline-primary" for="btncheck1">Numara Yanlış</label>
+                 </div>
+                </div>
+                <div class="">
+                      <div class="btn-group w-100 mb-3" role="group" aria-label="Basic checkbox toggle button group">
+                        <input type="checkbox" class="btn-check" id="btncheck2" autocomplete="off" v-model="getBgpListDetailModel.notResponse">
+                        <label class="btn btn-outline-primary" for="btncheck2">Cevap Yok</label>
+                     </div>
+                </div>
+                <div class="">
+                          <div class="btn-group w-100 mb-3" role="group" aria-label="Basic checkbox toggle button group">
+                            <input type="checkbox" class="btn-check" id="btncheck3" autocomplete="off" v-model="getBgpListDetailModel.interested">
+                            <label class="btn btn-outline-primary" for="btncheck3">İlgili</label>
+                         </div>
+                    </div>
+                <div class="">
+                            <div class="btn-group w-100 mb-3" role="group" aria-label="Basic checkbox toggle button group">
+                            <input type="checkbox" class="btn-check" id="btncheck4" autocomplete="off" v-model="getBgpListDetailModel.notInterested">
+                            <label class="btn btn-outline-primary" for="btncheck4">İlgisiz</label>
+                            </div>
+                    </div>
+          </div>
+          <br/>
+
+          <div class="row">
+            <div class="col"> 
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="contractor" v-model="getBgpListDetailModel.unvan" >
+                    <label class="form-check-label" for="flexRadioDefault1">
+                        Contractor
+                    </label>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-check">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" value="architect" v-model="getBgpListDetailModel.unvan">
+                        <label class="form-check-label" for="flexRadioDefault2">
+                            Architech
+                        </label>
+                    </div>
+            </div>
+          </div>
+          <br/>
+          <div class="">
+                <div class="">
+                  <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1">Başlık</span>
+                    <input v-model="getBgpListDetailModel.baslik" type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
+                  </div>
+                </div>
+                <div class="">
+
+                      <span class="p-float-label">
+                        <Calendar class="w-100" inputId="r_date" v-model="r_date" showIcon dateFormat="dd/mm/yy"/>
+                        <label for="r_date">H.Tarihi</label>
+                    </span>
+                    </div>
+          </div>
+          <br/>
+          <div class="">
+            <div class="">
+                <div class="form-floating mb-3">
+                    <textarea class="form-control "  placeholder="Leave a comment here" id="floatingTextarea" v-model="getBgpListDetailModel.aciklama" style="height: 100px;padding-top:35px;"></textarea>
+                    <label for="floatingTextarea">Açıklama</label>
+                </div>
+            </div>
+            <div class="">
+                    <div class="form-floating">
+                        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" v-model="getBgpListDetailModel.hatirlatmaAciklama" style="height: 100px;padding-top:35px;"></textarea>
+                        <label for="floatingTextarea">H.Açıklama</label>
+                    </div>
+                </div>
+          </div>
+          <br/>
+
+            <button type="button" class="btn btn-success w-100 mb-3" @click="save"  v-if="getbgpProjectNewButtonStatus">Kaydet</button>
+            <button type="button" class="btn btn-warning w-100 mb-3" @click="update" v-if="!getbgpProjectNewButtonStatus">Güncelle</button>
+            <button type="button" class="btn btn-danger w-100 mb-3" v-if="!getbgpProjectNewButtonStatus" @click="deleteProject" >Sil</button>
+
+        </div>
 </template>
 <script>
 import { useBgpStore } from '../../stores/bgp';
+import { useLoadingStore } from '../../stores/loading';
+import { useMobilStore } from '../../stores/mobil';
 import { mapState } from 'pinia';
+
 import { localDateService } from '../../services/localDateService';
 import { bgpService } from '../../services/bgpService';
 import { socket } from '../../services/customServices/realTimeService';
-import { useLoadingStore } from '../../stores/loading';
 export default {
     props:['projectName','ulkeAdi'],
     data() {
@@ -127,6 +236,9 @@ export default {
         ...mapState(useBgpStore, [
             'getBgpListDetailModel',
             'getbgpProjectNewButtonStatus'
+        ]),
+        ...mapState(useMobilStore, [
+            'getMobile',
         ])
     },
     created() {

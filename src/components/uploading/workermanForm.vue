@@ -1,5 +1,6 @@
 <template>
-    <div class="row">
+    <br/>
+    <div class="row" v-if="!getMobile">
         <div class="col">
             <Dropdown v-model="selectedSupplier" :options="tedarikci_list" optionLabel="tedarikci" class="w-full md:w-14rem" />
         </div>
@@ -20,9 +21,32 @@
               </a>
         </div>
     </div>
+        <div class="" v-if="getMobile">
+            <div class="">
+                <Dropdown v-model="selectedSupplier" :options="tedarikci_list" optionLabel="tedarikci" class="w-100 mb-3" />
+            </div>
+            <div class="">
+                <CustomInputFile
+                    class="mb-3"
+                  baslik="  Dosya Yükle  "
+                  @sunucuDosyaYolla="faturaDosyaGonder($event)"
+                />
+            </div>
+            <div class="">
+                <a :href="tedarikciLink" target="_self">
+                    <button
+                      class="btn btn-success w-100 mb-3"
+                      iconPos="left"
+                      icon="fas fa-download"
+                      :disabled="dis_download"
+                    >indir</button>
+                  </a>
+            </div>
+        </div>
 </template>
 <script>
 import { useUploadingStore } from '../../stores/uploading';
+import { useMobilStore } from '../../stores/mobil';
 import { mapState } from 'pinia';
 
 import { uploadingService } from '../../services/uploadingService';
@@ -35,6 +59,9 @@ export default {
     computed: {
         ...mapState(useUploadingStore, [
             'getUploadingProductFolderList'
+        ]),
+        ...mapState(useMobilStore, [
+            'getMobile'
         ])
     },
     components: {

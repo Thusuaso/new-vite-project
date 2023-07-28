@@ -1,59 +1,122 @@
 <template>
-    <div class="container text-center">
-      <div class="row">
-        <div class="col-4">
-          <button type="button" class="btn btn-success" @click="newProject">Yeni Proje</button>
-        </div>
-        <div class="col-4">
-          <button type="button" class="btn btn-danger" @click="statistics">İstatistik</button>
-        </div>
-      </div>
-      <br/>
-      <div class="row">
-        <div class="col-4">
-            <Dropdown v-model="selectedRepresentive" :options="representivies" optionLabel="name" class="w-full md:w-14rem" @change="representivChange($event)" />
-
-        </div>
-        <div class="col-4">
-            <Dropdown v-model="selectedCountry" :options="bgpCountryList" optionLabel="ulkeAdi" class="w-full md:w-14rem" @change="representivCountryChange($event)"/>
-        </div>
-        <div class="col-4">
-            {{ bgpTotal }}
-        </div>
-      </div>
-    </div>
-    <br/>
-    <div class="container text-center">
-      <div class="row">
-        <div class="col-4" v-for="item of getBgpList" :key="item" style="margin-bottom:15px">
-          <div class="card text-center">
-          <div class="card-header">
-            <h5 class="card-title">{{ item.projectName }}</h5>
-          </div>
-          <!-- <div class="card-body">
-            <h5 class="card-title">{{ item.projectName }}</h5>
-          </div> -->
-          <div class="card-footer text-body-secondary">
+    <div v-if="!getMobile">
             <div class="container text-center">
-                <div class="row">
-                    <div class="col-4">
-                        <button type="button" class="btn btn-primary" @click="detail(item.projectName, item.ulkeAdi)">Detay</button>
-                    </div>
-                    <div class="col-4">
-                        {{ $filters.formatDate(item.dateOfRegistiration) }}  {{ item.temsilciAdi }}
+          <div class="row">
+            <div class="col-4">
+              <button type="button" class="btn btn-success" @click="newProject">Yeni Proje</button>
+            </div>
+            <div class="col-4">
+              <button type="button" class="btn btn-danger" @click="statistics">İstatistik</button>
+            </div>
+          </div>
+          <br/>
+          <div class="row">
+            <div class="col-4">
+                <Dropdown v-model="selectedRepresentive" :options="representivies" optionLabel="name" class="w-full md:w-14rem" @change="representivChange($event)" />
 
-                    </div>
-                    <div class="col-4">
-                        <button type="button" class="btn btn-danger" @click="deleteProject(item.projectName)">Sil</button>
-                    </div>
-                </div>
+            </div>
+            <div class="col-4">
+                <Dropdown v-model="selectedCountry" :options="bgpCountryList" optionLabel="ulkeAdi" class="w-full md:w-14rem" @change="representivCountryChange($event)"/>
+            </div>
+            <div class="col-4">
+                {{ bgpTotal }}
             </div>
           </div>
         </div>
+        <br/>
+        <div class="container text-center">
+          <div class="row">
+            <div class="col-4" v-for="item of getBgpList" :key="item" style="margin-bottom:15px">
+              <div class="card text-center">
+              <div class="card-header">
+                <h5 class="card-title">{{ item.projectName }}</h5>
+              </div>
+              <!-- <div class="card-body">
+            <h5 class="card-title">{{ item.projectName }}</h5>
+          </div> -->
+              <div class="card-footer text-body-secondary">
+                <div class="container text-center">
+                    <div class="row">
+                        <div class="col-4">
+                            <button type="button" class="btn btn-primary" @click="detail(item.projectName, item.ulkeAdi)">Detay</button>
+                        </div>
+                        <div class="col-4">
+                            {{ $filters.formatDate(item.dateOfRegistiration) }}  {{ item.temsilciAdi }}
+
+                        </div>
+                        <div class="col-4">
+                            <button type="button" class="btn btn-danger" @click="deleteProject(item.projectName)">Sil</button>
+                        </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+            </div>
+
+          </div>
+        </div>
+    </div>
+
+    <div v-if="getMobile">
+                <div class="container text-center">
+              <div class="">
+                <div class="">
+                  <button type="button" class="btn btn-success w-100 mb-3" @click="newProject">Yeni Proje</button>
+                </div>
+                <div class="">
+                  <button type="button" class="btn btn-danger w-100 mb-3" @click="statistics">İstatistik</button>
+                </div>
+              </div>
+              <br/>
+              <div class="">
+                <div class="">
+                    <Dropdown v-model="selectedRepresentive" :options="representivies" optionLabel="name" class="w-100 mb-3" @change="representivChange($event)" />
+
+                </div>
+                <div class="">
+                    <Dropdown v-model="selectedCountry" :options="bgpCountryList" optionLabel="ulkeAdi" class="w-100 mb-3" @change="representivCountryChange($event)"/>
+                </div>
+                <div class="w-100 mb-3">
+                    {{ bgpTotal }}
+                </div>
+              </div>
+            </div>
+            <br/>
+            <div class="container text-center">
+              <div class="">
+                <div class="" v-for="item of getBgpList" :key="item" style="margin-bottom:15px">
+                  <div class="card text-center">
+                  <div class="card-header">
+                    <h5 class="card-title">{{ item.projectName }}</h5>
+                  </div>
+                  <!-- <div class="card-body">
+            <h5 class="card-title">{{ item.projectName }}</h5>
+          </div> -->
+                  <div class="card-footer text-body-secondary">
+                    <div class="container text-center">
+                        <div class="row">
+                            <div class="col-4">
+                                <button type="button" class="btn btn-primary" @click="detail(item.projectName, item.ulkeAdi)">Detay</button>
+                            </div>
+                            <div class="col-4">
+                                {{ $filters.formatDate(item.dateOfRegistiration) }}  {{ item.temsilciAdi }}
+
+                            </div>
+                            <div class="col-4">
+                                <button type="button" class="btn btn-danger" @click="deleteProject(item.projectName)">Sil</button>
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+                </div>
+
+              </div>
+            </div>
         </div>
 
-      </div>
-    </div>
+
+
     <Dialog v-model:visible="bgp_new_project_form" modal header="Yeni Proje" :style="{ 'width': '100vw' }">
         <br/>
         <newProject/>
@@ -69,13 +132,18 @@
 
 <script>
 import { useBgpStore } from '../stores/bgp';
-import { mapState } from 'pinia';
-import { socket } from '../services/customServices/realTimeService';
-import newProject from '../components/bgp/newProject.vue';
-import { bgpService } from '../services/bgpService';
 import { useLoadingStore } from '../stores/loading';
+import { useMobilStore } from '../stores/mobil';
+import { mapState } from 'pinia';
+
+import { socket } from '../services/customServices/realTimeService';
+import { bgpService } from '../services/bgpService';
+
+
 import detail from '../components/bgp/detail.vue';
 import statistics from '../components/bgp/statistics.vue';
+import newProject from '../components/bgp/newProject.vue';
+
 
 export default {
     components: {
@@ -109,6 +177,9 @@ export default {
             'getBgpCountryList',
             'getStatisticList',
             'getRepresentiveCountry'
+        ]),
+        ...mapState(useMobilStore, [
+            'getMobile',
         ])
     },
     methods: {
