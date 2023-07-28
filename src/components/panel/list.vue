@@ -118,7 +118,6 @@ export default {
         panelProductSelected(event) {
             useLoadingStore().begin_loading_act();
             panelService.getPanelDetail(event.data.urunid).then(data=>{
-                console.log("getPanelDetail",data);
                 usePanelStore().panel_product_model_list_load_act(data);
                 usePanelStore().panel_product_new_button_load_act(false);
                 this.$emit('openPanelDetailForm');

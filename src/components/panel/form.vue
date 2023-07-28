@@ -252,6 +252,7 @@
                                 v-model:selection="selectedSizeProduct"
                                 selectionMode="single"
                                 style="font-size:85%;"
+                                @item-select="sizeProductSelected($event)"
                             >
                                 <Column field="ebat" header="Ebat"></Column>
                                 <Column field="fiyat" header="Fiyat"></Column>
@@ -415,12 +416,18 @@ export default {
         }
     },
     created() {
+        console.log("getProductCategoryList",this.getProductCategoryList)
         if (!this.getPanelProductNewButton) {
             this.panelCreatedProcess();
         };
         this.notSuggestedList = this.getProductSuggestedProductsList;
     },
     methods: {
+        sizeProductSelected(event) {
+            //ebatlar bölümü var olan ebat silme işlemi yapılmıyor burada kalındı
+            
+            console.log(event);
+        },
         sendTestReport(){
             if (!this.testfile) {
                 alert("Rapor seçmeniz gerekiyor.");
@@ -597,9 +604,15 @@ export default {
             this.keyListEn = this.__noneControl(this.getProductModel.anahtarlar_en);   
             this.keyListFr = this.__noneControl(this.getProductModel.anahtarlar_fr);
             this.keyListEs = this.__noneControl(this.getProductModel.anahtarlar_es);
+
             this.selectedCategoryEn = this.getProductCategoryList.find(x => x.kategori_id == this.getProductModel.kategori_id);
             this.selectedColorEn = this.getProductColorEnList.find(x => x.name == this.getProductModel.renk_en);
             this.selectedStoneType = this.getProductCategoryList.find(x => x.kategori_id == this.getProductModel.stonetype);
+            this.surfaceProductList = this.getProductModel.kenarIslemList;
+            this.sizeProductList = this.getProductModel.ebatlar;
+
+
+
         },
         __noneControl(value){
             if (value == null || value == '' || value == ' ') {
@@ -615,6 +628,13 @@ export default {
             this.getProductModel.anahtarlar_en = this.keyListEn.join();
             this.getProductModel.anahtarlar_fr = this.keyListFr.join();
             this.getProductModel.anahtarlar_es = this.keyListEs.join();
+            panelService.setPanelSave(this.getProductModel).then(data => {
+                if (data.status) {
+                    this.$toast.add({ severity: 'success', detail: 'Başarıyla Kaydedildi', life: 3000 });
+                }else{
+                    this.$toast.add({ severity: 'error', detail: 'Kaydetme Başarısız', life: 3000 });
+                }
+            })
         },
         process() {
             if (this.getPanelProductNewButton) {

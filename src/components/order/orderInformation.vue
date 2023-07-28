@@ -80,7 +80,7 @@
                                 <div class="col-4">
                                     <span class="p-float-label">
                                         <InputText class="w-75" id="m2" :disabled="form_status" aria-describedby="basic-addon1" v-model="products.ozelMiktar" @input="products.ozelMiktar = $filters.formatPoint($event.target.value)"/>
-                                        <label for="m2">Öngörülen M2</label>
+                                        <label for="m2">Örnek M2</label>
                                     </span>
                                 </div>
                                 <div class="col-4">

@@ -486,30 +486,45 @@ export default {
             useProductionsStore().products_save_button_status_load_act(false);
         },
         changeCost(event) {
-            if(event=='Navlun Satış'){
+            if (event == 'Navlun Satış') {
+                this.getProductionsDetailModel.siparis.navlunSatis = this.$filters.formatPoint(this.getProductionsDetailModel.siparis.navlunSatis);
                 useProductCostStore().navlun_satis_change_act(this.getProductionsDetailModel.siparis.navlunSatis);
-            } else if(event == 'Navlun Alış'){
+            } else if (event == 'Navlun Alış') {
+                this.getProductionsDetailModel.siparis.navlunAlis = this.$filters.formatPoint(this.getProductionsDetailModel.siparis.navlunAlis);
                 useProductCostStore().navlun_alis_change_act(this.getProductionsDetailModel.siparis.navlunAlis);
             } else if (event == 'Detay Satış 1') {
+                this.getProductionsDetailModel.siparis.detayTutar_1 = this.$filters.formatPoint(this.getProductionsDetailModel.siparis.detayTutar_1);
                 useProductCostStore().detay_tutar1_change_act(this.getProductionsDetailModel.siparis.detayTutar_1);
             } else if (event == 'Detay Alış 1') {
+                this.getProductionsDetailModel.siparis.detayAlis_1 = this.$filters.formatPoint(this.getProductionsDetailModel.siparis.detayAlis_1);
                 useProductCostStore().detay_alis1_change_act(this.getProductionsDetailModel.siparis.detayAlis_1);
             } else if (event == 'Detay Satış 2') {
+                this.getProductionsDetailModel.siparis.detayTutar_2 = this.$filters.formatPoint(this.getProductionsDetailModel.siparis.detayTutar_2);
                 useProductCostStore().detay_tutar2_change_act(this.getProductionsDetailModel.siparis.detayTutar_2);
             } else if (event == 'Detay Alış 2') {
+                this.getProductionsDetailModel.siparis.detayAlis_2 = this.$filters.formatPoint(this.getProductionsDetailModel.siparis.detayAlis_2);
                 useProductCostStore().detay_alis2_change_act(this.getProductionsDetailModel.siparis.detayAlis_2);
             } else if (event == 'Detay Satış 3') {
+                this.getProductionsDetailModel.siparis.detayTutar_3 = this.$filters.formatPoint(this.getProductionsDetailModel.siparis.detayTutar_3);
                 useProductCostStore().detay_tutar3_change_act(this.getProductionsDetailModel.siparis.detayTutar_3);
             } else if (event == 'Detay Alış 3') {
+                this.getProductionsDetailModel.siparis.detayAlis_3 = this.$filters.formatPoint(this.getProductionsDetailModel.siparis.detayAlis_3);
                 useProductCostStore().detay_alis3_change_act(this.getProductionsDetailModel.siparis.detayAlis_3);
             } else if (event == 'Mekus Masrafı') {
+                this.getProductionsDetailModel.siparis.detayTutar_4 = this.$filters.formatPoint(this.getProductionsDetailModel.siparis.detayTutar_4);
                 useProductCostStore().mekus_masrafi_change_act(this.getProductionsDetailModel.siparis.detayTutar_4);
             } else if (event == 'Sigorta Satış') {
+                this.getProductionsDetailModel.siparis.sigorta_tutar_satis = this.$filters.formatPoint(this.getProductionsDetailModel.siparis.sigorta_tutar_satis);
                 useProductCostStore().sigorta_satis_change_act(this.getProductionsDetailModel.siparis.sigorta_tutar_satis);
             } else if (event == 'Sigorta Alış') {
+                this.getProductionsDetailModel.siparis.sigorta_tutar = this.$filters.formatPoint(this.getProductionsDetailModel.siparis.sigorta_tutar);
                 useProductCostStore().sigorta_alis_change_act(this.getProductionsDetailModel.siparis.sigorta_tutar);
-            } else if (event == 'Navlun Alış') {
-                useProductCostStore().navlun_alis_change_act(this.getProductionsDetailModel.siparis.navlunAlis);
+            } else if (event == 'Komisyon') {
+                this.getProductionsDetailModel.siparis.komisyon = this.$filters.formatPoint(this.getProductionsDetailModel.siparis.komisyon);
+                useProductCostStore().komisyon_change_act(this.getProductionsDetailModel.siparis.komisyon);
+            } else if (event == 'Evrak Gideri') {
+                this.getProductionsDetailModel.siparis.evrakGideri = this.$filters.formatPoint(this.getProductionsDetailModel.siparis.evrakGideri);
+                useProductCostStore().evrak_gideri_change_act(this.getProductionsDetailModel.siparis.evrakGideri);
             }
             useProductionsStore().product_total_load_act(this.getProductionsDetailModel);
             useProductionsStore().products_save_button_status_load_act(false);

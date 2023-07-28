@@ -27,5 +27,11 @@ export const panelService = {
     },
     getPanelDetail(product_id:any){
         return api.get(`/panel/mekmarcom/productDetail/${product_id}`).then(response=>response.data);
+    },
+    setPanelSave(data: any) {
+        return api.post('/panel/mekmarcom/productDetail/VeriKayıt', data).then(response => response.data);
+    },
+    setPanelUpdate(data: any) {
+        return api.put('/panel/mekmarcom/productDetail/VeriKayıt', data).then(response => response.data);
     }
 }
