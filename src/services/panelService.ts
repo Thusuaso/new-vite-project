@@ -33,5 +33,5 @@ export const panelService = {
     },
     setPanelUpdate(data: any) {
         return api.put('/panel/mekmarcom/productDetail/VeriKayıt', data).then(response => response.data);
-    }
+    },
 }

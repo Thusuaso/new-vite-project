@@ -35,6 +35,7 @@
                         <th scope="col">#</th>
                         <th scope="col">Profit ($)</th>
                         <th scope="col">Profit (₺)</th>
+                        <th scoped="col">Profit (%)</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -42,6 +43,8 @@
                         <th scope="row">Toplam</th>
                         <td>{{ $filters.formatPrice(getMekmarAyoTotalList.gain_usd) }}</td>
                         <td>{{ $filters.formatPriceTl(getMekmarAyoTotalList.gain_tl) }}</td>
+                        <td>%{{ getToplam_kar_zarar_orani }}</td>
+
                     </tr>
 
                 </tbody>
@@ -87,6 +90,7 @@
                             <th scope="col">#</th>
                             <th scope="col">Profit ($)</th>
                             <th scope="col">Profit (₺)</th>
+                            <th coped="col">Profit (%)</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -94,6 +98,7 @@
                             <th scope="row">Toplam</th>
                             <td>{{ $filters.formatPrice(getMekmarAyoTotalList.gain_usd) }}</td>
                             <td>{{ $filters.formatPriceTl(getMekmarAyoTotalList.gain_tl) }}</td>
+                            <td>{{ toplam_kar_zarar_orani }}</td>
                         </tr>
 
                     </tbody>
@@ -611,6 +616,9 @@
                     <template #body="slotProps">
                         % {{ slotProps.data.kar_zarar_tl_yuzdesi }}
                     </template>
+                    <template #footer>
+                        % {{ getToplam_kar_zarar_orani }}
+                    </template>
                 </Column>
                 <Column field="dosya_kapanma_date" header="Kapanma T."></Column>
             </DataTable>
@@ -639,6 +647,7 @@ export default {
             'getMekmarAyoTotalList',
             'getMekmarAyoYearList',
             'getMekmarAyoMonthList',
+            'getToplam_kar_zarar_orani',
         ]),
         ...mapState(useLocalStore, [
             'getLocalServiceUrl'
@@ -685,9 +694,10 @@ export default {
         }
     },
     created() {
-        
+
     },
     methods: {
+
         excel_output() {
             useLoadingStore().begin_loading_act();
             if(this.quarter_maliyet_form){
@@ -734,6 +744,7 @@ export default {
                     (x) => x.yukleme_month >= 1 && x.yukleme_month <= 3
                 );
                 this.maliyet_listesi_excel = this.quarterMaliyet;
+                useReportsStore().mekmar_ayo_yuzde_hesap_load_act(this.quarterMaliyet);
 
                 this.quarter_maliyet_form = true;
             } else if (event == "2. Çeyrek") {
@@ -742,6 +753,8 @@ export default {
                 );
 
                 this.maliyet_listesi_excel = this.quarterMaliyet;
+                useReportsStore().mekmar_ayo_yuzde_hesap_load_act(this.quarterMaliyet);
+
 
                 this.quarter_maliyet_form = true;
             } else if (event == "3. Çeyrek") {
@@ -750,6 +763,8 @@ export default {
                 );
 
                 this.maliyet_listesi_excel = this.quarterMaliyet;
+                useReportsStore().mekmar_ayo_yuzde_hesap_load_act(this.quarterMaliyet);
+
 
                 this.quarter_maliyet_form = true;
             } else if (event == "4. Çeyrek") {
@@ -758,6 +773,8 @@ export default {
                 );
 
                 this.maliyet_listesi_excel = this.quarterMaliyet;
+                useReportsStore().mekmar_ayo_yuzde_hesap_load_act(this.quarterMaliyet);
+
 
                 this.quarter_maliyet_form = true;
             } else if (event == "Hepsi") {
@@ -765,6 +782,7 @@ export default {
 
 
                 this.maliyet_listesi_excel = this.quarterMaliyet;
+                useReportsStore().mekmar_ayo_yuzde_hesap_load_act(this.quarterMaliyet);
 
                 this.quarter_maliyet_form = false;
             }
@@ -821,6 +839,9 @@ export default {
         mekmarAyoFilter(event) {
             useReportsStore().mekmar_ayo_total_list_load_act(event.filteredValue);
         }
+    },
+    mounted() {
+
     },
     watch: {
         getMekmarAyoYearList(){

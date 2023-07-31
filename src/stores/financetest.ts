@@ -58,12 +58,12 @@ export const useFinanceTestStore = defineStore('financetest',{
                 this.financeTestDetailPaidTotalList.paid += item.paid;
             };
         },
-        finance_test_list_loac_act(data:any){
+        finance_test_list_loac_act(data: any) {
             this.financeTestList = [];
             for(const item of data.financeList) {
                 if(item.total == 0){
                     continue;
-                }else if (item.total > 8 || item.total < -8){
+                }else if ((item.forwarding - item.paid) > 8 || (item.forwarding - item.paid) < -8){
                     this.financeTestList.push(item);
                 }
             };
@@ -114,6 +114,8 @@ export const useFinanceTestStore = defineStore('financetest',{
             this.allFinance = data;
         },
         finance_test_mekmar_list_load_act(data: any) {
+                        console.log(data);
+
             this.financeTestList = [];
             for(const item of data.financeList) {
                 if(item.total == 0){

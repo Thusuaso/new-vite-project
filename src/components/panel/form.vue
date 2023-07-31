@@ -252,7 +252,7 @@
                                 v-model:selection="selectedSizeProduct"
                                 selectionMode="single"
                                 style="font-size:85%;"
-                                @item-select="sizeProductSelected($event)"
+                                @item-select="sizeProductSelected"
                             >
                                 <Column field="ebat" header="Ebat"></Column>
                                 <Column field="fiyat" header="Fiyat"></Column>
@@ -404,8 +404,8 @@ export default {
             filteredProductSizeList: [],
             sizePrice: 0,
             edge_add_disabled: false,
-            edge_delete_disabled: true,
-            edge_new_disabled: true,
+            edge_delete_disabled: false,
+            edge_new_disabled: false,
             sizeProductList: [],
             selectedSizeProduct: {},
             notSuggestedList: [],
@@ -416,18 +416,13 @@ export default {
         }
     },
     created() {
-        console.log("getProductCategoryList",this.getProductCategoryList)
         if (!this.getPanelProductNewButton) {
             this.panelCreatedProcess();
         };
         this.notSuggestedList = this.getProductSuggestedProductsList;
     },
     methods: {
-        sizeProductSelected(event) {
-            //ebatlar bölümü var olan ebat silme işlemi yapılmıyor burada kalındı
-            
-            console.log(event);
-        },
+
         sendTestReport(){
             if (!this.testfile) {
                 alert("Rapor seçmeniz gerekiyor.");
@@ -492,6 +487,7 @@ export default {
             };
             panelService.setSizeDelete(sizeData).then(data => {
                 if (data.status) {
+                    this.sizeProductList = data.ebatlist;
                     this.$toast.add({ severity: 'success', detail: 'Başarıyla Silindi', life: 3000 });
                 } else {
                     this.$toast.add({ severity: 'error', detail: 'Silme Başarısız', life: 3000 });

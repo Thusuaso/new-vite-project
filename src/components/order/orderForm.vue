@@ -247,20 +247,7 @@ export default {
     created() {
     },
     mounted() {
-        socket.socketIO.on('products_update_on', (productStatus) => {
-            productionsService.getOrderList(productStatus.status, productStatus.year).then(data => {
-                useProductionsStore().productions_list_load_act(data.products);
-                useProductionsStore().productions_unit_list_load_act(data.productUnit);
-                useProductionsStore().productions_supplier_list_load_act(data.supplier);
-                useProductionsStore().productions_delivery_list_load_act(data.delivery);
-                useProductionsStore().productions_payment_list_load_act(data.payment);
-                useProductionsStore().productions_invoice_list_load_act(data.invoice);
-                useProductionsStore().productions_country_list_load_act(data.country);
-                useProductionsStore().productions_customers_list_load_act(data.customers);
-                useProductionsStore().productions_users_list_load_act(data.users);
-
-            })
-        })
+        
     }
     
 }

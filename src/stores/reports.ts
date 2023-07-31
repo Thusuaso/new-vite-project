@@ -331,10 +331,14 @@ export const useReportsStore = defineStore('reports', {
             orderRepresentativeInfoTotal: {
                 orderer: 0,
                 operation: 0,
-            }
+            },
+            toplam_bedel_sum :0,
+            toplam_masraf_sum: 0,
+            toplam_kar_zarar_orani:0,
         }
     },
     actions: {
+
         order_representative_info_list_load_act(data: any) {
             this.orderRepresentativeInfoList = data;
             this.orderRepresentativeInfoTotal = {
@@ -478,7 +482,19 @@ export const useReportsStore = defineStore('reports', {
         },
         mekmar_ayo_list_load_act(data: any) {
             this.mekmarAyoList = data;
+            this.mekmar_ayo_yuzde_hesap_load_act(data);
             this.mekmar_ayo_total_list_load_act(data);
+        },
+        mekmar_ayo_yuzde_hesap_load_act(data: any) {
+            this.toplam_bedel_sum = 0
+            this.toplam_masraf_sum = 0
+            this.toplam_kar_zarar_orani = 0;
+            for (const i of data) {
+                this.toplam_bedel_sum += i.toplam_bedel
+                this.toplam_masraf_sum += i.masraf_toplam
+            }
+            const toplam_kar_zarar = (this.toplam_bedel_sum - this.toplam_masraf_sum)
+            this.toplam_kar_zarar_orani = ((toplam_kar_zarar / this.toplam_bedel_sum) * 100).toFixed(2)
         },
         mekmar_ayo_total_list_load_act(data: any) {
             this.mekmarAyoTotalList = {
@@ -1146,6 +1162,9 @@ export const useReportsStore = defineStore('reports', {
 
     },
     getters: {
+        getToplam_kar_zarar_orani(state) {
+            return state.toplam_kar_zarar_orani;
+        },
         getOrderRepresentativeInfoTotal(state) {
             return state.orderRepresentativeInfoTotal;
         },
