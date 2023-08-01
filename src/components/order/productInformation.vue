@@ -315,11 +315,10 @@ export default {
             } else {
                 this.e_date = localDateService.getStringDate(this.productionsDetailModel.siparis.eta);
             }
-
-            if (this.productionsDetailModel.siparis.tahminiYuklemeTarihi == '' || this.productionsDetailModel.siparis.tahminiYuklemeTarihi == null) {
+            if (this.productionsDetailModel.siparis.TahminiyuklemeTarihi == '' || this.productionsDetailModel.siparis.TahminiyuklemeTarihi == null) {
                 this.e_l_date = "";
             } else {
-                this.e_l_date = localDateService.getStringDate(this.productionsDetailModel.siparis.tahminiYuklemeTarihi)
+                this.e_l_date = localDateService.getStringDate(this.productionsDetailModel.siparis.TahminiyuklemeTarihi)
             }
 
 

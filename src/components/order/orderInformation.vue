@@ -125,7 +125,7 @@
 
                             </div>
                             <div class="col">
-                                <button type="button" class="btn btn-warning w-75" :disabled="form_status" @click="updateForm">Değiştir</button>
+                                <button type="button" class="btn btn-warning w-75" :disabled="form_status_update" @click="updateForm">Değiştir</button>
 
                                 </div>
                                 <div class="col">
@@ -476,6 +476,7 @@ export default {
                 
             },
             form_status: true,
+            form_status_update: true,
             form_status_add:true,
             new_form_status:false,
       }  
@@ -488,6 +489,7 @@ export default {
             this.selectedSupplier = this.getProductSupplierList.find(x => x.id == event.data.tedarikciId);
             this.selectedUnit = this.getProductUnitList.find(x => x.id == event.data.urunBirimId);
             this.new_form_status = true;
+            this.form_status_update = false;
             this.form_status = false;
             this.form_status_add = true;
             this.workmanship_disabled = false;
@@ -511,8 +513,8 @@ export default {
         },
         newForm() {
             this.new_form_status = true;
-            this.form_status = false;
             this.form_status_add = false;
+            this.form_status = false;
             this.workmanship_disabled = true;
             this.resetData()
             // @ts-ignore
@@ -527,7 +529,9 @@ export default {
             this.new_form_status = false;
             this.form_status = true;
             this.form_status_add = true;
-            this.workmanship_disabled = true
+            this.workmanship_disabled = true;
+            this.form_status_update = true;
+            this.productSelected = [];
         },
         cancelForm() {
             this.buttonReset()

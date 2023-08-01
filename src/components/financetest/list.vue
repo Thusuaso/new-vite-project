@@ -84,7 +84,7 @@
                         {{ $filters.formatPrice(getFinanceTestListTotal.balance) }}
                     </template>
                 </Column>
-                <Column field="total" header="Bakiye (Üretim Hariç)">
+                <Column  header="Bakiye (Üretim Hariç)" sortable="">
                     <template #body="slotProps">
                         {{ $filters.formatPrice(slotProps.data.forwarding - slotProps.data.paid) }}
                     </template>

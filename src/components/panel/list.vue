@@ -15,6 +15,8 @@
                     v-model:selection="selectedPanelProduct"
                     selectionMode="single"
                     @row-click="panelProductSelected($event)"
+                    sortField="urunid"
+                    sortOrder="-1"
                 >
                 <Column 
                         field="urunid" 

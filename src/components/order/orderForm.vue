@@ -148,6 +148,11 @@ export default {
         orderDivide() {
             this.order_divide_form = true;
         },
+        reset() {
+            this.getProductionsDetailModel.urunlerDegisenler = [];
+            this.getProductionsDetailModel.urunlerSilinenler = [];
+            this.getProductionsDetailModel.urunlerYeni = [];
+        },
         save() {
             useLoadingStore().begin_loading_act();
             useProductionsStore().products_save_button_status_load_act(true);
@@ -177,6 +182,7 @@ export default {
                 this.emitter.emit('products_closed_dialog');
                 useLoadingStore().end_loading_act();
                 this.$toast.add({ severity: 'success', detail: 'Başarıyla Kaydedildi', life: 3000 });
+                this.reset();
                 useProductionsStore().products_save_button_status_load_act(false);
 
             } else {
@@ -220,6 +226,7 @@ export default {
 
                     useLoadingStore().end_loading_act();
                     this.$toast.add({ severity: 'success', detail: 'Başarıyla Kaydedildi', life: 3000 });
+                    this.reset();
                     useProductionsStore().products_save_button_status_load_act(false);
 
                 } else {

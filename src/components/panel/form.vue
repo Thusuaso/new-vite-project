@@ -342,7 +342,10 @@
     </TabView>
     <div class="row m-auto mt-3">
         <div class="col">
-            <button type="button" class="btn btn-success" @click="process">Kaydet</button>
+            <button type="button" class="btn btn-success" @click="process" :disabled="save_button_disabled">Kaydet</button>
+        </div>
+        <div class="col">
+            <button type="button" class="btn btn-danger" @click="deleteForm" :disabled="delete_button_disabled">Sil</button>
         </div>
     </div>
 </template>
@@ -371,6 +374,8 @@ export default {
     },
     data() {
         return {
+            save_button_disabled: false,
+            delete_button_disabled:false,
             responsiveOptions: [
                 {
                     breakpoint: '1024px',
@@ -617,17 +622,51 @@ export default {
                 return value.split(',');
             }
         },
-        update() {
+        deleteForm() {
+            this.delete_button_disabled = true;
+            if (confirm('Silmek istediğinize emin misiniz?')) {
+                panelService.setPanelDelete(this.getProductModel.urunid).then(data => {
+                    if (data.status) {
+                        this.delete_button_disabled = false;
+                        this.$toast.add({ severity: 'success', detail: 'Başarıyla Silindi', life: 3000 });
+                    } else {
+                        this.delete_button_disabled = false;
+                        this.$toast.add({ severity: 'error', detail: 'Silme İşlemi Başarısız', life: 3000 });
 
+                    };
+                });
+            }else{
+                this.delete_button_disabled = false;
+
+            }
+            
+        },
+        update() {
+            this.save_button_disabled = true;
+            this.getProductModel.anahtarlar_en = this.keyListEn.join();
+            this.getProductModel.anahtarlar_fr = this.keyListFr.join();
+            this.getProductModel.anahtarlar_es = this.keyListEs.join();
+            panelService.setPanelUpdate(this.getProductModel).then(data => {
+                if (data.status) {
+                    this.save_button_disabled = false;
+                    this.$toast.add({ severity: 'success', detail: 'Başarıyla Güncellendi', life: 3000 });
+                } else {
+                    this.save_button_disabled = false;
+                    this.$toast.add({ severity: 'error', detail: 'Güncelleme Başarısız', life: 3000 });
+                }
+            })
         },
         save() {
+            this.save_button_disabled = true;
             this.getProductModel.anahtarlar_en = this.keyListEn.join();
             this.getProductModel.anahtarlar_fr = this.keyListFr.join();
             this.getProductModel.anahtarlar_es = this.keyListEs.join();
             panelService.setPanelSave(this.getProductModel).then(data => {
                 if (data.status) {
+                    this.save_button_disabled = false;
                     this.$toast.add({ severity: 'success', detail: 'Başarıyla Kaydedildi', life: 3000 });
-                }else{
+                } else {
+                    this.save_button_disabled = false;
                     this.$toast.add({ severity: 'error', detail: 'Kaydetme Başarısız', life: 3000 });
                 }
             })
