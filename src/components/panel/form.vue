@@ -608,6 +608,9 @@ export default {
 
             this.selectedCategoryEn = this.getProductCategoryList.find(x => x.kategori_id == this.getProductModel.kategori_id);
             this.selectedColorEn = this.getProductColorEnList.find(x => x.name == this.getProductModel.renk_en);
+            this.selectedColorFr = this.getProductColorFrList.find(x => x.name == this.getProductModel.renk_fr);
+            this.selectedColorEs = this.getProductColorEsList.find(x => x.name == this.getProductModel.renk_es);
+
             this.selectedStoneType = this.getProductCategoryList.find(x => x.kategori_id == this.getProductModel.stonetype);
             this.surfaceProductList = this.getProductModel.kenarIslemList;
             this.sizeProductList = this.getProductModel.ebatlar;
@@ -643,9 +646,16 @@ export default {
         },
         update() {
             this.save_button_disabled = true;
-            this.getProductModel.anahtarlar_en = this.keyListEn.join();
-            this.getProductModel.anahtarlar_fr = this.keyListFr.join();
-            this.getProductModel.anahtarlar_es = this.keyListEs.join();
+            if (this.keyListEn.length > 0) {
+                this.getProductModel.anahtarlar_en = this.keyListEn.join();
+
+            } else if (this.keyListFr.length > 0) {
+                this.getProductModel.anahtarlar_fr = this.keyListFr.join();
+
+            } else if (this.keyListEs.length > 0) {
+                this.getProductModel.anahtarlar_es = this.keyListEs.join();
+
+            }
             panelService.setPanelUpdate(this.getProductModel).then(data => {
                 if (data.status) {
                     this.save_button_disabled = false;
