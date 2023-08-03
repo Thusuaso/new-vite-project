@@ -11,6 +11,7 @@
                 scrollHeight="550px"
                 v-model:filters="filters"
                 filterDisplay="row"
+                @filter="financeFilters($event)"
                 v-model:selection="selectedFinance"
                 selectionMode="single"
                 @row-click="financeSelected($event)"
@@ -253,7 +254,9 @@ export default {
     },
 
     methods: {
-
+        financeFilters(event) {
+            useFinanceTestStore().finance_test_total_list_load_act(event.filteredValue);
+        },
         financeSelected(event){
             this.customer_name = event.data.customer_name;
             this.customer_id = event.data.customer_id;

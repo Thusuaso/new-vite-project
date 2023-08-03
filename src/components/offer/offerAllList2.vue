@@ -511,7 +511,8 @@ export default {
         });
         socket.socketIO.on('offer_detail_load_list_on', (userId) => {
             useLoadingStore().begin_loading_act();
-            offerService.getOfferAllRepresentativeList(userId).then(data => {
+
+            offerService.getOfferAllRepresentativeList(localStorage.getItem('userId')).then(data => {
                 useOfferStore().offer_all_list_load_act(data);
                 useLoadingStore().end_loading_act();
             })
