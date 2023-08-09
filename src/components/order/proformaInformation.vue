@@ -582,9 +582,10 @@ export default {
             useProductionsStore().products_save_button_status_load_act(false);
         },
         changePayment(event) {
+            console.log(event)
             if (event.value.id == 1 || event.value.id == 2) {
                 this.getProductionsDetailModel.siparis.siparisDurumId = 1;
-            } else if (event.value.id == 3) {
+            } else if (event.value.id == 3 || event.value.id == 4) {
                 this.getProductionsDetailModel.siparis.siparisDurumId = 2;
                 this.getProductionsDetailModel.siparis.pesinat = 0;
             };

@@ -8,7 +8,7 @@
                 sortField="total" 
                 sortOrder="-1" 
                 scrollable 
-                scrollHeight="550px"
+                scrollHeight="600px"
                 v-model:filters="filters"
                 filterDisplay="row"
                 @filter="financeFilters($event)"

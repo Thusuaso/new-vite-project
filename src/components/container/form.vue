@@ -117,6 +117,7 @@ export default {
     },
     created() {
         this.containerData = this.value;
+        this.c_date = localDateService.getStringDate(this.value.sevk_tarihi);
     },
     methods: {
         save() {

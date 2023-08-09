@@ -129,6 +129,7 @@ export default {
         sampleSelected(event) {
             useLoadingStore().begin_loading_act();
             sampleService.getSampleListDetail(event.data.numuneNo).then(data => {
+                useSampleStore().sample_new_button_load_act(false);
                 useSampleStore().sample_model_list_load_act(data);
                 useLoadingStore().end_loading_act();
                 this.sample_form = true;

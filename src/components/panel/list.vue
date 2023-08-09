@@ -2,7 +2,7 @@
     <div class="row m-auto mt-3">
         <div class="col">
             <Dropdown v-model="selectedCategory" :options="getPanelCategoryList" optionLabel="kategoriadi_en"
-                class="w-full md:w-14rem" @change="categorySelected($event)" />
+                class="w-full md:w-15rem" @change="categorySelected($event)" />
         </div>
     </div>
     <div class="row m-auto mt-3">
