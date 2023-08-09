@@ -14,7 +14,7 @@
             </TabView>
         </div>
         <div class="col-3">
-            <button type="button" class="btn btn-success mb-3 w-100" @click="sampleProcess">Kaydet</button>
+            <button type="button" class="btn btn-success mb-3 w-100" @click="sampleProcess" :disabled="is_save_button">Kaydet</button>
             <div class="input-group mb-4">
                 <span class="input-group-text" id="basic-addon1">Po</span>
                 <input type="text" class="form-control"  aria-describedby="basic-addon1" v-model="getSampleModel.numuneNo" :disabled="sample_no_disabled">
@@ -112,6 +112,7 @@
 <script>
 import { useSampleStore } from '../../stores/sample';
 import { useMobilStore } from '../../stores/mobil';
+import { useLoadingStore } from '../../stores/loading';
 import { mapState } from 'pinia';
 
 import { localDateService } from '../../services/localDateService';
@@ -150,7 +151,8 @@ export default {
             filteredCountryList: [],
             selectedRepresentative: null,
             filteredRepresentativeList: [],
-            sample_no_disabled:false,
+            sample_no_disabled: false,
+            is_save_button:false,
         }
     },
     created() {
@@ -160,31 +162,50 @@ export default {
     },
     methods: {
         save() {
+            useLoadingStore().begin_loading_act();
+
+            this.is_save_button = true;
             this.getSampleModel.userId = localStorage.getItem('userId');
             this.getSampleModel.username = localStorage.getItem('username');
+
             sampleService.save(this.getSampleModel).then(data => {
                 if (data.status) {
                     socket.socketIO.emit('sample_stock_list_emit');
+                    useLoadingStore().end_loading_act();
+                    this.is_save_button = false;
+
                     this.$toast.add({ severity: 'success', detail: 'Başarıyla Kaydedildi', life: 3000 });
                 } else {
+                    useLoadingStore().end_loading_act();
+                    this.is_save_button = false;
+
                     this.$toast.add({ severity: 'error', detail: 'Kaydetme Başarısız', life: 3000 });
                 };
             })
         },
         update() {
-            const girisTarihi = this.getSampleModel.giristarih.split('-');
-            const yuklemeTarihi = this.getSampleModel.yukleme_tarihi.split('-');
+            useLoadingStore().begin_loading_act();
+            // const girisTarihi = this.getSampleModel.giristarih.split('-');
+            // const yuklemeTarihi = this.getSampleModel.yukleme_tarihi.split('-');
 
-            this.getSampleModel.giristarih = girisTarihi[2] + '-' + girisTarihi[1] + '-' + girisTarihi[0];
-            this.getSampleModel.yukleme_tarihi = yuklemeTarihi[2] + '-' + yuklemeTarihi[1] + '-' + yuklemeTarihi[0];
+            // this.getSampleModel.giristarih = girisTarihi[2] + '-' + girisTarihi[1] + '-' + girisTarihi[0];
+            // this.getSampleModel.yukleme_tarihi = yuklemeTarihi[2] + '-' + yuklemeTarihi[1] + '-' + yuklemeTarihi[0];
+            this.is_save_button = true;
+
             this.getSampleModel.userId = localStorage.getItem('userId');
             this.getSampleModel.username = localStorage.getItem('username');
             this.getSampleModel.temsilci_id = this.selectedRepresentative.id;
             sampleService.update(this.getSampleModel).then(data => {
                 if (data.status) {
                     socket.socketIO.emit('sample_stock_list_emit');
+                    useLoadingStore().end_loading_act();
+                    this.is_save_button = false;
+
                     this.$toast.add({ severity: 'success', detail: 'Başarıyla Güncellendi', life: 3000 });
                 } else {
+                    useLoadingStore().end_loading_act();
+                    this.is_save_button = false;
+
                     this.$toast.add({ severity: 'error', detail: 'Güncelleme Başarısız', life: 3000 });
 
                 }
