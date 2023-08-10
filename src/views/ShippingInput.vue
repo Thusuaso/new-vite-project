@@ -257,7 +257,8 @@ export default {
                 'Tutar_tl': 0,
                 'kur': 0,
                 'Tutar_dolar': 0,
-                'siparisno':0
+                'siparisno': 0,
+                'kullaniciId':"",
             },
             selectedPo: null,
             filteredPoList: [],
@@ -326,6 +327,7 @@ export default {
         },
         save() {
             this.shippingModel.tarih = localDateService.getDateString(this.s_date);
+            this.shippingModel.kullaniciId = localStorage.getItem('userId');
             this.newShippingList.push(this.shippingModel);
             this.$toast.add({ severity: 'success', detail: 'Başarıyla Kaydedildi, Bilgileri Kaydetmeyi Unutmayınız', life: 3000 });
             this.reset();
