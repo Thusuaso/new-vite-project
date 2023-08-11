@@ -9,7 +9,7 @@
             </div>
             <div class="col">
                 <span class="p-float-label">
-                    <AutoComplete id="category" v-model="selectedCategory" :suggestions="filteredOfferCategoryList" optionLabel="name" @complete="offerCategorySearch($event)" @item-select="offerCategorySelected($event)" />
+                    <AutoComplete id="category" v-model="selectedCategory" :suggestions="filteredOfferCategoryList" optionLabel="name" @complete="offerCategorySearch($event)" @item-select="offerCategorySelected($event)" @input="offerCategoryInput($event)"/>
                     <label for="category">Kategori</label>
                 </span>
             </div>
@@ -27,13 +27,13 @@
             </div>
             <div class="col">
                 <span class="p-float-label">
-                    <AutoComplete id="category" v-model="selectedEdge" :suggestions="filteredOfferEdgeList" optionLabel="name" @complete="offerEdgeSearch($event)" @item-select="offerEdgeSelected($event)" />
+                    <AutoComplete id="category" v-model="selectedEdge" :suggestions="filteredOfferEdgeList" optionLabel="name" @complete="offerEdgeSearch($event)" @item-select="offerEdgeSelected($event)" @input="offerEdgeInput($event)"/>
                     <label for="category">Kalınlık</label>
                 </span>
             </div>
             <div class="col">
                 <span class="p-float-label">
-                    <AutoComplete id="category" v-model="selectedSurface" :suggestions="filteredOfferSurfaceList" optionLabel="name" @complete="offerSurfaceSearch($event)" @item-select="offerSurfaceSelected($event)" />
+                    <AutoComplete id="category" v-model="selectedSurface" :suggestions="filteredOfferSurfaceList" optionLabel="name" @complete="offerSurfaceSearch($event)" @item-select="offerSurfaceSelected($event)" @input="offerSurfaceInput($event)"/>
                     <label for="category">Yüzey</label>
                 </span>
             </div>
@@ -415,6 +415,15 @@ export default {
 
     },
     methods: {
+        offerSurfaceInput(event) {
+            this.product.yuzeyIslem = event.target._value;
+        },
+        offerEdgeInput(event) {
+            this.product.kalinlik = event.target._value;
+        },
+        offerCategoryInput(event){
+            this.product.kategoriAdi = event.target._value;
+        },
         offerProductInput(event) {
             this.product.urunAdi = event.target._value;
         },
