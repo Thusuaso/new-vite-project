@@ -15,7 +15,7 @@
             </div>
             <div class="col">
                 <span class="p-float-label">
-                    <AutoComplete id="category" v-model="selectedProduct" :suggestions="filteredOfferProductList" optionLabel="name" @complete="offerProductSearch($event)" @item-select="offerProductSelected($event)" />
+                    <AutoComplete id="category" v-model="selectedProduct" :suggestions="filteredOfferProductList" optionLabel="name" @complete="offerProductSearch($event)" @item-select="offerProductSelected($event)" @input="offerProductInput($event)"/>
                     <label for="category">Ürün</label>
                 </span>
             </div>
@@ -415,6 +415,9 @@ export default {
 
     },
     methods: {
+        offerProductInput(event) {
+            this.product.urunAdi = event.target._value;
+        },
         addEbat() {
             this.isEnBoyButton = true;
             this.$refs.op.hide();
@@ -508,8 +511,14 @@ export default {
             this.getOfferProductsList[index].tarih = localDateService.getDateString(this.p_date);
             this.getOfferProductsList[index].kategoriId = this.selectedCategory.id;
             this.getOfferProductsList[index].kategoriAdi = this.selectedCategory.name;
-            this.getOfferProductsList[index].urunId = this.selectedProduct.id;
-            this.getOfferProductsList[index].urunAdi = this.selectedProduct.name;
+            if (this.selectedProduct) {
+                this.getOfferProductsList[index].urunId = this.selectedProduct.id;
+                this.getOfferProductsList[index].urunAdi = this.selectedProduct.name;
+            } else {
+                this.getOfferProductsList[index].urunId = 0;
+                this.getOfferProductsList[index].urunAdi = "";
+            }
+
             this.getOfferProductsList[index].enBoyId = this.selectedSize.id;
             this.getOfferProductsList[index].enBoy = this.selectedSize.name;
             this.getOfferProductsList[index].kalinlikId = this.selectedEdge.id;
