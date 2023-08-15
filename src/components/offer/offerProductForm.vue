@@ -33,7 +33,7 @@
             </div>
             <div class="col">
                 <span class="p-float-label">
-                    <AutoComplete id="category" v-model="selectedSurface" :suggestions="filteredOfferSurfaceList" optionLabel="name" @complete="offerSurfaceSearch($event)" @item-select="offerSurfaceSelected($event)" @input="offerSurfaceInput($event)"/>
+                    <AutoComplete id="category" v-model="selectedSurface" :suggestions="filteredOfferSurfaceList" optionLabel="name" @complete="offerSurfaceSearch($event)" @item-select="offerSurfaceSelected($event)"/>
                     <label for="category">Yüzey</label>
                 </span>
             </div>
@@ -415,9 +415,7 @@ export default {
 
     },
     methods: {
-        offerSurfaceInput(event) {
-            this.product.yuzeyIslem = event.target._value;
-        },
+
         offerEdgeInput(event) {
             this.product.kalinlik = event.target._value;
         },

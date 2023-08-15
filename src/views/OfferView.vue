@@ -12,12 +12,12 @@
                                     <button type="button" class="btn btn-success mr-3" @click="newForm" style="margin-right:15px;">Yeni</button>
                                 </div>
                                                                 <div class="col">
-                                        <button type="button" class="btn btn-secondary" @click="allOfferList">Hepsi</button>
+                                        <button type="button" class="btn btn-secondary" @click="allOfferList">Güncel Teklifler</button>
 
 
                                     </div>
                                 <div class="col">
-                                    <button type="button" class="btn btn-info ml-3" @click="allOffersList">Tüm Teklifler</button>
+                                    <button type="button" class="btn btn-info ml-3" @click="allOffersList">Eski Teklifler</button>
 
                                 </div>
 
@@ -27,12 +27,12 @@
                                         <button type="button" class="btn btn-success  w-100 mb-3" @click="newForm">Yeni</button>
                                     </div>
                                                                        <div class="">
-                                            <button type="button" class="btn btn-secondary w-100 mb-3" @click="allOfferList">Hepsi</button>
+                                            <button type="button" class="btn btn-secondary w-100 mb-3" @click="allOfferList">Güncel Teklifler</button>
 
 
                                         </div>
                                     <div class="">
-                                        <button type="button" class="btn btn-info  w-100 mb-3" @click="allOffersList">Tüm Teklifler</button>
+                                        <button type="button" class="btn btn-info  w-100 mb-3" @click="allOffersList">Eski Teklifler</button>
 
                                     </div>
  
@@ -61,16 +61,16 @@
             </div>
         </div> -->
     </div>
-    <Dialog v-model:visible="offer_all_list_visible" header="" modal :style="{ width: '100vw' }">
+    <Dialog v-model:visible="offer_all_list_visible" header="" modal :style="{ width: '100vw' }" :closeOnEscape="false">
         <offerAllList/>
     </Dialog>
-    <Dialog v-model:visible="offer_all_list_visible2" header="" modal :style="{ width: '100vw' }">
+    <Dialog v-model:visible="offer_all_list_visible2" header="" modal :style="{ width: '100vw' }" :closeOnEscape="false">
             <offerAllList2/>
         </Dialog>
     <Dialog v-model:visible="offer_form_visible" header="" modal :style="{ width: '100vw' }">
         <offerForm/>
     </Dialog>
-    <Dialog v-model:visible="offers_all_list_form" header="" modal :style="{ width: '100vw' }">
+    <Dialog v-model:visible="offers_all_list_form" header="" modal :style="{ width: '100vw' }" :closeOnEscape="false">
         <offersAllList/>
     </Dialog>
 </template>

@@ -200,6 +200,7 @@ export default {
             sellerRadio: 'Hepsi',
             supplierRadio: 'Hepsi',
             years: [
+                {year:'Hepsi'},
                 { year: '2023' },
                 { year: '2022' },
                 { year: '2021' },
@@ -213,7 +214,7 @@ export default {
 
 
             ],
-            selectedYear: { year: '2023' },
+            selectedYear: { year: 'Hepsi' },
         }
     },
     created() {

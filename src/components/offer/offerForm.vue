@@ -90,7 +90,7 @@
                         <button type="button" class="btn btn-success" @click="offerProcess" :disabled="offer_save_disabled">Kaydet</button>
                     </div>
                     <div class="col">
-                        <button type="button" class="btn btn-danger" @click="deleteForm">Sil</button>
+                        <button type="button" class="btn btn-danger" @click="deleteForm" :disabled="offer_delete_disabled">Sil</button>
                     </div>
                 </div>
                 <div class="row m-auto mt-3 ">
@@ -282,6 +282,7 @@ export default {
     },
     data() {
         return {
+            offer_delete_disabled:false,
             offer_save_disabled:false,
             o_date: new Date(),
             selectedSource: {},
@@ -397,8 +398,8 @@ export default {
 
         },
         save() {
-            useLoadingStore().begin_loading_act();
             this.offer_save_disabled = true;
+            useLoadingStore().begin_loading_act();
             this.getOfferModelList.kullaniciAdi = localStorage.getItem('username');
             this.getOfferModelList.kullaniciId = localStorage.getItem('userId');
             this.getOfferModelList.tarih = this.dateNullControl(this.o_date);
@@ -433,8 +434,8 @@ export default {
             });
         },
         update() {
-            useLoadingStore().begin_loading_act();
             this.offer_save_disabled = true;
+            useLoadingStore().begin_loading_act();
             this.customerControl(this.selectedShopper);
             this.getOfferModelList.tarih = this.dateNullControl(this.o_date);
             this.getOfferModelList.hatirlatmaTarihi = this.dateNullControl(this.r_date);
@@ -466,15 +467,18 @@ export default {
             });
         },
         deleteForm() {
+            this.offer_delete_disabled = true;
             useLoadingStore().begin_loading_act();
             offerService.delete(this.getOfferModelList.id).then(data => {
                 if (data.status) {
                     socket.socketIO.emit('offer_list_emit');
                     socket.socketIO.emit('offer_detail_load_list_emit', this.getOfferRepresentativeId);
                     this.emitter.emit('offer_detail_dialog_close');
+                    this.offer_delete_disabled = false;
                     this.$toast.add({ severity: 'success', detail: 'Başarıyla Silindi', life: 3000 });
                     useLoadingStore().end_loading_act();
                 } else {
+                    this.offer_delete_disabled = false;
                     this.$toast.add({ severity: 'error', detail: 'Silme İşlemi Başarısız', life: 3000 });
                     useLoadingStore().end_loading_act();
                 };
