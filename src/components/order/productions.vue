@@ -219,7 +219,7 @@ export default {
     },
     created() {
         if (this.$route.fullPath == '/siparisler/sevk') {
-            this.selectedYear = { year: '2023' };
+            this.selectedYear = { year: 'Hepsi' };
             this.years= [
                 { year: '2023' },
                 { year: '2022' },

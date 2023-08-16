@@ -139,7 +139,7 @@ const router = createRouter({
         useLoadingStore().begin_loading_act();
         cardService.getCardList().then(data => {
           useCardStore().card_list_load_act(data);
-          productionsService.getOrderList(3, '2023').then(data => {
+          productionsService.getOrderList(3, 'Hepsi').then(data => {
             useProductionsStore().productions_list_load_act(data.products);
             useProductionsStore().productions_list_filter_load_act(data.products);
             useProductionsStore().productions_unit_list_load_act(data.productUnit);

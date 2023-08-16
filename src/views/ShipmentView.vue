@@ -18,6 +18,7 @@ export default {
     },
     methods: {
         changeYearProductions(event) {
+            
             useLoadingStore().begin_loading_act()
             productionsService.getOrderList(3, event).then(data => {
                 
