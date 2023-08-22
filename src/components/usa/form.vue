@@ -296,7 +296,7 @@ import { mapState } from 'pinia';
 
 import { usaService } from '../../services/usaService';
 
-import { digitalOceanService } from '../../services/digitalOceanService';
+import digitalOceanService  from '../../services/digitalOceanService';
 
 
 // import { digitalOceanService } from '../../services/digitalOceanService';

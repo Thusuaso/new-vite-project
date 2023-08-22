@@ -17,6 +17,7 @@
                     @row-click="panelProductSelected($event)"
                     sortField="urunid"
                     sortOrder="-1"
+                    scrollable scrollHeight="600px"
                 >
                 <Column 
                         field="urunid" 
