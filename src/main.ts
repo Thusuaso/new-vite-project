@@ -44,6 +44,7 @@ import Sidebar from 'primevue/sidebar';
 import Badge from 'primevue/badge';
 import BadgeDirective from 'primevue/badgedirective';
 import Checkbox from 'primevue/checkbox';
+import PickList from 'primevue/picklist';
 
 const app = createApp(App)
 
@@ -90,6 +91,7 @@ app.config.globalProperties.$filters = {
 
 app.directive('badge', BadgeDirective);
 /*Directives Components*/
+app.component('PickList', PickList);
 app.component('Checkbox', Checkbox);
 app.component('Badge', Badge);
 app.component('Galleria', Galleria);

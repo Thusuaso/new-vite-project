@@ -23,7 +23,7 @@ export const panelService = {
         return api.put('/panel/mekmarcom/productDetail/ebatDataSil', data).then(response => response.data);
     },
     setPhotosAdd(data: any) {
-        return api.post('/panel/mekmarcom/fotoEkle', data);
+        return api.put('/panel/mekmarcom/fotoEkle', data);
     },
     getPanelDetail(product_id:any){
         return api.get(`/panel/mekmarcom/productDetail/${product_id}`).then(response=>response.data);
@@ -36,5 +36,8 @@ export const panelService = {
     },
     setPanelDelete(product_id: any) {
         return api.delete(`/panel/mekmarcom/urunSilme/${product_id}`).then(response => response.data);
+    },
+    deletePanelPhotos(data:any) {
+        return api.put('/panel/mekmarcom/fotoIslem/fotoDegisim', data).then(response => response.data);
     }
 }

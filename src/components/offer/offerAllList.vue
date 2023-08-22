@@ -12,9 +12,7 @@
                         @filter="offerAllListAFilter($event)"
                         v-model:selection="selectedOfferListA"
                         selectionMode="single"
-                        @row-click="offerListASelected($event)"  
-                        :sortField="['teklifOncelik', 'sira']"
-                        sortOrder="-1"          
+                        @row-click="offerListASelected($event)"     
                     >
                     <template #header>
                         Teklifler A Listesi
@@ -226,8 +224,7 @@
                 v-model:selection="selectedOfferListA"
                 selectionMode="single"
                 @row-click="offerListASelected($event)"  
-                :sortField="['teklifOncelik', 'sira']"
-                sortOrder="-1"          
+       
             >
             <template #header>
                 Teklifler A Listesi

@@ -17,6 +17,7 @@ export const usePanelStore = defineStore('panel', {
             productColorEnList: [],
             productColorFrList: [],
             productColorEsList: [],
+            productPickListPhotos:[],
         }
     },
     actions: {
@@ -85,6 +86,9 @@ export const usePanelStore = defineStore('panel', {
         },
         getProductColorEsList(state) {
             return state.productColorEsList;
+        },
+        getProductPickListPhotos(state) {
+            return state.productPickListPhotos;
         }
 
     }

@@ -91,6 +91,7 @@ import { useLoadingStore } from '../../stores/loading';
 import { mapState } from 'pinia';
 
 import { panelService } from '../../services/panelService';
+import { socket } from '../../services/customServices/realTimeService';
 
 import { FilterMatchMode } from 'primevue/api';
 
@@ -122,7 +123,7 @@ export default {
             panelService.getPanelDetail(event.data.urunid).then(data=>{
                 usePanelStore().panel_product_model_list_load_act(data);
                 usePanelStore().panel_product_new_button_load_act(false);
-                this.$emit('openPanelDetailForm');
+                this.$emit('openPanelDetailForm', event.data.urunid);
                 useLoadingStore().end_loading_act();
             })
         },
@@ -133,6 +134,16 @@ export default {
                 useLoadingStore().end_loading_act();
             });
         }
+    },
+    mounted() {
+        socket.socketIO.on('panel_product_update_on', (product_id) => {
+            panelService.getPanelDetail(product_id).then(data => {
+                usePanelStore().panel_product_model_list_load_act(data);
+                usePanelStore().panel_product_new_button_load_act(false);
+                useLoadingStore().end_loading_act();
+            })
+        })
+
     }
 }
 </script>

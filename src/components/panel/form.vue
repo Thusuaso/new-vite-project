@@ -317,14 +317,29 @@
                             <img :src="slotProps.item.nocdn" style="width: 100%;height:350px; display: block;" />
                             </template>
                             <template #thumbnail="slotProps">
-                            <img :src="slotProps.item.nocdn" style="display: block;" />
+                            <img :src="slotProps.item.nocdn" style="display: block;" width="50" height="50"/>
                             </template>
                         </Galleria>
                     </div>
                 </div>
                 <div class="col">
-                    <FileUpload mode="basic" @select="sendPhotos($event)" v-model="file" :maxFileSize="5000000" :multiple="true"  />
+                    <button type="button" class="btn btn-primary mb-4 w-100" @click="pick_list_photos_form=true">Fotoğraf Listesi</button>
+                    <FileUpload class="w-100" mode="basic" @select="sendPhotos($event)" v-model="file" :maxFileSize="5000000" :multiple="true" chooseLabel="Fotoğraf Ekle" />
+
+                    <Dialog v-model:visible="pick_list_photos_form" header="Fotoğraflar" modal>
+                        <button type="button" class="btn btn-danger w-100" @click="fotoSil">Sil</button>
+                        <DataTable class="p-datatable-sm" v-model:selection="pickListPhotos" v-model:value="getProductPhotoList" dataKey="id" tableStyle="min-width: 50rem">
+                            <Column selectionMode="multiple" headerStyle="width: 3rem"></Column>
+                            <Column field="name" header="Ürün"></Column>
+                            <Column field="nocdn" header="Fotoğraf">
+                                <template #body="slotProps">
+                                    <img :src="slotProps.data.nocdn" width="50" height="50"/>
+                                </template>
+                            </Column>
+                        </DataTable>
+                    </Dialog>
                 </div>
+
             </div>
         </TabPanel>
         <TabPanel header="Test Raporu">
@@ -356,6 +371,8 @@ import { mapState } from 'pinia';
 
 import { panelService } from '../../services/panelService';
 import { spaceService } from '../../services/spaceService';
+import { socket } from '../../services/customServices/realTimeService';
+import digitalOceanService from '../../services/digitalOceanService';
 export default {
     computed: {
         ...mapState(usePanelStore, [
@@ -374,6 +391,8 @@ export default {
     },
     data() {
         return {
+            pick_list_photos_form:false,
+            pickListPhotos:[],
             save_button_disabled: false,
             delete_button_disabled:false,
             responsiveOptions: [
@@ -417,7 +436,6 @@ export default {
             suggestedList: [],
             selectedNotSuggested: {},
             selectedSuggested: {},
-            
         }
     },
     created() {
@@ -427,6 +445,20 @@ export default {
         this.notSuggestedList = this.getProductSuggestedProductsList;
     },
     methods: {
+        fotoSil() {
+            useLoadingStore().begin_loading_act();
+            panelService.deletePanelPhotos(this.pickListPhotos).then(res => {
+                if (res.status) {
+                    this.pickListPhotos = [];
+                    this.pick_list_photos_form = false;
+                    socket.socketIO.emit('panel_product_update_emit', this.getProductModel.urunid);
+                        useLoadingStore().end_loading_act();
+
+                    this.$toast.add({ severity: 'success', summary: 'Fotoğraf Silme', detail: 'Fotoğraf Silme İşlemi Başarıyla Gerçekleşti', life: 3000 })
+                }
+
+            })
+        },
 
         sendTestReport(){
             if (!this.testfile) {
@@ -452,6 +484,8 @@ export default {
             });
         },
         sendPhotos(event) {
+            useLoadingStore().begin_loading_act();
+
             let photos = [];
             for (let key in event.files) {
                 photos.push(event.files[key].name);
@@ -460,7 +494,10 @@ export default {
                 if (res) {
                     for (let key in event.files) {
                         digitalOceanService.fotoGonder(event.files[key]);
-                    }
+                    };
+                    socket.socketIO.emit('panel_product_update_emit', this.getProductModel.urunid);
+                        useLoadingStore().end_loading_act();
+
                     this.$toast.add({ severity: 'success', detail: 'Fotoğraflar başarıyla kaydedildi.', life: 3000 })
                 };
             });

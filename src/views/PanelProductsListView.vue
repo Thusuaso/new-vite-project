@@ -1,11 +1,13 @@
 <template>
+
     <div class="row m-auto mt-3">
         <div class="col">
             <button type="success" class="btn btn-success" @click="newForm">Yeni</button>
         </div>
     </div>
-    <list @openPanelDetailForm="panel_products_form = true"/>
-    <Dialog v-model:visible="panel_products_form" header="" modal :style="{ 'width': '100vw' }">
+    <list @openPanelDetailForm="openPanelDetailForm($event)"/>
+    
+    <Dialog v-model:visible="panel_products_form" :header="'Ürün Id ' + urunid" modal :style="{ 'width': '100vw' }">
         <panelForm/>
     </Dialog>
 </template>
@@ -24,7 +26,8 @@ export default {
     },
     data() {
         return {
-            panel_products_form:false,
+            panel_products_form: false,
+            urunid:0,
         }
     },
     methods: {
@@ -36,6 +39,10 @@ export default {
                 this.panel_products_form = true;
                 useLoadingStore().end_loading_act();
             });
+        },
+        openPanelDetailForm(event) {
+            this.panel_products_form = true;
+            this.urunid = event;
         }
     }
 

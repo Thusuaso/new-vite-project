@@ -571,7 +571,19 @@ export default {
             this.getProductionsDetailModel.siparisUrunler.push(this.products);
             if (!this.getProductionsNewButton) {
                 // @ts-ignore
+                const result = this.getProductionsDetailModel.urunlerDegisenler.filter(x => x.id == this.products.id);
+                if (result.length>0) {
+                    const index = this.findIndex(this.products.id, this.getProductionsDetailModel.urunlerDegisenler);
+                    this.getProductionsDetailModel.urunlerDegisenler.splice(index, 1);
+                    this.getProductionsDetailModel.urunlerDegisenler.push(this.products);
+
+                } else {
                 this.getProductionsDetailModel.urunlerDegisenler.push(this.products);
+
+                };
+                console.log("this.getProductionsDetailModel.urunlerDegisenler",this.getProductionsDetailModel.urunlerDegisenler)
+
+
             };
             useProductionsStore().product_total_load_act(this.getProductionsDetailModel);
             useProductionsStore().products_save_button_status_load_act(false);
