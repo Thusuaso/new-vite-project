@@ -14,7 +14,7 @@ export default defineConfig({
     }
   },
   build: {
-    chunkSizeWarningLimit: 2500,
+    chunkSizeWarningLimit: 4000,
     outDir: "build",
   }
 })
