@@ -570,7 +570,13 @@ export default {
         useLoadingStore().end_loading_act();
 
       });
-    })
-  }
+    });
+    socket.socketIO.on('products_detail_supplier_update_on', () => {
+        productionsService.getSupplierList().then(data => {
+          useProductionsStore().productions_supplier_list_load_act(data);
+        });
+      })
+    }
+  
 }
 </script>

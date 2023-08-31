@@ -167,5 +167,39 @@ export const reportsService = {
     setOrderRepresentativeInfo(po:any,ss:any,op:any) {
         return api.get(`/uretim/satisci/change/${po}/${ss}/${op}`).then(response => response.data);
     },
+    //Panel Project
+    getProjectList() {
+        return api.get('/mekmarcom/project/list').then(response => response.data);
+    },
+    getProjectDetail(id: any) {
+        return api.get(`/mekmarcom/project/detail/${id}`).then(response => response.data);
+    },
+    getNewProjectModel() {
+        return api.get('/mekmarcom/project/model').then(response => response.data);
+    },
+    setNewProject(data: any) {
+        return api.post('/mekmarcom/projec/save',data).then(response => response.data);
+    },
+    deleteProjectPhotos(data: any) {
+        return api.post('/mekmarcom/project/delete', data).then(response => response.data);
+    },
+    addProjectPhotosServer(data: any) {
+        return api.post('/mekmarcom/project/addPhotos', data).then(response => response.data);
+    },
+    addVideo(data: any) {
+        return api.post('/mekmarcom/project/addVideo', data).then(response => response.data);
+    },
+    addInformation(data: any) {
+        return api.post('/mekmarcom/project/information', data).then(response => response.data);
+    },
+    updateInformation(data: any) {
+        return api.put('/mekmarcom/project/information', data).then(response => response.data);
+    },
+    getSuggestedProjects(id:any) {
+        return api.get(`/mekmarcom/project/list/all/${id}`).then(response => response.data);
+    },
+    setSuggestedProjects(data: any) {
+        return api.post('/mekmarcom/project/suggested/send', data).then(response => response.data);
+    }
 
 }

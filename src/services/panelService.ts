@@ -39,5 +39,15 @@ export const panelService = {
     },
     deletePanelPhotos(data:any) {
         return api.put('/panel/mekmarcom/fotoIslem/fotoDegisim', data).then(response => response.data);
+    },
+    setPanelProductChangeQueue(data: any) {
+        return api.put('/panel/makmarcom/fotosiradegisim', data).then(response => response.data);
     }
+
+
+
+
+
+
+
 }

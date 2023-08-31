@@ -65,6 +65,7 @@ export default {
             supplierService.save(this.supplierModel).then(data => {
                 if (data.status) {
                     socket.socketIO.emit('supplier_update_list_emit');
+                    socket.socketIO.emit('products_detail_supplier_update_emit')
                     this.$toast.add({ severity: 'success', detail: 'Başarıyla Kaydedildi', life: 3000 });
                 } else {
                     this.$toast.add({ severity: 'error', detail: 'Kaydetme Başarısız', life: 3000 });

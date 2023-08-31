@@ -12,6 +12,7 @@
     v-loading.fullscreen.lock="getLoading"
     type="primary"
     v-if="getAuthentication"
+    style="z-index:98;"
   >
   </el-button>
 
@@ -22,7 +23,7 @@
   <br/>
   <br/>
 
-  <header style="width:100%;" v-if="getAuthentication">
+  <header style="width:100%;z-index:99;" v-if="getAuthentication" >
     <navBar/>
   </header>
   <br/>

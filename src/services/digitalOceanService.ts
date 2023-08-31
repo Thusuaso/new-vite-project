@@ -102,6 +102,49 @@ const digitalOceanService = {
     });
   },
 
+  projeFotoGonder(file: any) {
+    const filename = file.name;
+    const params = {
+      Bucket: "mekmar-image",
+      Key: "galleria-project_photos/" + filename,
+      Body: file,
+      ACL: "public-read",
+      ContentType: "image/" + filename.split(".")[1],
+      CacheControl: "public,max-age=1,s-max-age=500,must-revalidate"
+    };
+    return s3.upload(params, (err: any, data: any) => {
+      if (err) {
+        console.log("AWS HATA : ", err);
+        return false;
+      }
+      else {
+        console.log("OK : ", data);
+        return true;
+      }
+    });
+  },
+  projeDetayFotoGonder(file: any) {
+    const filename = file.name;
+    const params = {
+      Bucket: "mekmar-image",
+      Key: "galleria-project_photos/photos/" + filename,
+      Body: file,
+      ACL: "public-read",
+      ContentType: "image/" + filename.split(".")[1],
+      CacheControl: "public,max-age=1,s-max-age=500,must-revalidate"
+    };
+    return s3.upload(params, (err: any, data: any) => {
+      if (err) {
+        console.log("AWS HATA : ", err);
+        return false;
+      }
+      else {
+        console.log("OK : ", data);
+        return true;
+      }
+    });
+  }
+
 };
 
 export default digitalOceanService;

@@ -136,6 +136,8 @@
                 </a>
                 <ul class="dropdown-menu">
                   <li><a class="dropdown-item" href="/panel/products">Ürünler</a></li>
+                  <li><a class="dropdown-item" href="/panel/project">Projeler</a></li>
+
                   <li><a class="dropdown-item" href="/panel/change/queue">Sıra Değiştir</a></li>
                   <li><a class="dropdown-item" href="/panel/users">Kullanıcılar</a></li>
 

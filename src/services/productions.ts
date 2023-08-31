@@ -94,5 +94,8 @@ getIcSiparisExcelListesi(data_list:any) {
     },
     deleteProforma(po: any) {
         return api.get(`/siparis/delete/proforma/${po}`).then(response => response.data);
+    },
+    getSupplierList() {
+        return api.get('/siparis/supplier/list').then(response => response.data);
     }
 }

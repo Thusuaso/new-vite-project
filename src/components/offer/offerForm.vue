@@ -327,6 +327,8 @@ export default {
     created() {
         if (!this.getOfferNewButton) {
             this.offerCreatedProcess();
+        }else{
+            this.selectedOfferPriority = { id: 4, priority: "Toplantı" };
         }
     },
     methods: {

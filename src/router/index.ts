@@ -54,10 +54,9 @@ const router = createRouter({
       path: '/',
       component: () => import('@/views/HomeView.vue'),
       beforeEnter: (to, from, next) => {
-        useLoadingStore().begin_loading_act()
+          useLoadingStore().end_loading_act();
         homeService.dashboard().then(data => {
           useHomeStore().dashboard_load_act(data)
-            useLoadingStore().end_loading_act()
 
           next();
          
@@ -727,6 +726,18 @@ const router = createRouter({
           useLoadingStore().end_loading_act();
           next();
         })
+      }
+    },
+    {
+      path: '/panel/project',
+      component: () => import('@/views/PanelProjectView.vue'),
+      beforeEnter(to, from, next) {
+        useLoadingStore().begin_loading_act();
+        reportsService.getProjectList().then(data => {
+          usePanelStore().panel_project_list_load_act(data);
+          useLoadingStore().end_loading_act();
+          next();
+        });
       }
     }
 

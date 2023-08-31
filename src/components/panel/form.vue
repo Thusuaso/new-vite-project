@@ -267,44 +267,30 @@
         <TabPanel header="Suggested" v-if="!getPanelProductNewButton">
             <div class="row m-auto mt-3">
                 <div class="col">
-                    <button type="button" class="btn btn-primary" @click="addSuggested">Ekle</button>
-                </div>
-                <div class="col">
-                    <button type="button" class="btn btn-danger" @click="deleteSuggested">Sil</button>
-                </div>
-                <div class="col">
-                    <button type="button" class="btn btn-success" @click="saveSuggested">Kaydet</button>
+                    <button type="button" class="btn btn-success" @click="saveSuggested" :disabled="saveSuggestedDisabled">Kaydet</button>
                 </div>
             </div>
             <div class="row m-auto mt-3"  >
                 <div class="col">
-                    <DataTable 
-                            :value="notSuggestedList" 
-                            v-model:selection="selectedNotSuggested"
-                            selectionMode="single"
-                            style="font-size:85%;"
-                        >
-                        <Column field="id" header="Id"></Column>
-                        <Column field="urunadi_en" header="Ürün"></Column>
-                        <Column header="Foto">
-                            <template #body="slotProps">
-                                <img :href="slotProps.data.foto" width="100" height="100"/>
-                            </template>
-                        </Column>
-                    </DataTable>
+                    <PickList v-model="products" listStyle="height:342px" dataKey="id">
+                        <template #sourceheader> Available </template>
+                        <template #targetheader> Selected </template>
+                        <template #item="slotProps">
+                            <div class="flex flex-wrap p-2 align-items-center gap-3">
+                                <img class="w-4rem shadow-2 flex-shrink-0 border-round" :src="'https://primefaces.org/cdn/primevue/images/product/' + slotProps.item.image" :alt="slotProps.item.name" />
+                                <div class="flex-1 flex flex-column gap-2">
+                                    <span class="font-bold">{{ slotProps.item.name }}</span>
+                                    <div class="flex align-items-center gap-2">
+                                        <i class="pi pi-tag text-sm"></i>
+                                        <span>{{ slotProps.item.category }}</span>
+                                    </div>
+                                </div>
+                                <span class="font-bold text-900">$ {{ slotProps.item.price }}</span>
+                            </div>
+                        </template>
+                    </PickList>
                 </div>
-                <div class="col">
-                    <DataTable 
-                            :value="suggestedList" 
-                            v-model:selection="selectedSuggested"
-                            selectionMode="single"
-                            style="font-size:85%;"
-                        >
-                        <Column field="code" header="Code"></Column>
-                        <Column field="name" header="Name"></Column>
-                        <Column field="category" header="Category"></Column>
-                    </DataTable>
-                </div>
+
             </div>
         </TabPanel>
         <TabPanel header="Fotolar">
@@ -326,17 +312,27 @@
                     <button type="button" class="btn btn-primary mb-4 w-100" @click="pick_list_photos_form=true">Fotoğraf Listesi</button>
                     <FileUpload class="w-100" mode="basic" @select="sendPhotos($event)" v-model="file" :maxFileSize="5000000" :multiple="true" chooseLabel="Fotoğraf Ekle" />
 
-                    <Dialog v-model:visible="pick_list_photos_form" header="Fotoğraflar" modal>
+                    <Dialog v-model:visible="pick_list_photos_form" header="Fotoğraflar" modal :style="{'width':'80vw'}">
                         <button type="button" class="btn btn-danger w-100" @click="fotoSil">Sil</button>
-                        <DataTable class="p-datatable-sm" v-model:selection="pickListPhotos" v-model:value="getProductPhotoList" dataKey="id" tableStyle="min-width: 50rem">
-                            <Column selectionMode="multiple" headerStyle="width: 3rem"></Column>
-                            <Column field="name" header="Ürün"></Column>
-                            <Column field="nocdn" header="Fotoğraf">
-                                <template #body="slotProps">
-                                    <img :src="slotProps.data.nocdn" width="50" height="50"/>
-                                </template>
-                            </Column>
-                        </DataTable>
+                        <PickList v-model="pickProductPhotosList" 
+                        @move-to-target="photoListPick($event)" 
+                        @move-all-to-target="photoListPickAll($event)"
+                        @reorder="photoListChangeQueue($event)"
+                        dataKey="id"
+                        
+                        >
+                        <template #sourceheader> Available </template>
+                        <template #targetheader> Selected </template>
+                        <template #item="slotProps">
+                            <div class="flex flex-wrap p-2 align-items-center gap-3">
+                                <img class="w-4rem shadow-2 flex-shrink-0 border-round" :src="slotProps.item.nocdn" width="60" height="60"/>
+                                <div class="flex-1 flex flex-column gap-2">
+                                    <span class="font-bold">{{ slotProps.item.name }}</span>
+ 
+                                </div>
+                            </div>
+                        </template>
+                    </PickList>
                     </Dialog>
                 </div>
 
@@ -373,6 +369,7 @@ import { panelService } from '../../services/panelService';
 import { spaceService } from '../../services/spaceService';
 import { socket } from '../../services/customServices/realTimeService';
 import digitalOceanService from '../../services/digitalOceanService';
+
 export default {
     computed: {
         ...mapState(usePanelStore, [
@@ -384,6 +381,7 @@ export default {
             'getProductSuggestedProductList',
             'getProductSuggestedProductsList',
             'getProductPhotoList',
+            'getProductPhotoListPick',
             'getProductColorEnList',
             'getProductColorFrList',
             'getProductColorEsList',
@@ -391,6 +389,7 @@ export default {
     },
     data() {
         return {
+            pickProductPhotosList:[],
             pick_list_photos_form:false,
             pickListPhotos:[],
             save_button_disabled: false,
@@ -434,26 +433,61 @@ export default {
             selectedSizeProduct: {},
             notSuggestedList: [],
             suggestedList: [],
-            selectedNotSuggested: {},
-            selectedSuggested: {},
         }
     },
     created() {
         if (!this.getPanelProductNewButton) {
             this.panelCreatedProcess();
         };
-        this.notSuggestedList = this.getProductSuggestedProductsList;
+        this.suggestedList = [...this.getProductSuggestedProductsList];
+        this.notSuggestedList = [...this.getProductSuggestedProductList]
+        this.pickProductPhotosList = [...this.getProductPhotoListPick];
+
+
     },
     methods: {
+
+        photoListChangeQueue(event) {
+            const changeQueueList = [];
+            let queue = 1;
+            for (const item of event.value[0]) {
+                item.sira = queue;
+                changeQueueList.push(item);
+                queue++;
+            };
+
+            panelService.setPanelProductChangeQueue(changeQueueList).then(data => {
+                    if (data.status) {
+                        this.$toast.add({ severity: 'success', detail: 'Başarıyla Değiştirildi', life: 3000 });
+                    } else {
+                        this.$toast.add({ severity: 'error', detail: 'Değiştirme Başarısız', life: 3000 });
+
+                    }
+                });
+
+        },
+
+        photoListPickAll(event) {
+            for (const item of event.items) {
+                this.pickProductPhotosList[1].push(item);
+            }
+            
+            this.pickProductPhotosList[0] = [];
+        },
+        photoListPick(event) {
+            this.pickProductPhotosList[1].push(event.items[0]);
+            this.pickProductPhotosList[0].splice(this.findIndex(event.items[0].id, this.pickProductPhotosList[0]),1)
+        },
         fotoSil() {
             useLoadingStore().begin_loading_act();
-            panelService.deletePanelPhotos(this.pickListPhotos).then(res => {
+            const data = {
+                'fotoSilList': this.pickProductPhotosList[1],
+                'fotoSiraDegisim':[]
+            }
+            panelService.deletePanelPhotos(data).then(res => {
                 if (res.status) {
-                    this.pickListPhotos = [];
-                    this.pick_list_photos_form = false;
                     socket.socketIO.emit('panel_product_update_emit', this.getProductModel.urunid);
-                        useLoadingStore().end_loading_act();
-
+                    useLoadingStore().end_loading_act();
                     this.$toast.add({ severity: 'success', summary: 'Fotoğraf Silme', detail: 'Fotoğraf Silme İşlemi Başarıyla Gerçekleşti', life: 3000 })
                 }
 
@@ -511,16 +545,6 @@ export default {
                     index += 1;
                 };
             };
-        },
-        deleteSuggested() {
-            const index = this.findIndex(this.selectedSuggested.urunid, this.suggestedList);
-            this.selectedNotSuggested.push(this.selectedSuggested);
-            this.suggestedList.splice(index, 1);
-        },
-        addSuggested() {
-            const index = this.findIndex(this.selectedNotSuggested.urunid, this.notSuggestedList);
-            this.suggestedList.push(this.selectedNotSuggested);
-            this.notSuggestedList.splice(index, 1);
         },
         deleteSize() {
             const sizeData = {
