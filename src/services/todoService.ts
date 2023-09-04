@@ -24,5 +24,8 @@ export const todoService = {
     },
     getDetailList(id: any) {
         return api.get(`/yapilacaklar/list/detail/${id}`).then(response => response.data);
+    },
+    getUsersList() {
+        return api.get('/yapilacaklar/list/users/all').then(response => response.data);
     }
 }

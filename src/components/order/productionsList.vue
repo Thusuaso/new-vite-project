@@ -18,7 +18,7 @@
       @filter="productFilterEvent($event)"
       :rowStyle="rowStyle"
       v-if="$route.fullPath == '/order/forwarding'"
-      paginator :rows="10"
+      paginator :rows="15"
     >
         <template #header>
             <div class="row " style="height:25px;">

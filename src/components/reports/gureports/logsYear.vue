@@ -6,6 +6,7 @@
                 v-model:filters="filters"
                 filterDisplay="row"
                 style="font-size:85%;"
+                :rowStyle="rowStyle"
             >
                 <Column 
                     field="yil" 
@@ -105,6 +106,11 @@ export default {
                 kayit_kisi: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
                 siparis_no: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
             }
+        }
+    },
+    methods:{
+        rowStyle(event) {
+            return { 'backgroundColor': event.renk };
         }
     }
 }

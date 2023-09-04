@@ -409,7 +409,7 @@ export default {
             this.getOfferModelList.numuneHatirlatmaTarihi = this.dateNullControl(this.getOfferModelList.numuneHatirlatmaTarihi);
             this.getOfferModelList.numuneGirisTarihi = this.dateNullControl(this.getOfferModelList.numuneGirisTarihi);
             this.getOfferModelList.hatirlatmaTarihi = this.dateNullControl(this.getOfferModelList.hatirlatmaTarihi);
-
+            this.getOfferModelList.teklifOncelik = this.selectedOfferPriority.priority;
             this.getOfferModelList.takipEt = 1;
             const data = {
                 teklif: this.getOfferModelList,

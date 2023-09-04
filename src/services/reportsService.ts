@@ -200,6 +200,9 @@ export const reportsService = {
     },
     setSuggestedProjects(data: any) {
         return api.post('/mekmarcom/project/suggested/send', data).then(response => response.data);
+    },
+    setProjectQueue(data: any) {
+        return api.post('/mekmarcom/project/queue', data).then(response => response.data);
     }
 
 }

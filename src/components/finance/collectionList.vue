@@ -6,6 +6,9 @@
         <div class="col">
             <Dropdown v-model="selectedMonth" :options="getCollectionMonthList" optionLabel="ay_str" class="w-full md:w-14rem" @change="monthChange($event)" />
         </div>
+        <div class="col">
+            <button type="button" class="btn btn-primary" @click="excel_cikti_click" >Excel</button>
+        </div>
     </div>
     <br/>
     <DataTable 
@@ -57,12 +60,16 @@ import { useLoadingStore } from '../../stores/loading';
 import { mapState } from 'pinia';
 import { FilterMatchMode } from 'primevue/api'
 import { financeService } from '../../services/financeService';
+import { useLocalStore } from '../../stores/local';
 export default {
     computed: {
         ...mapState(useFinanceStore, [
             'getCollectionList',
             'getCollectionYearList',
             'getCollectionMonthList'
+        ]),
+        ...mapState(useLocalStore, [
+            'url'
         ])
     },
     data() {
@@ -84,6 +91,23 @@ export default {
         this.collectionTotalSum(this.getCollectionList);
     },
     methods: {
+        excel_cikti_click() {
+            useLoadingStore().begin_loading_act();
+
+            financeService.getPaymentList(this.getCollectionList).then((res) => {
+                if (res.status) {
+                    const link = document.createElement("a");
+                    link.href =
+                        this.url + "finans/listeler/odemelerAyrintiListesiExcel";
+                    link.setAttribute("download", "odemeler_listesi.xlsx");
+                    document.body.appendChild(link);
+                    link.click();
+                    useLoadingStore().end_loading_act();
+
+
+                }
+            });
+        },
         collectionTotalSum(data) {
             this.total = 0;
             for (const item of data) {

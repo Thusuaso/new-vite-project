@@ -42,7 +42,7 @@
                   Finans
                 </a>
                 <ul class="dropdown-menu">
-                  <!-- <a class="nav-link" aria-current="page" href="/finance/list">Finans</a> -->
+                  <a class="nav-link" aria-current="page" href="/finance/list">Finans</a>
                   <a class="nav-link" aria-current="page" href="/finance/test">Finans</a>
 
                 </ul>

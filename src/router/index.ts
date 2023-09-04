@@ -685,7 +685,6 @@ const router = createRouter({
       beforeEnter(to, from, next) {
         useLoadingStore().begin_loading_act();
         todoService.getAllList().then(data => {
-          console.log("getAllList", data);
           useTodoStore().to_do_list_all_load_act(data);
           useLoadingStore().end_loading_act();
           next();

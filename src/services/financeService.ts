@@ -45,5 +45,8 @@ export const financeService = {
     },
     getWarehouseExcelList(data: any) {
         return api.post('/finans/dosyalar/depoExcelCikti', data).then(response => response.data);
+    },
+    getPaymentList(data: any) {
+        return api.post('/finans/listeler/odemelerAyrintiListesiExcel', data).then(response => response.data);
     }
 }
