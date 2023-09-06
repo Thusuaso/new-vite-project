@@ -46,6 +46,7 @@
                 selectionMode="single"
                 @row-click="stockSelected($event)"
                 style="font-size:85%;"
+                sortField="kasaSayisi" :sortOrder="-1"
             >
                 <Column 
                     field="en" 
