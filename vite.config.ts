@@ -17,10 +17,6 @@ export default defineConfig({
     chunkSizeWarningLimit: 12000,
     outDir: "build",
     sourcemap: true,
-    commonjsOptions: {
-      strictRequires: true,
-      // https://stackoverflow.com/questions/62770883/how-to-include-both-import-and-require-statements-in-the-bundle-using-rollup
-      transformMixedEsModules: true,
-    },
+
   }
 })
