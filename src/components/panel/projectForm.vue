@@ -42,7 +42,7 @@
     <div class="row">
         <div class="col">
             <Dialog v-model:visible="photos_list_form" header="Fotoğraf Listesi" modal :style="{ width: '100vw' }">
-                <FileUpload class="w-100 mb-3" mode="basic" accept="image/*" :multiple="true" :maxFileSize="1000000" @select="onUpload($event)" chooseLabel="Fotoğraf Yükle" />
+                <FileUpload class="w-100 mb-3" mode="basic" accept="image/*" :multiple="true" :maxFileSize="2000000" @select="onUpload($event)" chooseLabel="Fotoğraf Yükle" />
 
 
                 <button type="button" class="btn btn-danger w-100 mb-4" @click="deletePhotos">Sil</button>

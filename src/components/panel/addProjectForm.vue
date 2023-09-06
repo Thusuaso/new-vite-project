@@ -12,7 +12,7 @@
         </div>
 
         <div class="col">
-            <FileUpload class="w-100" style="height:54px;" mode="basic" accept="image/*" :maxFileSize="1000000" @select="projectImageUpload($event)" chooseLabel="Fotoğraf Yükle" />
+            <FileUpload class="w-100" style="height:54px;" mode="basic" accept="image/*" :maxFileSize="2000000" @select="projectImageUpload($event)" chooseLabel="Fotoğraf Yükle" />
 
         </div>
     </div>
