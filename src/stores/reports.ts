@@ -334,7 +334,12 @@ export const useReportsStore = defineStore('reports', {
             },
             toplam_bedel_sum :0,
             toplam_masraf_sum: 0,
-            toplam_kar_zarar_orani:0,
+            toplam_kar_zarar_orani: 0,
+            mekmarGuForwardingSummaryList: [],
+            mekmarGuForwardingSummaryTotal: {
+                fob: 0,
+                ddp:0
+            }
         }
     },
     actions: {
@@ -957,6 +962,18 @@ export const useReportsStore = defineStore('reports', {
             this.mekmarGuAyoDetailList = data.ayoDetail;
 
             this.mekmarGuLogsList = data.logs;
+
+            this.mekmarGuForwardingSummaryList = data.forwarding;
+            this.mekmar_gu_summary_forwarding_total_list(data.forwarding);
+
+
+        },
+        mekmar_gu_summary_forwarding_total_list(data:any) {
+            for (const item of data) {
+                this.mekmarGuForwardingSummaryTotal.fob += item.fob;
+                this.mekmarGuForwardingSummaryTotal.ddp += item.ddp;
+
+            };
         },
         mekmar_gu_year_list_load_act(data: any) {
             this.mekmarGuYearList = data;
@@ -1162,6 +1179,12 @@ export const useReportsStore = defineStore('reports', {
 
     },
     getters: {
+        getMekmarGuForwardingSummaryTotal(state) {
+            return state.mekmarGuForwardingSummaryTotal;
+        },
+        getMekmarGuForwardingSummaryList(state) {
+            return state.mekmarGuForwardingSummaryList;
+        },
         getToplam_kar_zarar_orani(state) {
             return state.toplam_kar_zarar_orani;
         },

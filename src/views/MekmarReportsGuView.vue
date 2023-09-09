@@ -19,6 +19,9 @@
                 <TabPanel header="Logs">
                     <logsYear :year="selectedYear.yil"/>
                 </TabPanel>
+                <TabPanel header="Sevkiyat Özet">
+                    <forwardingSummary/>
+                </TabPanel>
             </TabView>
         </div>
     </div>
@@ -35,7 +38,7 @@ import ayoCostYear from '../components/reports/gureports/ayoCostYear.vue';
 import containerYear from '../components/reports/gureports/containerYear.vue';
 import mekusYear from '../components/reports/gureports/mekusYear.vue';
 import logsYear from '../components/reports/gureports/logsYear.vue';
-
+import forwardingSummary from '../components/reports/gureports/forwardingSummary.vue';
 export default {
     computed: {
         ...mapState(useReportsStore, [
@@ -46,7 +49,8 @@ export default {
         ayoCostYear,
         containerYear,
         mekusYear,
-        logsYear
+        logsYear,
+        forwardingSummary
     },
     data() {
         return {

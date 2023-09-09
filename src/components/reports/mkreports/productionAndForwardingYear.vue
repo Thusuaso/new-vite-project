@@ -7,6 +7,8 @@
                 v-model:filters="filters"
                 filterDisplay="row"
                 @filter="productionAndForwardingFiltered($event)"
+                sortOrder="-1"
+                sortField="total"
             
             >
                 <template #header>

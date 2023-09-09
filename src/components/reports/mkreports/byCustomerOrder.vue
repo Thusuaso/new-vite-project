@@ -6,6 +6,8 @@
               v-model:filters="filters"
               filterDisplay="row"
               style="font-size:85%;"
+              sortOrder="-1"
+              sortField="Toplam"
             >
               <Column
                 field="musteri"

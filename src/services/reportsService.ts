@@ -203,6 +203,6 @@ export const reportsService = {
     },
     setProjectQueue(data: any) {
         return api.post('/mekmarcom/project/queue', data).then(response => response.data);
-    }
+    },
 
 }

@@ -57,7 +57,7 @@
                             </div>
                             <div class="col-4">
                                 <span class="p-float-label">
-                                    <InputText  class="w-75" id="amount" :disabled="form_status" v-model="products.miktar" @input="products.miktar = $filters.formatPoint($event.target.value)"/>
+                                    <InputText  class="w-75" id="amount" :disabled="form_status" v-model="products.miktar" @input="tonajChange($event)"/>
                                     <label for="amount">Miktar</label>
                                 </span>
    
@@ -482,6 +482,47 @@ export default {
       }  
     },
     methods: {
+        tonajChange(event) {
+            this.products.miktar = this.$filters.formatPoint(event.target.value);
+            let coefficient = this.productCoefficient(this.products.kategoriAdi.split(' ')[0]);
+            if (this.products.en == 'VAR' || this.products.en == 'Various' || this.products.en == 'SLAB') {
+                this.products.ton = 0;
+            }else if (this.products.boy == 'Free' || this.products.boy == 'FREE') {
+                if (this.selectedUnit.id == 3) {
+                    const mt = (event.target.value * parseFloat(this.products.en.replace(',', '.')) / 100);
+                    this.products.ton = (coefficient * 10 * mt * parseFloat(this.products.kenar.replace(',', '.'))).toFixed(2);
+                } else {
+                    this.products.ton = 0;
+                }
+            }else {
+                if (this.selectedUnit.id == 1) {
+                    this.products.ton = (coefficient * 10 * event.target.value * parseFloat(this.products.kenar.replace(',', '.'))).toFixed(2);
+                } else if (this.selectedUnit.id == 2) {
+                    const m2 = (parseFloat(this.products.en.replace(',', '.')) * parseFloat(this.products.boy.replace(',', '.')) * event.target.value) / 10000;
+                    this.products.ton = (coefficient * 10 * m2 * parseFloat(this.products.kenar.replace(',', '.'))).toFixed(2);
+                } else if (this.selectedUnit.id == 3) {
+                    const mt = (event.target.value * parseFloat(this.products.en.replace(',', '.'))) / 100;
+                    this.products.ton = (coefficient * 10 * mt * parseFloat(this.products.kenar.replace(',', '.'))).toFixed(2);
+                } else {
+                    this.products.ton = 0;
+                }
+            }
+
+        },
+        productCoefficient(event) {
+            if(event == 'Travertine'){
+                return 2.38;
+            } else if (event == 'Marble') {
+                return 2.82;
+            } else if (event == 'Limestone') {
+                return 2.6
+            } else if (event == 'Quarts'){
+                return 2.5;   
+            }
+            else {
+                return 0;
+            }
+        },
         product_select_item(event) {
             // @ts-ignore
             this.products = this.getProductionsDetailModel.siparisUrunler.find(x => x.id == event.data.id);
