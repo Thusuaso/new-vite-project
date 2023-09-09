@@ -335,10 +335,39 @@ export const useReportsStore = defineStore('reports', {
             toplam_bedel_sum :0,
             toplam_masraf_sum: 0,
             toplam_kar_zarar_orani: 0,
-            mekmarGuForwardingSummaryList: [],
+            mekmarGuForwardingSummaryList: {
+                'oneYear': [],
+                'twoYear': [],
+                'threeYear': [],
+                'fourYear': [],
+                'fiveYear': [],
+                'sixYear': [],
+                'sevenYear': [],
+                'eightYear': [],
+                'nineYear': [],
+                'tenYear':[]
+            },
             mekmarGuForwardingSummaryTotal: {
-                fob: 0,
-                ddp:0
+                oneFob: 0,
+                oneDdp: 0,
+                twoFob: 0,
+                twoDdp: 0,
+                threeFob: 0,
+                threeDdp: 0,
+                fourFob: 0,
+                fourDdp: 0,
+                fiveFob: 0,
+                fiveDdp: 0,
+                sixFob: 0,
+                sixDdp: 0,
+                sevenFob: 0,
+                sevenDdp: 0,
+                eightFob: 0,
+                eightDdp: 0,
+                nineFob: 0,
+                nineDdp: 0,
+                tenFob: 0,
+                tenDdp:0,
             }
         }
     },
@@ -963,18 +992,62 @@ export const useReportsStore = defineStore('reports', {
 
             this.mekmarGuLogsList = data.logs;
 
-            this.mekmarGuForwardingSummaryList = data.forwarding;
-            this.mekmar_gu_summary_forwarding_total_list(data.forwarding);
+            // this.mekmarGuForwardingSummaryList = data.forwarding;
+
+            const date = new Date();
+            const year = date.getFullYear();
+            const yearL = year - 9;
+            for (const item of data.forwarding) {
+                if (item.year == yearL) {
+                    this.mekmarGuForwardingSummaryList.oneYear?.push(item);
+                    this.mekmarGuForwardingSummaryTotal.oneFob += item.fob;
+                    this.mekmarGuForwardingSummaryTotal.oneDdp += item.ddp;
+
+                } else if (item.year == yearL + 1) {
+                    this.mekmarGuForwardingSummaryList.twoYear?.push(item);
+                    this.mekmarGuForwardingSummaryTotal.twoFob += item.fob;
+                    this.mekmarGuForwardingSummaryTotal.twoDdp += item.ddp;
+                } else if (item.year == yearL + 2) {
+                    this.mekmarGuForwardingSummaryList.threeYear?.push(item);
+                    this.mekmarGuForwardingSummaryTotal.threeFob += item.fob;
+                    this.mekmarGuForwardingSummaryTotal.threeDdp += item.ddp;
+                }else if (item.year == yearL + 3) {
+                    this.mekmarGuForwardingSummaryList.fourYear?.push(item);
+                    this.mekmarGuForwardingSummaryTotal.fourFob += item.fob;
+                    this.mekmarGuForwardingSummaryTotal.fourDdp += item.ddp;
+                }else if (item.year == yearL + 4) {
+                    this.mekmarGuForwardingSummaryList.fiveYear?.push(item);
+                    this.mekmarGuForwardingSummaryTotal.fiveFob += item.fob;
+                    this.mekmarGuForwardingSummaryTotal.fiveDdp += item.ddp;
+                }else if (item.year == yearL + 5) {
+                    this.mekmarGuForwardingSummaryList.sixYear?.push(item);
+                    this.mekmarGuForwardingSummaryTotal.sixFob += item.fob;
+                    this.mekmarGuForwardingSummaryTotal.sixDdp += item.ddp;
+                }else if (item.year == yearL + 6) {
+                    this.mekmarGuForwardingSummaryList.sevenYear?.push(item);
+                    this.mekmarGuForwardingSummaryTotal.sevenFob += item.fob;
+                    this.mekmarGuForwardingSummaryTotal.sevenDdp += item.ddp;
+                }else if (item.year == yearL + 7) {
+                    this.mekmarGuForwardingSummaryList.eightYear?.push(item);
+                    this.mekmarGuForwardingSummaryTotal.eightFob += item.fob;
+                    this.mekmarGuForwardingSummaryTotal.eightDdp += item.ddp;
+                }else if (item.year == yearL + 8) {
+                    this.mekmarGuForwardingSummaryList.nineYear?.push(item);
+                    this.mekmarGuForwardingSummaryTotal.nineFob += item.fob;
+                    this.mekmarGuForwardingSummaryTotal.nineDdp += item.ddp;
+                }else if (item.year == yearL + 9) {
+                    this.mekmarGuForwardingSummaryList.tenYear?.push(item);
+                    this.mekmarGuForwardingSummaryTotal.tenFob += item.fob;
+                    this.mekmarGuForwardingSummaryTotal.tenDdp += item.ddp;
+                }
+            }
+
+
+            
 
 
         },
-        mekmar_gu_summary_forwarding_total_list(data:any) {
-            for (const item of data) {
-                this.mekmarGuForwardingSummaryTotal.fob += item.fob;
-                this.mekmarGuForwardingSummaryTotal.ddp += item.ddp;
 
-            };
-        },
         mekmar_gu_year_list_load_act(data: any) {
             this.mekmarGuYearList = data;
         },

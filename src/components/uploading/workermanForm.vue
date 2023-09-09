@@ -82,7 +82,7 @@ export default {
             this.tedarikci_list = data;
             if (data.length > 0) {
                 this.dis_download = false;
-                this.tedarikciLink = `https://file-service.mekmar.com/file/download/40/${this.po}.pdf`;
+                this.tedarikciLink = `https://file-service.mekmar.com/file/download/40/${this.po}`;
             } else {
                 this.dis_download = true;
             }
@@ -98,7 +98,7 @@ export default {
                 alert("Evrak Boyutunu Kontrol Ediniz.");
             } else {
                 const veri = {
-                    evrak: this.po + ".pdf",
+                    evrak: this.po + '.pdf',
                     siparisno: this.po,
                     kullaniciAdi: localStorage.getItem('username'),
                 };
@@ -107,7 +107,7 @@ export default {
                     .faturaDosyaGonder(
                         event,
                         40,
-                        this.po + ".pdf"
+                        this.po
                     )
                     .then((data) => {
                         console.log(data);
@@ -116,7 +116,7 @@ export default {
                                 alert("Kayıt İşlemi Yapıldı.");
                                 socket.socketIO.emit('uploading_folder_update_list_emit',this.po);
                                 this.tedarikciLink = `https://file-service.mekmar.com/file/tedarikci/download/40/${this.po
-                                    }/${this.selectedSupplier.tedarikci + ".pdf"}`;
+                                    }/${this.selectedSupplier.tedarikci}`;
 
                             }
                         });
