@@ -685,19 +685,44 @@ export default {
             this.getSelectionModelList.urunbirimid = event.target._value.id;
         },
         productItemDetailSelected(event) {
-            this.orderProductCard = event.value.tanim;
-            this.selectedProductUnit = this.getProductUnitList.find(x => x.id == event.value.urunbirimid);
-            this.searchSupplier = this.getSupplierList.find(x => x.name == event.value.tedarikci);
-            this.getSelectionModelList.tedarikciid = this.getSupplierList.find(x => x.name == event.value.tedarikci).id;
-            this.getSelectionModelList.urunbirimid = this.getProductUnitList.find(x => x.id == event.value.urunbirimid).id;
-            this.getSelectionModelList.uretimturid = 2;
-            this.getSelectionModelList.urunkartid = event.value.urunkart_id;
-            this.getSelectionModelList.kategoriadi = this.getCardList.find(x => x.id == event.value.urunkart_id).kategoriAdi;
-            this.getSelectionModelList.urunadi = this.getCardList.find(x => x.id == event.value.urunkart_id).urunAdi;
-            this.getSelectionModelList.kenarislem = this.getCardList.find(x => x.id == event.value.urunkart_id).yuzeyIslem;
-            this.getSelectionModelList.ebat = this.getCardList.find(x => x.id == event.value.urunkart_id).ebat;
-            this.getSelectionModelList.aciklama = event.value.siparisno;
-            this.getCrateNo(this.getSelectionModelList.tedarikciid);
+            if (!this.getSelectionNewButton) {
+                if (event.value.urunkart_id != this.getSelectionModelList.urunkartid) {
+                    if (confirm('Ürün bilgileri uyuşmuyor, yine de kaydetmek ister misiniz?')) {
+                        this.orderProductCard = event.value.tanim;
+                        this.selectedProductUnit = this.getProductUnitList.find(x => x.id == event.value.urunbirimid);
+                        this.searchSupplier = this.getSupplierList.find(x => x.name == event.value.tedarikci);
+                        this.getSelectionModelList.tedarikciid = this.getSupplierList.find(x => x.name == event.value.tedarikci).id;
+                        this.getSelectionModelList.urunbirimid = this.getProductUnitList.find(x => x.id == event.value.urunbirimid).id;
+                        this.getSelectionModelList.uretimturid = 2;
+                        this.getSelectionModelList.urunkartid = event.value.urunkart_id;
+                        this.getSelectionModelList.kategoriadi = this.getCardList.find(x => x.id == event.value.urunkart_id).kategoriAdi;
+                        this.getSelectionModelList.urunadi = this.getCardList.find(x => x.id == event.value.urunkart_id).urunAdi;
+                        this.getSelectionModelList.kenarislem = this.getCardList.find(x => x.id == event.value.urunkart_id).yuzeyIslem;
+                        this.getSelectionModelList.ebat = this.getCardList.find(x => x.id == event.value.urunkart_id).ebat;
+                        this.getSelectionModelList.aciklama = event.value.siparisno;
+                        this.getCrateNo(this.getSelectionModelList.tedarikciid);
+                    } else {
+                        console.log('else')
+                    }
+
+                }
+            }else{
+                this.orderProductCard = event.value.tanim;
+                this.selectedProductUnit = this.getProductUnitList.find(x => x.id == event.value.urunbirimid);
+                this.searchSupplier = this.getSupplierList.find(x => x.name == event.value.tedarikci);
+                this.getSelectionModelList.tedarikciid = this.getSupplierList.find(x => x.name == event.value.tedarikci).id;
+                this.getSelectionModelList.urunbirimid = this.getProductUnitList.find(x => x.id == event.value.urunbirimid).id;
+                this.getSelectionModelList.uretimturid = 2;
+                this.getSelectionModelList.urunkartid = event.value.urunkart_id;
+                this.getSelectionModelList.kategoriadi = this.getCardList.find(x => x.id == event.value.urunkart_id).kategoriAdi;
+                this.getSelectionModelList.urunadi = this.getCardList.find(x => x.id == event.value.urunkart_id).urunAdi;
+                this.getSelectionModelList.kenarislem = this.getCardList.find(x => x.id == event.value.urunkart_id).yuzeyIslem;
+                this.getSelectionModelList.ebat = this.getCardList.find(x => x.id == event.value.urunkart_id).ebat;
+                this.getSelectionModelList.aciklama = event.value.siparisno;
+                this.getCrateNo(this.getSelectionModelList.tedarikciid);
+            }
+            
+
 
 
         },
