@@ -11,6 +11,9 @@ export const productionsService = {
     getOrderList(orderStatus: any, orderYear: any) {
         return api.get(`/siparisler/${orderStatus}/${orderYear}`).then(response => response.data);
     },
+    getOrderListOther() {
+        return api.get('/siparisler/sevk/diger').then(response => response.data);  
+    },
     getOrderDetail(po: any) {
         return api.get(`/siparis/siparisGirisModel/${po}`).then(response => response.data);
     },
