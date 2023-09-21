@@ -58,19 +58,134 @@
 //     }
 // };
 
-import AWS from "aws-sdk";
+// import AWS from "aws-sdk";
 
 
-const spaceEndPoint = new AWS.Endpoint("https://fra1.digitaloceanspaces.com");
+// const spaceEndPoint = new AWS.Endpoint("https://fra1.digitaloceanspaces.com/");
 
-const s3 = new AWS.S3({
-  endpoint: spaceEndPoint,
-  accessKeyId: "B7POIPPYM44Y374P23KS",
-  secretAccessKey: "01CMWBcNKtFgKG6XhP+q0PlajTb2yvELaJ1igo7xsyA",
+// const s3 = new AWS.S3({
+//   endpoint: spaceEndPoint,
+//   accessKeyId: "B7POIPPYM44Y374P23KS",
+//   secretAccessKey: "01CMWBcNKtFgKG6XhP+q0PlajTb2yvELaJ1igo7xsyA",
+// });
+
+// const digitalOceanService = {
+//   galleriaFotoGonder(file:any) {
+//     const filename = file.name;
+//     const params = {
+//       Bucket: "mekmar-image",
+//       Key: "galleria-project_photos/" + filename,
+//       Body: file,
+//       ACL: "public-read",
+//       ContentType: "image/" + filename.split(".")[1],
+//       CacheControl: "public,max-age=1,s-max-age=500,must-revalidate",
+//     };
+
+//     s3.upload(params, (err:any, data:any) => {
+//       if (err) console.log("AWS HATA : ", err);
+//       else console.log("OK : ", data);
+//     });
+//   },
+//   fotoGonder(file:any) {
+//     const filename = file.name;
+//     const params = {
+//       Bucket: "mekmar-image",
+//       Key: "products/" + filename,
+//       Body: file,
+//       ACL: "public-read",
+//       ContentType: "image/" + filename.split(".")[1],
+//       CacheControl: "public,max-age=1,s-max-age=500,must-revalidate",
+//     };
+
+//     s3.upload(params, (err:any, data:any) => {
+//       if (err) console.log("AWS HATA : ", err);
+//       else console.log("OK : ", data);
+//     });
+//   },
+
+//   projeFotoGonder(file: any) {
+//     const filename = file.name;
+//     const params = {
+//       Bucket: "mekmar-image",
+//       Key: "galleria-project_photos/" + filename,
+//       Body: file,
+//       ACL: "public-read",
+//       ContentType: "image/" + filename.split(".")[1],
+//       CacheControl: "public,max-age=1,s-max-age=500,must-revalidate"
+//     };
+//     return s3.upload(params, (err: any, data: any) => {
+//       if (err) {
+//         console.log("AWS HATA : ", err);
+//         return false;
+//       }
+//       else {
+//         console.log("OK : ", data);
+//         return true;
+//       }
+//     });
+//   },
+//   projeDetayFotoGonder(file: any) {
+//     const filename = file.name;
+//     const params = {
+//       Bucket: "mekmar-image",
+//       Key: "galleria-project_photos/photos/" + filename,
+//       Body: file,
+//       ACL: "public-read",
+//       ContentType: "image/" + filename.split(".")[1],
+//       CacheControl: "public,max-age=1,s-max-age=500,must-revalidate"
+//     };
+//     return s3.upload(params, (err: any, data: any) => {
+//       if (err) {
+//         console.log("AWS HATA : ", err);
+//         return false;
+//       }
+//       else {
+//         console.log("OK : ", data);
+//         return true;
+//       }
+//     });
+//   }
+
+// };
+
+// export default digitalOceanService;
+
+
+
+import { S3 } from "@aws-sdk/client-s3";
+import { PutObjectCommand } from "@aws-sdk/client-s3";
+const s3Client = new S3({
+    forcePathStyle: false, // Configures to use subdomain/virtual calling format.
+  endpoint: "https://fra1.digitaloceanspaces.com",
+    region: "fra1",
+    credentials: {
+      accessKeyId: 'B7POIPPYM44Y374P23KS',
+      secretAccessKey: '01CMWBcNKtFgKG6XhP+q0PlajTb2yvELaJ1igo7xsyA'
+  },
+
+
 });
 
 const digitalOceanService = {
-  galleriaFotoGonder(file:any) {
+  projeFotoGonder(file: any) {
+      const filename = file.name;
+      const params = {
+        Bucket: "mekmar-image",
+        Key: "galleria-project_photos/" + filename,
+        Body: file,
+        ACL: "public-read",
+        ContentType: "image/" + filename.split(".")[1],
+        CacheControl: "public,max-age=1,s-max-age=500,must-revalidate"
+    };
+    try {
+    s3Client.send(new PutObjectCommand(params));
+      return true;
+    } catch (err) {
+      return false;
+    }
+
+  },
+    galleriaFotoGonder(file:any) {
     const filename = file.name;
     const params = {
       Bucket: "mekmar-image",
@@ -81,12 +196,14 @@ const digitalOceanService = {
       CacheControl: "public,max-age=1,s-max-age=500,must-revalidate",
     };
 
-    s3.upload(params, (err:any, data:any) => {
-      if (err) console.log("AWS HATA : ", err);
-      else console.log("OK : ", data);
-    });
+    try {
+    s3Client.send(new PutObjectCommand(params));
+      return true;
+    } catch (err) {
+      return false;
+    }
   },
-  fotoGonder(file:any) {
+      fotoGonder(file:any) {
     const filename = file.name;
     const params = {
       Bucket: "mekmar-image",
@@ -97,32 +214,12 @@ const digitalOceanService = {
       CacheControl: "public,max-age=1,s-max-age=500,must-revalidate",
     };
 
-    s3.upload(params, (err:any, data:any) => {
-      if (err) console.log("AWS HATA : ", err);
-      else console.log("OK : ", data);
-    });
-  },
-
-  projeFotoGonder(file: any) {
-    const filename = file.name;
-    const params = {
-      Bucket: "mekmar-image",
-      Key: "galleria-project_photos/" + filename,
-      Body: file,
-      ACL: "public-read",
-      ContentType: "image/" + filename.split(".")[1],
-      CacheControl: "public,max-age=1,s-max-age=500,must-revalidate"
-    };
-    return s3.upload(params, (err: any, data: any) => {
-      if (err) {
-        console.log("AWS HATA : ", err);
-        return false;
-      }
-      else {
-        console.log("OK : ", data);
-        return true;
-      }
-    });
+    try {
+    s3Client.send(new PutObjectCommand(params));
+      return true;
+    } catch (err) {
+      return false;
+    }
   },
   projeDetayFotoGonder(file: any) {
     const filename = file.name;
@@ -145,40 +242,6 @@ const digitalOceanService = {
       }
     });
   }
-
-};
-
+}
 export default digitalOceanService;
-
-
-// import AWS3 from '@aws-sdk/client-s3';
-// const region = "fra1";
-// const endPoint = "https://fra1.digitaloceanspaces.com";
-// const accessKeyId = "B7POIPPYM44Y374P23KS";
-// const secretAccessKey =  "01CMWBcNKtFgKG6XhP+q0PlajTb2yvELaJ1igo7xsyA";
-// AWS3.config.update({ region:region, endPoint:endPoint, credentials: { accessKeyId: accessKeyId, secretAccessKey: secretAccessKey } });
-
-// const s3 = AWS3.S3Client({credentials:{accessKeyId,secretAccessKey}})
-
-// const digitalOceanService = {
-//   projeFotoGonder(file: any) {
-//     const filename = file.name;
-//     const params = {
-//       Bucket: "mekmar-image",
-//       Key: "galleria-project_photos/" + filename,
-//       Body: file,
-//       ACL: "public-read",
-//       ContentType: "image/" + filename.split(".")[1],
-//       CacheControl: "public,max-age=1,s-max-age=500,must-revalidate"
-//     };
-//     const command = new AbortMultipartUploadCommand(params);
-//     s3.send(command);
-//   },
-// }
-
-// export default digitalOceanService;
-
-
-
-
 

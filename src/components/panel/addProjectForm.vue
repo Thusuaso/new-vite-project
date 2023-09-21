@@ -58,18 +58,14 @@ export default {
         },
         projectImageUpload(event) {
             const result = digitalOceanService.projeFotoGonder(event.files[0]);
-            // @ts-ignore
-            if (!result.failed) {
+            if (result) {
+                this.$toast.add({ severity: 'success', detail: 'Başarıyla Yüklendi', life: 3000 });
                 this.project_save_button_disabled = false;
-                // @ts-ignore
-                this.getPanelProjectModel.project_image = 'https://mekmar-image.fra1.cdn.digitaloceanspaces.com/galleria-project_photos/' + result.body.name;
-                // @ts-ignore
-                this.$toast.add({ 'severity': 'success', detail: 'Başarıyla Yüklendi', life: 3000 });
+                this.getPanelProjectModel.project_image = 'https://mekmar-image.fra1.cdn.digitaloceanspaces.com/galleria-project_photos/' + event.files[0].name;
             } else {
-                // @ts-ignore
-                this.$toast.add({ 'severity': 'error', detail: 'Yükleme Başarısız', life: 3000 });
-
+                this.$toast.add({ severity: 'error', detail: 'Yükleme Başarısız', life: 3000 });
             }
+            
         },
         countrySelected(event) {
             // @ts-ignore
