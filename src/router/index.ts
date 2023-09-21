@@ -738,6 +738,20 @@ const router = createRouter({
           next();
         });
       }
+    },
+    {
+      path: '/panel/users',
+      component: () => import('@/views/PanelUsers.vue'),
+      beforeEnter(to, from, next) {
+        useLoadingStore().begin_loading_act();
+        reportsService.getMekmarComCustomersList().then(data => {
+
+          usePanelStore().panel_customers_load_act(data);
+
+          useLoadingStore().end_loading_act();
+          next();
+        })
+      }
     }
 
 

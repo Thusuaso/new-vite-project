@@ -10,9 +10,11 @@
                         <span class="input-group-text" id="basic-addon1">Ö.Tür</span>
                         <Dropdown v-model="selectedPayment" filter  :options="getProductPaymentList" optionLabel="odemeTurAdi"  class="w-full md:w-14rem form-control" @change="changePayment($event)"/>
                 </div>
+                <div class="input-group mb-3" style="height:60px;" >
+                            <span class="input-group-text" id="basic-addon1" style="height:60px;">Vade</span>
+                <Calendar id="vade" class="h-100 mb-3" style="height:70px;" v-model="v_date"  showIcon inputId="birth_date" @date-select="selectedVDate($event)" dateFormat="dd/mm/yy"/>
 
-                <Calendar class="w-100 mb-3" v-model="v_date"  showIcon inputId="birth_date" @date-select="selectedVDate($event)" dateFormat="dd/mm/yy"/>
-
+                    </div>
 
 
                 <div class="input-group mb-3" >
@@ -230,8 +232,17 @@
                             <span class="input-group-text" id="basic-addon1">Ö.Tür</span>
                             <Dropdown v-model="selectedPayment" filter  :options="getProductPaymentList" optionLabel="odemeTurAdi"  class="w-full md:w-14rem form-control" @change="changePayment($event)"/>
                     </div>
+                    <div class="input-group mb-3 " >
+                                <span class="input-group-text" id="basic-addon1">Vade</span>
 
-                    <Calendar class="w-100 mb-3" v-model="v_date"  showIcon inputId="birth_date" @date-select="selectedVDate($event)" dateFormat="dd/mm/yy"/>
+                        </div>
+
+                    <div class="input-group mb-3" style="height:60px;" >
+                                <span class="input-group-text" id="basic-addon1" style="height:60px;">Vade</span>
+                    <Calendar id="vade" class="h-100 mb-3" style="height:70px;" v-model="v_date"  showIcon inputId="birth_date" @date-select="selectedVDate($event)" dateFormat="dd/mm/yy"/>
+
+                        </div>
+
 
 
 

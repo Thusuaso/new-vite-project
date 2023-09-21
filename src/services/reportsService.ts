@@ -204,5 +204,23 @@ export const reportsService = {
     setProjectQueue(data: any) {
         return api.post('/mekmarcom/project/queue', data).then(response => response.data);
     },
+    getMekmarComCustomersList() {
+        return api.get('/mekmarcom/listeler/musteriListesi').then(response => response.data);
+    },
+    getYeniMusteriDetay() {
+        return api.get('/mekmarcom/listeler/yeniMusteriDetayModel').then(response => response.data);
+    },
+    musteriSil() {
+        return api.delete('/mekmarcom/islemler/musteriSil/').then(response => response.data);
+    },
+    yeniMusteriKaydet(data: any) {
+        return api.post('/mekmarcom/islemler/musteriIslem', data).then(response => response.data);
+    },
+    musteriGuncelle(data: any) {
+        return api.put('mekmarcom/islemler/musteriIslem', data).then(response => response.data);
+    },
+    setProjectPhotosPython(data: any) {
+        return api.post('/panel/project/python/photos/upload', data).then(response => response.data);
+    }
 
 }

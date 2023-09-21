@@ -42,7 +42,10 @@ export const panelService = {
     },
     setPanelProductChangeQueue(data: any) {
         return api.put('/panel/makmarcom/fotosiradegisim', data).then(response => response.data);
-    }
+    },
+
+
+
 
 
 

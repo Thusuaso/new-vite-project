@@ -23,10 +23,22 @@ export const usePanelStore = defineStore('panel', {
             panelProjectCountry: [],
             panelProjectDetailList: [],
             panelPickListPhotosDetailList: [],
-            productPhotoListPick:[],
+            productPhotoListPick: [],
+            panelCustomersList: [],
+            panelCustomersModel:[],
+            
         }
     },
     actions: {
+        panel_customers_detail_load_act(data: any) {
+            this.panelCustomersModel = data;
+
+        },
+        panel_customers_load_act(data: any) {
+            this.panelCustomersList = data.musteri_listesi;
+            this.panelCustomersModel = data.musteri_model;
+
+        },
         panel_project_detail_list_load_act(data: any) {
             this.panelProjectDetailList = data;
             this.panelPickListPhotosDetailList = [data.project_detail_list, []];
@@ -63,6 +75,12 @@ export const usePanelStore = defineStore('panel', {
         },
     },
     getters: {
+        getPanelCustomersModel(state) {
+            return state.panelCustomersModel;
+        },
+        getPanelCustomersList(state) {
+            return state.panelCustomersList;
+        },
         getProductPhotoListPick(state) {
             return state.productPhotoListPick;
         },

@@ -755,6 +755,7 @@ export default {
         },
         productItemSelected(event) {
             this.getSelectionModelList.siparisaciklama = event.value.name;
+            this.getSelectionModelList.aciklama = event.value.name;
             selectionService.getSelectionProductDetail(event.value.name).then(data => {
                 this.selectionProductDetail = data;
             });
