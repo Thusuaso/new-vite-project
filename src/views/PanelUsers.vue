@@ -166,7 +166,7 @@ export default {
         },
         btn_sil_click() {
 
-            reportsService.musteriSil(this.musteri_detay.id).then((status) => {
+            reportsService.musteriSil(this.getPanelCustomersModel.id).then((status) => {
                 if (status) {
                     this.yeniMusteriDetay();
                     this.dis_yeni = false;
@@ -185,7 +185,7 @@ export default {
             });
         },
         btn_kaydet_click() {
-            if (this.musteri_detay.kullaniciadi == "") {
+            if (this.getPanelCustomersModel.kullaniciadi == "") {
                 alert("Kullanıcı Adı Boş Geçilemez.");
 
                 return;
@@ -199,7 +199,7 @@ export default {
             }
         },
          musteriKaydet() {
-            reportsService.yeniMusteriKaydet(this.musteri_detay).then((status) => {
+            reportsService.yeniMusteriKaydet(this.getPanelCustomersModel).then((status) => {
                 if (status) {
                     this.dis_yeni = false;
                     this.dis_vazgec = true;
@@ -217,7 +217,7 @@ export default {
             });
         },
         musteriGuncelle() {
-            reportsService.musteriGuncelle(this.musteri_detay).then((status) => {
+            reportsService.musteriGuncelle(this.getPanelCustomersModel).then((status) => {
                 if (status) {
                     this.dis_yeni = false;
                     this.dis_vazgec = true;

@@ -210,8 +210,8 @@ export const reportsService = {
     getYeniMusteriDetay() {
         return api.get('/mekmarcom/listeler/yeniMusteriDetayModel').then(response => response.data);
     },
-    musteriSil() {
-        return api.delete('/mekmarcom/islemler/musteriSil/').then(response => response.data);
+    musteriSil(id:any) {
+        return api.delete(`/mekmarcom/islemler/musteriSil/${id}`).then(response => response.data);
     },
     yeniMusteriKaydet(data: any) {
         return api.post('/mekmarcom/islemler/musteriIslem', data).then(response => response.data);
