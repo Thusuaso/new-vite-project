@@ -15,9 +15,25 @@
         v-model:selection="projectPanelSelected"
         selectionMode="single"
         @row-click="selectedProjectPanel($event)"
+        v-model:filters="filters"
+        filterDisplay="row"
     >
         <Column field="id" header="Proje Id"></Column>
-        <Column field="project_name" header="Proje Adı"></Column>
+        <Column 
+        field="project_name" 
+        header="Proje Adı"
+            :showFilterMenu="false"
+        :showFilterOperator="false"
+        :showClearButton="false"
+        :showApplyButton="false"
+        :showFilterMatchModes="false"
+        :showAddButton="false"
+        
+        >
+            <template #filter="{ filterModel, filterCallback }">
+                <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter"  />
+            </template>
+        </Column>
         <Column field="project_country_name" header="Ülke"></Column>
         <Column field="project_image" header="Fotoğraf">
             <template #body="slotProps">
@@ -58,6 +74,8 @@ import { mapState } from 'pinia';
 import { reportsService } from '../services/reportsService';
 import { socket } from '../services/customServices/realTimeService';
 
+import { FilterMatchMode } from 'primevue/api';
+
 import projectForm from '../components/panel/projectForm.vue';
 import addProjectForm from '../components/panel/addProjectForm.vue';
 export default {
@@ -80,6 +98,10 @@ export default {
             projects_list_form: false,
             projectPickList: [],
             projectPickListQueueList: [],
+            filters: {
+                project_name: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+                
+            }
         }
     },
     methods: {

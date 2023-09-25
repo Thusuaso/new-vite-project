@@ -92,6 +92,7 @@ export default {
         }
     },
     created() {
+        console.log("getProductDetailOrderInformationList",this.getProductDetailOrderInformationList)
         this.remainingTotalSum(this.getProductDetailOrderInformationList);
     },
     methods: {

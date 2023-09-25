@@ -9,7 +9,7 @@ import mitt from 'mitt';
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 const emitter = mitt();
-
+import 'maz-ui/css/main.css'
 
 import 'bootstrap';
 /*Prime Vue */
@@ -46,6 +46,12 @@ import BadgeDirective from 'primevue/badgedirective';
 import Checkbox from 'primevue/checkbox';
 import PickList from 'primevue/picklist';
 
+/*Maz Directives */
+import MazBtn from 'maz-ui/components/MazBtn'
+import MazInput from 'maz-ui/components/MazInput'
+import MazPhoneNumberInput from 'maz-ui/components/MazPhoneNumberInput'
+import MazFullscreenLoader from 'maz-ui/components/MazFullscreenLoader'
+import MazDialog from 'maz-ui/components/MazDialog'
 const app = createApp(App)
 
 app.config.globalProperties.emitter = emitter;
@@ -91,6 +97,7 @@ app.config.globalProperties.$filters = {
 
 app.directive('badge', BadgeDirective);
 /*Directives Components*/
+
 app.component('PickList', PickList);
 app.component('Checkbox', Checkbox);
 app.component('Badge', Badge);
@@ -114,6 +121,13 @@ app.component('InputNumber', InputNumber);
 app.component('AutoComplete', AutoComplete);
 app.component('OverlayPanel', OverlayPanel);
 app.component('Sidebar', Sidebar);
+
+/*Component Maz */
+app.component('MazBtn', MazBtn);
+app.component('MazInput', MazInput);
+app.component('MazPhoneNumberInput', MazPhoneNumberInput);
+app.component('MazFullscreenLoader', MazFullscreenLoader);
+app.component('MazDialog', MazDialog);
 
 
 app.use(createPinia())

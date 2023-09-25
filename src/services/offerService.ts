@@ -5,7 +5,7 @@ export const offerService = {
         return api.get(`/listeler/teklif/anaSayfaData/${userId}`).then(response => response.data);
     },
     getOfferAllList() {
-        return api.get('/listeler/teklif/kullaniciAyrintiListe').then(response => response.data);
+        return api.get('/listeler/teklif/kullaniciAyrintiListe2').then(response => response.data);
     },
     getOfferAllRepresentativeList(userId: any) {
         return api.get(`/listeler/teklif/kullaniciAyrintiListe/${userId}`).then(response => response.data);

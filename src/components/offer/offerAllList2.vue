@@ -509,12 +509,16 @@ export default {
             this.offer_detail_form = false;
         });
         socket.socketIO.on('offer_detail_load_list_on', (userId) => {
-            useLoadingStore().begin_loading_act();
-
-            offerService.getOfferAllRepresentativeList(localStorage.getItem('userId')).then(data => {
-                useOfferStore().offer_all_list_load_act(data);
-                useLoadingStore().end_loading_act();
-            })
+            // if (localStorage.getItem('userId') == 10 || localStorage.getItem('userId') == 47) {
+            //     offerService.getOfferAllRepresentativeList(userId).then(data => {
+            //         useOfferStore().offer_all_list_load_act(data);
+            //     });
+            // } else {
+            //     offerService.getOfferAllRepresentativeList(localStorage.getItem('userId')).then(data => {
+            //         useOfferStore().offer_all_list_load_act(data);
+            //     });
+            // }
+            
         })
     }
 }

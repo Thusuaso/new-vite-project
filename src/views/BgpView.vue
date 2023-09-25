@@ -1,4 +1,7 @@
 <template>
+
+
+
     <div v-if="!getMobile">
             <div class="container text-center">
           <div class="row">
@@ -116,7 +119,6 @@
         </div>
 
 
-
     <Dialog v-model:visible="bgp_new_project_form" modal header="Yeni Proje" :style="{ 'width': '100vw' }">
         <br/>
         <newProject/>
@@ -143,7 +145,6 @@ import { bgpService } from '../services/bgpService';
 import detail from '../components/bgp/detail.vue';
 import statistics from '../components/bgp/statistics.vue';
 import newProject from '../components/bgp/newProject.vue';
-
 
 export default {
     components: {
@@ -180,9 +181,10 @@ export default {
         ]),
         ...mapState(useMobilStore, [
             'getMobile',
-        ])
+        ]),
     },
     methods: {
+
         representivCountryChange(event) {
             if (this.selectedRepresentive.id == 0) {
                 this.bgpTotal = this.bgpCountryList.find(x => x.ulkeAdi == event.value.ulkeAdi).toplamProje

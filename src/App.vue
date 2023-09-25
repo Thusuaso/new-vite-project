@@ -1,4 +1,5 @@
 <template>
+
   <!-- <div style="width:100%;height:1600px;background-color:gray;opacity:0.5;z-index:99;position: absolute;top:0%;left:0%;" v-if="getLoading">
     <div class="container">
       <div class="spinner-border m-5" role="status" style="position: relative;top:280px;left:45%;">
@@ -24,6 +25,7 @@
   <br/>
 
   <header style="width:100%;z-index:99;" v-if="getAuthentication" >
+
     <navBar/>
   </header>
   <br/>

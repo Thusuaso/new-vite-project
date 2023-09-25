@@ -33,7 +33,7 @@
                 </div>
                 <div class="col-6">
                     <span class="p-float-label">
-                        <Chips id="aciklama" v-model="keyListEn" style="width:350px;height:100px;" />
+                        <Chips id="aciklama" v-model="keyListEn" style="" />
                         <label for="aciklama">Anahtarlar</label>
                     </span>
                 </div>
@@ -102,7 +102,7 @@
                     </div>
                     <div class="col-6">
                         <span class="p-float-label">
-                            <Chips id="aciklama" v-model="keyListFr" style="width:350px;height:100px;" />
+                            <Chips id="aciklama" v-model="keyListFr" style="" />
                             <label for="aciklama">Anahtarlar</label>
                         </span>
                     </div>
@@ -159,7 +159,7 @@
                         </div>
                         <div class="col-6">
                             <span class="p-float-label">
-                                <Chips id="aciklama" v-model="keyListEs" style="width:350px;height:100px;" />
+                                <Chips id="aciklama" v-model="keyListEs" style="" />
                                 <label for="aciklama">Anahtarlar</label>
                             </span>
                         </div>
@@ -706,16 +706,19 @@ export default {
             
         },
         update() {
+            console.log(this.keyListFr)
             this.save_button_disabled = true;
             if (this.keyListEn.length > 0) {
                 this.getProductModel.anahtarlar_en = this.keyListEn.join();
 
-            } else if (this.keyListFr.length > 0) {
+            }
+            if (this.keyListFr.length > 0) {
                 this.getProductModel.anahtarlar_fr = this.keyListFr.join();
+            
 
-            } else if (this.keyListEs.length > 0) {
+            }
+            if (this.keyListEs.length > 0) {
                 this.getProductModel.anahtarlar_es = this.keyListEs.join();
-
             }
             panelService.setPanelUpdate(this.getProductModel).then(data => {
                 if (data.status) {

@@ -507,10 +507,10 @@ export default {
             this.offer_detail_form = false;
         });
         socket.socketIO.on('offer_detail_list_all_on', () => {
-            useLoadingStore().begin_loading_act();
             offerService.getOfferAllList().then(data => {
                 useOfferStore().offer_all_list_load_act(data);
                 useLoadingStore().end_loading_act();
+
             });
         });
     }
