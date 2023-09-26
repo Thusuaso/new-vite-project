@@ -42,9 +42,13 @@ import navBar from './components/shared/navbarShared.vue';
 import { useLoginStore } from './stores/login';
 import { useLoadingStore } from './stores/loading';
 import { useTodoStore } from './stores/todo';
+import { useEtaStore } from './stores/eta';
+
 import { mapState } from 'pinia';
 
 import { todoService } from './services/todoService';
+import { etaService } from './services/etaService';
+
 export default ({
   computed: {
     ...mapState(useLoginStore, ['getAuthentication']),
@@ -77,8 +81,16 @@ export default ({
   created() {
     todoService.getList(localStorage.getItem('userId')).then(data => {
       useTodoStore().to_do_list_load_act(data);
-
     });
+    todoService.getCustomerControlService();
+
+    etaService.getList().then(data => {
+      useEtaStore().eta_list_load_act(data);
+      if (data.length > 0 && localStorage.getItem('userId') == 12) {
+        alert('Sağ Üstten Eta Sürelerini Kontrol Ediniz!!!');
+      }
+    });
+    
   }
 })
 </script>

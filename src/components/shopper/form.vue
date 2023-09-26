@@ -371,7 +371,7 @@ export default {
                     socket.socketIO.emit('shopper_update_list_emit');
                     this.$toast.add({ severity: 'success', detail: 'Başarıyla Güncellendi', life: 3000 });
                 } else {
-                    this.$toast.add({ severity: 'error', detail: 'Başarıyla Güncellendi', life: 3000 });
+                    this.$toast.add({ severity: 'error', detail: 'Güncelleme Başarısız', life: 3000 });
                 };
             })
         },

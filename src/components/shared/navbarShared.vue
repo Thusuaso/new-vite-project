@@ -149,7 +149,7 @@
                   <i v-badge.danger="getTodoLength" class="pi pi-calendar p-overlay-badge" style="font-size: 2rem" dateFormat="dd/mm/yy"/>
                 </button>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" v-if="userId == 12">
               <button type="button" class="nav-link" @click="eta_side_bar_visible = true">
                 <i v-badge.danger="getListLength" class="pi pi-envelope p-overlay-badge" style="font-size: 2rem" />
               </button>
@@ -190,12 +190,13 @@ export default {
     return {
       todo_side_bar_visible: false,
       eta_side_bar_visible: false,
+      userId:0,
     }
   },
   created() {
-    if (this.getListLength > 0) {
-      alert('Sağ Üstten Eta Sürelerini Kontrol Ediniz!!!')
-    }
+      this.userId = localStorage.getItem('userId');
+      
+    
   },
   
 }

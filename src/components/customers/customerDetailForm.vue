@@ -114,7 +114,7 @@ export default {
                     this.emitter.emit('customerDetailDialogClose')
                     this.$toast.add({ severity: 'success', detail: 'Başarıyla Silindi', life: 3000 });
                 } else {
-                    this.$toast.add({severity:'success',detail:'Silme İşlemi Başarısız',life:3000})
+                    this.$toast.add({severity:'error',detail:'Silme İşlemi Başarısız',life:3000})
                  }
           })  
         },
@@ -138,7 +138,7 @@ export default {
                 } else {
                     socket.socketIO.emit('customer_detail_update_emit', this.getCustomerModel.musteriadi)
                     socket.socketIO.emit('customer_update_emit', localStorage.getItem('userId'));
-                    this.$toast.add({ severity: 'success', detail: 'Kaydetme Başarısız', life: 3000 })
+                    this.$toast.add({ severity: 'error', detail: 'Kaydetme Başarısız', life: 3000 })
                 }
                 
             })
@@ -158,7 +158,7 @@ export default {
                 } else {
                     socket.socketIO.emit('customer_detail_update_emit', this.getCustomerModel.musteriadi)
                     socket.socketIO.emit('customer_update_emit', localStorage.getItem('userId'));
-                    this.$toast.add({ severity: 'success', detail: 'Güncelleme Başarısız', life: 3000 })
+                    this.$toast.add({ severity: 'error', detail: 'Güncelleme Başarısız', life: 3000 })
 
                 }
             })

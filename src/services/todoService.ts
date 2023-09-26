@@ -27,5 +27,8 @@ export const todoService = {
     },
     getUsersList() {
         return api.get('/yapilacaklar/list/users/all').then(response => response.data);
+    },
+    getCustomerControlService() {
+        return api.get('/kontroller/musterietatakipislem').then(response => response.data);
     }
 }

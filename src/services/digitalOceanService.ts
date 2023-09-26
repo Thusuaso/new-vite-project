@@ -231,16 +231,13 @@ const digitalOceanService = {
       ContentType: "image/" + filename.split(".")[1],
       CacheControl: "public,max-age=1,s-max-age=500,must-revalidate"
     };
-    return s3.upload(params, (err: any, data: any) => {
-      if (err) {
-        console.log("AWS HATA : ", err);
-        return false;
-      }
-      else {
-        console.log("OK : ", data);
-        return true;
-      }
-    });
+    try {
+    s3Client.send(new PutObjectCommand(params));
+      return true;
+    } catch (err) {
+      return false;
+    }
+    
   }
 }
 export default digitalOceanService;

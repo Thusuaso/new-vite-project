@@ -1,5 +1,4 @@
 <template>
-
     <div class="row m-auto mt-3">
         <div class="col">
             <DataTable :value="getList" style="font-size:85%;">
@@ -19,17 +18,17 @@
                 <Column field="operasyon" header="Operasyon"></Column>
                 <Column field="satisBedel" header="Satış($)">
                     <template #body="slotProps">
-                        {{ formatPrice(slotProps.data.satisBedel) }}
+                        {{ $filters.formatPrice(slotProps.data.satisBedel) }}
                     </template>
                 </Column>
                 <Column field="odenen" header="Ödenen($)">
                     <template #body="slotProps">
-                            {{ formatPrice(slotProps.data.odenen) }}
+                            {{ $filters.formatPrice(slotProps.data.odenen) }}
                         </template>
                 </Column>
                 <Column field="kalan" header="Kalan($)">
                     <template #body="slotProps">
-                                {{ formatPrice(slotProps.data.kalan) }}
+                                {{ $filters.formatPrice(slotProps.data.kalan) }}
                             </template>
                 </Column>
                     <Column field="odemelerBilgisi" header="Bilgi"></Column>
@@ -52,6 +51,7 @@ import { useEtaStore } from '../../stores/eta';
 import { mapState } from 'pinia';
 
 import { etaService } from '../../services/etaService';
+import { localDateService } from '../../services/localDateService';
 
 import { socket } from '../../services/customServices/realTimeService';
 export default {
@@ -61,6 +61,9 @@ export default {
         ])
     },
     methods: {
+        formatDate(value) {
+            return localDateService.getDateString(value);
+        },
         seen(value) {
             etaService.setEtaControlStatus(value.po, value.etaSure).then(data => {
                 if (data) {
