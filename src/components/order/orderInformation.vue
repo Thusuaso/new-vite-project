@@ -587,6 +587,7 @@ export default {
             this.products.tedarikciAdi = this.selectedSupplier.firmaAdi;
 
             this.products.urunBirimId = this.selectedUnit.id;
+            this.products.urunbirimAdi = this.selectedUnit.birimAdi;
             if (!this.products.id) {
                 this.products.id = this.createId()
 

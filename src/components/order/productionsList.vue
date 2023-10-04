@@ -19,6 +19,7 @@
       :rowStyle="rowStyle"
       v-if="$route.fullPath == '/order/forwarding'"
       paginator :rows="15"
+      
     >
         <template #header>
             <div class="row " style="height:25px;">
@@ -492,23 +493,23 @@ export default {
   methods: {
     rowStyle(event) {
       if (event.operasyon == 'semih' && event.operasyon == localStorage.getItem('username').toLowerCase()) {
-        return { 'backgroundColor': '#d1e0f2' ,'border':'1px solid black'};
+        return { 'backgroundColor': '#e4d8f2' ,'border':'2px solid #c7c6c5'};
       } else if (event.operasyon == 'hakan' && event.operasyon == localStorage.getItem('username').toLowerCase()) {
-        return { 'backgroundColor': '#d1e0f2' , 'border': '1px solid black' };
+        return { 'backgroundColor': '#e4d8f2' , 'border': '2px solid #c7c6c5' };
       } else if (event.operasyon == 'ozlem' && event.operasyon == localStorage.getItem('username').toLowerCase()) {
-        return { 'backgroundColor': '#d1e0f2' , 'border': '1px solid black' };
+        return { 'backgroundColor': '#e4d8f2' , 'border': '2px solid #c7c6c5' };
       } else if (event.temsilci == 'hakan' && event.temsilci == localStorage.getItem('username').toLowerCase()) {
-        return {'backgroundColor':'#d1e0f2' , 'border': '1px solid black' }
+        return {'backgroundColor':'#e4d8f2' , 'border': '2px solid #c7c6c5' }
       } else if (event.temsilci == 'semih' && event.temsilci == localStorage.getItem('username').toLowerCase()) {
-        return { 'backgroundColor': '#d1e0f2' , 'border': '1px solid black' };
+        return { 'backgroundColor': '#e4d8f2' , 'border': '2px solid #c7c6c5' };
       } else if (event.temsilci == 'ozlem' && event.temsilci == localStorage.getItem('username').toLowerCase()) {
-        return { 'backgroundColor': '#d1e0f2', 'border': '1px solid black' };
+        return { 'backgroundColor': '#e4d8f2', 'border': '2px solid #c7c6c5' };
       } else if (event.operasyon == 'gizem' && event.operasyon == localStorage.getItem('username').toLowerCase()) {
-        return { 'backgroundColor': '#d1e0f2', 'border': '1px solid black' };
+        return { 'backgroundColor': '#e4d8f2', 'border': '2px solid #c7c6c5' };
       } else if (event.temsilci == 'gizem' && event.temsilci == localStorage.getItem('username').toLowerCase()) {
-        return { 'backgroundColor': '#d1e0f2', 'border': '1px solid black' };
+        return { 'backgroundColor': '#e4d8f2', 'border': '2px solid #c7c6c5' };
       } else{
-        return { 'border': '1px solid black' };
+        return { 'border': '2px solid #c7c6c5' };
       }
     },
     siparisSecim(event) {

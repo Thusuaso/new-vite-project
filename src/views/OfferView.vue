@@ -1,5 +1,4 @@
 <template>
-
     <div class="row m-auto mt-3">
         <div class="col">
             <div class="card" style="width: 100%;">
@@ -37,9 +36,33 @@
                                     </div>
  
                                 </div>
-                            <offerRepresentativeList/>
+                                <offerRepresentativeList/>
+                            <br/>
+                            <DataTable
+                                v-model:value="getOfferCountryTotalList"
+                                scrollable scrollHeight="400px"
+                                v-model:filters="filtersCountry"
+                                filterDisplay="row"
+                            >
+                                <Column field="id" header="ID">
+                                    <template #filter="{ filterModel, filterCallback }">
+                                        <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
+                                    </template>
+                                </Column>
+                                <Column field="country" header="Ülke">
+                                    <template #filter="{ filterModel, filterCallback }">
+                                        <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
+                                    </template>
+                                </Column>
+                                <Column field="countryTop" header="Ülke Toplam">
+
+                                </Column>
+
+                            </DataTable>
+                            <!-- 
                             <offerCustomerList/>
                             <offerCustomerCountList/>
+                             -->
                         </div>
                     </div>
                 </p>
@@ -93,10 +116,12 @@ import offerAllList2 from '../components/offer/offerAllList2.vue';
 import offerForm from '../components/offer/offerForm.vue';
 import offersAllList from '../components/offer/offersAllList.vue';
 
+import {FilterMatchMode} from 'primevue/api';
 export default {
     computed: {
         ...mapState(useOfferStore, [
             'getOfferMainPageList',
+            'getOfferCountryTotalList'
         ]),
         ...mapState(useMobilStore, [
             'getMobile',
@@ -114,6 +139,11 @@ export default {
     },
     data() {
         return {
+            filtersCountry:{
+                id:{value:null,matchMode:FilterMatchMode.STARTS_WITH},
+                country:{value:null,matchMode:FilterMatchMode.STARTS_WITH},
+
+            },
             offer_all_list_visible: false,
             offer_form_visible: false,
             offers_all_list_form:false,

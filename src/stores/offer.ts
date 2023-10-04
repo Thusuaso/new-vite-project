@@ -34,6 +34,7 @@ export const useOfferStore = defineStore('offer', {
             offersAllList: [],
             offerAllButton: false,
             offerRepresentativeId:null,
+            offerCountryTotalList:[],
         }
     },
     actions: {
@@ -51,6 +52,7 @@ export const useOfferStore = defineStore('offer', {
             this.offerCustomerList = data.musteriOzetList;
             this.offerCalendarList = data.takvimList;
             this.offerRepresentativeList = data.temsilciOzetList;
+            this.offerCountryTotalList = data.ulkelerToplamTeklif;
             this.offer_main_page_representative_total_list_load_act(data.temsilciOzetList);
         },
         offer_main_page_representative_total_list_load_act(data: any) {
@@ -121,6 +123,9 @@ export const useOfferStore = defineStore('offer', {
 
     },
     getters: {
+        getOfferCountryTotalList:(state)=>{
+            return state.offerCountryTotalList;
+        },
         getOfferRepresentativeId(state) {
             return state.offerRepresentativeId;
         },

@@ -12,7 +12,7 @@
                 </div>
                 <div class="input-group mb-3" style="height:60px;" >
                             <span class="input-group-text" id="basic-addon1" style="height:60px;">Vade</span>
-                <Calendar id="vade" class="h-100 mb-3" style="height:70px;" v-model="v_date"  showIcon inputId="birth_date" @date-select="selectedVDate($event)" dateFormat="dd/mm/yy"/>
+                <Calendar id="vade" class="w-full md:w-14rem form-control" style="height:60px;" v-model="v_date"  showIcon inputId="birth_date" @date-select="selectedVDate($event)" dateFormat="dd/mm/yy"/>
 
                     </div>
 

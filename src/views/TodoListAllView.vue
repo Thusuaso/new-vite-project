@@ -62,7 +62,11 @@
                     </template>
                 </Column>
                 <Column field="yapilacak" header="Görev"></Column>
-
+                <Column header="Durum" v-if="userId == 10">
+                    <template #body="slotProps">
+                        <button type="button" class="btn btn-warning" @click="status(slotProps.data.id)">Yapıldı</button>
+                    </template>
+                </Column>
             </DataTable>
         </div>
         <div class="col">
@@ -126,7 +130,11 @@
                         </template>
                     </Column>
                     <Column field="yapilacak" header="Görev"></Column>
-
+                    <Column header="Durum" v-if="userId == 10">
+                    <template #body="slotProps">
+                        <button type="button" class="btn btn-warning" @click="status(slotProps.data.id)">Yapıldı</button>
+                    </template>
+                </Column>
                 </DataTable>
         </div>
         <div class="col">
@@ -190,7 +198,11 @@
                             </template>
                         </Column>
                         <Column field="yapilacak" header="Görev"></Column>
-
+                        <Column header="Durum" v-if="userId == 10">
+                            <template #body="slotProps">
+                                <button type="button" class="btn btn-warning" @click="status(slotProps.data.id)">Yapıldı</button>
+                            </template>
+                        </Column>
                     </DataTable>
         </div>
     </div>
@@ -284,6 +296,12 @@
                         <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter"/>
                     </template>
                 </Column>
+                <Column header="Status" v-if="userId == 10">
+                    <template #body="slotProps">
+                    <button type="button" class="btn btn-danger" @click="status2(slotProps.data.id)">Yapılmadı</button>
+
+                    </template>
+                </Column>
             </DataTable>
         </div>
     </div>
@@ -317,6 +335,8 @@
 <script>
 import { useTodoStore } from '../stores/todo';
 import { useLoadingStore } from '../stores/loading';
+import { localDateService } from '../services/localDateService';
+
 import { mapState } from 'pinia';
 
 import { FilterMatchMode } from 'primevue/api';
@@ -330,6 +350,7 @@ export default {
     },
     data() {
         return {
+            userId:0,
             update_to_do_disabled:false,
             selectedPriority:{},
             priorities: [
@@ -357,6 +378,38 @@ export default {
         }
     },
     methods: {
+        status2(event){
+            const value = {
+                    'id': event,
+                    'status': 0,
+                    'yapildiTarihi': '',
+                };
+            todoService.updateTodo(value).then(data=>{
+                if(data.status){
+                    socket.socketIO.emit('to_do_list_emit_all');
+
+                    this.$toast.add({severity:'success',detail:'Başarıyla Kaydedildi',life:3000});
+                }else{
+                    this.$toast.add({severity:'error',detail:'Kaydetme Başarısız',life:3000});
+                }
+            })
+        },
+        status(event){
+            const value = {
+                    'id': event,
+                    'status': 1,
+                    'yapildiTarihi': localDateService.getDateString(new Date()),
+                };
+            todoService.updateTodo(value).then(data=>{
+                if(data.status){
+                    socket.socketIO.emit('to_do_list_emit_all');
+
+                    this.$toast.add({severity:'success',detail:'Başarıyla Kaydedildi',life:3000});
+                }else{
+                    this.$toast.add({severity:'error',detail:'Kaydetme Başarısız',life:3000});
+                }
+            })
+        },
         update() {
             this.update_to_do_disabled = true;
             todoService.update(this.selectedTodo).then(data => {
@@ -388,6 +441,7 @@ export default {
         }
     },
     mounted() {
+        this.userId = localStorage.getItem('userId');
         socket.socketIO.on('to_do_list_on_all', () => {
              useLoadingStore().begin_loading_act();
             todoService.getAllList().then(data => {
