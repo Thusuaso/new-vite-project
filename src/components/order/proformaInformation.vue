@@ -10,9 +10,9 @@
                         <span class="input-group-text" id="basic-addon1">Ö.Tür</span>
                         <Dropdown v-model="selectedPayment" filter  :options="getProductPaymentList" optionLabel="odemeTurAdi"  class="w-full md:w-14rem form-control" @change="changePayment($event)"/>
                 </div>
-                <div class="input-group mb-3" style="height:60px;" >
-                            <span class="input-group-text" id="basic-addon1" style="height:60px;">Vade</span>
-                <Calendar id="vade" class="w-full md:w-14rem form-control" style="height:60px;" v-model="v_date"  showIcon inputId="birth_date" @date-select="selectedVDate($event)" dateFormat="dd/mm/yy"/>
+                <div class="input-group mb-3"  >
+                        <span class="input-group-text" id="basic-addon1" >Vade</span>
+                        <Calendar id="vade" class="w-full md:w-14rem form-control" style="height:60px;"  v-model="v_date"  inputId="birth_date" @date-select="selectedVDate($event)" dateFormat="dd/mm/yy"/>
 
                     </div>
 

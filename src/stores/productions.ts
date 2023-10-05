@@ -52,7 +52,15 @@ export const useProductionsStore = defineStore('productions',{
             productDetailOrderInformationList: [],
             productDetailUsersList: [],
             productChatWhoSend: {},
-            productDetailChatList:[]
+            productDetailChatList:[],
+            checkListTotal:{
+                miktar:0,
+                ton:0,
+                totalKasa:0,
+                m2:0,
+                mt:0,
+                adet:0,
+            }
         }
     },
     actions: {
@@ -185,6 +193,27 @@ export const useProductionsStore = defineStore('productions',{
         },
         product_detail_check_list(data: any) {
             this.productDetailCheckList = data
+            this.product_detail_check_list_total(data);
+        },
+        product_detail_check_list_total(data:any){
+            this.checkListTotal = {
+                miktar:0,
+                ton:0,
+                totalKasa:0,
+                m2:0,
+                mt:0,
+                adet:0,
+            }
+            this.checkListTotal.totalKasa += data.length;
+
+            for(const item of data){
+                this.checkListTotal.miktar += parseFloat(item.miktar);
+                this.checkListTotal.ton += parseFloat(item.tonaj);
+                this.checkListTotal.m2 += parseFloat(item.kasaM2);
+                this.checkListTotal.mt += parseFloat(item.kasaMt);
+                this.checkListTotal.adet += parseFloat(item.kasaAdet);
+
+            }
         },
         product_detail_document_list(data: any) {
             this.productDetailDocumentList = data;
@@ -241,6 +270,9 @@ export const useProductionsStore = defineStore('productions',{
         }
     },
     getters: {
+        getcheckListTotal(state){
+          return state.checkListTotal;  
+        },
         getProductionsList(state) {
             return state.productionsList;
         },

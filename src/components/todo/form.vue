@@ -18,6 +18,12 @@
                 <label for="priority">Öncelik</label>
             </span>
         </div>
+        <div class="col">
+            <div class="flex align-items-center mb-3">
+                <Checkbox v-model="getModel.aciliyet" inputId="ingredient1" :binary="true" class="mr-2" style="margin-right:10px;"/>
+                <label for="ingredient1" class="ml-3"> Acil</label>
+            </div>
+        </div>
     </div>
     <div class="row m-auto mt-3">
         <div class="col">
@@ -52,6 +58,7 @@ export default {
             selectedPriority: {},
             selectedUser: {},
             to_do_save_disabled:false,
+            aciliyet:false,
         }
     },
     created() {
@@ -80,6 +87,7 @@ export default {
             todoService.save(this.getModel).then(data => {
                 if (data.status) {
                     socket.socketIO.emit('to_do_list_emit');
+                    socket.socketIO.emit('to_do_list_emit_all');
                     this.reset();
                     this.to_do_save_disabled = false;
                     useLoadingStore().end_loading_act();
@@ -97,6 +105,7 @@ export default {
             todoService.update(this.getModel).then(data => {
                 if (data.status) {
                     socket.socketIO.emit('to_do_list_emit');
+                    socket.socketIO.emit('to_do_list_emit_all');
                     useLoadingStore().end_loading_act();
                     this.emitter.emit('todo_dialog_opened', false);
                     this.$toast.add({ severity: 'success', detail: 'Başarıyla Güncellendi', life: 3000 });

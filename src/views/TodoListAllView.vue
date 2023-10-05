@@ -11,6 +11,8 @@
                     selectionMode="single"
                     v-model:selection="selectedTodo"
                     @row-click="todoSelected($event)"
+                    sortField="aciliyet" :sortOrder="-1"
+                    :rowStyle="rowStyle"
                 >
                 <template #header>
                     Yapılacaklar A
@@ -79,6 +81,9 @@
                         selectionMode="single"
                         v-model:selection="selectedTodo"
                         @row-click="todoSelected($event)"
+                        sortField="aciliyet" :sortOrder="-1"
+                        :rowStyle="rowStyle2"
+
                     >
                     <template #header>
                         Yapılacaklar B
@@ -147,6 +152,8 @@
                                                 selectionMode="single"
                         v-model:selection="selectedTodo"
                             @row-click="todoSelected($event)"
+                            sortField="aciliyet" :sortOrder="-1"
+                            :rowStyle="rowStyle3"
                         >
                         <template #header>
                             Yapılacaklar C
@@ -312,7 +319,7 @@
                     <Dropdown id="users" v-model="selectedUser" :options="users" optionLabel="username"  class="w-100" @change="usersSelectedChange($event)"/>
                     <label for="users">Görev Sahibi</label>
                 </span>
-                <span class="p-float-label mt-3">
+                <span class="p-float-label mt-4">
                         <Dropdown id="priority" v-model="selectedPriority" :options="priorities" optionLabel="priority"  class="w-100" @change="prioritiesSelectedChange($event)"/>
                         <label for="priority">Öncelik</label>
                     </span>
@@ -324,6 +331,12 @@
                 <label for="floatingTextarea2">Comments</label>
                 </div>
             </div>
+            
+            <div class="flex align-items-center mb-3">
+                <Checkbox v-model="selectedTodo.aciliyet" inputId="ingredient1" :binary="true" class="mr-2" style="margin-right:10px;"/>
+                <label for="ingredient1" class="ml-3"> Acil</label>
+            </div>
+
         </div>
         <div class="row">
             <div class="col">
@@ -350,6 +363,7 @@ export default {
     },
     data() {
         return {
+            statusPriority:false,
             userId:0,
             update_to_do_disabled:false,
             selectedPriority:{},
@@ -378,6 +392,15 @@ export default {
         }
     },
     methods: {
+        rowStyle3(event){
+          return event.aciliyet ? 'border:3px solid red':''  
+        },
+        rowStyle2(event){
+          return event.aciliyet ? 'border:3px solid red':''  
+        },
+        rowStyle(event){
+          return event.aciliyet ? 'border:3px solid red':''  
+        },
         status2(event){
             const value = {
                     'id': event,
@@ -438,6 +461,7 @@ export default {
                 this.selectedUser = data.find(x=>x.id == event.data.gorev_sahibi_id)
             });
             this.selectedPriority = this.priorities.find(x => x.priority == event.data.oncelik);
+            this.selectedTodo.aciliyet = event.data.aciliyet;
         }
     },
     mounted() {

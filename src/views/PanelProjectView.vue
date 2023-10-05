@@ -49,9 +49,8 @@
     </Dialog>
     <Dialog v-model:visible="projects_list_form" header="Projeler" modal>
         <button type="button" class="btn btn-success w-100 mb-3" @click="pickProjectQueueSave">Kaydet</button>
-        <PickList v-model="projectPickList" listStyle="height:342px" dataKey="id" @reorder="projectPickListReorder($event)">
+        <PickList v-model="projectPickList" listStyle="height:342px;width:450px;" dataKey="id" @reorder="projectPickListReorder($event)">
         <template #sourceheader> Available </template>
-        <template #targetheader> Selected </template>
         <template #item="slotProps">
             <div class="flex flex-wrap p-2 align-items-center gap-3">
                     <div class="flex-1 flex flex-column gap-2">

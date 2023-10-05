@@ -70,9 +70,9 @@
                             </div>
                             
                         </div>
-                        <div class="row mb-3">
+                        <div class="row mb-3 mt-4">
                             <div class="col-4">
-                                    <span class="p-float-label">
+                                    <span class="p-float-label ">
                                         <InputText class="w-75" id="sira" :disabled="form_status" aria-describedby="basic-addon1" v-model="products.siraNo" @input="products.siraNo = $filters.formatPoint($event.target.value)"/>
                                         <label for="sira">Sıra</label>
                                     </span>
@@ -159,7 +159,10 @@
             <Column field="yuzeyIslem" header="İşlem"></Column>
             <Column field="m2" header="M2">
                 <template #body="slotProps">
-                    {{ $filters.formatDecimal(slotProps.data.m2) }}
+                    <div :style="{'backgroundColor':slotProps.data.whatMultiplyM2}">
+                            {{ $filters.formatDecimal(slotProps.data.m2) }}
+
+                        </div>
                 </template>
                 <template #footer>
                     {{ $filters.formatDecimal(productsSum.m2) }}
@@ -167,7 +170,10 @@
             </Column>
             <Column field="adet" header="Adet">
                 <template #body="slotProps">
+                    <div :style="{'backgroundColor':slotProps.data.whatMultiplyAdet}">
                         {{ $filters.formatDecimal(slotProps.data.adet) }}
+
+                    </div>
                     </template>
                 <template #footer>
                         {{ $filters.formatDecimal(productsSum.piece) }}
@@ -175,10 +181,13 @@
             </Column>
             <Column field="mt" header="Mt">
                 <template #body="slotProps">
-                            {{ $filters.formatDecimal(slotProps.data.mt) }}
+                    <div :style="{'backgroundColor':slotProps.data.whatMultiplyMt}">
+                        {{ $filters.formatDecimal(slotProps.data.mt) }}
+
+                    </div>
                         </template>
                 <template #footer>
-                            {{ $filters.formatDecimal(productsSum.piece) }}
+                            {{ $filters.formatDecimal(productsSum.mt) }}
                 </template>
             </Column>
             <Column field="ton" header="Ton">
@@ -356,7 +365,10 @@
                 <Column field="yuzeyIslem" header="İşlem"></Column>
                 <Column field="m2" header="M2">
                     <template #body="slotProps">
-                        {{ $filters.formatDecimal(slotProps.data.m2) }}
+                        <div :style="{'backgroundColor':slotProps.data.whatMultiplyM2}">
+                            {{ $filters.formatDecimal(slotProps.data.m2) }}
+
+                        </div>
                     </template>
                     <template #footer>
                         {{ $filters.formatDecimal(productsSum.m2) }}
@@ -507,7 +519,66 @@ export default {
                     this.products.ton = 0;
                 }
             }
+            this.products.ozelMiktar = this.oM2Change(this.products.en,this.products.boy,event.target.value,this.selectedUnit.id)
 
+
+        },
+
+        oM2Change(en,boy,miktar,birim){
+            if(birim == 1){
+                return miktar;
+            } else if(birim == 2){
+                if(en =='FR' ||
+                    en == 'FRENCH' ||
+                    en == 'VAR' ||
+                    en == 'Various' ||
+                    en == 'ANT' ||
+                    en == 'SLAB' ||
+                    en == '1 LT' ||
+                    en == 'Crazy' ||
+                    en == 'Other' ||
+                    en == 'SET' ||
+                    en == 'MINI' ||
+                    boy == 'SET' ||
+                    boy == 'Free' ||
+                    boy == 'FREE'
+
+                ){
+                    return 0
+                 }else{
+                    return ((parseFloat(en.replace(',', '.'))/100) * (parseFloat(boy.replace(',', '.'))/100) * miktar).toFixed(2);
+                }
+                
+            } else if (birim == 3){
+                if(en =='FR' ||
+                    en == 'FRENCH' ||
+                    en == 'VAR' ||
+                    en == 'Various' ||
+                    en == 'ANT' ||
+                    en == 'SLAB' ||
+                    en == '1 LT' ||
+                    en == 'Crazy' ||
+                    en == 'Other' ||
+                    en == 'SET' ||
+                    en == 'MINI' ||
+                    boy == 'SET'
+                    
+
+                ){
+                    return 0
+                }  else if(boy == 'Free' || boy == 'FREE') {
+                        return ((miktar * (parseFloat(en.replace(',', '.'))/100))/10).toFixed(2);
+
+                    }
+                 else{
+                    const adet = miktar * (parseFloat(boy.replace(',', '.'))/100);
+                    return (adet * (parseFloat(boy.replace(',', '.'))/100) * (parseFloat(en.replace(',', '.'))/100)).toFixed(2);
+                }
+            } else{
+                return 0;
+            }
+
+            
         },
         productCoefficient(event) {
             if(event == 'Travertine'){

@@ -7,6 +7,8 @@
                 selectionMode="single"
                 @row-click="todoSelected($event)"
                 style="font-size:85%;"
+                sortField="aciliyet" :sortOrder="-1"
+                :rowStyle="rowStyle"
             >
                 <template #header>
                     Tamamlanacak Görevler
@@ -107,6 +109,9 @@ export default {
         }
     },
     methods: {
+        rowStyle(event){
+            return event.aciliyet ? 'border:3px solid red;':''
+        },
         todoSelected(event) {
             useLoadingStore().begin_loading_act();
             todoService.getDetailList(event.data.id).then(data => {
@@ -126,6 +131,8 @@ export default {
             todoService.updateTodo(value).then(data => {
                 if (data.status) {
                     socket.socketIO.emit('to_do_list_emit');
+                    socket.socketIO.emit('to_do_list_emit_all');
+
                     useLoadingStore().end_loading_act();
                     this.$toast.add({ severity: 'success', detail: 'Başarıyla Kaydedildi', life: 3000 });
                 } else {
@@ -139,11 +146,12 @@ export default {
                 'status': status,
                 'yapildiTarihi': localDateService.getDateString(new Date()),
             };
-            console.log(value)
             useLoadingStore().begin_loading_act();
             todoService.updateTodo(value).then(data => {
                 if (data.status) {
                     socket.socketIO.emit('to_do_list_emit');
+                    socket.socketIO.emit('to_do_list_emit_all');
+
                     useLoadingStore().end_loading_act();
                     this.$toast.add({ severity: 'success', detail: 'Başarıyla Kaydedildi', life: 3000 });
                 } else {
@@ -157,6 +165,8 @@ export default {
                 todoService.deleteTodo(id).then(data => {
                     if (data.status) {
                         socket.socketIO.emit('to_do_list_emit');
+                    socket.socketIO.emit('to_do_list_emit_all');
+
                         useLoadingStore().end_loading_act();
                         this.$toast.add({ severity: 'success', detail: 'Başarıyla Silindi', life: 3000 });
                     } else {
