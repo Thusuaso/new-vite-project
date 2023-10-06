@@ -221,6 +221,9 @@ export const reportsService = {
     },
     setProjectPhotosPython(data: any) {
         return api.post('/panel/project/python/photos/upload', data).then(response => response.data);
+    },
+    setProjectMainPhotos(data:any){
+        return api.post('/panel/projec/main/photos',data).then(response=>response.data);
     }
 
 }

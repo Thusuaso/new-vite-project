@@ -726,6 +726,11 @@ export default {
         }
     
     },
+    beforeCreate(){
+        homeService.dashboard().then(data => {
+          useHomeStore().dashboard_load_act(data)
+        });  
+    },
     created() {
         const date = new Date();
         this.month = this.getMonthName(date.getMonth());

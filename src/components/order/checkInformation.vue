@@ -16,30 +16,17 @@
         <Column field="boy" header="Boy"></Column>
         <Column field="kenar" header="Kenar"></Column>
         <Column field="birimAdi" header="Birim"></Column>
-        <Column field="kasaM2" header="M2">
+
+        <Column field="adet" header="Adet">
             <template #body="slotProps">
-                {{ $filters.formatDecimal(slotProps.data.kasaM2) }}
-            </template>
-            <template #footer>
-                {{ $filters.formatDecimal(checkListTotal.m2) }}
-            </template>
-        </Column>
-        <Column field="kasaMt" header="Mt">
-            <template #body="slotProps">
-                {{ $filters.formatDecimal(slotProps.data.kasaMt) }}
-            </template>
-            <template #footer>
-                {{ $filters.formatDecimal(checkListTotal.mt) }}
-            </template>
-        </Column>
-        <Column field="kasaAdet" header="Adet">
-            <template #body="slotProps">
-                {{ $filters.formatDecimal(slotProps.data.kasaAdet) }}
+                {{ $filters.formatDecimal(slotProps.data.adet) }}
             </template>
             <template #footer>
                 {{ $filters.formatDecimal(checkListTotal.adet) }}
             </template>
         </Column>
+ 
+        
         <Column field="miktar" header="Miktar">
             <template #body="slotProps">
                 {{ $filters.formatDecimal(slotProps.data.miktar) }}

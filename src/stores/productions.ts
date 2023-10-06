@@ -211,7 +211,7 @@ export const useProductionsStore = defineStore('productions',{
                 this.checkListTotal.ton += parseFloat(item.tonaj);
                 this.checkListTotal.m2 += parseFloat(item.kasaM2);
                 this.checkListTotal.mt += parseFloat(item.kasaMt);
-                this.checkListTotal.adet += parseFloat(item.kasaAdet);
+                this.checkListTotal.adet += parseFloat(item.adet);
 
             }
         },

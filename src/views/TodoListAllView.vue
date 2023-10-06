@@ -1,5 +1,6 @@
 <template>
-    <div class="row m-auto mt-5">
+    <div class="container">
+        <div class="row m-auto mt-3">
         <div class="col">
             <DataTable 
                     :value="getTodoListAll.yapilmadi.yapilmadiA" 
@@ -7,7 +8,7 @@
                     v-model:filters="filtersNotTodo"
                     filterDisplay="row"
                     scrollable 
-                    scrollHeight="550px"
+                    scrollHeight="450px"
                     selectionMode="single"
                     v-model:selection="selectedTodo"
                     @row-click="todoSelected($event)"
@@ -69,6 +70,11 @@
                         <button type="button" class="btn btn-warning" @click="status(slotProps.data.id)">Yapıldı</button>
                     </template>
                 </Column>
+                <Column v-if="userId == 10">
+                    <template #body="slotProps">
+                        <button type="button" class="btn btn-danger" @click="deleteTodo(slotProps.data.id)">Sil</button>
+                    </template>
+                </Column>
             </DataTable>
         </div>
         <div class="col">
@@ -77,7 +83,7 @@
                         style="font-size:85%;"
                         v-model:filters="filtersNotTodo"
                         filterDisplay="row"
-                        scrollable scrollHeight="550px"
+                        scrollable scrollHeight="450px"
                         selectionMode="single"
                         v-model:selection="selectedTodo"
                         @row-click="todoSelected($event)"
@@ -139,16 +145,24 @@
                     <template #body="slotProps">
                         <button type="button" class="btn btn-warning" @click="status(slotProps.data.id)">Yapıldı</button>
                     </template>
+                    </Column>
+                    <Column v-if="userId == 10">
+                    <template #body="slotProps">
+                        <button type="button" class="btn btn-danger" @click="deleteTodo(slotProps.data.id)">Sil</button>
+                    </template>
                 </Column>
                 </DataTable>
         </div>
+        
+    </div>
+    <div class="row mt-3">
         <div class="col">
                     <DataTable 
                             :value="getTodoListAll.yapilmadi.yapilmadiC" 
                             style="font-size:85%;"
                             v-model:filters="filtersNotTodo"
                             filterDisplay="row"
-                            scrollable scrollHeight="550px"
+                            scrollable scrollHeight="450px"
                                                 selectionMode="single"
                         v-model:selection="selectedTodo"
                             @row-click="todoSelected($event)"
@@ -210,6 +224,11 @@
                                 <button type="button" class="btn btn-warning" @click="status(slotProps.data.id)">Yapıldı</button>
                             </template>
                         </Column>
+                        <Column v-if="userId == 10">
+                    <template #body="slotProps">
+                        <button type="button" class="btn btn-danger" @click="deleteTodo(slotProps.data.id)">Sil</button>
+                    </template>
+                </Column>
                     </DataTable>
         </div>
     </div>
@@ -220,7 +239,7 @@
                     style="font-size:85%;"
                     v-model:filters="filtersTodo"
                     filterDisplay="row"
-                    scrollable scrollHeight="550px"
+                    scrollable scrollHeight="450px"
                 >
                 <template #header>
                     Yapılanlar
@@ -312,6 +331,9 @@
             </DataTable>
         </div>
     </div>
+    </div>
+
+
     <Dialog v-model:visible="to_do_list_form" header="" modal>
         <div class="row">
             <div class="col mt-3">
@@ -392,6 +414,23 @@ export default {
         }
     },
     methods: {
+        deleteTodo(id){
+            if (confirm('Silmek istediğinize emin misiniz?')) {
+                useLoadingStore().begin_loading_act();
+                todoService.deleteTodo(id).then(data => {
+                    if (data.status) {
+                        socket.socketIO.emit('to_do_list_emit');
+                        socket.socketIO.emit('to_do_list_emit_all');
+
+                        useLoadingStore().end_loading_act();
+                        this.$toast.add({ severity: 'success', detail: 'Başarıyla Silindi', life: 3000 });
+                    } else {
+                        useLoadingStore().end_loading_act();
+                        this.$toast.add({ severity: 'danger', detail: 'Silme Başarısız', life: 3000 });
+                    };
+                });
+            }  
+        },
         rowStyle3(event){
           return event.aciliyet ? 'border:3px solid red':''  
         },

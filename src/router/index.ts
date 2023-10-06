@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
 /*Services*/
-import { homeService } from '@/services/homeService';
 import { customerService } from '@/services/customerService';
 import { bgpService } from '@/services/bgpService';
 import { cardService } from  '@/services/cardService';
@@ -22,7 +21,6 @@ import { costService } from '@/services/costService';
 import { financeServiceTest } from '@/services/financeServiceTest';
 import { productionsService } from '@/services/productions';
 /*Stores */
-import { useHomeStore } from '@/stores/home';
 import { useLoadingStore } from '@/stores/loading';
 import { useCustomerStore } from '@/stores/customers';
 import { useBgpStore } from '@/stores/bgp';
@@ -53,18 +51,7 @@ const router = createRouter({
     {
       path: '/',
       component: () => import('@/views/HomeView.vue'),
-      beforeEnter: (to, from, next) => {
-          useLoadingStore().end_loading_act();
-        homeService.dashboard().then(data => {
-          useHomeStore().dashboard_load_act(data)
-
-          next();
-         
-          
-
-
-        })
-      }
+ 
     },
     {
       path: '/login',

@@ -64,8 +64,8 @@
                             </div>
                             <div class="col-4">
                                     <span class="p-float-label">
-                                        <InputText class="w-75" id="crate" :disabled="form_status"  v-model="products.kasaAdet" @input="products.kasaAdet = $filters.formatPoint($event.target.value)"/>
-                                        <label for="crate">Kasa</label>
+                                        <InputText class="w-75" id="crate" :disabled="form_status"  v-model="products.adet" @input="products.adet = $filters.formatPoint($event.target.value)"/>
+                                        <label for="crate">Adet</label>
                                     </span>
                             </div>
                             
@@ -198,14 +198,14 @@
                                 {{ $filters.formatDecimal(productsSum.ton) }}
                     </template>
             </Column>
-            <Column field="kasaAdet" header="Kasa">
+            <!-- <Column field="kasaAdet" header="Kasa">
                 <template #body="slotProps">
                                     {{ $filters.formatDecimal(slotProps.data.kasaAdet) }}
                                 </template>
                 <template #footer>
                                 {{ $filters.formatDecimal(productsSum.crate) }}
                     </template>
-            </Column>
+            </Column> -->
             <Column field="satisToplam" header="Toplam">
                 <template #body="slotProps">
                     {{ $filters.formatPrice(slotProps.data.satisToplam) }}
@@ -485,7 +485,7 @@ export default {
             selectedSupplier: {},
             selectedUnit: {},
             products: {
-                
+                adet:0
             },
             form_status: true,
             form_status_update: true,
@@ -665,7 +665,6 @@ export default {
             };
             if (this.selectedUnit.id == 1) {
                 this.products.m2 = this.products.miktar
-                this.products.adet = 0
                 this.products.mt = 0
 
             } else if (this.selectedUnit.id == 2) {
@@ -674,7 +673,6 @@ export default {
                 this.products.mt = 0
             } else if (this.selectedUnit.id == 3) {
                 this.products.mt = this.products.miktar
-                this.products.adet = 0
                 this.products.m2 = 0
             };
             this.products.satisToplam = parseFloat(this.products.miktar) * parseFloat(this.products.satisFiyati);
@@ -694,7 +692,6 @@ export default {
                 this.getProductionsDetailModel.urunlerDegisenler.push(this.products);
 
                 };
-                console.log("this.getProductionsDetailModel.urunlerDegisenler",this.getProductionsDetailModel.urunlerDegisenler)
 
 
             };
@@ -755,7 +752,6 @@ export default {
             };
             if (this.selectedUnit.id == 1) {
                 this.products.m2 = this.products.miktar
-                this.products.adet = 0
                 this.products.mt = 0
 
             } else if (this.selectedUnit.id == 2) {
@@ -764,7 +760,6 @@ export default {
                 this.products.mt = 0
             } else if (this.selectedUnit.id == 3) {
                 this.products.mt = this.products.miktar
-                this.products.adet = 0
                 this.products.m2 = 0
             };
             this.products.satisToplam = parseFloat(this.products.miktar) * parseFloat(this.products.satisFiyati);
@@ -790,6 +785,7 @@ export default {
                 alisFiyati_Tl: 0,
                 alisFiyati: 0,
                 ton:0,
+                adet:0,
                 
             }
             this.productCard = {
@@ -809,8 +805,12 @@ export default {
                 salesTotal: 0
             }
             for (let i of list) {
+                console.log(i.adet);
+
                 this.productsSum.m2 += parseFloat(i.m2);
-                this.productsSum.piece += parseFloat(i.adet);
+                if(i.adet != null){
+                    this.productsSum.piece += parseFloat(i.adet);
+                }
                 this.productsSum.mt += parseFloat(i.mt);
                 this.productsSum.ton += parseFloat(i.ton);
                 this.productsSum.crate += parseFloat(i.kasaAdet);

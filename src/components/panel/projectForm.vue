@@ -1,6 +1,9 @@
 <template>
     <div class="row">
         <div class="col">
+            <FileUpload class="w-100" mode="basic" accept="image/*" :maxFileSize="2000000" @select="newMainPhotos($event)" :auto="true" chooseLabel="Yeni Fotoğraf Yükle" />
+        </div>
+        <div class="col">
             <button type="button" class="btn btn-primary w-100 mb-3" @click="openPhotosList">Fotoğraf Listesi</button>
         </div>
         <div class="col">
@@ -143,10 +146,28 @@ export default {
         if (this.getPanelProjectDetailList.project_detail_information_list) {
             this.information = this.getPanelProjectDetailList.project_detail_information_list[0].information;
             this.project_product_name = this.getPanelProjectDetailList.project_detail_information_list[0].project_product_name;
-
         }
     },
     methods: {
+        newMainPhotos(event){
+            const data = {
+                'project_id':this.project_id,
+                'newFileName':event.files[0].name
+            }
+            reportsService.setProjectMainPhotos(data).then(res=>{
+                if(res.status){
+                    const result = digitalOceanService.projeFotoGonder(event.files[0]);
+                    if (result) {
+                        this.$toast.add({ severity: 'success', detail: 'Başarıyla Yüklendi', life: 3000 });
+                    } else {
+                        this.$toast.add({ severity: 'error', detail: 'Yükleme Başarısız', life: 3000 });
+                    }
+                }else {
+                    this.$toast.add({ severity: 'error', detail: 'Yükleme Başarısız', life: 3000 });
+                }
+            })
+            
+        },
         sendSuggestedProject() {
             for (const item of this.suggestedList[1]) {
                 item.project_id = this.project_id;
