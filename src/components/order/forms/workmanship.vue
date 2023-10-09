@@ -77,8 +77,10 @@ export default {
         ...mapState(useProductionsStore, [
             'getWorkmanshipModel',
             'getWorkmanshipList',
-            'getProductSupplierList'
-        ])
+            'getProductSupplierList',
+            'getProductionsDetailModel'
+        ]),
+
     },
     props: [
         'orderNo',
@@ -144,6 +146,7 @@ export default {
                 this.getWorkmanshipModel.tarih = localDateService.getDateString(this.w_date);
                 this.getWorkmanshipModel.siparisEkstraGiderTurId = 1;
                 this.getWorkmanshipModel.urunKartId = this.productId;
+                this.getWorkmanshipModel.siparisNo = this.orderNo;
                 
                 productionsService.workmanshipUpdate(this.getWorkmanshipModel).then(data => {
                     if (data.status) {
@@ -152,6 +155,12 @@ export default {
                             'product_id':this.productId
                         }
                         socket.socketIO.emit('workmanship_update_emit', value);
+                        useProductionsStore().workmanship_update_profit(data.iscilik);
+                        this.getProductionsDetailModel.siparis.iscilikTutar = 0;
+                        for(const item of data.iscilik){
+                            this.getProductionsDetailModel.siparis.iscilikTutar += item.tutar;
+                        }
+                        useProductionsStore().product_total_load_act(this.getProductionsDetailModel);
                         this.resetButton();
                         this.getModel();
                         this.$toast.add({ severity: 'success', detail: 'Başarıyla Güncellendi', life: 3000 });
@@ -171,6 +180,14 @@ export default {
                             'product_id': this.productId
                         }
                         socket.socketIO.emit('workmanship_update_emit', value);
+                        
+                        useProductionsStore().workmanship_update_profit(data.iscilik);
+                        this.getProductionsDetailModel.siparis.iscilikTutar = 0;
+                        for(const item of data.iscilik){
+                            this.getProductionsDetailModel.siparis.iscilikTutar += item.tutar;
+                        }
+                        useProductionsStore().product_total_load_act(this.getProductionsDetailModel);
+
                         this.resetButton();
                         this.getModel();
                         this.$toast.add({ severity: 'success', detail: 'Başarıyla Kaydedildi', life: 3000 });
@@ -190,6 +207,13 @@ export default {
             productionsService.workmanshipDelete(this.getWorkmanshipModel.id).then(data => {
                 if (data.status) {
                     socket.socketIO.emit('workmanship_update_emit', value);
+                    useProductionsStore().workmanship_delete_profit(data.iscilik);
+                    this.getProductionsDetailModel.siparis.iscilikTutar = 0;
+                    for(const item of data.iscilik){
+                        this.getProductionsDetailModel.siparis.iscilikTutar += item.tutar;
+                    }
+                    useProductionsStore().product_total_load_act(this.getProductionsDetailModel);
+
                     this.$toast.add({ severity: 'success', detail: 'Başarıyla Silindi', life: 3000 });
                 } else {
                     this.$toast.add({ severity: 'error', detail: 'Silme İşlemi Başarısız', life: 3000 });

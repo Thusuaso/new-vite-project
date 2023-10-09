@@ -100,6 +100,11 @@ export const useProductionsStore = defineStore('productions',{
         productions_users_list_load_act(data: any) {
             this.userList = data
         },
+
+
+
+
+
         product_total_load_act(data: any) {
             this.productsTotal = {
                 productTotal: 0,
@@ -181,6 +186,18 @@ export const useProductionsStore = defineStore('productions',{
                 )
                 
                 
+        },
+        workmanship_update_profit(data:any){
+            this.productCost.workmanship = 0;
+            for (const item of data){
+                this.productCost.workmanship += item.tutar;
+            }
+        },
+        workmanship_delete_profit(data:any){
+          this.productCost.workmanship = 0;
+          for(const item of data){
+                this.productCost.workmanship += item.tutar;
+            }  
         },
         product_workmanship_list_load(data: any) {
             this.workmanshipList = data;
