@@ -2,7 +2,7 @@
     <div v-if="!getMobile">
             <div class="input-group mb-4 mt-3 ">
           <span class="input-group-text " id="basic-addon1">PO</span>
-          <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="productionsDetailModel.siparis.siparisNo" :disabled="getProductionsNewButton ? false : true">
+          <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="productionsDetailModel.siparis.siparisNo" :disabled="getProductionsNewButton ? false : true" @input="productPoControl($event)">
         </div>
         <span class="p-float-label mb-4 w-100">
             <Calendar v-model="o_date" inputId="o_date" showIcon class="w-100" @date-select="selectedODate($event)" :disabled="getProductionsNewButton ? false : true" dateFormat="dd/mm/yy"/>
@@ -231,8 +231,9 @@
 import { useProductionsStore } from '../../stores/productions';
 import { useMobilStore } from '../../stores/mobil';
 import { mapState } from 'pinia';
-import {localDateService} from '../../services/localDateService'
+import {localDateService} from '../../services/localDateService';
 export default {
+
     computed: {
         ...mapState(useProductionsStore, [
             'productionsDetailModel',
@@ -240,7 +241,8 @@ export default {
             'getProductionsNewButton',
             'getUserList',
             'getProductTotal',
-            'getProductCost'
+            'getProductCost',
+            'getProductionProductNoList'
         ]),
         ...mapState(useMobilStore, [
             'getMobile',
@@ -260,6 +262,13 @@ export default {
         }
     },
     methods: {
+        productPoControl(event){
+          const isControl = this.getProductionProductNoList.find(x=>x.siparisNo.toLowerCase() == event.target.value.toLowerCase());
+          if(isControl){
+                alert('Bu po zaten mevcut');
+            }
+
+        },
         selectedEDate(event) {
             this.productionsDetailModel.siparis.eta = localDateService.getDateString(event);
             useProductionsStore().products_save_button_status_load_act(false);

@@ -2,6 +2,7 @@ import { defineStore } from "pinia";
 export const useProductionsStore = defineStore('productions',{
     state: () => {
         return {
+            productionProductNoList:[],
             productionNewButton:false,
             productionsList: [],
             productionsListFilter:[],
@@ -64,6 +65,9 @@ export const useProductionsStore = defineStore('productions',{
         }
     },
     actions: {
+        productions_product_no_list_load_act(data:any){
+            this.productionProductNoList = data;
+        },
         productions_list_load_act(data:any) {
             this.productionsList = data;
         },
@@ -287,6 +291,9 @@ export const useProductionsStore = defineStore('productions',{
         }
     },
     getters: {
+        getProductionProductNoList(state){
+          return state.productionProductNoList;  
+        },
         getcheckListTotal(state){
           return state.checkListTotal;  
         },

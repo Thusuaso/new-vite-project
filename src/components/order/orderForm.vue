@@ -120,7 +120,8 @@ export default {
         ...mapState(useProductionsStore, [
             'getProductionsDetailModel',
             'getProductionsNewButton',
-            'getProductsSaveButtonStatus'
+            'getProductsSaveButtonStatus',
+            'productionsDetailModel',
         ]),
         ...mapState(useMobilStore, [
             'getMobile'
@@ -238,7 +239,18 @@ export default {
         saveProcess() {
             if (this.getProductionsNewButton) {
                 useProductionsStore().products_save_button_status_load_act(true);
-                this.save();
+                if(!this.getProductionsDetailModel.siparis.odemeTurId){
+                    alert('Ödeme Türü Seçilmedi...');
+                } else if (!this.getProductionsDetailModel.siparis.teslimTurId){
+                    alert('Teslim Türü Seçilmedi...');
+                } else if(!this.getProductionsDetailModel.siparis.faturaKesimTurId){
+                    alert('Fatura Türü Seçilmedi...');
+                } else if(!this.productionsDetailModel.siparis.siparisNo){
+                    alert('Sipariş No Girilmedi...')
+                }
+                else{
+                    this.save();
+                }
 
             } else {
                 useProductionsStore().products_save_button_status_load_act(true);

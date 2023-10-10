@@ -257,7 +257,8 @@ export default {
         },
         newForm() {
             productionsService.getOrderDetailModel().then(data => {
-                useProductionsStore().productions_detail_model_load_act(data);
+                useProductionsStore().productions_detail_model_load_act(data.model);
+                useProductionsStore().productions_product_no_list_load_act(data.productNoList);
                 useProductionsStore().productions_new_button_load_act(true);
                 useProductionsStore().products_save_button_status_load_act(false);
                 this.order_form = true;

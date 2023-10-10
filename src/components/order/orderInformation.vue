@@ -416,14 +416,6 @@
                 </Column>
             </DataTable>
         </div>
-
-
-
-
-
-
-
-
     <Dialog v-model:visible="product_card_form" header="Ürünler" modal :closeOnEscape="false" :style="{ 'width': '100vw' }">
         <cards @productCardSelected="productCardSelected($event)"/>
     </Dialog>

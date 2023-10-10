@@ -96,5 +96,7 @@ export default ({
 </script>
 
 <style>
+  @import url('../public/css/bootstrap.css');
+  @import url('../public/css/bootstrap.min.css');
 
 </style>
