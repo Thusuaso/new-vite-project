@@ -19,40 +19,8 @@
                     Yapılacaklar A
                 </template>
                 <Column 
-                    field="girisTarihi" 
-                    header="Giriş Tarihi"
-                    :showFilterMenu="false"
-                    :showFilterOperator="false"
-                    :showClearButton="false"
-                    :showApplyButton="false"
-                    :showFilterMatchModes="false"
-                    :showAddButton="false"
-                
-                >
-                    <template #body="slotProps">
-                        {{ $filters.formatDate(slotProps.data.girisTarihi) }}
-                    </template>
-                    <template #filter="{ filterModel, filterCallback }">
-                        <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter"/>
-                    </template>
-                </Column>
-                <Column 
                         field="gorev_sahibi_adi" 
                         header="Görev Sahibi"
-                        :showFilterMenu="false"
-                        :showFilterOperator="false"
-                        :showClearButton="false"
-                        :showApplyButton="false"
-                        :showFilterMatchModes="false"
-                        :showAddButton="false"
-                    >
-                    <template #filter="{ filterModel, filterCallback }">
-                        <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter"/>
-                    </template>
-                </Column>
-                <Column 
-                        field="gorev_veren_adi" 
-                        header="Görev Veren"
                         :showFilterMenu="false"
                         :showFilterOperator="false"
                         :showClearButton="false"
@@ -70,15 +38,13 @@
                         <button type="button" class="btn btn-warning" @click="status(slotProps.data.id)">Yapıldı</button>
                     </template>
                 </Column>
-                <Column v-if="userId == 10">
-                    <template #body="slotProps">
-                        <button type="button" class="btn btn-danger" @click="deleteTodo(slotProps.data.id)">Sil</button>
-                    </template>
-                </Column>
+
             </DataTable>
         </div>
+    </div>
+    <div class="row mt-3">
         <div class="col">
-                <DataTable 
+            <DataTable 
                         v-model:value="getTodoListAll.yapilmadi.yapilmadiB" 
                         style="font-size:85%;"
                         v-model:filters="filtersNotTodo"
@@ -95,40 +61,8 @@
                         Yapılacaklar B
                     </template>
                     <Column 
-                        field="girisTarihi" 
-                        header="Giriş Tarihi"
-                        :showFilterMenu="false"
-                        :showFilterOperator="false"
-                        :showClearButton="false"
-                        :showApplyButton="false"
-                        :showFilterMatchModes="false"
-                        :showAddButton="false"
-                
-                    >
-                        <template #body="slotProps">
-                            {{ $filters.formatDate(slotProps.data.girisTarihi) }}
-                        </template>
-                        <template #filter="{ filterModel, filterCallback }">
-                            <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter"/>
-                        </template>
-                    </Column>
-                    <Column 
                             field="gorev_sahibi_adi" 
                             header="Görev Sahibi"
-                            :showFilterMenu="false"
-                            :showFilterOperator="false"
-                            :showClearButton="false"
-                            :showApplyButton="false"
-                            :showFilterMatchModes="false"
-                            :showAddButton="false"
-                        >
-                        <template #filter="{ filterModel, filterCallback }">
-                            <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter"/>
-                        </template>
-                    </Column>
-                    <Column 
-                            field="gorev_veren_adi" 
-                            header="Görev Veren"
                             :showFilterMenu="false"
                             :showFilterOperator="false"
                             :showClearButton="false"
@@ -146,16 +80,9 @@
                         <button type="button" class="btn btn-warning" @click="status(slotProps.data.id)">Yapıldı</button>
                     </template>
                     </Column>
-                    <Column v-if="userId == 10">
-                    <template #body="slotProps">
-                        <button type="button" class="btn btn-danger" @click="deleteTodo(slotProps.data.id)">Sil</button>
-                    </template>
-                </Column>
+
                 </DataTable>
         </div>
-        
-    </div>
-    <div class="row mt-3">
         <div class="col">
                     <DataTable 
                             :value="getTodoListAll.yapilmadi.yapilmadiC" 
@@ -173,40 +100,8 @@
                             Yapılacaklar C
                         </template>
                         <Column 
-                            field="girisTarihi" 
-                            header="Giriş Tarihi"
-                            :showFilterMenu="false"
-                            :showFilterOperator="false"
-                            :showClearButton="false"
-                            :showApplyButton="false"
-                            :showFilterMatchModes="false"
-                            :showAddButton="false"
-                
-                        >
-                            <template #body="slotProps">
-                                {{ $filters.formatDate(slotProps.data.girisTarihi) }}
-                            </template>
-                            <template #filter="{ filterModel, filterCallback }">
-                                <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter"/>
-                            </template>
-                        </Column>
-                        <Column 
                                 field="gorev_sahibi_adi" 
                                 header="Görev Sahibi"
-                                :showFilterMenu="false"
-                                :showFilterOperator="false"
-                                :showClearButton="false"
-                                :showApplyButton="false"
-                                :showFilterMatchModes="false"
-                                :showAddButton="false"
-                            >
-                            <template #filter="{ filterModel, filterCallback }">
-                                <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter"/>
-                            </template>
-                        </Column>
-                        <Column 
-                                field="gorev_veren_adi" 
-                                header="Görev Veren"
                                 :showFilterMenu="false"
                                 :showFilterOperator="false"
                                 :showClearButton="false"
@@ -224,11 +119,7 @@
                                 <button type="button" class="btn btn-warning" @click="status(slotProps.data.id)">Yapıldı</button>
                             </template>
                         </Column>
-                        <Column v-if="userId == 10">
-                    <template #body="slotProps">
-                        <button type="button" class="btn btn-danger" @click="deleteTodo(slotProps.data.id)">Sil</button>
-                    </template>
-                </Column>
+
                     </DataTable>
         </div>
     </div>
@@ -364,6 +255,9 @@
             <div class="col">
                 <button class="btn btn-success" @click="update" type="button" :disabled="update_to_do_disabled">Güncelle</button>
             </div>
+            <div class="col">
+                <button class="btn btn-danger" @click="deleteTodo(selectedTodo.id)" type="button" v-if="userId == 10">Sil</button>
+            </div>
         </div>
     </Dialog>
 </template>
@@ -421,7 +315,7 @@ export default {
                     if (data.status) {
                         socket.socketIO.emit('to_do_list_emit');
                         socket.socketIO.emit('to_do_list_emit_all');
-
+                        this.to_do_list_form = false;
                         useLoadingStore().end_loading_act();
                         this.$toast.add({ severity: 'success', detail: 'Başarıyla Silindi', life: 3000 });
                     } else {

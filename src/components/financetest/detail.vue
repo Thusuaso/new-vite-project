@@ -42,6 +42,8 @@
                     @row-click="detailSelected($event)"
                     :rowClass="rowClass"
                     style="font-size:85%;"
+                    :sortField="['forwarding_date']"
+                    sortOrder="-1"
                 >
                     <Column field="po" header="Po" ></Column>
                     <Column field="product_date" header="Sipariş Tarihi">

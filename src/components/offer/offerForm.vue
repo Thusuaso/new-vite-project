@@ -49,10 +49,11 @@
             <div class="col-7">
                 <TabView>
                     <TabPanel header="Teklif Açıklama">
-                        <div class="form-floating">
-                            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px;padding-top:35px;" v-model="getOfferModelList.aciklama"></textarea>
-                            <label for="floatingTextarea2">Açıklama</label>
-                        </div>
+                        <textarea class="form-control" placeholder="Açıklama" id="floatingTextarea2" style="height: 100px;padding-top:35px;" v-model="getOfferModelList.aciklama"></textarea>
+
+                        <!-- <div class="form-floating">
+                             <label for="floatingTextarea2">Açıklama</label> 
+                        </div> -->
                     </TabPanel>
                     <TabPanel header="Hatırlatma Belge">
                         <div class="row m-auto mt-3">
