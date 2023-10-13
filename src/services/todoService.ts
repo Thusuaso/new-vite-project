@@ -30,5 +30,8 @@ export const todoService = {
     },
     getCustomerControlService() {
         return api.get('/kontroller/musterietatakipislem').then(response => response.data);
+    },
+    getMailControl(){
+        return api.get('/todo/mail/control').then(response=>response.data);
     }
 }

@@ -739,6 +739,23 @@ const router = createRouter({
           next();
         })
       }
+    },
+    {
+      path:'/create/sizes',
+      component:()=>import('@/views/CreateListView.vue'),
+      beforeEnter(to,from,next){
+        useLoadingStore().begin_loading_act();
+        reportsService.getCreateSizeList().then(create=>{
+          productionsService.getSupplierList().then(supplier => {
+            useReportsStore().create_size_list_load_act(create);
+            useProductionsStore().productions_supplier_list_load_act(supplier);
+            useLoadingStore().end_loading_act();
+            next();
+
+          });
+          
+        })
+      }
     }
 
 

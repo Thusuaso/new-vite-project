@@ -91,6 +91,10 @@ export default ({
       }
     });
     
+    todoService.getMailControl().then(response=>{
+      console.log(response.status);
+    })
+
   }
 })
 </script>

@@ -49,6 +49,7 @@
 
 
                 <button type="button" class="btn btn-danger w-100 mb-4" @click="deletePhotos">Sil</button>
+                <!-- <button type="button" class="btn btn-secondary w-100 mb-4" @click="mainPhotosChange(getPanelPickListPhotosDetailList[1])" :disabled="getPanelPickListPhotosDetailList[1].lenght == 1">Ana Fotoğrafla Değiştir</button> -->
                 <PickList v-model="getPanelPickListPhotosDetailList"  dataKey="id" 
                     @move-to-target="pickListMove($event)" 
                     @move-all-to-target="pickListMoveAll($event)"
@@ -149,6 +150,17 @@ export default {
         }
     },
     methods: {
+        mainPhotosChange(event){
+            reportsService.setProjectMainPhotosChange(event[0]).then(response=>{
+                if(response.status){
+                    this.$toast.add({severity:'success',detail:'Ana Fotoğraf Başarıyla Değiştirildi',life:3000});
+                    this.photos_list_form = true;
+                }else{
+                    this.$toast.add({severity:'error',detail:'Ana Fotoğraf Değiştirme İşlemi Başarısız',life:3000});
+                    
+                }
+            })
+        },
         newMainPhotos(event){
             const data = {
                 'project_id':this.project_id,
@@ -277,7 +289,8 @@ export default {
             this.getPanelPickListPhotosDetailList[1].splice(this.findIndex(event.items[0].id, this.getPanelPickListPhotosDetailList[1]), 1)
         },
         deletePhotos() {
-            reportsService.deleteProjectPhotos(this.getPanelPickListPhotosDetailList[1]).then(data => {
+            if(confirm('Silme işlemini onaylıyor musunuz?')){
+                reportsService.deleteProjectPhotos(this.getPanelPickListPhotosDetailList[1]).then(data => {
                 if (data.status) {
                     socket.socketIO.emit('project_list_detail_update_emit', this.project_id);
                     this.getPanelPickListPhotosDetailList[1] = [];
@@ -287,6 +300,8 @@ export default {
 
                 }
             })
+            }
+            
         },
         pickListMoveAll(event) {
             for (const item of event.items) {

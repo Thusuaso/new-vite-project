@@ -472,10 +472,9 @@ export default {
             productsNewList: [],
             productsDeleteList:[],
             product_card_form: false,
-            productCard: {
-            },
-            selectedSupplier: {},
-            selectedUnit: {},
+            productCard: null,
+            selectedSupplier: null,
+            selectedUnit: null,
             products: {
                 adet:0
             },
@@ -602,9 +601,7 @@ export default {
             this.product_card_form = true
         },
         productCardSelected(event) {
-            this.productCard = {
-            
-            }
+            this.productCard = null;
             this.productCard = event
             this.products.urunKartId = this.productCard.id
              this.products.kategoriAdi = this.productCard.kategoriAdi
@@ -642,7 +639,20 @@ export default {
             this.resetData()
         },
         updateForm() {
-            // @ts-ignore
+            this.products.tedarikciId = this.selectedSupplier.id;
+            this.products.tedarikciAdi = this.selectedSupplier.firmaAdi;
+            if(!this.products.tedarikciId){
+                alert('Lütfen Tedarikçiyi Giriniz...');
+            }else if (this.products.satisFiyati == 0){
+                alert('Lütfen Satış Fiyatını Giriniz...');
+            } else if (!this.products.musteriAciklama){
+                alert('Lütfen Açıklamayı Giriniz...');
+            }else if (!this.products.uretimAciklama){
+                alert('Lütfen Açıklamayı Giriniz...');
+            }
+            
+            else{
+                // @ts-ignore
             const index = this.findIndex(this.products.id, this.getProductionsDetailModel.siparisUrunler);
             // @ts-ignore
             this.getProductionsDetailModel.siparisUrunler.splice(index, 1);
@@ -694,6 +704,8 @@ export default {
             this.buttonReset();
             this.resetData();
             this.emitter.emit("suppliers", this.getProductionsDetailModel.siparisUrunler);
+            }
+            
 
         },
         deleteForm() {
@@ -735,9 +747,27 @@ export default {
         addForm() {
             this.products.tedarikciId = this.selectedSupplier.id;
             this.products.tedarikciAdi = this.selectedSupplier.firmaAdi;
-           
             this.products.urunBirimId = this.selectedUnit.id;
             this.products.urunbirimAdi = this.selectedUnit.birimAdi
+            if(!this.products.tedarikciId){
+                alert('Lütfen Tedarikçi Giriniz...');
+            } else if (this.products.satisFiyati == 0){
+                alert('Lütfen Satış Fiyatını Giriniz...');
+            }else if (!this.products.urunBirimId){
+                alert('Lütfen Birim Seçiniz...');
+            } else if (!this.productCard){
+                alert('Lütfen Ürün Kartını Seçiniz...');
+            } else if (!this.products.musteriAciklama){
+                alert('Lütfen Açıklamayı Giriniz...');
+            }else if (!this.products.uretimAciklama){
+                alert('Lütfen Açıklamayı Giriniz...');
+            }
+            
+            else{
+                this.products.tedarikciId = this.selectedSupplier.id;
+                this.products.tedarikciAdi = this.selectedSupplier.firmaAdi;
+           
+
             if (!this.products.id) {
                 this.products.id = this.createId()
 
@@ -767,6 +797,8 @@ export default {
             this.sumProducts(this.getProductionsDetailModel.siparisUrunler);
             this.buttonReset();
             this.resetData();
+            }
+            
         },
         resetData() {
             this.products = {
@@ -780,9 +812,7 @@ export default {
                 adet:0,
                 
             }
-            this.productCard = {
-
-            }
+            this.productCard = null;
             this.selectedSupplier = {};
             this.selectedUnit = {};
             
@@ -797,7 +827,6 @@ export default {
                 salesTotal: 0
             }
             for (let i of list) {
-                console.log(i.adet);
 
                 this.productsSum.m2 += parseFloat(i.m2);
                 if(i.adet != null){

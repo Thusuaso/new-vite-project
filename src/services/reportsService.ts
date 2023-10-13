@@ -224,6 +224,22 @@ export const reportsService = {
     },
     setProjectMainPhotos(data:any){
         return api.post('/panel/projec/main/photos',data).then(response=>response.data);
+    },
+    setProjectMainPhotosChange(data:any){
+        return api.post('/panel/project/main/photos/change',data).then(response=>response.data);
+    },
+    getCreateSizeList(){
+        return api.get('/seleksiyon/islemler/kasa/olculer').then(response=>response.data);
+    },
+    setCreateSizeSave(data:any){
+        return api.post('/seleksiyon/islemler/kasa/olculer/save',data).then(response=>response.data);
+    },
+    setCreateSizeUpdate(data:any){
+        return api.put('/seleksiyon/islemler/kasa/olculer/save',data).then(response=>response.data);
+    },
+    setCreateSizeDelete(id:any){
+        return api.delete(`/seleksiyon/islemler/kasa/olculer/delete/${id}`).then(response=>response.data);
     }
+
 
 }

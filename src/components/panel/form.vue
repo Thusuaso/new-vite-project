@@ -311,7 +311,7 @@
                 <div class="col">
                     <button type="button" class="btn btn-primary mb-4 w-100" @click="pick_list_photos_form=true">Fotoğraf Listesi</button>
                     <FileUpload class="w-100" mode="basic" @select="sendPhotos($event)" v-model="file" :maxFileSize="5000000" :multiple="true" chooseLabel="Fotoğraf Ekle" />
-
+                    
                     <Dialog v-model:visible="pick_list_photos_form" header="Fotoğraflar" modal :style="{'width':'80vw'}">
                         <button type="button" class="btn btn-danger w-100" @click="fotoSil">Sil</button>
                         <PickList v-model="pickProductPhotosList" 

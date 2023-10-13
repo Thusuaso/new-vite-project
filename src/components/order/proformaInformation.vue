@@ -608,6 +608,8 @@ export default {
                 for(const item of this.getProductionsDetailModel.siparisUrunler){
                     result += item.satisToplam;
                 }
+                result = result + this.getProductionsDetailModel.siparis.navlunSatis + this.getProductionsDetailModel.siparis.detayTutar_1 + this.getProductionsDetailModel.siparis.detayTutar_2 + this.getProductionsDetailModel.siparis.detayTutar_3;
+
                 this.getProductionsDetailModel.siparis.pesinat = result;
             }
             this.getProductionsDetailModel.siparis.odemeTurId = event.value.id;

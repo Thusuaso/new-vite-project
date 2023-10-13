@@ -3,6 +3,7 @@ import { defineStore } from 'pinia';
 export const useReportsStore = defineStore('reports', {
     state: () => {
         return {
+            createSizeList:[],
             mekmarMkCustomerOrderList: [],
             mekmerProductionList: [],
             mekmerProductionTotalList: {
@@ -372,7 +373,9 @@ export const useReportsStore = defineStore('reports', {
         }
     },
     actions: {
-
+        create_size_list_load_act(data:any){
+          this.createSizeList = data;  
+        },
         order_representative_info_list_load_act(data: any) {
             this.orderRepresentativeInfoList = data;
             this.orderRepresentativeInfoTotal = {
@@ -1252,6 +1255,9 @@ export const useReportsStore = defineStore('reports', {
 
     },
     getters: {
+        getcreateSizeList(state){
+          return state.createSizeList;  
+        },
         getMekmarGuForwardingSummaryTotal(state) {
             return state.mekmarGuForwardingSummaryTotal;
         },
@@ -1545,7 +1551,7 @@ export const useReportsStore = defineStore('reports', {
         },
         getMekmarToDoListToDo(state) {
             return state.mekmarToDoListToDo;
-        }
+        },
 
 
     }
