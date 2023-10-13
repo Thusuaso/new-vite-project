@@ -34,8 +34,10 @@
                 <input type="text" class="form-control" v-model="project_product_name" aria-describedby="basic-addon1">
             </div>
             <div class="form-floating">
-                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 250px" v-model="information"></textarea>
-                <label for="floatingTextarea2">Açıklama</label>
+                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 250px" v-model="information" @input="informationControl($event)"></textarea>
+                <label for="floatingTextarea2">Açıklama ({{ 500 - information.length }})</label>
+                <span style="color:red;" v-if="information.length == 500">*500 Karakterden fazlasını desteklememektedir.</span>
+
             </div>
             <button type="button" class="btn btn-success mt-2 w-100" @click="addInformation">Açıklama Ekle</button>
             <button type="button" class="btn btn-warning mt-2 w-100" @click="updateInformation">Açıklama Güncelle</button>
@@ -49,7 +51,7 @@
 
 
                 <button type="button" class="btn btn-danger w-100 mb-4" @click="deletePhotos">Sil</button>
-                <!-- <button type="button" class="btn btn-secondary w-100 mb-4" @click="mainPhotosChange(getPanelPickListPhotosDetailList[1])" :disabled="getPanelPickListPhotosDetailList[1].lenght == 1">Ana Fotoğrafla Değiştir</button> -->
+                <button type="button" class="btn btn-secondary w-100 mb-4" @click="mainPhotosChange(getPanelPickListPhotosDetailList[1])" :disabled="getPanelPickListPhotosDetailList[1].lenght == 1">Ana Fotoğrafla Değiştir</button>
                 <PickList v-model="getPanelPickListPhotosDetailList"  dataKey="id" 
                     @move-to-target="pickListMove($event)" 
                     @move-all-to-target="pickListMoveAll($event)"
@@ -140,22 +142,33 @@ export default {
                     breakpoint: '575px',
                     numVisible: 1
                 }
-            ]
+            ],
+            informationControlText:'',
         }
     },
     created() {
+        // @ts-ignore
         if (this.getPanelProjectDetailList.project_detail_information_list) {
+            // @ts-ignore
             this.information = this.getPanelProjectDetailList.project_detail_information_list[0].information;
+            // @ts-ignore
             this.project_product_name = this.getPanelProjectDetailList.project_detail_information_list[0].project_product_name;
         }
     },
     methods: {
+        informationControl(event){
+          if(event.target.value.length > 500){
+                this.information = event.target.value.substring(0,500);
+            }
+        },
         mainPhotosChange(event){
             reportsService.setProjectMainPhotosChange(event[0]).then(response=>{
                 if(response.status){
+                    // @ts-ignore
                     this.$toast.add({severity:'success',detail:'Ana Fotoğraf Başarıyla Değiştirildi',life:3000});
                     this.photos_list_form = true;
                 }else{
+                    // @ts-ignore
                     this.$toast.add({severity:'error',detail:'Ana Fotoğraf Değiştirme İşlemi Başarısız',life:3000});
                     
                 }
@@ -170,11 +183,14 @@ export default {
                 if(res.status){
                     const result = digitalOceanService.projeFotoGonder(event.files[0]);
                     if (result) {
+                        // @ts-ignore
                         this.$toast.add({ severity: 'success', detail: 'Başarıyla Yüklendi', life: 3000 });
                     } else {
+                        // @ts-ignore
                         this.$toast.add({ severity: 'error', detail: 'Yükleme Başarısız', life: 3000 });
                     }
                 }else {
+                    // @ts-ignore
                     this.$toast.add({ severity: 'error', detail: 'Yükleme Başarısız', life: 3000 });
                 }
             })
@@ -187,8 +203,10 @@ export default {
 
             reportsService.setSuggestedProjects(this.suggestedList[1]).then(data => {
                 if (data) {
+                    // @ts-ignore
                     this.$toast.add({ severity: 'success', detail: 'Başarıyla Kaydedildi', life: 3000 });
                 }else{
+                    // @ts-ignore
                     this.$toast.add({ severity: 'error', detail: 'Kaydetme Başarısız', life: 3000 });
                 };
             })
@@ -201,14 +219,19 @@ export default {
             })
         },
         updateInformation() {
+            // @ts-ignore
             this.getPanelProjectDetailList.project_detail_information_list[0].information = this.information;
+            // @ts-ignore
             this.getPanelProjectDetailList.project_detail_information_list[0].project_product_name = this.project_product_name;
 
+            // @ts-ignore
             reportsService.updateInformation(this.getPanelProjectDetailList.project_detail_information_list[0]).then(data => {
                 if (data.status) {
                     socket.socketIO.emit('project_list_detail_update_emit', this.project_id);
+                    // @ts-ignore
                     this.$toast.add({ severity: 'success', detail: 'Başarıyla Güncellendi', life: 3000 });
                 } else {
+                    // @ts-ignore
                     this.$toast.add({ severity: 'error', detail: 'Güncelleme Başarısız', life: 3000 });
                 }
             })
@@ -223,8 +246,10 @@ export default {
                 if (data.status) {
                     socket.socketIO.emit('project_list_detail_update_emit', this.project_id);
 
+                    // @ts-ignore
                     this.$toast.add({ severity: 'success', detail: 'Başarıyla Kaydedildi', life: 3000 });
                 } else {
+                    // @ts-ignore
                     this.$toast.add({ severity: 'error', detail: 'Kaydetme Başarısız', life: 3000 });
 
                 }
@@ -242,8 +267,10 @@ export default {
                 if (data.status) {
                     socket.socketIO.emit('project_list_detail_update_emit', this.project_id);
 
+                    // @ts-ignore
                     this.$toast.add({ severity: 'success', detail: 'Başarıyla Kaydedildi', life: 3000 });
                 } else {
+                    // @ts-ignore
                     this.$toast.add({ severity: 'error', detail: 'Kaydetme Başarısız', life: 3000 });
                 }
             })
@@ -272,8 +299,10 @@ export default {
                 if (data.status) {
                     socket.socketIO.emit('project_list_detail_update_emit', this.project_id);
 
+                    // @ts-ignore
                     this.$toast.add({ severity: 'success', detail: 'Başarıyla Kaydedildi', life: 3000 });
                 } else {
+                    // @ts-ignore
                     this.$toast.add({ severity: 'error', detail: 'Kaydetme Başarısız', life: 3000 });
                 };
             })
@@ -294,8 +323,10 @@ export default {
                 if (data.status) {
                     socket.socketIO.emit('project_list_detail_update_emit', this.project_id);
                     this.getPanelPickListPhotosDetailList[1] = [];
+                    // @ts-ignore
                     this.$toast.add({ severity: 'success', detail: 'Başarıyla Silindi', life: 3000 });
                 } else {
+                    // @ts-ignore
                     this.$toast.add({ severity: 'error', detail: 'Silme İşlemi Başarısız', life: 3000 });
 
                 }
