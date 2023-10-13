@@ -639,6 +639,7 @@ export default {
             this.resetData()
         },
         updateForm() {
+            console.log(this.products);
             this.products.tedarikciId = this.selectedSupplier.id;
             this.products.tedarikciAdi = this.selectedSupplier.firmaAdi;
             if(!this.products.tedarikciId){
