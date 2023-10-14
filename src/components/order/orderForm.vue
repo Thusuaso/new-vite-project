@@ -168,18 +168,23 @@ export default {
                         status: 1,
                         year: new Date().getFullYear()
                     }
+                    socket.socketIO.emit('products_update_waiting_emit', productStatus);
+
                 } else if (this.$router.currentRoute._value.fullPath == '/order/product') {
                     productStatus = {
                         status: 2,
                         year: new Date().getFullYear()
                     }
+                    socket.socketIO.emit('products_update_products_emit', productStatus);
+
                 } else if (this.$router.currentRoute._value.fullPath == '/order/forwarding') {
                     productStatus = {
                         status: 3,
                         year: new Date().getFullYear()
                     }
+                    socket.socketIO.emit('products_update_forwarding_emit', productStatus);
+
                 }
-                socket.socketIO.emit('products_update_emit', productStatus);
                 this.emitter.emit('products_closed_dialog');
                 useLoadingStore().end_loading_act();
                 this.$toast.add({ severity: 'success', detail: 'Başarıyla Kaydedildi', life: 3000 });

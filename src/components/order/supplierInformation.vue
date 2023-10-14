@@ -749,6 +749,30 @@ export default {
                                 this.$toast.add({ severity: 'success', summary: 'ISF', detail: 'ISF başarıyla kaydedildi', life: 3000 });
 
                                 this.IcSiparisDosyaGonder();
+                                let productStatus;
+                                if (this.$router.currentRoute._value.fullPath == '/order/waiting') {
+                                    productStatus = {
+                                        status: 1,
+                                        year: new Date().getFullYear()
+                                    }
+                                    socket.socketIO.emit('products_update_waiting_emit', productStatus);
+
+                                } else if (this.$router.currentRoute._value.fullPath == '/order/product') {
+                                    productStatus = {
+                                        status: 2,
+                                        year: new Date().getFullYear()
+                                    }
+                                    socket.socketIO.emit('products_update_products_emit', productStatus);
+
+                                } else if (this.$router.currentRoute._value.fullPath == '/order/forwarding') {
+                                    productStatus = {
+                                        status: 3,
+                                        year: new Date().getFullYear()
+                                    }
+                                    socket.socketIO.emit('products_update_forwarding_emit', productStatus);
+
+                                }
+                                socket.socketIO.emit('products_update_emit', productStatus);
                                 socket.socketIO.emit('products_detail_update_emit', this.getProductionsDetailModel.siparis.siparisNo);
                             } else {
                                 this.$toast.add({ severity: 'error', summary: 'ISF', detail: 'ISF kaydedilemedi, Lütfen tekrar deneyiniz.', life: 3000 });
@@ -775,7 +799,7 @@ export default {
                             if (veri.Status) {
 
                                 this.$toast.add({ severity: 'success', summary: 'ISF', detail: 'ISF başarıyla kaydedildi', life: 3000 });
-                                this.IcSiparisDosyaGonder();
+                                this.IcSiparisDosyaGonder();z
                             } else {
 
                                 this.$toast.add({ severity: 'error', summary: 'ISF', detail: 'ISF kaydedilemedi, Lütfen tekrar deneyiniz.', life: 3000 });

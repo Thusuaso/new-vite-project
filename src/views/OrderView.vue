@@ -36,7 +36,7 @@ export default {
         }
     },
     mounted() {
-        socket.socketIO.on('products_update_on', (productStatus) => {
+        socket.socketIO.on('products_update_products_on', (productStatus) => {
             productionsService.getOrderList(2, 'Hepsi').then(data => {
                 useProductionsStore().productions_list_load_act(data.products);
                 useProductionsStore().productions_unit_list_load_act(data.productUnit);

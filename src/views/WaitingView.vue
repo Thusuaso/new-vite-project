@@ -35,7 +35,7 @@ export default {
         }
     },
     mounted() {
-                socket.socketIO.on('products_update_on', (productStatus) => {
+        socket.socketIO.on('products_update_waiting_on', (productStatus) => {
             productionsService.getOrderList(1, productStatus.year).then(data => {
                 useProductionsStore().productions_list_load_act(data.products);
                 useProductionsStore().productions_unit_list_load_act(data.productUnit);

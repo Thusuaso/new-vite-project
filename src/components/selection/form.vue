@@ -568,7 +568,7 @@ export default {
                         'status': 2,
                         'year': 'Hepsi'
                     }
-                    socket.socketIO.emit('products_update_emit', data);
+                    socket.socketIO.emit('products_update_products_emit', data);
                     useLoadingStore().end_loading_act();
                     this.$toast.add({ severity: 'success', detail: 'Başarıyla Kaydedildi.', life: 3000 });
                     this.resetForm();
@@ -629,7 +629,7 @@ export default {
                         'status': 2,
                         'year':'Hepsi',
                     }
-                    socket.socketIO.emit('products_update_emit', data);
+                    socket.socketIO.emit('products_update_products_emit', data);
 
                     useLoadingStore().end_loading_act();
                     this.$toast.add({ severity: 'success', detail: 'Başarıyla Güncellendi.', life: 3000 });
@@ -650,7 +650,7 @@ export default {
                         'status': 2,
                         'year': 'Hepsi',
                     }
-                    socket.socketIO.emit('products_update_emit', data);
+                    socket.socketIO.emit('products_update_products_emit', data);
 
                     useLoadingStore().end_loading_act();
                     this.$toast.add({ severity: 'success', detail: 'Başarıyla Silindi', life: 3000 });
