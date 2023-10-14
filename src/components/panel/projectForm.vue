@@ -112,6 +112,7 @@ import { mapState } from 'pinia';
 import { reportsService } from '../../services/reportsService';
 import { socket } from '../../services/customServices/realTimeService';
 import digitalOceanService from '../../services/digitalOceanService';
+import { useLoadingStore } from '../../stores/loading';
 export default {
     computed: {
         ...mapState(usePanelStore, [
@@ -197,16 +198,23 @@ export default {
             
         },
         sendSuggestedProject() {
+            useLoadingStore().begin_loading_act();
             for (const item of this.suggestedList[1]) {
                 item.project_id = this.project_id;
             };
-
-            reportsService.setSuggestedProjects(this.suggestedList[1]).then(data => {
+            for(const item of this.suggestedList[0]){
+                item.project_id = this.project_id;
+            }
+            
+            reportsService.setSuggestedProjects(this.suggestedList).then(data => {
                 if (data) {
                     // @ts-ignore
+                    useLoadingStore().end_loading_act();
                     this.$toast.add({ severity: 'success', detail: 'Başarıyla Kaydedildi', life: 3000 });
                 }else{
                     // @ts-ignore
+                    useLoadingStore().end_loading_act();
+
                     this.$toast.add({ severity: 'error', detail: 'Kaydetme Başarısız', life: 3000 });
                 };
             })
