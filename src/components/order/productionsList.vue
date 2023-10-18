@@ -567,7 +567,7 @@ export default {
         useProductionsStore().product_detail_order_information_load_act(data.orderInformationList);
         useProductionsStore().product_detail_users_list_load_act(data.usersList);
         useProductionsStore().product_detail_chat_list_load_act(data.chatList);
-        useProductionsStore().products_save_button_status_load_act(true);
+        // useProductionsStore().products_save_button_status_load_act(true);
         useLoadingStore().end_loading_act();
 
       });

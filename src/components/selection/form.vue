@@ -84,13 +84,13 @@
                     <div class="col">
                         <span class="p-float-label">
                             <InputText id="kutuiciadet" class="form-control" aria-describedby="basic-addon1" v-model="getSelectionModelList.kutuiciadet" @input="inBoxPiece" :disabled="form.amountinbox"/>
-                            <label for="kutuiciadet">Kutu İçi</label>
+                            <label for="kutuiciadet">Kutu İçi Adet</label>
                         </span>
                     </div>
                     <div class="col">
                         <span class="p-float-label">
                             <InputText id="kutuiciadet" class="form-control" aria-describedby="basic-addon1" v-model="getSelectionModelList.adet" @input="calculateAmount($event)" :disabled="form.totalAmount"/>
-                            <label for="kutuiciadet">Toplam</label>
+                            <label for="kutuiciadet">Toplam Adet</label>
                         </span>
                     </div>
                 </div>
@@ -428,10 +428,10 @@ export default {
                 { id: 2, kayitTur: "Sipariş" },
             ],
             selectionProductDetail: [],
-            selectedProductDetail: {},
+            selectedProductDetail: null,
             selectedSavedKind: {},
             mineList:[],
-            searchProduct: "",
+            searchProduct: null,
             productList: [],
             searchSupplier: "",
             supplierList: [],
@@ -515,8 +515,8 @@ export default {
                 useSelectionStore().selection_model_list_load_act(data);
             });
             this.selectedSavedKind = {};
-            this.searchProduct = "";
-            this.selectedProductDetail = {};
+            this.searchProduct = null;
+            this.selectedProductDetail = null;
             this.orderProductCard = "";
             this.searchMine = "";
             this.searchSupplier = "";
@@ -545,6 +545,18 @@ export default {
 
         },
         saveForm() {
+            if(this.selectedSavedKind.id == 2){
+                if(!this.searchProduct || !this.selectedProductDetail){
+                    alert('Sipariş no ya da sipariş detayı seçilmemiş!')
+                }else{
+                    this.saveFormControl();
+                }
+            }else{
+               this.saveFormControl();
+            }
+            
+        },
+        saveFormControl(){
             this.new_button_form = false;
             this.cancel_button_form = true;
             this.save_button_form = true;
@@ -585,6 +597,27 @@ export default {
 
             this.resetForm();
         },
+        updateFormControl(){
+            this.getSelectionModelList.tarih = localDateService.getDateString(this.p_date);
+            useLoadingStore().begin_loading_act();
+            selectionService.update(this.getSelectionModelList).then(data => {
+                if (data) {
+                    socket.socketIO.emit('selection_update_emit');
+                    const data = {
+                        'status': 2,
+                        'year':'Hepsi',
+                    }
+                    socket.socketIO.emit('products_update_products_emit', data);
+
+                    useLoadingStore().end_loading_act();
+                    this.$toast.add({ severity: 'success', detail: 'Başarıyla Güncellendi.', life: 3000 });
+                    this.$emit('formDialogClose');
+                } else {
+                    useLoadingStore().end_loading_act();
+                    this.$toast.add({ severity: 'error', detail: 'Güncelleme İşlemi Başarısız.', life: 3000 });
+                };
+            })
+        },
         disabledForm(){
             this.form = {
                 kind: false,
@@ -620,25 +653,15 @@ export default {
             };
         },
         updateForm() {
-            this.getSelectionModelList.tarih = localDateService.getDateString(this.p_date);
-            useLoadingStore().begin_loading_act();
-            selectionService.update(this.getSelectionModelList).then(data => {
-                if (data) {
-                    socket.socketIO.emit('selection_update_emit');
-                    const data = {
-                        'status': 2,
-                        'year':'Hepsi',
-                    }
-                    socket.socketIO.emit('products_update_products_emit', data);
-
-                    useLoadingStore().end_loading_act();
-                    this.$toast.add({ severity: 'success', detail: 'Başarıyla Güncellendi.', life: 3000 });
-                    this.$emit('formDialogClose');
-                } else {
-                    useLoadingStore().end_loading_act();
-                    this.$toast.add({ severity: 'error', detail: 'Güncelleme İşlemi Başarısız.', life: 3000 });
-                };
-            })
+            if(this.selectedSavedKind.id == 2){
+                if(!this.searchProduct || !this.selectedProductDetail){
+                    alert('Sipariş no ya da sipariş detayı seçilmemiş!')
+                }else{
+                    this.updateFormControl();
+                }
+            }else{
+               this.updateFormControl();
+            }
         },
         deleteForm() {
             this.delete_button_form = true;
@@ -738,8 +761,8 @@ export default {
             this.cratePiece = 1;
             this.getSelectionModelList.duzenleyen = 'Muhsin';
             if (event.value.kayitTur == 'Stok') {
-                this.searchProduct = "";
-                this.selectedProductDetail = {};
+                this.searchProduct = null;
+                this.selectedProductDetail = null;
                 this.getSelectionModelList.siparisaciklama = 'Stok';
                 this.getSelectionModelList.aciklama = 'Stok';
                 if (this.getSelectionNewButton) {

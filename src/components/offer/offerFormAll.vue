@@ -442,7 +442,6 @@ export default {
                 if (data.status) {
                     socket.socketIO.emit('offer_list_emit');
                     socket.socketIO.emit('offer_detail_list_all_emit');
-                        console.log('offer_detail_list_all_emit');
 
                     this.emitter.emit('offer_detail_dialog_close');
 

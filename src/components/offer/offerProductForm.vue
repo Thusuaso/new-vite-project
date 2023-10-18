@@ -33,7 +33,7 @@
             </div>
             <div class="col">
                 <span class="p-float-label">
-                    <AutoComplete id="category" v-model="selectedSurface" :suggestions="filteredOfferSurfaceList" optionLabel="name" @complete="offerSurfaceSearch($event)" @item-select="offerSurfaceSelected($event)"/>
+                    <AutoComplete id="category" v-model="selectedSurface" :suggestions="filteredOfferSurfaceList" optionLabel="name" @complete="offerSurfaceSearch($event)" @item-select="offerSurfaceSelected($event)" @change="offerSurfaceChange($event)"/>
                     <label for="category">Yüzey</label>
                 </span>
             </div>
@@ -200,7 +200,7 @@
             </div>
             <div class="">
                 <span class="p-float-label">
-                    <AutoComplete class="w-100 mb-3" id="category" v-model="selectedSurface" :suggestions="filteredOfferSurfaceList" optionLabel="name" @complete="offerSurfaceSearch($event)" @item-select="offerSurfaceSelected($event)" />
+                    <AutoComplete class="w-100 mb-3" id="category" v-model="selectedSurface" :suggestions="filteredOfferSurfaceList" optionLabel="name" @complete="offerSurfaceSearch($event)" @item-select="offerSurfaceSelected($event)" @change="offerSurfaceInput($event)" />
                     <label for="category">Yüzey</label>
                 </span>
             </div>
@@ -415,7 +415,10 @@ export default {
 
     },
     methods: {
-
+        offerSurfaceChange(event){
+          this.product.yuzeyIslem = event.value;
+        },
+        
         offerEdgeInput(event) {
             this.product.kalinlik = event.target._value;
         },

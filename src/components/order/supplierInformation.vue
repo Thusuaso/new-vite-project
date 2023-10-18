@@ -176,14 +176,22 @@
                     style="margin: 20px; height: 50px; width: 150px; background-color: red" >ISF-PDF</button>
             </div>
             <div class="col">
-                <custom-file-input baslik="ISF Form Yükle " style="margin: 20px; height: 50px; width: 150px"
-                    @sunucuDosyaYolla="faturaDosyaGonder($event)" :isISFForm="isISFForm" />
-                <!-- <FileUpload
+                    <!-- <div class="input-group mb-3">
+                        <label class="input-group-text" for="inputGroupFile01">ISF Form Yükle</label>
+                        <input type="file" class="form-control" id="inputGroupFile01" @input="faturaDosyaGonder($event)">
+                    </div> -->
+
+                <!-- <custom-file-input baslik="ISF Form Yükle " style="margin: 20px; height: 50px; width: 150px"
+                    @sunucuDosyaYolla="faturaDosyaGonder($event)" :isISFForm="isISFForm" /> -->
+
+                    
+                <FileUpload
         v-model="file"
         mode="basic"
         @select="faturaDosyaGonder($event)"
         style="margin-top: 25px"
-      /> -->
+        chooseLabel="Isf Yükle"
+      />
             </div>
         </div>
     </div>
@@ -362,8 +370,10 @@
                     style=" height: 50px; width: 100%; background-color: red" >ISF-PDF</button>
             </div>
             <div class="m-auto">
-                <custom-file-input baslik="ISF Form Yükle " style="height: 50px; width: 100%"
-                    @sunucuDosyaYolla="faturaDosyaGonder($event)" :isISFForm="isISFForm" />
+                    <div class="input-group mb-3">
+                        <label class="input-group-text" for="inputGroupFile01">ISF Form Yükle</label>
+                        <input type="file" class="form-control" id="inputGroupFile01" @input="faturaDosyaGonder($event)">
+                    </div>
                 <!-- <FileUpload
         v-model="file"
         mode="basic"
@@ -717,11 +727,12 @@ export default {
 
         },
         faturaDosyaGonder(event) {
+            console.log(event)
             if (event.size > 1000000) {
                 this.$toast.add({ severity: 'error', summary: 'ISF', detail: 'Evrak boyutunu kontrol ediniz.', life: 3000 });
 
             } else {
-                this.faturaGonderBilgileri = event;
+                this.faturaGonderBilgileri = event.files[0];
 
                 if (!this.urunList) {
                     this.$toast.add({ severity: 'error', summary: 'ISF', detail: 'Lütfen tedarikçi seçiniz.', life: 3000 });
@@ -734,7 +745,7 @@ export default {
                     const evrak =
                         this.tedarikci.tedarikciadi + "-" + this.po + ".pdf";
                     
-                    fileService.faturaDosyaGonder(event, 3, evrak).then((data) => {
+                    fileService.faturaDosyaGonder(event.files[0], 3, evrak).then((data) => {
                         console.log(data);
                         const bilgi = {
                             evrak: this.tedarikci.tedarikciadi + "-" + this.po + ".pdf",
@@ -770,10 +781,8 @@ export default {
                                         year: new Date().getFullYear()
                                     }
                                     socket.socketIO.emit('products_update_forwarding_emit', productStatus);
-
                                 }
-                                socket.socketIO.emit('products_update_emit', productStatus);
-                                socket.socketIO.emit('products_detail_update_emit', this.getProductionsDetailModel.siparis.siparisNo);
+
                             } else {
                                 this.$toast.add({ severity: 'error', summary: 'ISF', detail: 'ISF kaydedilemedi, Lütfen tekrar deneyiniz.', life: 3000 });
 
@@ -799,7 +808,7 @@ export default {
                             if (veri.Status) {
 
                                 this.$toast.add({ severity: 'success', summary: 'ISF', detail: 'ISF başarıyla kaydedildi', life: 3000 });
-                                this.IcSiparisDosyaGonder();z
+                                this.IcSiparisDosyaGonder();
                             } else {
 
                                 this.$toast.add({ severity: 'error', summary: 'ISF', detail: 'ISF kaydedilemedi, Lütfen tekrar deneyiniz.', life: 3000 });

@@ -644,9 +644,7 @@ export default {
             this.products.tedarikciAdi = this.selectedSupplier.firmaAdi;
             if(!this.products.tedarikciId){
                 alert('Lütfen Tedarikçiyi Giriniz...');
-            }else if (this.products.satisFiyati == 0){
-                alert('Lütfen Satış Fiyatını Giriniz...');
-            } else if (!this.products.musteriAciklama){
+            }else if (!this.products.musteriAciklama){
                 alert('Lütfen Açıklamayı Giriniz...');
             }else if (!this.products.uretimAciklama){
                 alert('Lütfen Açıklamayı Giriniz...');

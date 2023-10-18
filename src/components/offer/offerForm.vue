@@ -153,7 +153,6 @@
                     <AutoComplete id="shopper" v-model="selectedShopper" class="w-100 mb-3" dropdown :suggestions="filteredOfferShopperList" optionLabel="musteriAdi" @complete="searchOfferShopper($event)" @item-select="offerShopperSelected($event)" @change="offerShopperChange($event)"/>
                     <label for="shopper">Müşteri</label>
                 </span>
-
                 <span class="p-float-label">
                     <Dropdown id="source" v-model="selectedOfferPlace" :options="offerPlaces" optionLabel="place" class="w-100 mb-3" @change="offerPlaceSelected($event)"/>
                     <label for="source">Teklif Yeri</label>

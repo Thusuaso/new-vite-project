@@ -51,7 +51,7 @@
                     </div>
                     <div class="row m-auto">
                         <div class="col">
-                            Satışçı:
+                            Pazarlama:
                         </div>
                         <div class="col">
                             <div class="form-check">
@@ -131,7 +131,7 @@
                     </div>
                     <div class="row m-auto">
                         <div class="col">
-                            Satışçı:
+                            Pazarlama:
                         </div>
                         <div class="col">
                             <div class="form-check">

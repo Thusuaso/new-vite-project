@@ -100,6 +100,12 @@
                         </template>
                     </Column>
                     <Column field="teklifOncelik" header="Öncelik"></Column>
+                    <Column header="">
+                    <template #body="slotProps">
+                        <button type="button" class="btn btn-danger" @click="offerDelete(slotProps.data.id)">Sil</button>
+
+                    </template>
+                    </Column>
                 </DataTable>
             </div>
         </div>
@@ -201,7 +207,12 @@
                         </template>
                     </Column>
                     <Column field="teklifOncelik" header="Öncelik"></Column>
+                    <Column header="">
+                    <template #body="slotProps">
+                        <button type="button" class="btn btn-danger" @click="offerDelete(slotProps.data.id)">Sil</button>
 
+                    </template>
+                    </Column>
                 </DataTable>
             </div>
         </div>
@@ -413,9 +424,6 @@
 
     </div>
 
-
-
-
     <Dialog v-model:visible="offer_detail_form" header="" modal :style="{ width: '100vw' }">
         <offerForm />
     </Dialog>
@@ -473,6 +481,19 @@ export default {
         }
     },
     methods: {
+        offerDelete(queue){
+            offerService.delete(queue).then(data => {
+                if (data.status) {
+                    socket.socketIO.emit('offer_list_emit');
+                    socket.socketIO.emit('offer_detail_list_all_emit');
+                    this.$toast.add({ severity: 'success', detail: 'Başarıyla Silindi', life: 3000 });
+                    useLoadingStore().end_loading_act();
+                } else {
+                    this.$toast.add({ severity: 'error', detail: 'Silme İşlemi Başarısız', life: 3000 });
+                    useLoadingStore().end_loading_act();
+                };
+            });
+        },
         offerListBSelected(event) {
             useLoadingStore().begin_loading_act();
 
