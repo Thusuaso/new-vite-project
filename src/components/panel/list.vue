@@ -141,6 +141,7 @@ export default {
             panelService.getPanelDetail(product_id).then(data => {
                 usePanelStore().panel_product_model_list_load_act(data);
                 usePanelStore().panel_product_new_button_load_act(false);
+                this.emitter.emit('fotografListUpdate');
                 useLoadingStore().end_loading_act();
             })
         })

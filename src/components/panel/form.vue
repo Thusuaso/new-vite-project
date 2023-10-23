@@ -226,7 +226,7 @@
                     <div class="row m-auto mt-3">
                         <div class="col">
                             <span class="p-float-label">
-                                <AutoComplete id="size" v-model="selectedSize" dropdown :suggestions="filteredProductSizeList" optionLabel="name" @complete="searchSize($event)" />
+                                <AutoComplete id="size" v-model="selectedSize" dropdown :suggestions="filteredProductSizeList" optionLabel="name" @complete="searchSize($event)" @input="inputSize($event)" />
                                 <label for="size">Ebat</label>
                             </span>
                         </div>
@@ -311,14 +311,14 @@
                 <div class="col">
                     <button type="button" class="btn btn-primary mb-4 w-100" @click="pick_list_photos_form=true">Fotoğraf Listesi</button>
                     <FileUpload class="w-100" mode="basic" @select="sendPhotos($event)" v-model="file" :maxFileSize="5000000" :multiple="true" chooseLabel="Fotoğraf Ekle" />
-                    
                     <Dialog v-model:visible="pick_list_photos_form" header="Fotoğraflar" modal :style="{'width':'80vw'}">
+
                         <button type="button" class="btn btn-danger w-100" @click="fotoSil">Sil</button>
                         <PickList v-model="pickProductPhotosList" 
                         @move-to-target="photoListPick($event)" 
                         @move-all-to-target="photoListPickAll($event)"
                         @reorder="photoListChangeQueue($event)"
-                        dataKey="id"
+                        dataKey="sira"
                         
                         >
                         <template #sourceheader> Available </template>
@@ -327,7 +327,7 @@
                             <div class="flex flex-wrap p-2 align-items-center gap-3">
                                 <img class="w-4rem shadow-2 flex-shrink-0 border-round" :src="slotProps.item.nocdn" width="60" height="60"/>
                                 <div class="flex-1 flex flex-column gap-2">
-                                    <span class="font-bold">{{ slotProps.item.name }}</span>
+                                    <span class="font-bold">({{slotProps.item.sira}}) {{ slotProps.item.name }}</span>
  
                                 </div>
                             </div>
@@ -446,7 +446,12 @@ export default {
 
     },
     methods: {
-
+        inputSize(event){
+            this.selectedSize = {
+                name:'',
+            }
+            this.selectedSize.name = event.target._value;
+        },
         photoListChangeQueue(event) {
             const changeQueueList = [];
             let queue = 1;
@@ -471,12 +476,13 @@ export default {
             for (const item of event.items) {
                 this.pickProductPhotosList[1].push(item);
             }
-            
             this.pickProductPhotosList[0] = [];
         },
         photoListPick(event) {
-            this.pickProductPhotosList[1].push(event.items[0]);
-            this.pickProductPhotosList[0].splice(this.findIndex(event.items[0].id, this.pickProductPhotosList[0]),1)
+            // const index = event.items[0].findIndex()
+
+            // this.pickProductPhotosList[1].push(event.items[0]);
+            // this.pickProductPhotosList[0].splice(this.findIndex(event.items[0].id, this.pickProductPhotosList[0]),1)
         },
         fotoSil() {
             useLoadingStore().begin_loading_act();
@@ -666,8 +672,10 @@ export default {
             this.keyListEn = this.__noneControl(this.getProductModel.anahtarlar_en);   
             this.keyListFr = this.__noneControl(this.getProductModel.anahtarlar_fr);
             this.keyListEs = this.__noneControl(this.getProductModel.anahtarlar_es);
-
-            this.selectedCategoryEn = this.getProductCategoryList.find(x => x.kategori_id == this.getProductModel.kategori_id);
+            if(this.getProductModel.kategori_id){
+                this.selectedCategoryEn = this.getProductCategoryList.find(x => x.kategori_id == this.getProductModel.kategori_id);
+                
+            }
             this.selectedColorEn = this.getProductColorEnList.find(x => x.name == this.getProductModel.renk_en);
             this.selectedColorFr = this.getProductColorFrList.find(x => x.name == this.getProductModel.renk_fr);
             this.selectedColorEs = this.getProductColorEsList.find(x => x.name == this.getProductModel.renk_es);
@@ -752,6 +760,12 @@ export default {
                 this.update();
             }
         }
+    },
+    mounted(){
+        this.emitter.on('fotografListUpdate',()=>{
+            this.pickProductPhotosList = [...this.getProductPhotoListPick];
+
+        })
     }
 }
 </script>
