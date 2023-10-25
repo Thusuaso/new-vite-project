@@ -593,11 +593,7 @@ export default {
             useProductionsStore().products_save_button_status_load_act(false);
         },
         changePayment(event) {
-            if (event.value.id == 1 || event.value.id == 2) {
-                this.getProductionsDetailModel.siparis.siparisDurumId = 1;
-            } else{
-                this.getProductionsDetailModel.siparis.siparisDurumId = 2;
-            }
+   
             if(event.value.id == 2 && localStorage.getItem('userId') == 12){
                 this.emitter.emit('open_advanced_payment',false);
             }else{
