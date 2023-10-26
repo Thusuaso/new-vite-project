@@ -100,12 +100,12 @@
                         </template>
                     </Column>
                     <Column field="teklifOncelik" header="Öncelik"></Column>
-                    <Column header="">
+                    <!-- <Column header="">
                     <template #body="slotProps">
                         <button type="button" class="btn btn-danger" @click="offerDelete(slotProps.data.id)">Sil</button>
 
                     </template>
-                    </Column>
+                    </Column> -->
                 </DataTable>
             </div>
         </div>
@@ -207,12 +207,12 @@
                         </template>
                     </Column>
                     <Column field="teklifOncelik" header="Öncelik"></Column>
-                    <Column header="">
+                    <!-- <Column header="">
                     <template #body="slotProps">
                         <button type="button" class="btn btn-danger" @click="offerDelete(slotProps.data.id)">Sil</button>
 
                     </template>
-                    </Column>
+                    </Column> -->
                 </DataTable>
             </div>
         </div>
@@ -424,7 +424,7 @@
 
     </div>
 
-    <Dialog v-model:visible="offer_detail_form" header="" modal :style="{ width: '100vw' }">
+    <Dialog v-model:visible="offer_detail_form" :header="queue" modal :style="{ width: '100vw' }">
         <offerForm />
     </Dialog>
 
@@ -461,6 +461,7 @@ export default {
     },
     data() {
         return {
+            queue:null,
             filters1: {
                 tarih: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
                 sira: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
@@ -502,6 +503,7 @@ export default {
                 useOfferStore().offer_new_button_load_act(false);
                 useOfferStore().offer_all_button_load_act(false);
                 this.offer_detail_form = true;
+                this.queue = event.data.sira;
                 useLoadingStore().end_loading_act();
 
             })
@@ -513,6 +515,7 @@ export default {
                 useOfferStore().offer_new_button_load_act(false);
                 useOfferStore().offer_all_button_load_act(false);
                 this.offer_detail_form = true;
+                this.queue = event.data.sira;
                 useLoadingStore().end_loading_act();
             })
         },

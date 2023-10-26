@@ -87,11 +87,11 @@
                 <div class="col-2">
                     <div class="row m-auto mt-3">
                         <div class="col">
-                            <button type="button" class="btn btn-success" @click="offerProcess" :disabled="offer_save_disabled">Kaydet</button>
+                            <button type="button" class="btn btn-success w-100" @click="offerProcess" :disabled="offer_save_disabled">Kaydet</button>
                         </div>
-                        <div class="col">
+                        <!-- <div class="col">
                             <button type="button" class="btn btn-danger" @click="deleteForm">Sil</button>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="row m-auto mt-3 ">
                         <div class="col">
@@ -191,7 +191,7 @@
 
                         <button type="button" class="btn btn-success w-100 mb-3" @click="offerProcess" :disabled="offer_save_disabled">Kaydet</button>
 
-                        <button type="button" class="btn btn-danger w-100 mb-3" @click="deleteForm">Sil</button>
+                        <!-- <button type="button" class="btn btn-danger w-100 mb-3" @click="deleteForm">Sil</button> -->
 
                         <div class="form-check mb-3">
                             <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" v-model="getOfferModelList.takipEt" >

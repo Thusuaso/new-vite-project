@@ -43,7 +43,7 @@ export default {
         deleteProforma() {
             productionsService.deleteProforma(this.getProductionsDetailModel.siparis.siparisNo).then(data => {
                 if (data) {
-                    socket.socketIO.emit('products_detail_update_emit', this.getProductionsDetailModel.siparis.siparisNo);
+                    // socket.socketIO.emit('products_detail_update_emit', this.getProductionsDetailModel.siparis.siparisNo);
                     this.$toast.add({ severity: 'success', detail: 'Başarıyla Silindi', life: 3000 });
                 } else {
                     this.$toast.add({ severity: 'error', detail: 'Silme Başarısız', life: 3000 });

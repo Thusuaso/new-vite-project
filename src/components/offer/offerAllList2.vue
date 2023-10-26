@@ -418,8 +418,8 @@
 
 
 
-    <Dialog v-model:visible="offer_detail_form" header="" modal :style="{ width: '100vw' }">
-        <offerForm />
+    <Dialog v-model:visible="offer_detail_form" :header="queue" modal :style="{ width: '100vw' }">
+        <offerForm  />
     </Dialog>
 
 </template>
@@ -455,6 +455,7 @@ export default {
     },
     data() {
         return {
+            queue:null,
             filters1: {
                 tarih: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
                 sira: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
@@ -482,6 +483,7 @@ export default {
                 useOfferStore().offer_form_model_list_load_act(data);
                 useOfferStore().offer_new_button_load_act(false);
                 useOfferStore().offer_all_button_load_act(false);
+                this.queue = event.data.sira;
                 this.offer_detail_form = true;
                 useLoadingStore().end_loading_act();
 
@@ -493,6 +495,7 @@ export default {
                 useOfferStore().offer_form_model_list_load_act(data);
                 useOfferStore().offer_new_button_load_act(false);
                 useOfferStore().offer_all_button_load_act(false);
+                this.queue = event.data.sira;
                 this.offer_detail_form = true;
                 useLoadingStore().end_loading_act();
             })

@@ -145,7 +145,9 @@ export const fileService = {
     });
   },
   faturaDosyaGonder(file: any, teklifId: any, siparisno: any) {
-
+    console.log(file)
+    console.log(teklifId)
+    console.log(siparisno);
     const kontrol = file.name.split(".").length;
     if (kontrol > 2) {
       alert(

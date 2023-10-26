@@ -68,7 +68,7 @@
                                         <label for="crate">Adet</label>
                                     </span>
                             </div>
-                            
+
                         </div>
                         <div class="row mb-3 mt-4">
                             <div class="col-4">
