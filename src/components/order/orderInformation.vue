@@ -905,7 +905,17 @@ export default {
         this.products.en == "Various" ||
         this.products.en == "SLAB"
       ) {
-        this.products.ton = 0;
+        if (this.selectedUnit.id == 1) {
+          this.products.ton = (
+            (coefficient *
+              10 *
+              event.target.value *
+              parseFloat(this.products.kenar.replace(",", "."))) /
+            1000
+          ).toFixed(3);
+        } else {
+          this.products.ton = 0;
+        }
       } else if (this.products.boy == "Free" || this.products.boy == "FREE") {
         if (this.selectedUnit.id == 3) {
           const mt =
