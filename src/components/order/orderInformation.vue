@@ -905,16 +905,25 @@ export default {
         this.products.en == "Various" ||
         this.products.en == "SLAB"
       ) {
-        if (this.selectedUnit.id == 1) {
-          this.products.ton = (
-            (coefficient *
-              10 *
-              event.target.value *
-              parseFloat(this.products.kenar.replace(",", "."))) /
-            1000
-          ).toFixed(3);
-        } else {
+        if (
+          this.products.kenar == "VAR" ||
+          this.products.kenar == "Various" ||
+          this.products.kenar == "SLAB" ||
+          this.products.kenar == "Slab"
+        ) {
           this.products.ton = 0;
+        } else {
+          if (this.selectedUnit.id == 1) {
+            this.products.ton = (
+              (coefficient *
+                10 *
+                event.target.value *
+                parseFloat(this.products.kenar.replace(",", "."))) /
+              1000
+            ).toFixed(3);
+          } else {
+            this.products.ton = 0;
+          }
         }
       } else if (this.products.boy == "Free" || this.products.boy == "FREE") {
         if (this.selectedUnit.id == 3) {
@@ -937,15 +946,22 @@ export default {
             1000
           ).toFixed(3);
         } else if (this.selectedUnit.id == 2) {
-          const m2 =
-            (parseFloat(this.products.en.replace(",", ".")) *
-              parseFloat(this.products.boy.replace(",", ".")) *
-              event.target.value) /
-            10000;
-          this.products.ton = (
-            (coefficient * 10 * m2 * parseFloat(this.products.kenar.replace(",", "."))) /
-            1000
-          ).toFixed(3);
+          if (this.products.en == "Other" || this.products.en == "OTHER") {
+            this.products.ton = 0;
+          } else {
+            const m2 =
+              (parseFloat(this.products.en.replace(",", ".")) *
+                parseFloat(this.products.boy.replace(",", ".")) *
+                event.target.value) /
+              10000;
+            this.products.ton = (
+              (coefficient *
+                10 *
+                m2 *
+                parseFloat(this.products.kenar.replace(",", "."))) /
+              1000
+            ).toFixed(3);
+          }
         } else if (this.selectedUnit.id == 3) {
           const mt =
             (event.target.value * parseFloat(this.products.en.replace(",", "."))) / 100;
@@ -1010,9 +1026,9 @@ export default {
         ) {
           return 0;
         } else if (boy == "Free" || boy == "FREE") {
-          return ((miktar * (parseFloat(en.replace(",", ".")) / 100)) / 10).toFixed(2);
+          return (miktar * (parseFloat(en.replace(",", ".")) / 100)).toFixed(2);
         } else {
-          const adet = miktar * (parseFloat(boy.replace(",", ".")) / 100);
+          let adet = miktar / (parseFloat(boy.replace(",", ".")) / 100);
           return (
             adet *
             (parseFloat(boy.replace(",", ".")) / 100) *
