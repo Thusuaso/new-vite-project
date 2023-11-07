@@ -44,20 +44,20 @@
           :sortField="['status', 'forwarding_date']"
           sortOrder="-1"
         >
-          <Column field="po" header="Po"></Column>
-          <Column field="product_date" header="Sipariş Tarihi">
+          <Column field="po" header="Po (Purchase Order)"></Column>
+          <Column field="product_date" header="Sipariş Tarihi (Order Date)">
             <template #body="slotProps">
               {{ $filters.formatDate(slotProps.data.product_date) }}
             </template>
           </Column>
-          <Column field="forwarding_date" header="Sevkiyat Tarihi">
+          <Column field="forwarding_date" header="Sevkiyat Tarihi (Shipment Date)">
             <template #body="slotProps">
               {{ $filters.formatDate(slotProps.data.forwarding_date) }}
             </template>
           </Column>
 
-          <Column field="status" header="Durum"></Column>
-          <Column field="cost" header="Sipariş">
+          <Column field="status" header="Durum (Status)"></Column>
+          <Column field="cost" header="Sipariş (Order Total USD)">
             <template #body="slotProps">
               {{ $filters.formatPrice(slotProps.data.cost) }}
             </template>
@@ -65,7 +65,7 @@
               {{ $filters.formatPrice(getFinanceTestDetailTotalList.cost) }}
             </template>
           </Column>
-          <Column field="paid" header="Ödenen">
+          <Column field="paid" header="Ödenen (Paid Amount)">
             <template #body="slotProps">
               {{ $filters.formatPrice(slotProps.data.paid) }}
             </template>
@@ -73,7 +73,7 @@
               {{ $filters.formatPrice(getFinanceTestDetailTotalList.paid) }}
             </template>
           </Column>
-          <Column field="balance" header="Kalan">
+          <Column field="balance" header="Kalan (Balance)">
             <template #body="slotProps">
               <div
                 :style="{
@@ -88,7 +88,7 @@
               {{ $filters.formatPrice(getFinanceTestDetailTotalList.balance) }}
             </template>
           </Column>
-          <Column field="advanced_payment" header="Peşinat">
+          <Column field="advanced_payment" header="Peşinat (Prepayment)">
             <template #body="slotProps">
               {{ $filters.formatPrice(slotProps.data.advanced_payment) }}
             </template>

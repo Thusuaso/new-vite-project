@@ -412,15 +412,21 @@ export default {
             };
         },
         reset() {
-            this.selectedOrder = null;
-            this.f_date = new Date();
-            this.selectedOrderProduct = [];
-            this.selectedOrderProduct.siparis = 0;
-            this.selectedOrderProduct.uretim = 0;
-            this.remainder = 0;
-            this.forwardingCrateList = [];
-            this.send_crate_disabled = false;
-            this.allCrate = false;
+            this.forwarding_form = false;
+            this.filterOrderList =  [];
+            this.selectedOrder =  null;
+            this.f_date =  new Date();
+            this.forwardingStatus =  'normal';
+            this.selectedOrderProduct =  {};
+            this.remainder =  0;
+            this.selectedForwardingCrate =  [];
+            this.forwardingCrateList =  [];
+            this.crateTotal =  {
+                amount: 0,
+                totalPrice:0,
+            },
+            this.allCrate =  false;
+            this.send_crate_disabled =  true;
             useLoadingStore().begin_loading_act();
             forwardingService.getForwardingModel().then(data => {
                 useForwardingStore().forwarding_load_act(data);

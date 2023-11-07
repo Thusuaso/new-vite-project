@@ -842,13 +842,14 @@ export default {
       });
     },
     faturaDosyaGonder(event) {
-      if (event.size > 1000000) {
+      if (event.files[0].size > 1000000) {
         this.$toast.add({
           severity: "error",
           summary: "ISF",
           detail: "Evrak boyutunu kontrol ediniz.",
           life: 3000,
         });
+        return;
       } else {
         this.faturaGonderBilgileri = event.files[0];
 
