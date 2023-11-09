@@ -109,7 +109,6 @@
                 <Chart type="bar" :data="getOfferAllChartListA" :options="chartOptions" class="w-100 mb-3 mt-3"  />
             </div>
         </div>
-
         <div class="row m-auto mt-3">
             <div class="col">
                 <DataTable 
@@ -123,6 +122,8 @@
                         v-model:selection="selectedOfferListB"
                         selectionMode="single"
                         @row-click="offerListBSelected($event)"  
+                        :rowStyle="bListRowStyle"
+                        sortField="acil" :sortOrder="-1"
                     >
                     <template #header>
                         Teklifler B Listesi
@@ -330,6 +331,7 @@
                 v-model:selection="selectedOfferListB"
                 selectionMode="single"
                 @row-click="offerListBSelected($event)"  
+                :rowStyle="bListRowStyle"
             >
             <template #header>
                 Teklifler B Listesi
@@ -476,6 +478,15 @@ export default {
         }
     },
     methods: {
+        bListRowStyle(event){
+          if(event.acil){
+            return {
+                    'backgroundColor':'gray'
+                } 
+        }
+          
+            
+        },
         offerListBSelected(event) {
             useLoadingStore().begin_loading_act();
 
@@ -526,3 +537,8 @@ export default {
     }
 }
 </script>
+<style scoped>
+    .rowClassBackground {
+        background-color:gray;
+    }
+</style>

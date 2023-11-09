@@ -272,20 +272,22 @@
             </div>
             <div class="row m-auto mt-3"  >
                 <div class="col">
-                    <PickList v-model="products" listStyle="height:342px" dataKey="id">
+                    <PickList v-model="getProductSuggested" 
+                    listStyle="height:342px" 
+                    dataKey="urunid"
+                    @move-to-target="moveToTargetSuggested($event)"
+                    @move-to-source="moveToSourceSuggested($event)"
+                    
+                    
+                    >
                         <template #sourceheader> Available </template>
                         <template #targetheader> Selected </template>
                         <template #item="slotProps">
                             <div class="flex flex-wrap p-2 align-items-center gap-3">
-                                <img class="w-4rem shadow-2 flex-shrink-0 border-round" :src="'https://primefaces.org/cdn/primevue/images/product/' + slotProps.item.image" :alt="slotProps.item.name" />
+                                <img class="w-4rem shadow-2 flex-shrink-0 border-round" width="100" height="100" :src="slotProps.item.foto" :alt="slotProps.item.urunadi_en" />
                                 <div class="flex-1 flex flex-column gap-2">
-                                    <span class="font-bold">{{ slotProps.item.name }}</span>
-                                    <div class="flex align-items-center gap-2">
-                                        <i class="pi pi-tag text-sm"></i>
-                                        <span>{{ slotProps.item.category }}</span>
-                                    </div>
+                                    <span class="font-bold">{{ slotProps.item.urunadi_en }}</span>
                                 </div>
-                                <span class="font-bold text-900">$ {{ slotProps.item.price }}</span>
                             </div>
                         </template>
                     </PickList>
@@ -385,10 +387,13 @@ export default {
             'getProductColorEnList',
             'getProductColorFrList',
             'getProductColorEsList',
+            'getProductSuggested'
         ])
     },
     data() {
         return {
+            deletedSuggested:[],
+            addedSuggested:[],
             pickProductPhotosList:[],
             pick_list_photos_form:false,
             pickListPhotos:[],
@@ -446,6 +451,44 @@ export default {
 
     },
     methods: {
+        saveSuggested(){
+          const data = {
+                'added':this.addedSuggested,
+                'deleted':this.deletedSuggested,
+                'id':this.getProductModel.urunid,
+            }
+          panelService.setSuggestedProducts(data)
+          .then(response=>{
+                if(response.status){
+                    this.$toast.add({severity:'success',detail:'Başarıyla Kaydedildi',life:3000});
+                }else{
+                    this.$toast.add({severity:'error',detail:'Kaydetme Başarısız',life:3000});
+                    
+                }
+            })
+
+        },
+        moveToSourceSuggested(event){
+            const index = this.getProductSuggested[1].findIndex(x=>x.urunid == event.items[0].urunid);
+            this.getProductSuggested[1].splice(index,1);
+            this.deletedSuggested.push(event.items[0]);
+            this.getProductSuggested[0].push(event.items[0]);
+            const index2 = this.addedSuggested.findIndex(x=>x.urunid == event.items[0].urunid);
+            this.addedSuggested.splice(index2,1);
+        },
+        moveToTargetSuggested(event){
+            if(this.getProductSuggested[1].length ==4){
+                alert('Zaten 4 adet eklenmiş...');
+                return;
+            }else{
+                const index = this.getProductSuggested[0].findIndex(x=>x.urunid == event.items[0].urunid);
+                this.getProductSuggested[0].splice(index,1);
+                this.getProductSuggested[1].push(event.items[0]);
+                const index2 = this.deletedSuggested.findIndex(x=>x.urunid == event.items[0].urunid);
+                this.deletedSuggested.splice(index2,1);
+                this.addedSuggested.push(event.items[0]);
+            }
+        },
         inputSize(event){
             this.selectedSize = {
                 name:'',

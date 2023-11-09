@@ -26,6 +26,7 @@ export const usePanelStore = defineStore('panel', {
             productPhotoListPick: [],
             panelCustomersList: [],
             panelCustomersModel:[],
+            productSuggested:[],
             
         }
     },
@@ -69,12 +70,16 @@ export const usePanelStore = defineStore('panel', {
             this.productSuggestedProductsList = data.onerilernUrunlerList;
             this.productPhotoList = data.fotolist;
             this.productPhotoListPick = [data.fotolist, []];
+            this.productSuggested = [data.onerilenUrunList,data.onerilernUrunlerList];
             this.productColorEnList = data.renkenlist;
             this.productColorFrList = data.renkfrlist;
             this.productColorEsList = data.renkeslist;
         },
     },
     getters: {
+        getProductSuggested(state){
+          return state.productSuggested;  
+        },
         getPanelCustomersModel(state) {
             return state.panelCustomersModel;
         },

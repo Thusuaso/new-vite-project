@@ -22,7 +22,18 @@
     style="font-size:85%;"
     >
         <Column field="sira" header="#"></Column>
-        <Column field="id" header="Id"></Column>
+        <Column field="id" header="Id"
+        :showFilterMenu="false"
+            :showFilterOperator="false"
+            :showClearButton="false"
+            :showApplyButton="false"
+            :showFilterMatchModes="false"
+            :showAddButton="false"
+        >
+            <template #filter="{ filterModel, filterCallback }">
+                <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" placeholder="Search by name" />
+            </template>
+        </Column>
         <Column field="kategoriAdi" header="Kategori"
             :showFilterMenu="false"
             :showFilterOperator="false"
@@ -155,6 +166,8 @@ export default {
                 'en': { value: null, matchMode: FilterMatchMode.STARTS_WITH },
                 'boy': { value: null, matchMode: FilterMatchMode.STARTS_WITH },
                 'kenar': { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+                'id': { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+
 
 
                 

@@ -194,23 +194,52 @@
                         <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
                     </template>
                 </Column>
-                <Column field="kutuadet" header="Kutu">
-                
+                <Column field="kutuadet" header="Kutu"
+                :showFilterMenu="false"
+                        :showFilterOperator="false"
+                        :showClearButton="false"
+                        :showApplyButton="false"
+                        :showFilterMatchModes="false"
+                        :showAddButton="false"
+                >
+                    <template #filter="{ filterModel, filterCallback }">
+                        <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
+                    </template>
                 </Column>
-                <Column field="adet" header="Adet">
+                <Column field="adet" header="Adet"
+                :showFilterMenu="false"
+                        :showFilterOperator="false"
+                        :showClearButton="false"
+                        :showApplyButton="false"
+                        :showFilterMatchModes="false"
+                        :showAddButton="false"
+                >
                     <template #body="slotProps">
                         {{ $filters.formatDecimal(slotProps.data.adet) }}
                     </template>
                     <template #footer>
                         {{ $filters.formatDecimal(getMekmarForwardingTotalList.piece) }}
                     </template>
+                    <template #filter="{ filterModel, filterCallback }">
+                        <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
+                    </template>
                 </Column>
-                <Column field="miktar" header="Miktar">
+                <Column field="miktar" header="Miktar"
+                :showFilterMenu="false"
+                        :showFilterOperator="false"
+                        :showClearButton="false"
+                        :showApplyButton="false"
+                        :showFilterMatchModes="false"
+                        :showAddButton="false"
+                >
                     <template #body="slotProps">
                         {{ $filters.formatDecimal(slotProps.data.miktar) }}
                     </template>
                     <template #footer>
                         {{ $filters.formatDecimal(getMekmarForwardingTotalList.amount) }}
+                    </template>
+                    <template #filter="{ filterModel, filterCallback }">
+                        <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
                     </template>
                 </Column>
                 <Column field="birimadi" header="Birim"></Column>
@@ -286,6 +315,11 @@ export default {
                 boy: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
                 kenar: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
                 siparisno: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+                miktar: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+                adet: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+                kutuadet: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+
+
             },
             f_dates: null,
         }

@@ -102,6 +102,14 @@
                                 </label>
                             </div>
                         </div>
+                        <div class="col">
+                            <div class="form-check ">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault2" v-model="getOfferModelList.acil">
+                                <label class="form-check-label" for="flexCheckDefault2">
+                                    Acil
+                                </label>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

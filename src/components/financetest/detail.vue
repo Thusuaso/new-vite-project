@@ -1,5 +1,6 @@
 <template>
   <div v-if="!getMobile">
+    {{ getFinanceTestDetailList }}
     <div class="row m-auto mt-3">
       <div class="col">
         <table class="table">
@@ -77,8 +78,8 @@
             <template #body="slotProps">
               <div
                 :style="{
-                  backgroundColor: slotProps.data.balance > 0 ? '#6aa84f' : '',
-                  color: slotProps.data.balance > 0 ? 'white' : '',
+                  backgroundColor: slotProps.data.balance > 5 ? '#6aa84f' : '',
+                  color: slotProps.data.balance > 5 ? 'white' : '',
                 }"
               >
                 {{ $filters.formatPrice(slotProps.data.balance) }}

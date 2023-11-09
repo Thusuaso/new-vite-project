@@ -1180,6 +1180,7 @@ export default {
         this.buttonReset();
         this.resetData();
         this.emitter.emit("suppliers", this.getProductionsDetailModel.siparisUrunler);
+
       }
     },
     deleteForm() {

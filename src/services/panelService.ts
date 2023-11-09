@@ -43,7 +43,9 @@ export const panelService = {
     setPanelProductChangeQueue(data: any) {
         return api.put('/panel/makmarcom/fotosiradegisim', data).then(response => response.data);
     },
-
+    setSuggestedProducts(data:any){
+        return api.post('/panel/mekmarcom/suggested',data).then(response=>response.data);
+    }
 
 
 

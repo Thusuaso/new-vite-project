@@ -114,7 +114,6 @@
                 <Chart type="bar" :data="getOfferAllChartListA" :options="chartOptions" class="w-100 mb-3 mt-3"  />
             </div>
         </div>
-
         <div class="row m-auto mt-3">
             <div class="col">
                 <DataTable 
@@ -127,7 +126,9 @@
                         @filter="offerAllListBFilter($event)"
                         v-model:selection="selectedOfferListB"
                         selectionMode="single"
-                        @row-click="offerListBSelected($event)"  
+                        @row-click="offerListBSelected($event)"
+                        :rowStyle="rowStyle"
+                        sortField="acil" :sortOrder="-1"
                     >
                     <template #header>
                         Teklifler B Listesi
@@ -339,6 +340,7 @@
                 v-model:selection="selectedOfferListB"
                 selectionMode="single"
                 @row-click="offerListBSelected($event)"  
+                :rowStyle="rowStyle"
             >
             <template #header>
                 Teklifler B Listesi
@@ -482,6 +484,13 @@ export default {
         }
     },
     methods: {
+        rowStyle(event){
+            if(event.acil){
+
+                return {'backgroundColor':'gray'}
+                
+            }
+        },
         offerDelete(queue){
             offerService.delete(queue).then(data => {
                 if (data.status) {

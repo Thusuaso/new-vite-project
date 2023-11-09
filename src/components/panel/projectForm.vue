@@ -35,8 +35,8 @@
             </div>
             <div class="form-floating">
                 <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 250px" v-model="information" @input="informationControl($event)"></textarea>
-                <label for="floatingTextarea2">Açıklama ({{ 800 - information.length }})</label>
-                <span style="color:red;" v-if="information.length == 800">*800 Karakterden fazlasını desteklememektedir.</span>
+                <label for="floatingTextarea2">Açıklama ({{ 1000 - information.length }})</label>
+                <span style="color:red;" v-if="information.length == 1000">*1000 Karakterden fazlasını desteklememektedir.</span>
 
             </div>
             <button type="button" class="btn btn-success mt-2 w-100" @click="addInformation">Açıklama Ekle</button>
@@ -158,8 +158,8 @@ export default {
     },
     methods: {
         informationControl(event){
-          if(event.target.value.length > 800){
-                this.information = event.target.value.substring(0,800);
+          if(event.target.value.length >100){
+                this.information = event.target.value.substring(0,1000);
             }
         },
         mainPhotosChange(event){
