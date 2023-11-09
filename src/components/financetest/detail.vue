@@ -1,6 +1,5 @@
 <template>
   <div v-if="!getMobile">
-    {{ getFinanceTestDetailList }}
     <div class="row m-auto mt-3">
       <div class="col">
         <table class="table">
