@@ -4,12 +4,18 @@
             <button type="button" class="btn btn-success" @click="newCustomer">Yeni</button>
         </div>
         <div class="col">
+            <button type="button" class="btn btn-primary" @click="excel_cikti_al_click">Excel</button>
+        </div>
+        <div class="col">
             <AutoComplete placeholder="Po ile Müşteri Ara" v-model="selectedPo" :suggestions="filteredShopperPoList" optionLabel="po" @complete="searchPo($event)" @item-select="poSelected($event)" @clear="clearPo($event)"/>
         </div>
     </div>
     <div class=" m-auto" v-if="getMobile">
         <div class="">
             <button type="button" class="btn btn-success w-100 mb-3" @click="newCustomer">Yeni</button>
+        </div>
+        <div>
+            <button type="button" class="btn btn-primary" @click="excel_cikti_al_click">Excel</button>
         </div>
         <div class="w-100">
             <span class="p-float-label w-100">
@@ -168,6 +174,7 @@
 import { useShopperStore } from '../stores/shopper';
 import { useLoadingStore } from '../stores/loading';
 import { useMobilStore } from '../stores/mobil';
+import {useLocalStore} from '../stores/local';
 import { mapState } from 'pinia';
 import { FilterMatchMode } from 'primevue/api';
 
@@ -184,6 +191,9 @@ export default {
         ]),
         ...mapState(useMobilStore, [
             'getMobile'
+        ]),
+        ...mapState(useLocalStore,[
+            'getLocalServiceUrl'
         ])
     },
     components: {
@@ -210,6 +220,18 @@ export default {
         }
     },
     methods: {
+        excel_cikti_al_click(){
+            shopperService.getMusteriExcelListesi(this.getShopperList).then(response => {
+                            
+                if(response.status){
+                        const link = document.createElement('a')
+                        link.href = this.getLocalServiceUrl + 'musteriler/dosya_islemleri/excelMusterilerDetayListesi' 
+                        link.setAttribute('download','musteri_listesi.xlsx')
+                        document.body.appendChild(link)
+                        link.click()
+                }
+            })
+        },
         clearPo(event) {
             this.filteres_shopper_list_form = false;
             this.filteredShopperList = [];
@@ -220,7 +242,6 @@ export default {
             this.filteredShopperList.push(this.getShopperList.find(x => x.id == event.value.id));
         },
         searchPo(event) {
-            console.log(event);
             let result;
             if (event.query.length == 0) {
                 result = this.getShopperPoList;

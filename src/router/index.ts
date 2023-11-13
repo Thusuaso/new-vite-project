@@ -656,7 +656,6 @@ const router = createRouter({
         useLoadingStore().begin_loading_act();
         panelService.getPanelCategoryList().then(category => {
           usePanelStore().panel_category_list_load_act(category);
-          console.log(category);
           panelService.getPanelProductList(category.kategorilist[0].kategoriadi_en).then(data => {
             usePanelStore().panel_product_list_load_act(data);
             useLoadingStore().end_loading_act();
@@ -755,6 +754,30 @@ const router = createRouter({
           });
           
         })
+      }
+    },
+    {
+      path:'/panel/change/queue',
+      component : ()=>import('@/views/PanelQueueView.vue'),
+      beforeEnter (to,from,next){
+        useLoadingStore().begin_loading_act();
+        panelService.getPanelCategoryList().
+        then(category=>{
+          usePanelStore().panel_category_list_load_act(category);
+          panelService.getQueueProductsList(1)
+            .then(response=>{
+                usePanelStore().panel_queue_products_load_act(response.products);
+                useLoadingStore().end_loading_act();
+
+            });
+
+
+
+          next();
+        });
+
+
+
       }
     }
 

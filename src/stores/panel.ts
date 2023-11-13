@@ -27,10 +27,14 @@ export const usePanelStore = defineStore('panel', {
             panelCustomersList: [],
             panelCustomersModel:[],
             productSuggested:[],
+            productQueueProducts:[]
             
         }
     },
     actions: {
+        panel_queue_products_load_act(data:any){
+          this.productQueueProducts = data  
+        },
         panel_customers_detail_load_act(data: any) {
             this.panelCustomersModel = data;
 
@@ -77,6 +81,9 @@ export const usePanelStore = defineStore('panel', {
         },
     },
     getters: {
+        getProductQueueProducts(state){
+          return state.productQueueProducts;  
+        },
         getProductSuggested(state){
           return state.productSuggested;  
         },

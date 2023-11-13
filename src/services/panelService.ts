@@ -4,6 +4,12 @@ export const panelService = {
     getPanelCategoryList() {
         return api.get('/panel/mekmarcom/kategoriList').then(response => response.data);
     },
+    getQueueProductsList(category_id:any){
+      return api.get(`/panel/mekmarcom/products/queue/${category_id}`).then(response=>response.data);  
+    },
+    setQueueProducts(data:any){
+      return api.post('/panel/mekmarcom/products/queue/save',data).then(response=>response.data);  
+    },
     getPanelProductList(category:any) {
         return api.get(`/panelProductList/productKategoriList/${category}`).then(response => response.data);
     },

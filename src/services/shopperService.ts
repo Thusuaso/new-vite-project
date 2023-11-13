@@ -96,5 +96,9 @@ export const shopperService = {
     },
     getShopperSelectionDetail(userId: any, id: any) {
         return api.get(`/listeler/musteriler/seleksiyon/detail/${userId}/${id}`).then(response => response.data);
+    },
+    getMusteriExcelListesi(data:any){
+        return api.post('/musteriler/dosya_islemleri/excelMusterilerDetayListesi',data).then(response=>response.data);
     }
+
 }
