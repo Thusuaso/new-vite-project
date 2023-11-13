@@ -5,7 +5,7 @@
             <button type="success" class="btn btn-success" @click="newForm">Yeni</button>
         </div>
     </div>
-    <list @openPanelDetailForm="openPanelDetailForm($event)"/>
+    <list @openPanelDetailForm="openPanelDetailForm($event)" @product_id_emit="productIdEmit($event)"/>
     
     <Dialog v-model:visible="panel_products_form" :header="'Ürün Id ' + urunid" modal :style="{ 'width': '100vw' }">
         <panelForm/>
@@ -38,7 +38,11 @@ export default {
                 usePanelStore().panel_product_new_button_load_act(true);
                 this.panel_products_form = true;
                 useLoadingStore().end_loading_act();
+          
             });
+        },
+        productIdEmit(event){
+          this.urunid = event  
         },
         openPanelDetailForm(event) {
             this.panel_products_form = true;

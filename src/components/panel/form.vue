@@ -707,6 +707,13 @@ export default {
             this.getProductModel.renk_en = event.value.name;
         },
         categoryEnSelected(event) {
+            panelService.getNewQueue(event.value.kategori_id)
+            .then(response=>{
+                this.getProductModel.sira = response.queue;
+            });
+
+
+
             this.getProductModel.kategori_id = event.value.kategori_id;
             this.getProductModel.kategoriadi = event.value.kategoriadi_en;
 
@@ -757,7 +764,6 @@ export default {
             
         },
         update() {
-            console.log(this.keyListFr)
             this.save_button_disabled = true;
             if (this.keyListEn.length > 0) {
                 this.getProductModel.anahtarlar_en = this.keyListEn.join();
@@ -789,6 +795,7 @@ export default {
             panelService.setPanelSave(this.getProductModel).then(data => {
                 if (data.status) {
                     this.save_button_disabled = false;
+                    this.$emit('product_id_emit',data.urunid)
                     this.$toast.add({ severity: 'success', detail: 'Başarıyla Kaydedildi', life: 3000 });
                 } else {
                     this.save_button_disabled = false;

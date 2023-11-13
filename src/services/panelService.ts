@@ -1,6 +1,9 @@
 import { api } from '../services/customServices/mekmarWebSiteService';
 
 export const panelService = {
+    getNewQueue(category_id:any){
+      return api.get(`/panel/mekmarcom/products/new/queue/${category_id}`).then(response=>response.data);  
+    },
     getPanelCategoryList() {
         return api.get('/panel/mekmarcom/kategoriList').then(response => response.data);
     },
