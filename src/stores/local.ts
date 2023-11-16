@@ -4,7 +4,7 @@ export const useLocalStore = defineStore('local', {
 
     state: () => {
         return {
-            // url: 'http://localhost:5000/',
+            //url: 'http://localhost:5000/',
             url: "https://doktor-servis.mekmar.com/"
         }
     },

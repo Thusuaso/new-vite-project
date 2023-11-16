@@ -197,9 +197,24 @@
                 <div class="col-6">
                     <div class="row m-auto mt-3">
                         <div class="col">
+                            
                             <span class="p-float-label">
-                                <AutoComplete id="finish" v-model="selectedFinish" dropdown :suggestions="filteredProductFinishList" optionLabel="name" @complete="searchFinish($event)" />
-                                <label for="finish">Yüzey</label>
+                                <InputText id="ensurface" v-model="en_surface" />
+                                <label for="ensurface">En-Surface</label>
+                            </span>
+                        </div>
+                        <div class="col">
+                            
+                            <span class="p-float-label">
+                                <InputText id="frsurface" v-model="fr_surface" />
+                                <label for="frsurface">Fr-Surface</label>
+                            </span>
+                        </div>
+                        <div class="col mb-3">
+                            
+                            <span class="p-float-label">
+                                <InputText id="essurface" v-model="es_surface" />
+                                <label for="essurface">Es-Surface</label>
                             </span>
                         </div>
                         <div class="col">
@@ -392,6 +407,9 @@ export default {
     },
     data() {
         return {
+            en_surface:null,
+            fr_surface:null,
+            es_surface:null,
             deletedSuggested:[],
             addedSuggested:[],
             pickProductPhotosList:[],
@@ -664,8 +682,12 @@ export default {
         },
         addFinish() {
             const finishData = {
-                'islemadi': this.selectedFinish.name,
+                'islemadien':this.en_surface,
+                'islemadifr':this.fr_surface,
+                'islemadies':this.es_surface,
+
                 'dil': "en",
+
                 'kategori_id': this.getProductModel.kategori_id,
                 'urunid': this.getProductModel.urunid,
             };

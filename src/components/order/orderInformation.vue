@@ -342,6 +342,11 @@
       sortField="siraNo"
       :sortOrder="1"
     >
+      <Column header="Status">
+        <template #body="slotProps">
+          <Checkbox v-model="slotProps.data.alisFiyatiKontrol" :binary="true" disabled/>
+        </template>
+      </Column>
       <Column field="siraNo" header="S"></Column>
       <Column field="tedarikciAdi" header="Kimden"></Column>
       <Column field="iscilik" header="İşçilik"></Column>
@@ -1115,6 +1120,15 @@ export default {
     },
 
     updateForm() {
+
+      if(this.products.alisFiyati >0){
+        const index = this.getProductionsDetailModel.siparisUrunler.findIndex(x=>x.id == this.products.id);
+        this.getProductionsDetailModel.siparisUrunler[index].alisFiyatiKontrol = true;
+      }else{
+        const index = this.getProductionsDetailModel.siparisUrunler.findIndex(x=>x.id == this.products.id);
+        this.getProductionsDetailModel.siparisUrunler[index].alisFiyatiKontrol = false;
+      }
+
       this.products.tedarikciId = this.selectedSupplier.id;
       this.products.tedarikciAdi = this.selectedSupplier.firmaAdi;
       if (!this.products.tedarikciId) {
