@@ -5,10 +5,10 @@
             <button type="success" class="btn btn-success" @click="newForm">Yeni</button>
         </div>
     </div>
-    <list @openPanelDetailForm="openPanelDetailForm($event)" @product_id_emit="productIdEmit($event)"/>
+    <list @openPanelDetailForm="openPanelDetailForm($event)"/>
     
     <Dialog v-model:visible="panel_products_form" :header="'Ürün Id ' + urunid" modal :style="{ 'width': '100vw' }">
-        <panelForm/>
+        <panelForm  @product_id_emit="productIdEmit($event)" :urunid="urunid"/>
     </Dialog>
 </template>
 <script>
@@ -19,10 +19,15 @@ import { panelService } from '../services/panelService';
 
 import list from '../components/panel/list.vue';
 import form from '../components/panel/form.vue';
+import {mapState} from 'pinia';
 export default {
+    computed:{
+      ...mapState(usePanelStore,['getProductModel'])  
+    },
     components: {
         list,
         panelForm:form,
+    
     },
     data() {
         return {
@@ -42,7 +47,8 @@ export default {
             });
         },
         productIdEmit(event){
-          this.urunid = event  
+          this.urunid = event;
+          this.getProductModel.urunid = event;
         },
         openPanelDetailForm(event) {
             this.panel_products_form = true;

@@ -817,6 +817,7 @@ export default {
             panelService.setPanelSave(this.getProductModel).then(data => {
                 if (data.status) {
                     this.save_button_disabled = false;
+                    console.log(data.urunid);
                     this.$emit('product_id_emit',data.urunid)
                     this.$toast.add({ severity: 'success', detail: 'Başarıyla Kaydedildi', life: 3000 });
                 } else {
