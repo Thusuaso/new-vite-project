@@ -4,8 +4,8 @@ export const todoService = {
     getModel() {
         return api.get('/yapilacaklar/model').then(response => response.data);
     },
-    getList(userId:any) {
-        return api.get(`/yapilacaklar/kullanici/list/${userId}`).then(response => response.data);
+    getList(username:any) {
+        return api.get(`/yapilacaklar/kullanici/list/${username}`).then(response => response.data);
     },
     getAllList() {
         return api.get('/yapilacaklar/list/all').then(response => response.data);

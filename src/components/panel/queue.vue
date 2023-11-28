@@ -1,18 +1,11 @@
 <template>
     <div>
 
-        <DataTable :value="queueList" :reorderableColumns="true" @columnReorder="onColReorder($event)" @rowReorder="onRowReorder($event)" tableStyle="min-width: 50rem">
-            <Column rowReorder headerStyle="width: 3rem" :reorderableColumn="false" />
+        <DataTable class="p-datatable-sm" :value="queueList" :reorderableColumns="true" @columnReorder="onColReorder($event)" @rowReorder="onRowReorder($event)" scrollable scrollHeight="500px">
+            <Column rowReorder headerStyle="width: 3rem" :reorderableColumn="true" />
             <Column field="product_queue" header="Sıra" key="product_queue">
             
             </Column>
-
-            <Column field="product_image" header="Foto" key="product_image">
-                <template #body="slotProps">
-                    <img :src="slotProps.data.product_image" width="80" height="80"/>
-                </template>
-            </Column>
-            
             <Column field="product_id" header="Ürün Id" key="product_id">
             
             </Column>

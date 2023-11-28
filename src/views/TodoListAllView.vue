@@ -8,7 +8,7 @@
                     v-model:filters="filtersNotTodo"
                     filterDisplay="row"
                     scrollable 
-                    scrollHeight="450px"
+                    scrollHeight="650px"
                     selectionMode="single"
                     v-model:selection="selectedTodo"
                     @row-click="todoSelected($event)"
@@ -19,7 +19,7 @@
                     Yapılacaklar A
                 </template>
                 <Column 
-                        field="gorev_sahibi_adi" 
+                        field="ortak_gorev" 
                         header="Görev Sahibi"
                         :showFilterMenu="false"
                         :showFilterOperator="false"
@@ -43,84 +43,45 @@
         </div>
     </div>
     <div class="row mt-3">
+
         <div class="col">
             <DataTable 
-                        v-model:value="getTodoListAll.yapilmadi.yapilmadiB" 
-                        style="font-size:85%;"
-                        v-model:filters="filtersNotTodo"
-                        filterDisplay="row"
-                        scrollable scrollHeight="450px"
-                        selectionMode="single"
-                        v-model:selection="selectedTodo"
-                        @row-click="todoSelected($event)"
-                        sortField="aciliyet" :sortOrder="-1"
-                        :rowStyle="rowStyle2"
-
+                    :value="getTodoListAll.yapilmadi.yapilmadiC" 
+                    style="font-size:85%;"
+                    v-model:filters="filtersNotTodo"
+                    filterDisplay="row"
+                    scrollable scrollHeight="650px"
+                                        selectionMode="single"
+                v-model:selection="selectedTodo"
+                    @row-click="todoSelected($event)"
+                    sortField="aciliyet" :sortOrder="-1"
+                    :rowStyle="rowStyle3"
+                >
+                <template #header>
+                    Yapılacaklar C
+                </template>
+                <Column 
+                        field="ortak_gorev" 
+                        header="Görev Sahibi"
+                        :showFilterMenu="false"
+                        :showFilterOperator="false"
+                        :showClearButton="false"
+                        :showApplyButton="false"
+                        :showFilterMatchModes="false"
+                        :showAddButton="false"
                     >
-                    <template #header>
-                        Yapılacaklar B
+                    <template #filter="{ filterModel, filterCallback }">
+                        <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter"/>
                     </template>
-                    <Column 
-                            field="gorev_sahibi_adi" 
-                            header="Görev Sahibi"
-                            :showFilterMenu="false"
-                            :showFilterOperator="false"
-                            :showClearButton="false"
-                            :showApplyButton="false"
-                            :showFilterMatchModes="false"
-                            :showAddButton="false"
-                        >
-                        <template #filter="{ filterModel, filterCallback }">
-                            <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter"/>
-                        </template>
-                    </Column>
-                    <Column field="yapilacak" header="Görev"></Column>
-                    <Column header="Durum" v-if="userId == 10">
+                </Column>
+                <Column field="yapilacak" header="Görev"></Column>
+                <Column header="Durum" v-if="userId == 10">
                     <template #body="slotProps">
                         <button type="button" class="btn btn-warning" @click="status(slotProps.data.id)">Yapıldı</button>
                     </template>
-                    </Column>
+                </Column>
 
-                </DataTable>
-        </div>
-        <div class="col">
-                    <DataTable 
-                            :value="getTodoListAll.yapilmadi.yapilmadiC" 
-                            style="font-size:85%;"
-                            v-model:filters="filtersNotTodo"
-                            filterDisplay="row"
-                            scrollable scrollHeight="450px"
-                                                selectionMode="single"
-                        v-model:selection="selectedTodo"
-                            @row-click="todoSelected($event)"
-                            sortField="aciliyet" :sortOrder="-1"
-                            :rowStyle="rowStyle3"
-                        >
-                        <template #header>
-                            Yapılacaklar C
-                        </template>
-                        <Column 
-                                field="gorev_sahibi_adi" 
-                                header="Görev Sahibi"
-                                :showFilterMenu="false"
-                                :showFilterOperator="false"
-                                :showClearButton="false"
-                                :showApplyButton="false"
-                                :showFilterMatchModes="false"
-                                :showAddButton="false"
-                            >
-                            <template #filter="{ filterModel, filterCallback }">
-                                <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter"/>
-                            </template>
-                        </Column>
-                        <Column field="yapilacak" header="Görev"></Column>
-                        <Column header="Durum" v-if="userId == 10">
-                            <template #body="slotProps">
-                                <button type="button" class="btn btn-warning" @click="status(slotProps.data.id)">Yapıldı</button>
-                            </template>
-                        </Column>
-
-                    </DataTable>
+            </DataTable>
         </div>
     </div>
     <div class="row m-auto mt-5 mb-5">
@@ -171,22 +132,8 @@
                 </template>
                 </Column>
                 <Column 
-                        field="gorev_sahibi_adi"
+                        field="ortak_gorev"
                         header="Görev Sahibi"
-                        :showFilterMenu="false"
-                        :showFilterOperator="false"
-                        :showClearButton="false"
-                        :showApplyButton="false"
-                        :showFilterMatchModes="false"
-                        :showAddButton="false"
-                    >
-                    <template #filter="{ filterModel, filterCallback }">
-                        <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter"/>
-                    </template>
-                </Column>
-                <Column 
-                        field="gorev_veren_adi" 
-                        header="Görev Veren"
                         :showFilterMenu="false"
                         :showFilterOperator="false"
                         :showClearButton="false"
@@ -228,10 +175,10 @@
     <Dialog v-model:visible="to_do_list_form" header="" modal>
         <div class="row">
             <div class="col mt-3">
-                <span class="p-float-label">
-                    <Dropdown id="users" v-model="selectedUser" :options="users" optionLabel="username"  class="w-100" @change="usersSelectedChange($event)"/>
-                    <label for="users">Görev Sahibi</label>
-                </span>
+                <span class="p-float-label w-100">
+                <AutoComplete id="users" v-model="selectedUser" multiple :suggestions="filteredUsers" optionLabel="username" @complete="searchUsers($event)" @item-select="usersSelected($event)"/>
+                <label for="users">Görev Sahibi</label>
+            </span>
                 <span class="p-float-label mt-4">
                         <Dropdown id="priority" v-model="selectedPriority" :options="priorities" optionLabel="priority"  class="w-100" @change="prioritiesSelectedChange($event)"/>
                         <label for="priority">Öncelik</label>
@@ -279,6 +226,7 @@ export default {
     },
     data() {
         return {
+            filteredUsers:null,
             statusPriority:false,
             userId:0,
             update_to_do_disabled:false,
@@ -289,25 +237,46 @@ export default {
                 { 'id': 3, 'priority': 'C' },
             ],
             users:[],
-            selectedUser:{},
+            selectedUser:[],
             to_do_list_form:false,
             selectedTodo:{},
             filtersNotTodo: {
                 girisTarihi: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-                gorev_sahibi_adi: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-                gorev_veren_adi: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+                ortak_gorev: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
                 oncelik: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
             },
             filtersTodo: {
                 girisTarihi: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
                 yapildiTarihi: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-                gorev_sahibi_adi: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-                gorev_veren_adi: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+                ortak_gorev: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
                 oncelik: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-            }
+            },
+            ortakUser:'',
         }
     },
+    created(){
+        todoService.getUsersList().then(data => {
+                this.users = data;
+            });  
+    },
     methods: {
+        usersSelected(){
+            this.ortakUser = '';
+          this.selectedUser.forEach(x=>{
+            this.ortakUser += x.username + ",";
+          }); 
+        },
+        searchUsers(event){
+            let results;
+            if(event.query.length == 0){
+                results = this.users;
+            } else{
+                results = this.users.filter(x=>{
+                    return x.username.toLowerCase().startsWith(event.query.toLowerCase());
+                });
+            };
+            this.filteredUsers = results;  
+        },
         deleteTodo(id){
             if (confirm('Silmek istediğinize emin misiniz?')) {
                 useLoadingStore().begin_loading_act();
@@ -368,6 +337,7 @@ export default {
         },
         update() {
             this.update_to_do_disabled = true;
+            this.selectedTodo.ortak_gorev = this.ortakUser;
             todoService.update(this.selectedTodo).then(data => {
                 if (data.status) {
                     socket.socketIO.emit('to_do_list_emit_all');
@@ -391,7 +361,21 @@ export default {
             this.to_do_list_form = true;
             todoService.getUsersList().then(data => {
                 this.users = data;
-                this.selectedUser = data.find(x=>x.id == event.data.gorev_sahibi_id)
+                const val = event.data.ortak_gorev.split(',');
+                
+                this.selectedUser = [];
+                val.forEach(x=>{
+                    if(x == '' || x == ' ' || x == null){
+                        console.log('')
+                    } else{
+                        this.selectedUser.push(this.users.find(y=>y.username == x.trim()));
+                        
+                    }
+                })
+
+
+                // this.selectedUser = data.find(x=>x.id == event.data.gorev_sahibi_id)
+
             });
             this.selectedPriority = this.priorities.find(x => x.priority == event.data.oncelik);
             this.selectedTodo.aciliyet = event.data.aciliyet;

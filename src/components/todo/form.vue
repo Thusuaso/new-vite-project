@@ -8,9 +8,10 @@
         </div>
         <div class="col">
             <span class="p-float-label w-100">
-                <Dropdown id="users" v-model="selectedUser" :options="getUsersList" optionLabel="username" class="w-100" @change="userSelected($event)"/>
+                <AutoComplete id="users" v-model="selectedUser" multiple :suggestions="filteredUsers" optionLabel="username" @complete="searchUsers($event)" @item-select="usersSelected($event)"/>
                 <label for="users">Görev Sahibi</label>
             </span>
+
         </div>
         <div class="col">
             <span class="p-float-label w-100">
@@ -56,9 +57,11 @@ export default {
                 { 'id': 3, 'priority': 'C' },
             ],
             selectedPriority: {},
-            selectedUser: {},
+            selectedUser: [],
             to_do_save_disabled:false,
             aciliyet:false,
+            filteredUsers:null,
+            ortakUser:'',
         }
     },
     created() {
@@ -67,6 +70,23 @@ export default {
         }
     },
     methods: {
+        usersSelected(event){
+          this.ortakUser = '';
+          this.selectedUser.forEach(x=>{
+            this.ortakUser += x.username + ",";
+          }); 
+        },
+        searchUsers(event){
+            let results;
+            if(event.query.length == 0){
+                results = this.getUsersList;
+            } else{
+                results = this.getUsersList.filter(x=>{
+                    return x.username.toLowerCase().startsWith(event.query.toLowerCase());
+                });
+            };
+            this.filteredUsers = results;
+        },
         todoCreatedProcess() {
             this.selectedUser = this.getUsersList.find(x => x.id == this.getModel.gorev_sahibi_id);
             this.selectedPriority = this.priorities.find(x => x.priority == this.getModel.oncelik);
@@ -84,6 +104,7 @@ export default {
             this.getModel.gorev_veren_id = localStorage.getItem('userId');
             this.getModel.gorev_veren_adi = localStorage.getItem('username');
             this.getModel.girisTarihi = localDateService.getDateString(new Date());
+            this.getModel.ortak_gorev = this.ortakUser;
             todoService.save(this.getModel).then(data => {
                 if (data.status) {
                     socket.socketIO.emit('to_do_list_emit');
@@ -102,6 +123,7 @@ export default {
         update() {
             
             useLoadingStore().begin_loading_act();
+            this.getModel.ortak_gorev = this.ortakUser;
             todoService.update(this.getModel).then(data => {
                 if (data.status) {
                     socket.socketIO.emit('to_do_list_emit');

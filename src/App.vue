@@ -79,7 +79,7 @@ export default ({
 
   },
   created() {
-    todoService.getList(localStorage.getItem('userId')).then(data => {
+    todoService.getList(localStorage.getItem('username')).then(data => {
       useTodoStore().to_do_list_load_act(data);
     });
     todoService.getCustomerControlService();

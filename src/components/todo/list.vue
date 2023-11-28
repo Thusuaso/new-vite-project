@@ -18,9 +18,6 @@
                         {{ $filters.formatDate(slotProps.data.girisTarihi) }}
                     </template>
                 </Column>
-                <Column field="gorev_sahibi_adi" header="Görev Sahibi">
-                    
-                </Column>
                 <Column field="yapilacak" header="Görev">
                     <template #body="slotProps">
                         <div :style="{'backgroundColor':slotProps.data.gorev_veren_id == 10 ? 'yellow':''}">
@@ -28,7 +25,6 @@
                         </div>
                     </template>
                 </Column>
-                <Column field="gorev_veren_adi" header="Görev Veren"></Column>
                 <Column field="oncelik" header="Öncelik"></Column>
                 <Column header="Durum">
                     <template #body="slotProps">
@@ -61,7 +57,6 @@
                             {{ slotProps.data.yapildiTarihi }}
                         </template>
                     </Column>
-                    <Column field="gorev_sahibi_adi" header="Görev Sahibi"></Column>
                     <Column field="yapilacak" header="Görev">
                         <template #body="slotProps">
                             <div :style="{ 'backgroundColor': slotProps.data.gorev_veren_id == 10 ? 'yellow' : '' }">
@@ -69,7 +64,6 @@
                             </div>
                         </template>
                     </Column>
-                    <Column field="gorev_veren_adi" header="Görev Veren"></Column>
                     <Column field="oncelik" header="Öncelik"></Column>
                     <Column header="Durum">
                         <template #body="slotProps">
