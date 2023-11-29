@@ -337,7 +337,12 @@ export default {
         },
         update() {
             this.update_to_do_disabled = true;
-            this.selectedTodo.ortak_gorev = this.ortakUser;
+            let ortak_users = '';
+            this.selectedUser.forEach(x=>{
+
+                    ortak_users += x.username + ","; 
+            });
+            this.selectedTodo.ortak_gorev = ortak_users.slice(0,-1);
             todoService.update(this.selectedTodo).then(data => {
                 if (data.status) {
                     socket.socketIO.emit('to_do_list_emit_all');

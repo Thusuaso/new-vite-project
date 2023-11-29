@@ -62,6 +62,7 @@ export default {
             aciliyet:false,
             filteredUsers:null,
             ortakUser:'',
+            users:[],
         }
     },
     created() {
@@ -88,8 +89,19 @@ export default {
             this.filteredUsers = results;
         },
         todoCreatedProcess() {
-            this.selectedUser = this.getUsersList.find(x => x.id == this.getModel.gorev_sahibi_id);
             this.selectedPriority = this.priorities.find(x => x.priority == this.getModel.oncelik);
+                const val =this.getModel.ortak_gorev.split(',');
+                
+                this.selectedUser = [];
+                val.forEach(x=>{
+                    if(x == '' || x == ' ' || x == null){
+                        console.log('')
+                    } else{
+                        this.selectedUser.push(this.getUsersList.find(y=>y.username == x.trim()));
+                        
+                    }
+                })
+
         },
         process() {
             if (this.getTodoNewButton) {
@@ -104,7 +116,11 @@ export default {
             this.getModel.gorev_veren_id = localStorage.getItem('userId');
             this.getModel.gorev_veren_adi = localStorage.getItem('username');
             this.getModel.girisTarihi = localDateService.getDateString(new Date());
-            this.getModel.ortak_gorev = this.ortakUser;
+            let ortakusers = '';
+            this.selectedUser.forEach(x=>{
+                ortakusers += x.username + ",";
+            }); 
+            this.getModel.ortak_gorev = ortakusers.slice(0,-1);
             todoService.save(this.getModel).then(data => {
                 if (data.status) {
                     socket.socketIO.emit('to_do_list_emit');
@@ -123,7 +139,11 @@ export default {
         update() {
             
             useLoadingStore().begin_loading_act();
-            this.getModel.ortak_gorev = this.ortakUser;
+            let ortakusers = '';
+            this.selectedUser.forEach(x=>{
+                ortakusers += x.username + ",";
+            }); 
+            this.getModel.ortak_gorev = ortakusers.slice(0,-1);
             todoService.update(this.getModel).then(data => {
                 if (data.status) {
                     socket.socketIO.emit('to_do_list_emit');

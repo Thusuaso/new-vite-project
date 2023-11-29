@@ -30,13 +30,22 @@
                     <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="getShopperOfferModel.phone">
                 </div>
             </div>
+            
+            
+        </div>
+        <div class="row m-auto mt-3">
             <div class="col">
                 <div class="form-floating">
-                    <textarea class="form-control h-100" placeholder="Leave a comment here" id="floatingTextarea" v-model="getShopperOfferModel.adress" style="padding-top:35px;"></textarea>
+                    <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" v-model="getShopperOfferModel.adress" style="padding-top:35px;height:150px;"></textarea>
                     <label for="floatingTextarea">Adres</label>
                 </div>
             </div>
-            
+            <div class="col">
+                <div class="form-floating">
+                    <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" v-model="getShopperOfferModel.description" style="padding-top:35px;height:150px;"></textarea>
+                    <label for="floatingTextarea">Açıklama</label>
+                </div>
+            </div>
         </div>
         <div class="row m-auto mt-3">
             <div class="col">
