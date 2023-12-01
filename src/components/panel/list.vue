@@ -15,10 +15,24 @@
                     v-model:selection="selectedPanelProduct"
                     selectionMode="single"
                     @row-click="panelProductSelected($event)"
-                    sortField="urunid"
-                    sortOrder="-1"
+                    sortField="sira"
+                    sortOrder="1"
                     paginator :rows="5"
                 >
+                <Column 
+                        field="sira" 
+                        header="Sıra"
+                        :showFilterMenu="false"
+                        :showFilterOperator="false"
+                        :showClearButton="false"
+                        :showApplyButton="false"
+                        :showFilterMatchModes="false"
+                        :showAddButton="false"
+                    >
+                    <template #filter="{ filterModel, filterCallback }">
+                        <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
+                    </template>
+                </Column>
                 <Column 
                         field="urunid" 
                         header="Id"
@@ -111,6 +125,8 @@ export default {
                 renk_en: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
                 urunkod: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
                 urunadi_en: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+                sira: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+
             },
             selectedPanelProduct: {},
         }

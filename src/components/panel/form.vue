@@ -40,12 +40,12 @@
             </div>
             <div class="row m-auto mt-4">
                 
-                <div class="col">
+                <!-- <div class="col">
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">Sıra</span>
                         <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="getProductModel.sira">
-                    </div>
-                </div>
+                    </div> 
+                </div> -->
                 <div class="col">
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">Birim</span>
