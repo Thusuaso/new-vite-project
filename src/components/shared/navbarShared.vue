@@ -20,6 +20,8 @@
                 <li><a class="dropdown-item" href="/todo/all">Yapılacaklar</a></li>
                 <li><a class="dropdown-item" href="/cost/mistake">Maliyet Hatalar</a></li>
                 <li><a class="dropdown-item" href="/order/representative">Satışçı ve Operasyon</a></li>
+                <li><a class="dropdown-item" href="/main/follow">Ana Takip</a></li>
+
 
 
               </ul>
@@ -75,7 +77,7 @@
                     <li><a class="dropdown-item" href="/shopper/list">Müşteriler</a></li>
                     <li><a class="dropdown-item" href="/shopper/offer/list">Teklifler</a></li>
                     <li><a class="dropdown-item" href="/shopper/bgp/list">Bgp</a></li>
-                    <li><a class="dropdown-item" href="/shopper/fair/list">Fuar</a></li>
+                    <li><a class="dropdown-item" href="/shopper/fair/list">Fuar & Ziyaret</a></li>
                     <li><a class="dropdown-item" href="/shopper/selection/list">Seleksiyon</a></li>
 
 

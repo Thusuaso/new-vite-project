@@ -239,7 +239,8 @@ export const reportsService = {
     },
     setCreateSizeDelete(id:any){
         return api.delete(`/seleksiyon/islemler/kasa/olculer/delete/${id}`).then(response=>response.data);
-    }
+    },
+
 
 
 }

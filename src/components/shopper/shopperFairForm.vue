@@ -23,10 +23,25 @@
         </div>
         <div class="row m-auto mt-3">
                 <div class="col">
-                    <div class="input-group mb-3">
+                    <!-- <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">Telefon</span>
                         <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="getShopperFairModel.phone">
-                    </div>
+                    </div> -->
+                    <MazPhoneNumberInput
+                            style="width:100%;height:50px;"
+                                v-model="getShopperFairModel.phone"
+                                :translations="{
+                                    countrySelector: {
+                                        placeholder: 'Ülke Kodu',
+                                        error: 'Choose country',
+                                        searchPlaceholder: 'Ülke Ara',
+                                    },
+                                    phoneInput: {
+                                        placeholder: 'Phone number',
+                                        example: 'Örn:',
+                                    },
+                                }"
+                                />
 
                 </div>
                 <div class="col">
@@ -40,12 +55,23 @@
                 </div>
         </div>
         <div class="row m-auto mt-3">
-            <div class="col">
+            <div class="col-9">
                 <div class="form-floating">
                     <textarea class="form-control h-100" placeholder="Leave a comment here" id="floatingTextarea" v-model="getShopperFairModel.adress" style="padding-top:35px;"></textarea>
                     <label for="floatingTextarea">Adres</label>
                 </div>
             </div>
+            <div class="col-3">
+                <div   class="flex align-items-center mb-2">
+                    <Checkbox style="margin-right:4px;" v-model="getShopperFairModel.fairstatus" inputId="fair" :binary="true" />
+                    <label for="fair">Fuar</label>
+                </div>
+                <div   class="flex align-items-center">
+                    <Checkbox style="margin-right:4px;" v-model="getShopperFairModel.visitstatus" inputId="visit" :binary="true" />
+                    <label for="visit">Ziyaret</label>
+                </div>
+            </div>
+
         </div>
         <div class="row m-auto mt-3">
             <div class="col">
@@ -81,10 +107,25 @@
             </div>
             <div class=" m-auto mt-3">
                     <div class="">
-                        <div class="input-group mb-3">
+                        <!-- <div class="input-group mb-3">
                             <span class="input-group-text" id="basic-addon1">Telefon</span>
                             <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="getShopperFairModel.phone">
-                        </div>
+                        </div> -->
+                        <MazPhoneNumberInput
+                            style="width:100%;height:50px;"
+                                v-model="getShopperFairModel.phone"
+                                :translations="{
+                                    countrySelector: {
+                                        placeholder: 'Ülke Kodu',
+                                        error: 'Choose country',
+                                        searchPlaceholder: 'Ülke Ara',
+                                    },
+                                    phoneInput: {
+                                        placeholder: 'Phone number',
+                                        example: 'Örn:',
+                                    },
+                                }"
+                                />
 
                     </div>
                     <div class="">
@@ -97,11 +138,21 @@
                         <AutoComplete class="w-100 mb-3" v-model="selectedCountry" dropdown :suggestions="filteredCountryList" optionLabel="ulkeAdi" placeholder="Ülke Seçiniz" @complete="searchCountry($event)" @item-select="countrySelected($event)" />
                     </div>
             </div>
-            <div class=" m-auto mt-3">
-                <div class="">
+            <div class="row m-auto mt-3">
+                <div class="col-9">
                     <div class="form-floating">
                         <textarea class="form-control h-100 w-100 mb-3" placeholder="Leave a comment here" id="floatingTextarea" v-model="getShopperFairModel.adress"></textarea>
                         <label for="floatingTextarea">Adres</label>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div   class="flex align-items-center mb-2">
+                        <Checkbox style="margin-right:4px;" v-model="getShopperFairModel.fairstatus" inputId="fair" :binary="true" />
+                        <label for="fair">Fuar</label>
+                    </div>
+                    <div   class="flex align-items-center">
+                        <Checkbox style="margin-right:4px;" v-model="getShopperFairModel.visitstatus" inputId="visit" :binary="true" />
+                        <label for="visit">Ziyaret</label>
                     </div>
                 </div>
             </div>
@@ -140,6 +191,8 @@ export default {
         return {
             selectedCountry: null,
             filteredCountryList: [],
+            selectedFairStatus:false,
+            selectedVisitStatus:false,
         }
     },
     created() {

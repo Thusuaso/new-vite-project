@@ -148,6 +148,8 @@ export default {
                 if (data.status) {
                     socket.socketIO.emit('to_do_list_emit');
                     socket.socketIO.emit('to_do_list_emit_all');
+                    socket.socketIO.emit('to_do_main_list_emit_all');
+
                     useLoadingStore().end_loading_act();
                     this.emitter.emit('todo_dialog_opened', false);
                     this.$toast.add({ severity: 'success', detail: 'Başarıyla Güncellendi', life: 3000 });

@@ -10,6 +10,7 @@ import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 const emitter = mitt();
 import 'maz-ui/css/main.css'
+import 'maz-ui/styles' // or import 'maz-ui/css/main.css'
 
 import 'bootstrap';
 /*Prime Vue */

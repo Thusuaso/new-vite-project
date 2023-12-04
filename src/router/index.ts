@@ -779,6 +779,20 @@ const router = createRouter({
 
 
       }
+    },
+    {
+      path:'/main/follow',
+      component: () => import ('@/views/MainTodoList.vue'),
+      beforeEnter(to,from,next){
+        useLoadingStore().begin_loading_act();
+        todoService.getTodoMainList(localStorage.getItem('userId')).then(data=>{
+
+          useTodoStore().to_do_main_list_load_act(data);
+          useLoadingStore().end_loading_act();
+          next();
+        });
+
+      }
     }
 
 

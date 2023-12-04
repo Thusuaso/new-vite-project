@@ -9,6 +9,7 @@ export const useTodoStore = defineStore('todo', {
             todoList: [],
             todoListAll: [],
             todoLength: 0,
+            todoMainList:[],
         }
     },
     actions: {
@@ -28,6 +29,9 @@ export const useTodoStore = defineStore('todo', {
         },
         to_do_length_load_act(data: any) {
             this.todoLength = data.length;
+        },
+        to_do_main_list_load_act(data:any){
+            this.todoMainList = data;
         }
     },
     getters: {
@@ -48,6 +52,9 @@ export const useTodoStore = defineStore('todo', {
         },
         getTodoLength(state) {
             return state.todoLength;
+        },
+        getTodoMainList(state){
+            return state.todoMainList;
         }
     }
 })

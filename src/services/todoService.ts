@@ -33,5 +33,11 @@ export const todoService = {
     },
     getMailControl(){
         return api.get('/todo/mail/control').then(response=>response.data);
+    },
+    getTodoMainList(userid:any){
+        return api.get(`/todo/main/list/${userid}`).then(response=>response.data);
+    },
+    setTodoMainQueue(data){
+        return api.post('/todo/main/queue/change',data).then(response=>response.data);
     }
 }

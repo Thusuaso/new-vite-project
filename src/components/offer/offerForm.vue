@@ -121,16 +121,33 @@
             </div>
             <div class="col">
                 <span class="p-float-label">
-                    <InputText id="username" v-model="getOfferModelList.phone" @input="selectedShopper.phone = $event.target.value"/>
-                    <label for="username">Telefon</label>
-                </span>
-            </div>
-            <div class="col">
-                <span class="p-float-label">
                     <InputText id="username" v-model="getOfferModelList.adress" @input="selectedShopper.adress = $event.target.value"/>
                     <label for="username">Adres</label>
                 </span>
             </div>
+            <div class="col">
+                <!-- <span class="p-float-label">
+                    <InputText id="username" v-model="getOfferModelList.phone" @input="selectedShopper.phone = $event.target.value"/>
+                    <label for="username">Telefon</label>
+                </span> -->
+                <MazPhoneNumberInput
+                style="width:100%;height:50px;"
+                    v-model="getOfferModelList.phone"
+                    :translations="{
+                        countrySelector: {
+                            placeholder: 'Ülke Kodu',
+                            error: 'Choose country',
+                            searchPlaceholder: 'Ülke Ara',
+                        },
+                        phoneInput: {
+                            placeholder: 'Phone number',
+                            example: 'Örn:',
+                        },
+                    }"
+                    />
+
+            </div>
+
         </div>
         <div class="row m-auto mt-3">
             <div class="col">
@@ -208,16 +225,26 @@
                         <InputText id="username" class="w-100 mb-3" v-model="getOfferModelList.email" @input="selectedShopper.email = $event.target.value"/>
                         <label for="username">Mail</label>
                     </span>
-
-                    <span class="p-float-label">
-                        <InputText id="username" class="w-100 mb-3"  v-model="getOfferModelList.phone" @input="selectedShopper.phone = $event.target.value"/>
-                        <label for="username">Telefon</label>
-                    </span>
-
                     <span class="p-float-label">
                         <InputText id="username" class="w-100 mb-3" v-model="getOfferModelList.adress" @input="selectedShopper.adress = $event.target.value"/>
                         <label for="username">Adres</label>
                     </span>
+                    <MazPhoneNumberInput
+                        v-model="getOfferModelList.phone"
+                        :translations="{
+                            countrySelector: {
+                            placeholder: 'Country code',
+                            error: 'Choose country',
+                            searchPlaceholder: 'Search a country',
+                            },
+                            phoneInput: {
+                            placeholder: 'Phone number',
+                            example: 'Example:',
+                            },
+                        }"
+                    />
+
+                    
             <offerProductForm/>
  
     </div>
@@ -285,7 +312,7 @@ export default {
             offer_delete_disabled:false,
             offer_save_disabled:false,
             o_date: new Date(),
-            selectedSource: {},
+            selectedSource: null,
             sources: [
                 { id: 1, source: "Portföy" },
                 { id: 2, source: "Site" },
@@ -298,7 +325,7 @@ export default {
             ],
             filteredOfferShopperList: [],
             selectedShopper: null,
-            selectedOfferPlace: {},
+            selectedOfferPlace: null,
             offerPlaces: [
                 { id: 1, place: "Mail" },
                 { id: 2, place: "WhatsApp" },
@@ -306,7 +333,7 @@ export default {
             ],
             filteredOfferCountryList: [],
             selectedCountry: null,
-            selectedOfferPriority: {},
+            selectedOfferPriority:null,
             offerPriorities: [
                 { id: 1, priority: "A" },
                 { id: 2, priority: "B" },
@@ -400,6 +427,22 @@ export default {
 
         },
         save() {
+            if(!this.selectedSource){
+                alert('Kaynak Seçiniz');
+                return;
+            }
+            if(!this.selectedShopper){
+                alert('Müşteri Seçiniz');
+                return;
+            } 
+            if(!this.selectedOfferPlace){
+                alert('Teklif Yeri Seçiniz');
+                return;
+            }
+            if(!this.selectedOfferPriority){
+                alert('Teklif Önceliğini Seçiniz');
+                return;
+            }
             this.offer_save_disabled = true;
             useLoadingStore().begin_loading_act();
             this.getOfferModelList.kullaniciAdi = localStorage.getItem('username');

@@ -397,6 +397,22 @@ export default {
 
         },
         save() {
+            if(!this.selectedSource){
+                alert('Kaynak Seçiniz');
+                return;
+            }
+            if(!this.selectedShopper){
+                alert('Müşteri Seçiniz');
+                return;
+            } 
+            if(!this.selectedOfferPlace){
+                alert('Teklif Yeri Seçiniz');
+                return;
+            }
+            if(!this.selectedOfferPriority){
+                alert('Teklif Önceliğini Seçiniz');
+                return;
+            }
             this.offer_save_disabled = true;
             this.getOfferModelList.kullaniciAdi = localStorage.getItem('username');
             this.getOfferModelList.kullaniciId = localStorage.getItem('userId');

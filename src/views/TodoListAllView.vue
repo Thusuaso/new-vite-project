@@ -14,9 +14,16 @@
                     @row-click="todoSelected($event)"
                     sortField="aciliyet" :sortOrder="-1"
                     :rowStyle="rowStyle"
+                    :globalFilterFields="['ortak_gorev', 'yapilacak',]"
                 >
                 <template #header>
-                    Yapılacaklar A
+                    <div class="flex justify-content-between">
+                        Yapılacaklar
+                        <span class="p-input-icon-right">
+                            <i class="pi pi-search" />
+                            <InputText v-model="filtersNotTodo['global'].value" placeholder="Genel Arama" />
+                        </span>
+                    </div>
                 </template>
                 <Column 
                         field="ortak_gorev" 
@@ -51,14 +58,15 @@
                     v-model:filters="filtersNotTodo"
                     filterDisplay="row"
                     scrollable scrollHeight="650px"
-                                        selectionMode="single"
-                v-model:selection="selectedTodo"
+                    selectionMode="single"
+                    v-model:selection="selectedTodo"
                     @row-click="todoSelected($event)"
                     sortField="aciliyet" :sortOrder="-1"
                     :rowStyle="rowStyle3"
+                    :globalFilterFields="['ortak_gorev', 'yapilacak',]"
                 >
                 <template #header>
-                    Yapılacaklar C
+                    Mail Bölümü
                 </template>
                 <Column 
                         field="ortak_gorev" 
@@ -244,12 +252,15 @@ export default {
                 girisTarihi: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
                 ortak_gorev: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
                 oncelik: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+                global: { value: null, matchMode: FilterMatchMode.CONTAINS },
             },
             filtersTodo: {
                 girisTarihi: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
                 yapildiTarihi: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
                 ortak_gorev: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
                 oncelik: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+                global: { value: null, matchMode: FilterMatchMode.CONTAINS },
+
             },
             ortakUser:'',
         }
