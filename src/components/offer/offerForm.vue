@@ -132,7 +132,7 @@
                 </span> -->
                 <MazPhoneNumberInput
                 style="width:100%;height:50px;"
-                    v-model="getOfferModelList.phone"
+                    v-model="phone"
                     :translations="{
                         countrySelector: {
                             placeholder: 'Ülke Kodu',
@@ -230,7 +230,7 @@
                         <label for="username">Adres</label>
                     </span>
                     <MazPhoneNumberInput
-                        v-model="getOfferModelList.phone"
+                        v-model="phone"
                         :translations="{
                             countrySelector: {
                             placeholder: 'Country code',
@@ -309,6 +309,7 @@ export default {
     },
     data() {
         return {
+            phone:null,
             offer_delete_disabled:false,
             offer_save_disabled:false,
             o_date: new Date(),
@@ -383,6 +384,11 @@ export default {
             this.selectedOfferPlace = this.offerPlaces.find(x => x.place == this.getOfferModelList.teklifYeri);
             this.selectedCountry = this.getOfferCountryList.find(x => x.id == this.selectedShopper.ulkeId);
             this.selectedOfferPriority = this.offerPriorities.find(x => x.priority == this.getOfferModelList.teklifOncelik);
+            if(this.getOfferModelList.phone){
+                this.phone = this.getOfferModelList.phone;
+            } else{
+                this.phone= null;
+            }
             if (this.getOfferModelList.hatirlatmaTarihi == null || this.getOfferModelList.hatirlatmaTarihi == 'NaN/NaN/NaN' || this.getOfferModelList.hatirlatmaTarihi == '' || this.getOfferModelList.hatirlatmaTarihi == ' ' || this.getOfferModelList.hatirlatmaTarihi == undefined) {
                 this.r_date = null;
             } else {
@@ -445,6 +451,12 @@ export default {
             }
             this.offer_save_disabled = true;
             useLoadingStore().begin_loading_act();
+            if(this.phone){
+                this.getOfferModelList.phone = this.phone;
+            } else{
+                this.getOfferModelList.phone = null;
+            }
+
             this.getOfferModelList.kullaniciAdi = localStorage.getItem('username');
             this.getOfferModelList.kullaniciId = localStorage.getItem('userId');
             this.getOfferModelList.tarih = this.dateNullControl(this.o_date);
@@ -487,6 +499,11 @@ export default {
             this.getOfferModelList.numuneHatirlatmaTarihi = this.dateNullControl(this.getOfferModelList.numuneHatirlatmaTarihi);
             this.getOfferModelList.numuneGirisTarihi = this.dateNullControl(this.getOfferModelList.numuneGirisTarihi);
             this.getOfferModelList.hatirlatmaTarihi = this.dateNullControl(this.getOfferModelList.hatirlatmaTarihi);
+            if(this.phone){
+                this.getOfferModelList.phone = this.phone;
+            } else{
+                this.getOfferModelList.phone = null;
+            }
             const data = {
                 'teklif': this.getOfferModelList,
                 'eklenenUrunler': this.getOfferAddingProductsList,
