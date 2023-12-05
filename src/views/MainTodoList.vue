@@ -51,19 +51,23 @@ export default {
     },
     methods:{
         isTodoSeeing(id){
-            todoService.setTodoMainSeeing(id).then(response=>{
-                if(response.status){
-                    socket.socketIO.emit('to_do_main_list_emit_all');
+            if(confirm('Değiştirmek istiyor musunuz?')){
+                todoService.setTodoMainSeeing(id).then(response=>{
+                    if(response.status){
+                        socket.socketIO.emit('to_do_main_list_emit_all');
 
-                    this.$toast.add({severity:'success',detail:'Başarıyla Kaydedildi',life:3000});
-                }else{
-                    this.$toast.add({severity:'error',detail:'Kaydetme Başarısız',life:3000});
-                    
-                }
-            })
+                        this.$toast.add({severity:'success',detail:'Başarıyla Kaydedildi',life:3000});
+                    }else{
+                        this.$toast.add({severity:'error',detail:'Kaydetme Başarısız',life:3000});
+                        
+                    }
+                })
+            }
+
         },
         isTodoUpdate(id){
-            const value = {
+            if(confirm('Değiştirmek istiyor musunuz?')){
+                const value = {
                 'id': id,
                 'status': 1,
                 'yapildiTarihi': localDateService.getDateString(new Date()),
@@ -80,6 +84,8 @@ export default {
                     this.$toast.add({ severity: 'error', detail: 'Kaydetme Başarısız', life: 3000 });
                 };
             }); 
+            }
+             
         },
         todoSelected(event){
             useLoadingStore().begin_loading_act();
