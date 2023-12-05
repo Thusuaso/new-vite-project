@@ -13,7 +13,11 @@
             <Column header="#" >
                 <template #body='slotProps'>
                     <button class="btn btn-success" type="button" @click="isTodoUpdate(slotProps.data.id)">Yapıldı</button>
-
+                </template>
+            </Column>
+            <Column header="#">
+                <template #body="slotProps">
+                    <button class="btn btn-primary" type="button" @click="isTodoSeeing(slotProps.data.id)">Görüldü</button>
                 </template>
             </Column>
 
@@ -46,6 +50,18 @@ export default {
         ...mapState(useTodoStore,['todoMainList'])
     },
     methods:{
+        isTodoSeeing(id){
+            todoService.setTodoMainSeeing(id).then(response=>{
+                if(response.status){
+                    socket.socketIO.emit('to_do_main_list_emit_all');
+
+                    this.$toast.add({severity:'success',detail:'Başarıyla Kaydedildi',life:3000});
+                }else{
+                    this.$toast.add({severity:'error',detail:'Kaydetme Başarısız',life:3000});
+                    
+                }
+            })
+        },
         isTodoUpdate(id){
             const value = {
                 'id': id,

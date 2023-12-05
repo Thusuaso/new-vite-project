@@ -37,7 +37,10 @@ export const todoService = {
     getTodoMainList(userid:any){
         return api.get(`/todo/main/list/${userid}`).then(response=>response.data);
     },
-    setTodoMainQueue(data){
+    setTodoMainQueue(data:any){
         return api.post('/todo/main/queue/change',data).then(response=>response.data);
+    },
+    setTodoMainSeeing(id:any){
+        return api.get(`/todo/mailn/seeing/${id}`).then(response=>response.data);
     }
 }

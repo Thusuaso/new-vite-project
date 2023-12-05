@@ -614,6 +614,8 @@ export default {
         },
         customerControl(customer) {
             this.customerUpdateList = [];
+            customer.phone = this.phone;
+            customer.email = this.getOfferModelList.email;
             this.customerUpdateList.push(customer);
         },
     }
