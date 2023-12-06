@@ -52,12 +52,7 @@
                         <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="getProductModel.birim">
                     </div>
                 </div>
-                <div class="col">
-                    <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon1">Tedarikçi</span>
-                        <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="getProductModel.tedarikciadi">
-                    </div>
-                </div>
+  
                 <div class="col">
                     <span class="p-float-label">
                         <Dropdown id="category" v-model="selectedCategoryEn" :options="getProductCategoryList" optionLabel="kategoriadi_en" class="w-100" @change="categoryEnSelected($event)"/>
@@ -72,7 +67,7 @@
                 </div>
                 <div class="col">
                     <span class="p-float-label">
-                        <Dropdown id="stoneType" v-model="selectedStoneType" :options="getProductCategoryList" optionLabel="kategoriadi_en" class="w-100" @change="stoneTypeSelected($event)"/>
+                        <Dropdown id="stoneType" v-model="selectedStoneType" :options="stoneTypeList" optionLabel="kategoriadi_en" class="w-100" @change="stoneTypeSelected($event)"/>
                         <label for="stoneType">Taş Türü</label>
                     </span>
                 </div>
@@ -109,12 +104,7 @@
                 </div>
                 <div class="row m-auto mt-4">
                 
-                    <div class="col">
-                        <div class="input-group mb-3">
-                            <span class="input-group-text" id="basic-addon1">Sıra</span>
-                            <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="getProductModel.sira">
-                        </div>
-                    </div>
+ 
                     <div class="col">
                         <div class="input-group mb-3">
                             <span class="input-group-text" id="basic-addon1">Birim</span>
@@ -165,13 +155,6 @@
                         </div>
                     </div>
                     <div class="row m-auto mt-4">
-                
-                        <div class="col">
-                            <div class="input-group mb-3">
-                                <span class="input-group-text" id="basic-addon1">Sıra</span>
-                                <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="getProductModel.sira">
-                            </div>
-                        </div>
                         <div class="col">
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="basic-addon1">Birim</span>
@@ -196,24 +179,24 @@
             <div class="row m-auto mt-3">
                 <div class="col-6">
                     <div class="row m-auto mt-3">
-                        <div class="col">
+                        <div class="col mb-3">
                             
                             <span class="p-float-label">
-                                <InputText id="ensurface" v-model="en_surface" />
-                                <label for="ensurface">En-Surface</label>
+                                <AutoComplete v-model="selectedFinish" inputId="finish_en" optionLabel="name" :suggestions="filteredProductFinishList" @complete="searchFinish($event)" @item-select="finishSelected($event)"/>
+                                <label for="finish_en">En Surface</label>
                             </span>
                         </div>
-                        <div class="col">
+                        <div class="col mb-3">
                             
                             <span class="p-float-label">
-                                <InputText id="frsurface" v-model="fr_surface" />
+                                <InputText id="frsurface" v-model="fr_surface" disabled/>
                                 <label for="frsurface">Fr-Surface</label>
                             </span>
                         </div>
                         <div class="col mb-3">
                             
                             <span class="p-float-label">
-                                <InputText id="essurface" v-model="es_surface" />
+                                <InputText id="essurface" v-model="es_surface" disabled/>
                                 <label for="essurface">Es-Surface</label>
                             </span>
                         </div>
@@ -236,6 +219,34 @@
                             </DataTable>
                         </div>
                     </div>
+                    <div class="row m-auto mt-3">
+                        <div class="col">
+                            <span class="p-float-label">
+                                <AutoComplete v-model="selectedArea" inputId="areas" :suggestions="filteredAreas" optionLabel="area" @complete="searchAreas($event)" @item-select="save_area_disabled_form = false"/>
+                                <label for="areas">Alan</label>
+                            </span>
+                        </div>
+                        <div class="col">
+                            <button type="button" class="btn btn-success w-100" @click="saveAreas" :disabled="save_area_disabled_form">Ekle</button>
+                        </div>
+                        <div class="col">
+                            <button type="button" class="btn btn-danger w-100" @click="deleteAreas" :disabled="delete_area_disabled_form">Sil</button>
+                        </div>
+                    </div>
+                    <div class="row m-auto mt-3">
+                        <div class="col">
+                            <DataTable 
+                                :value="areaProductList" 
+                                v-model:selection="selectedAreaProductList"
+                                selectionMode="single"
+                                style="font-size:85%;"
+                                @row-click="areaProductListSelected($event)"
+                            >
+                                <Column field="area" header="Alan"></Column>
+                            </DataTable>
+                        </div>
+                    </div>
+ 
                 </div>
                 <div class="col-6">
                     <div class="row m-auto mt-3">
@@ -275,6 +286,7 @@
                         </div>
                     </div>
                 </div>
+
             </div>
             
 
@@ -402,11 +414,20 @@ export default {
             'getProductColorEnList',
             'getProductColorFrList',
             'getProductColorEsList',
-            'getProductSuggested'
+            'getProductSuggested',
+            'getProductAreasList',
+            'getProductAreasProductsList'
         ])
     },
     data() {
         return {
+            stoneTypeList:[],
+            selectedAreaProductList:null,
+            areaProductList:[],
+            delete_area_disabled_form:true,
+            save_area_disabled_form:true,
+            selectedArea:null,
+            filteredAreas:null,
             en_surface:null,
             fr_surface:null,
             es_surface:null,
@@ -456,6 +477,7 @@ export default {
             selectedSizeProduct: {},
             notSuggestedList: [],
             suggestedList: [],
+            index:0,
         }
     },
     created() {
@@ -465,10 +487,62 @@ export default {
         this.suggestedList = [...this.getProductSuggestedProductsList];
         this.notSuggestedList = [...this.getProductSuggestedProductList]
         this.pickProductPhotosList = [...this.getProductPhotoListPick];
-
+        this.areaProductList = this.getProductAreasProductsList;
+        this.stoneTypeList = this.getProductCategoryList.filter(x=>x.kategoriadi_en == 'Marble' || x.kategoriadi_en == 'Travertine' || x.kategoriadi_en == 'Plasterboard' || x.kategoriadi_en == 'Limestone' || x.kategoriadi_en == 'Quartz')
 
     },
     methods: {
+        finishSelected(){
+            this.fr_surface = this.selectedFinish.name_fr;
+            this.es_surface = this.selectedFinish.name_es;
+            
+        },
+        areaProductListSelected(event){
+            this.delete_area_disabled_form = false;
+            this.index = this.areaProductList.findIndex(x=>{
+                return x.id == event.data.id;
+            });
+        },
+        deleteAreas(){
+         this.delete_area_disabled_form = true;  
+         this.areaProductList.splice(this.index, 1);
+         panelService.setAreasDelete(this.selectedAreaProductList.id).then(response=>{
+            if(response.status){
+                this.$toast.add({'severity':'success','detail':'Başarıyla Silindi',life:3000});
+            }else{
+                this.$toast.add({'severity':'danger','detail':'Silme Başarısız',life:3000});
+                
+            }
+        })
+
+
+        },
+        saveAreas(){
+            this.save_area_disabled_form = true;
+            const areaid = this.selectedArea.id;
+            const productid = this.getProductModel.urunid;
+            const areaname = this.selectedArea.area;
+            panelService.setAreasProducts(areaid,productid,areaname)
+            .then(response=>{
+               if(response.status){
+                    this.areaProductList.push(this.selectedArea);
+                    this.selectedArea = null;
+
+                    this.$toast.add({'severity':'success','detail':'Başarıyla Kaydedildi.',life:3000});
+                } 
+            });
+        },
+        searchAreas(event){
+            let results;
+            if(event.query.lenght == 0){
+                results = this.getProductAreasList;
+            } else{
+                results = this.getProductAreasList.filter(x=>{
+                    return x.area.toLowerCase().startsWith(event.query.toLowerCase());
+                });
+            };
+            this.filteredAreas = results;
+        },
         saveSuggested(){
           const data = {
                 'added':this.addedSuggested,
@@ -682,9 +756,9 @@ export default {
         },
         addFinish() {
             const finishData = {
-                'islemadien':this.en_surface,
-                'islemadifr':this.fr_surface,
-                'islemadies':this.es_surface,
+                'islemadien':this.selectedFinish.name,
+                'islemadifr':this.selectedFinish.name_fr,
+                'islemadies':this.selectedFinish.name_es,
 
                 'dil': "en",
 

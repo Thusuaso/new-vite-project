@@ -27,8 +27,9 @@ export const usePanelStore = defineStore('panel', {
             panelCustomersList: [],
             panelCustomersModel:[],
             productSuggested:[],
-            productQueueProducts:[]
-            
+            productQueueProducts:[],
+            productAreasList : [],
+            productAreasProductsList:[]
         }
     },
     actions: {
@@ -78,9 +79,17 @@ export const usePanelStore = defineStore('panel', {
             this.productColorEnList = data.renkenlist;
             this.productColorFrList = data.renkfrlist;
             this.productColorEsList = data.renkeslist;
+            this.productAreasList = data.alanlar;
+            this.productAreasProductsList = data.areasProductList;
         },
     },
     getters: {
+        getProductAreasProductsList(state){
+            return state.productAreasProductsList;
+        },
+        getProductAreasList(state){
+            return state.productAreasList;
+        },
         getProductQueueProducts(state){
           return state.productQueueProducts;  
         },

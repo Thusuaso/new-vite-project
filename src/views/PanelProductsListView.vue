@@ -48,11 +48,14 @@ export default {
         },
         productIdEmit(event){
           this.urunid = event;
+          // @ts-ignore
           this.getProductModel.urunid = event;
         },
         openPanelDetailForm(event) {
             this.panel_products_form = true;
             this.urunid = event;
+
+
         }
     }
 

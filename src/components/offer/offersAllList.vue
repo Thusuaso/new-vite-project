@@ -129,6 +129,21 @@
                          </template>
                      </Column>
                      <Column 
+                             field="kalinlik" 
+                             header="Kalınlık"
+                             :showFilterMenu="false"
+                             :showFilterOperator="false"
+                             :showClearButton="false"
+                             :showApplyButton="false"
+                             :showFilterMatchModes="false"
+                             :showAddButton="false"
+                        
+                         >
+                         <template #filter="{ filterModel, filterCallback }">
+                             <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
+                         </template>
+                     </Column>
+                     <Column 
                              field="kullaniciadi" 
                              header="Kullanıcı"
                              :showFilterMenu="false"
@@ -181,7 +196,8 @@
                    urunadi: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
                    islemadi: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
                    enboy: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-                   kullaniciadi: { value: null, matchMode: FilterMatchMode.STARTS_WITH }
+                   kullaniciadi: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+                   kalinlik: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
                },
                selectedOffers: {},
                offer_detail_form:false,

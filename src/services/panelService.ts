@@ -54,6 +54,13 @@ export const panelService = {
     },
     setSuggestedProducts(data:any){
         return api.post('/panel/mekmarcom/suggested',data).then(response=>response.data);
+    },
+    setAreasProducts(areaid:any,productid:any,areaname:any){
+    
+        return api.get(`/panel/mekmarcom/areas/${areaid}/${productid}/${areaname}`).then(response=>response.data);
+    },
+    setAreasDelete(id:any){
+        return api.get(`/panel/mekmarcom/areas/delete/${id}`).then(response=>response.data);
     }
 
 
