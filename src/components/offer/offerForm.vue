@@ -384,11 +384,7 @@ export default {
             this.selectedOfferPlace = this.offerPlaces.find(x => x.place == this.getOfferModelList.teklifYeri);
             this.selectedCountry = this.getOfferCountryList.find(x => x.id == this.selectedShopper.ulkeId);
             this.selectedOfferPriority = this.offerPriorities.find(x => x.priority == this.getOfferModelList.teklifOncelik);
-            if(this.getOfferModelList.phone){
-                this.phone = this.getOfferModelList.phone;
-            } else{
-                this.phone= null;
-            }
+            this.phone = this.getOfferModelList.phone;
             if (this.getOfferModelList.hatirlatmaTarihi == null || this.getOfferModelList.hatirlatmaTarihi == 'NaN/NaN/NaN' || this.getOfferModelList.hatirlatmaTarihi == '' || this.getOfferModelList.hatirlatmaTarihi == ' ' || this.getOfferModelList.hatirlatmaTarihi == undefined) {
                 this.r_date = null;
             } else {
@@ -595,7 +591,7 @@ export default {
             this.selectedCountry = this.getOfferCountryList.find(x => x.id == event.value.ulkeId);
             this.getOfferModelList.company = event.value.company;
             this.getOfferModelList.email = event.value.email;
-            this.getOfferModelList.phone = event.value.phone;
+            this.phone = event.value.phone;
             this.getOfferModelList.adress = event.value.adress;
         },
         searchOfferShopper(event) {
