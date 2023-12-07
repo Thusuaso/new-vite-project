@@ -61,6 +61,19 @@ export const panelService = {
     },
     setAreasDelete(id:any){
         return api.get(`/panel/mekmarcom/areas/delete/${id}`).then(response=>response.data);
+    },
+    setFilterSurfaceSave(data:any){
+        return api.post('/panel/mekmarcom/surface/filter/save',data).then(response=>response.data);
+    },
+    setFilterSurfaceDelete(id:any){
+        return api.delete(`/panel/mekmarcom/surface/filter/delete/${id}`).then(response=>response.data);
+    },
+
+    setFilterStyleSave(data:any){
+        return api.post('/panel/mekmarcom/style/filter/save',data).then(response=>response.data);
+    },
+    setFilterStyleDelete(id:any){
+        return api.delete(`/panel/mekmarcom/style/filter/delete/${id}`).then(response=>response.data);
     }
 
 

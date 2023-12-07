@@ -175,80 +175,10 @@
                         </div>
                     </div>
         </TabPanel>
-        <TabPanel header="Diğer">
+        <TabPanel header="Sizes">
             <div class="row m-auto mt-3">
-                <div class="col-6">
-                    <div class="row m-auto mt-3">
-                        <div class="col mb-3">
-                            
-                            <span class="p-float-label">
-                                <AutoComplete v-model="selectedFinish" inputId="finish_en" optionLabel="name" :suggestions="filteredProductFinishList" @complete="searchFinish($event)" @item-select="finishSelected($event)"/>
-                                <label for="finish_en">En Surface</label>
-                            </span>
-                        </div>
-                        <div class="col mb-3">
-                            
-                            <span class="p-float-label">
-                                <InputText id="frsurface" v-model="fr_surface" disabled/>
-                                <label for="frsurface">Fr-Surface</label>
-                            </span>
-                        </div>
-                        <div class="col mb-3">
-                            
-                            <span class="p-float-label">
-                                <InputText id="essurface" v-model="es_surface" disabled/>
-                                <label for="essurface">Es-Surface</label>
-                            </span>
-                        </div>
-                        <div class="col">
-                            <button type="button" class="btn btn-success" @click="addFinish">Ekle</button>
-                        </div>
-                        <div class="col">
-                            <button type="button" class="btn btn-danger" @click="deleteFinish">Sil</button>
-                        </div>
-                    </div>
-                    <div class="row m-auto mt-3">
-                        <div class="col">
-                            <DataTable 
-                                :value="surfaceProductList" 
-                                v-model:selection="selectedSurfaceProduct"
-                                selectionMode="single"
-                                style="font-size:85%;"
-                            >
-                                <Column field="name" header="Yüzey"></Column>
-                            </DataTable>
-                        </div>
-                    </div>
-                    <div class="row m-auto mt-3">
-                        <div class="col">
-                            <span class="p-float-label">
-                                <AutoComplete v-model="selectedArea" inputId="areas" :suggestions="filteredAreas" optionLabel="area" @complete="searchAreas($event)" @item-select="save_area_disabled_form = false"/>
-                                <label for="areas">Alan</label>
-                            </span>
-                        </div>
-                        <div class="col">
-                            <button type="button" class="btn btn-success w-100" @click="saveAreas" :disabled="save_area_disabled_form">Ekle</button>
-                        </div>
-                        <div class="col">
-                            <button type="button" class="btn btn-danger w-100" @click="deleteAreas" :disabled="delete_area_disabled_form">Sil</button>
-                        </div>
-                    </div>
-                    <div class="row m-auto mt-3">
-                        <div class="col">
-                            <DataTable 
-                                :value="areaProductList" 
-                                v-model:selection="selectedAreaProductList"
-                                selectionMode="single"
-                                style="font-size:85%;"
-                                @row-click="areaProductListSelected($event)"
-                            >
-                                <Column field="area" header="Alan"></Column>
-                            </DataTable>
-                        </div>
-                    </div>
- 
-                </div>
-                <div class="col-6">
+
+                <div class="col">
                     <div class="row m-auto mt-3">
                         <div class="col">
                             <span class="p-float-label">
@@ -289,6 +219,173 @@
 
             </div>
             
+
+        </TabPanel>
+        <TabPanel header="">
+            <div class="row">
+            <div class="col-6">
+
+                <!--Finishes-->
+                    <div v-if="getProductModel.kategori_id == 1">
+                        <div class="row m-auto mt-3">
+                        <div class="col mb-3">
+                            
+                            <span class="p-float-label">
+                                <AutoComplete v-model="selectedFinish" inputId="finish_en" optionLabel="name" :suggestions="filteredProductFinishList" @complete="searchFinish($event)" @item-select="finishSelected($event)"/>
+                                <label for="finish_en">En Surface</label>
+                            </span>
+                        </div>
+                        <div class="col mb-3">
+                            
+                            <span class="p-float-label">
+                                <InputText id="frsurface" v-model="fr_surface" disabled/>
+                                <label for="frsurface">Fr-Surface</label>
+                            </span>
+                        </div>
+                        <div class="col mb-3">
+                            
+                            <span class="p-float-label">
+                                <InputText id="essurface" v-model="es_surface" disabled/>
+                                <label for="essurface">Es-Surface</label>
+                            </span>
+                        </div>
+                        <div class="col">
+                            <button type="button" class="btn btn-success" @click="addFinish">Ekle</button>
+                        </div>
+                        <div class="col">
+                            <button type="button" class="btn btn-danger" @click="deleteFinish">Sil</button>
+                        </div>
+                    </div>
+                        <div class="row m-auto mt-3">
+                            <div class="col">
+                                <DataTable 
+                                    :value="finishProductList" 
+                                    v-model:selection="selectedFinishProduct"
+                                    selectionMode="single"
+                                    style="font-size:85%;"
+                                >
+                                    <Column field="name" header="Yüzey"></Column>
+                                </DataTable>
+                            </div>
+                        </div>
+                    </div>
+                    <div v-if="getProductModel.kategori_id == 2">
+                        <div class="row m-auto mt-3">
+                            <div class="col">
+                                <Dropdown class="w-100" v-model="selectedSurface" :options="getProductSurfaceFilteredList" optionLabel="name_en" @change="surface_filtered_save_disabled = false"/>
+                            </div>
+                            <div class="col">
+                                <button type="button" class="btn btn-success w-100" @click="surfaceSave" :disabled="surface_filtered_save_disabled">Ekle</button>
+                            </div>
+                            <div class="col">
+                                <button type="button" class="btn btn-danger w-100" @click="surfaceDelete" :disabled="surface_filtered_delete_disabled">Sil</button>
+                            </div>
+                        </div>
+                        <div class="row m-auto mt-3">
+                            <div class="col">
+                                <DataTable :value="productSurfaceFilteredList"
+                                                v-model:selection="selectedSurfaceProducts"
+                                                selectionMode="single"
+                                                @row-select="surface_filtered_delete_disabled = false"
+                                            >
+                                            <Column field="name_en" header="Yuzey En"></Column>
+                                            <Column field="name_fr" header="Yuzey Fr"></Column>
+                                            <Column field="name_es" header="Yuzey Es"></Column>
+                                </DataTable>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <!--Areas-->
+                    <div class="row m-auto mt-3">
+                        <div class="col">
+                            <span class="p-float-label">
+                                <AutoComplete v-model="selectedArea" inputId="areas" :suggestions="filteredAreas" optionLabel="area" @complete="searchAreas($event)" @item-select="save_area_disabled_form = false"/>
+                                <label for="areas">Alan</label>
+                            </span>
+                        </div>
+                        <div class="col">
+                            <button type="button" class="btn btn-success w-100" @click="saveAreas" :disabled="save_area_disabled_form">Ekle</button>
+                        </div>
+                        <div class="col">
+                            <button type="button" class="btn btn-danger w-100" @click="deleteAreas" :disabled="delete_area_disabled_form">Sil</button>
+                        </div>
+                    </div>
+                    <div class="row m-auto mt-3">
+                        <div class="col">
+                            <DataTable 
+                                :value="areaProductList" 
+                                v-model:selection="selectedAreaProductList"
+                                selectionMode="single"
+                                style="font-size:85%;"
+                                @row-click="areaProductListSelected($event)"
+                            >
+                                <Column field="area" header="Alan"></Column>
+                            </DataTable>
+                        </div>
+                    </div>
+            </div>
+            <div class="col-6">
+                <div v-if="getProductModel.kategori_id == 2">
+                    <div class="row">
+                        <div class="col">
+                            <Dropdown class="w-100" v-model="selectedStyle" :options="getProductStyleFilteredList" optionLabel="name_en" @change="style_filtered_save_disabled = false"/>
+                        </div>
+                        <div class="col">
+                            <button type="button" class="btn btn-success w-100" @click="styleSave" :disabled="style_filtered_save_disabled">Ekle</button>
+                        </div>
+                        <div class="col">
+                            <button type="button" class="btn btn-danger w-100" @click="styleDelete" :disabled="style_filtered_delete_disabled">Sil</button>
+                        </div>
+                    </div>
+                    <div class="row m-auto mt-3">
+                        <div class="col">
+                            <DataTable :value="productStyleFilteredList"
+                                    v-model:selection="selectedStyleProducts"
+                                    selectionMode="single"
+                                    @row-select="style_filtered_delete_disabled = false"
+                                >
+                                        <Column field="name_en" header="Stil En"></Column>
+                                        <Column field="name_fr" header="Stil Fr"></Column>
+                                        <Column field="name_es" header="Stil Es"></Column>
+                            </DataTable>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div v-if="getProductModel.kategori_id == 2">
+                    <div class="row">
+                        <div class="col">
+                            <Dropdown class="w-100" v-model="selectedStyle" :options="getProductStyleFilteredList" optionLabel="name_en" @change="style_filtered_save_disabled = false"/>
+                        </div>
+                        <div class="col">
+                            <button type="button" class="btn btn-success w-100" @click="styleSave" :disabled="style_filtered_save_disabled">Ekle</button>
+                        </div>
+                        <div class="col">
+                            <button type="button" class="btn btn-danger w-100" @click="styleDelete" :disabled="style_filtered_delete_disabled">Sil</button>
+                        </div>
+                    </div>
+                    <div class="row m-auto mt-3">
+                        <div class="col">
+                            <DataTable :value="productStyleFilteredList"
+                                    v-model:selection="selectedStyleProducts"
+                                    selectionMode="single"
+                                    @row-select="style_filtered_delete_disabled = false"
+                                >
+                                        <Column field="name_en" header="Stil En"></Column>
+                                        <Column field="name_fr" header="Stil Fr"></Column>
+                                        <Column field="name_es" header="Stil Es"></Column>
+                            </DataTable>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+            </div>
 
         </TabPanel>
         <TabPanel header="Suggested" v-if="!getPanelProductNewButton">
@@ -416,11 +513,35 @@ export default {
             'getProductColorEsList',
             'getProductSuggested',
             'getProductAreasList',
-            'getProductAreasProductsList'
+            'getProductAreasProductsList',
+
+            'getProductSurfaceFilteredList',
+            'getProductEdgeFilteredList',
+            'getProductMaterialFilteredList',
+            'getProductTypeFilteredList',
+            'getProductStyleFilteredList',
+
+            'getProductSurfaceFilteredProductsList',
+            'getProductEdgeFilteredProductsList',
+            'getProductMaterialFilteredProductsList',
+            'getProductTypeFilteredProductsList',
+            'getProductStyleFilteredProductsList'
+
         ])
     },
     data() {
         return {
+            selectedStyleProducts:null,
+            productStyleFilteredList:[],
+            selectedStyle:null,
+            style_filtered_save_disabled:true,
+            style_filtered_delete_disabled:true,
+
+            surface_filtered_delete_disabled:true,
+            surface_filtered_save_disabled:true,
+            productSurfaceFilteredList:null,
+            selectedSurfaceProducts:null,
+
             stoneTypeList:[],
             selectedAreaProductList:null,
             areaProductList:[],
@@ -465,8 +586,8 @@ export default {
             selectedStoneType: {},
             selectedFinish: null,
             filteredProductFinishList: [],
-            surfaceProductList: [],
-            selectedSurfaceProduct: {},
+            finishProductList: [],
+            selectedFinishProduct: {},
             selectedSize: null,
             filteredProductSizeList: [],
             sizePrice: 0,
@@ -478,6 +599,7 @@ export default {
             notSuggestedList: [],
             suggestedList: [],
             index:0,
+            selectedSurface:null,
         }
     },
     created() {
@@ -489,9 +611,62 @@ export default {
         this.pickProductPhotosList = [...this.getProductPhotoListPick];
         this.areaProductList = this.getProductAreasProductsList;
         this.stoneTypeList = this.getProductCategoryList.filter(x=>x.kategoriadi_en == 'Marble' || x.kategoriadi_en == 'Travertine' || x.kategoriadi_en == 'Plasterboard' || x.kategoriadi_en == 'Limestone' || x.kategoriadi_en == 'Quartz')
-
     },
     methods: {
+        styleDelete(){
+            panelService.setFilterStyleDelete(this.selectedStyleProducts.id).then(response=>{
+                if(response.status){
+                    const index = this.productStyleFilteredList.findIndex(x=>x.name_en == this.selectedStyleProducts.name_en)
+                    this.productStyleFilteredList.splice(index,1);
+                    this.selectedStyleProducts = null;
+                    this.style_filtered_delete_disabled = true;
+                    this.$toast.add({'severity':'success','detail':'Başarıyla Silindi','life':3000});
+                } else{
+                    this.$toast.add({'severity':'error','detail':'Silme İşlemi Başarısız',life:3000});
+                }
+            });
+        },
+        styleSave(){
+            panelService.setFilterStyleSave({'urunid':this.getProductModel.urunid,...this.selectedStyle})
+            .then(response=>{
+                if(response.status){
+                    this.productStyleFilteredList.push(this.selectedStyle);
+                    this.selectedStyle = null;
+                    this.style_filtered_save_disabled = true;
+                    this.$toast.add({'severity':'success','detail':'Başarıyla Eklendi','life':3000});
+                } else{
+                    this.$toast.add({'severity':'error','detail':'Ekleme İşlemi Başarısız',life:3000});
+                }
+            });
+        },
+
+        surfaceDelete(){
+            panelService.setFilterSurfaceDelete(this.selectedSurfaceProducts.id).then(response=>{
+                if(response.status){
+                    const index = this.productSurfaceFilteredList.findIndex(x=>x.name_en == this.selectedSurfaceProducts.name_en);
+                    this.productSurfaceFilteredList.splice(index, 1);
+                    this.surface_filtered_delete_disabled = true;
+                    this.$toast.add({'severity':'success','detail':'Başarıyla Silindi',life:3000});
+                }else{
+                    this.$toast.add({'severity':'error','detail':'Silme İşlemi Başarısız','life':3000});
+                }
+            })
+
+        },
+        surfaceSave(){
+
+          panelService.setFilterSurfaceSave({'urunid':this.getProductModel.urunid,...this.selectedSurface})
+          .then(response=>{
+            if(response.status){
+                this.productSurfaceFilteredList.push(this.selectedSurface);
+                this.selectedSurface = null;
+                this.surface_filtered_save_disabled = true;
+                this.$toast.add({'severity':'success','detail':'Başarıyla Eklendi.',life:3000});
+            }else{
+                this.$toast.add({'severity':'error','detail':'Ekleme İşlemi Başarısız',life:3000});
+            }
+          });
+        },
         finishSelected(){
             this.fr_surface = this.selectedFinish.name_fr;
             this.es_surface = this.selectedFinish.name_es;
@@ -744,7 +919,7 @@ export default {
             };
             panelService.setFinishDelete(finishData).then(data => {
                 if (data.status) {
-                    this.surfaceProductList = data.finishlist;
+                    this.finishProductList = data.finishlist;
                     this.selectedFinish = null;
                     useLoadingStore().end_loading_act();
                     this.$toast.add({ severity: 'success', detail: 'Başarıyla Silindi', life: 300 });
@@ -768,7 +943,7 @@ export default {
             useLoadingStore().begin_loading_act();
             panelService.setFinishAdd(finishData).then(data => {
                 if (data.status) {
-                    this.surfaceProductList = data.finishlist;
+                    this.finishProductList = data.finishlist;
                     this.selectedFinish = null;
                     useLoadingStore().end_loading_act();
                     this.$toast.add({ severity: 'success', detail: 'Başarıyla Kaydedildi', life: 300 });
@@ -827,9 +1002,10 @@ export default {
             this.selectedColorEs = this.getProductColorEsList.find(x => x.name == this.getProductModel.renk_es);
 
             this.selectedStoneType = this.getProductCategoryList.find(x => x.kategori_id == this.getProductModel.stonetype);
-            this.surfaceProductList = this.getProductModel.kenarIslemList;
+            this.finishProductList = this.getProductModel.kenarIslemList;
             this.sizeProductList = this.getProductModel.ebatlar;
-
+            this.productSurfaceFilteredList = this.getProductSurfaceFilteredProductsList;
+            this.productStyleFilteredList = this.getProductStyleFilteredProductsList;
 
 
         },

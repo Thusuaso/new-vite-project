@@ -29,7 +29,19 @@ export const usePanelStore = defineStore('panel', {
             productSuggested:[],
             productQueueProducts:[],
             productAreasList : [],
-            productAreasProductsList:[]
+            productAreasProductsList:[],
+
+            productSurfaceFilteredList : [],
+            productEdgeFilteredList : [],
+            productMaterialFilteredList : [],
+            productTypeFilteredList : [],
+            productStyleFilteredList : [],
+
+            productSurfaceFilteredProductsList:[],
+            productEdgeFilteredProductsList:[],
+            productMaterialFilteredProductsList:[],
+            productTypeFilteredProductsList:[],
+            productStyleFilteredProductsList:[],
         }
     },
     actions: {
@@ -81,9 +93,57 @@ export const usePanelStore = defineStore('panel', {
             this.productColorEsList = data.renkeslist;
             this.productAreasList = data.alanlar;
             this.productAreasProductsList = data.areasProductList;
+            this.productSurfaceFilteredList = data.surfaceFilteredList;
+            this.productEdgeFilteredList = data.edgeFilteredList;
+            this.productMaterialFilteredList = data.materialFilteredList;
+            this.productTypeFilteredList = data.styleFilteredList;
+            this.productStyleFilteredList = data.typeFilteredList;
+            this.productSurfaceFilteredProductsList = data.surfaceFilteredProductList;
+            this.productEdgeFilteredProductsList = data.edgeFilteredProductList;
+            this.productMaterialFilteredProductsList = data.materialFilteredProductList;
+            this.productTypeFilteredProductsList = data.typeFilteredProductList;
+            this.productStyleFilteredProductsList = data.styleFilteredProductList;
         },
     },
     getters: {
+        getProductSurfaceFilteredProductsList(state){
+            return state.productSurfaceFilteredProductsList;
+        },
+        getProductEdgeFilteredProductsList(state){
+            return state.productEdgeFilteredProductsList;
+        },
+        getProductMaterialFilteredProductsList(state){
+            return state.productMaterialFilteredProductsList;
+        },
+        getProductTypeFilteredProductsList(state){
+            return state.productTypeFilteredProductsList;
+        },
+        getProductStyleFilteredProductsList(state){
+            return state.productStyleFilteredProductsList;
+        },
+
+
+
+
+
+
+
+
+        getProductStyleFilteredList(state){
+          return state.productStyleFilteredList;  
+        },
+        getProductTypeFilteredList(state){
+            return state.productTypeFilteredList;
+        },
+        getProductMaterialFilteredList(state){
+          return state.productMaterialFilteredList;  
+        },
+        getProductEdgeFilteredList(state){
+          return state.productEdgeFilteredList;  
+        },
+        getProductSurfaceFilteredList(state){
+          return state.productSurfaceFilteredList;  
+        },
         getProductAreasProductsList(state){
             return state.productAreasProductsList;
         },

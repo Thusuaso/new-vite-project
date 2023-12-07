@@ -125,6 +125,8 @@ export default {
                 if (data.status) {
                     socket.socketIO.emit('to_do_list_emit');
                     socket.socketIO.emit('to_do_list_emit_all');
+                    socket.socketIO.emit('to_do_main_list_emit_all');
+
                     this.reset();
                     this.to_do_save_disabled = false;
                     useLoadingStore().end_loading_act();
@@ -162,7 +164,7 @@ export default {
         reset() {
             todoService.getModel().then(data => {
                 this.selectedPriority = { };
-                this.selectedUser = { };
+                this.selectedUser = [];
                 useTodoStore().to_do_model_list_load_act(data);
                 useTodoStore().to_do_new_button_load_act(true);
             });
