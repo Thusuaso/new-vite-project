@@ -226,7 +226,8 @@
             <div class="col-6">
 
                 <!--Finishes-->
-                    <div v-if="getProductModel.kategori_id == 1">
+                    <div v-if="getProductModel.kategori_id == 1 || getProductModel.kategori_id == 3">
+                        <h4 class="text-center">Yüzey Filtresi</h4>
                         <div class="row m-auto mt-3">
                         <div class="col mb-3">
                             
@@ -269,7 +270,9 @@
                             </div>
                         </div>
                     </div>
-                    <div v-if="getProductModel.kategori_id == 2">
+                    <br/>
+                    <div v-if="getProductModel.kategori_id == 2 || getProductModel.kategori_id == 4">
+                        <h3 class="text-center">Yüzey Filtresi</h3>
                         <div class="row m-auto mt-3">
                             <div class="col">
                                 <Dropdown class="w-100" v-model="selectedSurface" :options="getProductSurfaceFilteredList" optionLabel="name_en" @change="surface_filtered_save_disabled = false"/>
@@ -283,7 +286,7 @@
                         </div>
                         <div class="row m-auto mt-3">
                             <div class="col">
-                                <DataTable :value="productSurfaceFilteredList"
+                                <DataTable :value="getProductSurfaceFilteredProductsList"
                                                 v-model:selection="selectedSurfaceProducts"
                                                 selectionMode="single"
                                                 @row-select="surface_filtered_delete_disabled = false"
@@ -299,6 +302,9 @@
 
 
                     <!--Areas-->
+                    <br/>
+                    <div>
+                        <h3 class="text-center">Alan Filtresi</h3>
                     <div class="row m-auto mt-3">
                         <div class="col">
                             <span class="p-float-label">
@@ -316,7 +322,7 @@
                     <div class="row m-auto mt-3">
                         <div class="col">
                             <DataTable 
-                                :value="areaProductList" 
+                                :value="getProductAreasProductsList" 
                                 v-model:selection="selectedAreaProductList"
                                 selectionMode="single"
                                 style="font-size:85%;"
@@ -326,9 +332,42 @@
                             </DataTable>
                         </div>
                     </div>
+                    </div>
+                    
             </div>
             <div class="col-6">
+                <div v-if="getProductModel.kategori_id == 4 || getProductModel.kategori_id == 5 || getProductModel.kategori_id == 7">
+                    <h3 class="text-center">Materyal Filtresi</h3>
+                    <div class="row">
+                        <div class="col">
+                            <Dropdown class="w-100" v-model="selectedMaterial" :options="getProductMaterialFilteredList" optionLabel="name_en" @change="material_filtered_save_disabled = false"/>
+                        </div>
+                        <div class="col">
+                            <button type="button" class="btn btn-success w-100" @click="materialSave" :disabled="material_filtered_save_disabled">Ekle</button>
+                        </div>
+                        <div class="col">
+                            <button type="button" class="btn btn-danger w-100" @click="materialDelete" :disabled="material_filtered_delete_disabled">Sil</button>
+                        </div>
+                    </div>
+                    <div class="row m-auto mt-3">
+                        <div class="col">
+                            <DataTable :value="getProductMaterialFilteredProductsList"
+                                    v-model:selection="selectedMaterialProducts"
+                                    selectionMode="single"
+                                    @row-select="material_filtered_delete_disabled = false"
+                                >
+                                        <Column field="name_en" header="Materyal En"></Column>
+                                        <Column field="name_fr" header="Materyal Fr"></Column>
+                                        <Column field="name_es" header="Materyal Es"></Column>
+                            </DataTable>
+                        </div>
+                    </div>
+
+
+                </div>
+                <br/>
                 <div v-if="getProductModel.kategori_id == 2">
+                    <h3 class="text-center">Stil Filtresi</h3>
                     <div class="row">
                         <div class="col">
                             <Dropdown class="w-100" v-model="selectedStyle" :options="getProductStyleFilteredList" optionLabel="name_en" @change="style_filtered_save_disabled = false"/>
@@ -342,7 +381,7 @@
                     </div>
                     <div class="row m-auto mt-3">
                         <div class="col">
-                            <DataTable :value="productStyleFilteredList"
+                            <DataTable :value="getProductStyleFilteredProductsList"
                                     v-model:selection="selectedStyleProducts"
                                     selectionMode="single"
                                     @row-select="style_filtered_delete_disabled = false"
@@ -356,33 +395,62 @@
 
 
                 </div>
+                <br/>
                 <div v-if="getProductModel.kategori_id == 2">
+                    <h3 class="text-center">Kenar Filtresi</h3>
                     <div class="row">
                         <div class="col">
-                            <Dropdown class="w-100" v-model="selectedStyle" :options="getProductStyleFilteredList" optionLabel="name_en" @change="style_filtered_save_disabled = false"/>
+                            <Dropdown class="w-100" v-model="selectedEdge" :options="getProductEdgeFilteredList" optionLabel="name_en" @change="edge_filtered_save_disabled = false"/>
                         </div>
                         <div class="col">
-                            <button type="button" class="btn btn-success w-100" @click="styleSave" :disabled="style_filtered_save_disabled">Ekle</button>
+                            <button type="button" class="btn btn-success w-100" @click="edgeSave" :disabled="edge_filtered_save_disabled">Ekle</button>
                         </div>
                         <div class="col">
-                            <button type="button" class="btn btn-danger w-100" @click="styleDelete" :disabled="style_filtered_delete_disabled">Sil</button>
+                            <button type="button" class="btn btn-danger w-100" @click="edgeDelete" :disabled="edge_filtered_delete_disabled">Sil</button>
                         </div>
                     </div>
                     <div class="row m-auto mt-3">
                         <div class="col">
-                            <DataTable :value="productStyleFilteredList"
-                                    v-model:selection="selectedStyleProducts"
+                            <DataTable :value="getProductEdgeFilteredProductsList"
+                                    v-model:selection="selectedEdgeProducts"
                                     selectionMode="single"
-                                    @row-select="style_filtered_delete_disabled = false"
+                                    @row-select="edge_filtered_delete_disabled = false"
                                 >
-                                        <Column field="name_en" header="Stil En"></Column>
-                                        <Column field="name_fr" header="Stil Fr"></Column>
-                                        <Column field="name_es" header="Stil Es"></Column>
+                                        <Column field="name_en" header="Kenar En"></Column>
+                                        <Column field="name_fr" header="Kenar Fr"></Column>
+                                        <Column field="name_es" header="Kenar Es"></Column>
                             </DataTable>
                         </div>
                     </div>
 
 
+                </div>
+                <div v-if="getProductModel.kategori_id == 6 || getProductModel.kategori_id == 9 || getProductModel.kategori_id == 10 || getProductModel.kategori_id == 18">
+                    <h3 class="text-center">Tür Filtresi</h3>
+                    <div class="row">
+                        <div class="col">
+                            <Dropdown class="w-100" v-model="selectedType" :options="getProductTypeFilteredList" optionLabel="name_en" @change="type_filtered_save_disabled = false"/>
+                        </div>
+                        <div class="col">
+                            <button type="button" class="btn btn-success w-100" @click="typeSave" :disabled="type_filtered_save_disabled">Ekle</button>
+                        </div>
+                        <div class="col">
+                            <button type="button" class="btn btn-danger w-100" @click="typeDelete" :disabled="type_filtered_delete_disabled">Sil</button>
+                        </div>
+                    </div>
+                    <div class="row m-auto mt-3">
+                        <div class="col">
+                            <DataTable :value="getProductTypeFilteredProductsList"
+                                    v-model:selection="selectedTypeProducts"
+                                    selectionMode="single"
+                                    @row-select="type_filtered_delete_disabled = false"
+                                >
+                                        <Column field="name_en" header="Tür En"></Column>
+                                        <Column field="name_fr" header="Tür Fr"></Column>
+                                        <Column field="name_es" header="Tür Es"></Column>
+                            </DataTable>
+                        </div>
+                    </div>
                 </div>
             </div>
             </div>
@@ -531,6 +599,24 @@ export default {
     },
     data() {
         return {
+            selectedType:null,
+            type_filtered_save_disabled:true,
+            type_filtered_delete_disabled:true,
+            productTypeFilteredList:[],
+            selectedTypeProducts:null,
+
+            selectedMaterial:null,
+            material_filtered_save_disabled:true,
+            material_filtered_delete_disabled:true,
+            productMaterialFilteredList:[],
+            selectedMaterialProducts:null,
+
+            selectedEdge:null,
+            edge_filtered_save_disabled:true,
+            edge_filtered_delete_disabled:true,
+            productEdgeFilteredList:[],
+            selectedEdgeProducts:null,
+
             selectedStyleProducts:null,
             productStyleFilteredList:[],
             selectedStyle:null,
@@ -613,13 +699,104 @@ export default {
         this.stoneTypeList = this.getProductCategoryList.filter(x=>x.kategoriadi_en == 'Marble' || x.kategoriadi_en == 'Travertine' || x.kategoriadi_en == 'Plasterboard' || x.kategoriadi_en == 'Limestone' || x.kategoriadi_en == 'Quartz')
     },
     methods: {
+        getUpdatedData(){
+            useLoadingStore().begin_loading_act();
+            panelService.getPanelDetail(this.getProductModel.urunid).then(data=>{
+                usePanelStore().panel_product_model_list_load_act(data);
+                usePanelStore().panel_product_new_button_load_act(false);
+                useLoadingStore().end_loading_act();
+            })  
+        },
+
+        typeDelete(){
+            panelService.setFilterTypeDelete(this.selectedTypeProducts.id).then(response=>{
+                if(response.status){
+                    this.selectedTypeProducts = null;
+                    this.type_filtered_delete_disabled = true;
+                    this.getUpdatedData();
+                    this.$toast.add({'severity':'success','detail':'Başarıyla Silindi','life':3000});
+                } else{
+                    this.$toast.add({'severity':'error','detail':'Silme İşlemi Başarısız',life:3000});
+                }
+            });
+        },
+        typeSave(){
+            panelService.setFilterTypeSave({'urunid':this.getProductModel.urunid,...this.selectedType})
+            .then(response=>{
+                if(response.status){
+                    this.selectedType = null;
+                    this.type_filtered_save_disabled = true;
+                    this.getUpdatedData();
+                    this.$toast.add({'severity':'success','detail':'Başarıyla Eklendi','life':3000});
+                } else{
+                    this.$toast.add({'severity':'error','detail':'Ekleme İşlemi Başarısız',life:3000});
+                }
+            });
+        },
+
+        materialDelete(){
+            panelService.setFilterMaterialDelete(this.selectedMaterialProducts.id).then(response=>{
+                if(response.status){
+                    this.selectedMaterialProducts = null;
+                    this.material_filtered_delete_disabled = true;
+                    this.getUpdatedData();
+                    this.$toast.add({'severity':'success','detail':'Başarıyla Silindi','life':3000});
+                } else{
+                    this.$toast.add({'severity':'error','detail':'Silme İşlemi Başarısız',life:3000});
+                }
+            });
+        },
+        materialSave(){
+            panelService.setFilterMaterialSave({'urunid':this.getProductModel.urunid,...this.selectedMaterial})
+            .then(response=>{
+                if(response.status){
+                    this.selectedMaterial = null;
+                    this.material_filtered_save_disabled = true;
+                    this.getUpdatedData();
+                    this.$toast.add({'severity':'success','detail':'Başarıyla Eklendi','life':3000});
+                } else{
+                    this.$toast.add({'severity':'error','detail':'Ekleme İşlemi Başarısız',life:3000});
+                }
+            });
+        },
+
+
+        edgeDelete(){
+            panelService.setFilterEdgeDelete(this.selectedEdgeProducts.id).then(response=>{
+                if(response.status){
+
+                    this.selectedEdgeProducts = null;
+                    this.edge_filtered_delete_disabled = true;
+                    this.getUpdatedData();
+
+                    this.$toast.add({'severity':'success','detail':'Başarıyla Silindi','life':3000});
+                } else{
+                    this.$toast.add({'severity':'error','detail':'Silme İşlemi Başarısız',life:3000});
+                }
+            });
+        },
+        edgeSave(){
+            panelService.setFilterEdgeSave({'urunid':this.getProductModel.urunid,...this.selectedEdge})
+            .then(response=>{
+                if(response.status){
+                    this.selectedEdge = null;
+                    this.edge_filtered_save_disabled = true;
+                    this.getUpdatedData();
+                    this.$toast.add({'severity':'success','detail':'Başarıyla Eklendi','life':3000});
+                } else{
+                    this.$toast.add({'severity':'error','detail':'Ekleme İşlemi Başarısız',life:3000});
+                }
+            });
+        },
+
+
         styleDelete(){
             panelService.setFilterStyleDelete(this.selectedStyleProducts.id).then(response=>{
                 if(response.status){
-                    const index = this.productStyleFilteredList.findIndex(x=>x.name_en == this.selectedStyleProducts.name_en)
-                    this.productStyleFilteredList.splice(index,1);
                     this.selectedStyleProducts = null;
                     this.style_filtered_delete_disabled = true;
+                    this.getUpdatedData();
+
                     this.$toast.add({'severity':'success','detail':'Başarıyla Silindi','life':3000});
                 } else{
                     this.$toast.add({'severity':'error','detail':'Silme İşlemi Başarısız',life:3000});
@@ -630,9 +807,9 @@ export default {
             panelService.setFilterStyleSave({'urunid':this.getProductModel.urunid,...this.selectedStyle})
             .then(response=>{
                 if(response.status){
-                    this.productStyleFilteredList.push(this.selectedStyle);
                     this.selectedStyle = null;
                     this.style_filtered_save_disabled = true;
+                    this.getUpdatedData();
                     this.$toast.add({'severity':'success','detail':'Başarıyla Eklendi','life':3000});
                 } else{
                     this.$toast.add({'severity':'error','detail':'Ekleme İşlemi Başarısız',life:3000});
@@ -643,9 +820,9 @@ export default {
         surfaceDelete(){
             panelService.setFilterSurfaceDelete(this.selectedSurfaceProducts.id).then(response=>{
                 if(response.status){
-                    const index = this.productSurfaceFilteredList.findIndex(x=>x.name_en == this.selectedSurfaceProducts.name_en);
-                    this.productSurfaceFilteredList.splice(index, 1);
                     this.surface_filtered_delete_disabled = true;
+                    this.getUpdatedData();
+
                     this.$toast.add({'severity':'success','detail':'Başarıyla Silindi',life:3000});
                 }else{
                     this.$toast.add({'severity':'error','detail':'Silme İşlemi Başarısız','life':3000});
@@ -658,9 +835,10 @@ export default {
           panelService.setFilterSurfaceSave({'urunid':this.getProductModel.urunid,...this.selectedSurface})
           .then(response=>{
             if(response.status){
-                this.productSurfaceFilteredList.push(this.selectedSurface);
                 this.selectedSurface = null;
                 this.surface_filtered_save_disabled = true;
+                this.getUpdatedData();
+
                 this.$toast.add({'severity':'success','detail':'Başarıyla Eklendi.',life:3000});
             }else{
                 this.$toast.add({'severity':'error','detail':'Ekleme İşlemi Başarısız',life:3000});
@@ -680,9 +858,10 @@ export default {
         },
         deleteAreas(){
          this.delete_area_disabled_form = true;  
-         this.areaProductList.splice(this.index, 1);
          panelService.setAreasDelete(this.selectedAreaProductList.id).then(response=>{
             if(response.status){
+                this.getUpdatedData();
+
                 this.$toast.add({'severity':'success','detail':'Başarıyla Silindi',life:3000});
             }else{
                 this.$toast.add({'severity':'danger','detail':'Silme Başarısız',life:3000});
@@ -700,8 +879,8 @@ export default {
             panelService.setAreasProducts(areaid,productid,areaname)
             .then(response=>{
                if(response.status){
-                    this.areaProductList.push(this.selectedArea);
                     this.selectedArea = null;
+                    this.getUpdatedData();
 
                     this.$toast.add({'severity':'success','detail':'Başarıyla Kaydedildi.',life:3000});
                 } 
@@ -727,6 +906,8 @@ export default {
           panelService.setSuggestedProducts(data)
           .then(response=>{
                 if(response.status){
+                    this.getUpdatedData();
+
                     this.$toast.add({severity:'success',detail:'Başarıyla Kaydedildi',life:3000});
                 }else{
                     this.$toast.add({severity:'error',detail:'Kaydetme Başarısız',life:3000});
@@ -1006,6 +1187,8 @@ export default {
             this.sizeProductList = this.getProductModel.ebatlar;
             this.productSurfaceFilteredList = this.getProductSurfaceFilteredProductsList;
             this.productStyleFilteredList = this.getProductStyleFilteredProductsList;
+            this.productEdgeFilteredList = this.getProductEdgeFilteredProductsList;
+            this.productMaterialFilteredList = this.getProductMaterialFilteredProductsList;
 
 
         },

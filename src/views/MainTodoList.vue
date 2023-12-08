@@ -5,11 +5,38 @@
             :selection="selectedTodo"
             selectionMode="single"
             @row-click="todoSelected($event)"
+            v-model:filters="filters1"
+            filterDisplay="row"
+
         >
             <Column rowReorder headerStyle="width: 3rem" :reorderableColumn="false" />
             <Column  field="sira" header="Sıra" ></Column>
-            <Column  field="ortak_gorev" header="Görev Sahibi" ></Column>
-            <Column  field="yapilacak" header="Görev" ></Column>
+            <Column  field="ortak_gorev" header="Görev Sahibi" 
+            
+                                        :showFilterMenu="false"
+                        :showFilterOperator="false"
+                        :showClearButton="false"
+                        :showApplyButton="false"
+                        :showFilterMatchModes="false"
+                        :showAddButton="false"
+            >
+                                    <template #filter="{ filterModel, filterCallback }">
+                        <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter"/>
+                    </template>
+            </Column>
+            <Column  field="yapilacak" header="Görev" 
+            
+                                        :showFilterMenu="false"
+                        :showFilterOperator="false"
+                        :showClearButton="false"
+                        :showApplyButton="false"
+                        :showFilterMatchModes="false"
+                        :showAddButton="false"
+            >
+                                    <template #filter="{ filterModel, filterCallback }">
+                        <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter"/>
+                    </template>
+            </Column>
             <Column header="#" >
                 <template #body='slotProps'>
                     <button class="btn btn-success" type="button" @click="isTodoUpdate(slotProps.data.id)">Yapıldı</button>
@@ -35,6 +62,8 @@ import {useLoadingStore} from '../stores/loading';
 import form from '../components/todo/form.vue';
 import { socket } from '../services/customServices/realTimeService';
 import {localDateService} from '../services/localDateService';
+
+import { FilterMatchMode } from 'primevue/api';
 export default {
     components:{
         todoForm:form
@@ -44,6 +73,10 @@ export default {
             save_queue_disabled_form:false,
             selectedTodo:null,
             todo_visible_form:false,
+            filters1:{
+                ortak_gorev: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+                yapilacak: { value: null, matchMode: FilterMatchMode.CONTAINS },
+            }
         }  
     },
     computed:{

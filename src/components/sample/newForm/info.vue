@@ -363,14 +363,23 @@ export default {
                 this.bank_disabled = true;
                 this.courier_purchase = true;
                 this.courier_sales = true;
+                this.selectedBank = null;
+                this.getSampleModel.bankaAdi = null;
+                this.getSampleModel.bankaId = null;
             } else if (event.target._value.id == 2) {
                 this.bank_disabled = false;
                 this.courier_purchase = false;
                 this.courier_sales = false;
+                this.selectedBank = null;
+
             } else if (event.target._value.id == 3) {
-                this.bank_disabled = false;
+                this.bank_disabled = true;
                 this.courier_purchase = false;
                 this.courier_sales = true;
+                this.selectedBank = null;
+                this.getSampleModel.bankaAdi = null;
+                this.getSampleModel.bankaId = null;
+
             }
         },
         unitSelected(event) {

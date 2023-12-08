@@ -11,7 +11,6 @@
                 <AutoComplete id="users" v-model="selectedUser" multiple :suggestions="filteredUsers" optionLabel="username" @complete="searchUsers($event)" @item-select="usersSelected($event)"/>
                 <label for="users">Görev Sahibi</label>
             </span>
-
         </div>
         <div class="col">
             <span class="p-float-label w-100">

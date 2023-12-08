@@ -195,6 +195,7 @@ export default {
             this.getSampleModel.userId = localStorage.getItem('userId');
             this.getSampleModel.username = localStorage.getItem('username');
             this.getSampleModel.temsilci_id = this.selectedRepresentative.id;
+            
             sampleService.update(this.getSampleModel).then(data => {
                 if (data.status) {
                     socket.socketIO.emit('sample_stock_list_emit');
@@ -209,7 +210,7 @@ export default {
                     this.$toast.add({ severity: 'error', detail: 'Güncelleme Başarısız', life: 3000 });
 
                 }
-            })
+            });
         },
         sampleProcess() {
             if (this.getSampleNewButton) {

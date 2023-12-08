@@ -74,6 +74,28 @@ export const panelService = {
     },
     setFilterStyleDelete(id:any){
         return api.delete(`/panel/mekmarcom/style/filter/delete/${id}`).then(response=>response.data);
+    },
+
+    setFilterEdgeSave(data:any){
+        return api.post('/panel/mekmarcom/edge/filter/save',data).then(response=>response.data);
+    },
+    setFilterEdgeDelete(id:any){
+        return api.delete(`/panel/mekmarcom/edge/filter/delete/${id}`).then(response=>response.data);
+    },
+
+    setFilterMaterialSave(data:any){
+        return api.post('/panel/mekmarcom/material/filter/save',data).then(response=>response.data);
+    },
+    setFilterMaterialDelete(id:any){
+        return api.delete(`/panel/mekmarcom/material/filter/delete/${id}`).then(response=>response.data);
+    },
+
+    
+    setFilterTypeSave(data:any){
+        return api.post('/panel/mekmarcom/type/filter/save',data).then(response=>response.data);
+    },
+    setFilterTypeDelete(id:any){
+        return api.delete(`/panel/mekmarcom/type/filter/delete/${id}`).then(response=>response.data);
     }
 
 
