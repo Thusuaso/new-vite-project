@@ -257,28 +257,28 @@
                             
                             <span class="p-float-label">
                                 <AutoComplete v-model="selectedFinish" inputId="finish_en" optionLabel="name" :suggestions="filteredProductFinishList" @complete="searchFinish($event)" @item-select="finishSelected($event)"/>
-                                <label for="finish_en">En Surface</label>
+                                <label for="finish_en">En Finish</label>
                             </span>
                         </div>
                         <div class="col mb-3">
                             
                             <span class="p-float-label">
                                 <InputText id="frsurface" v-model="fr_surface" disabled/>
-                                <label for="frsurface">Fr-Surface</label>
+                                <label for="frsurface">Fr-Finish</label>
                             </span>
                         </div>
                         <div class="col mb-3">
                             
                             <span class="p-float-label">
                                 <InputText id="essurface" v-model="es_surface" disabled/>
-                                <label for="essurface">Es-Surface</label>
+                                <label for="essurface">Es-Finish</label>
                             </span>
                         </div>
                         <div class="col">
-                            <button type="button" class="btn btn-success w-100" @click="addFinish">Ekle</button>
+                            <button type="button" class="btn btn-success w-100" @click="addFinish" :disabled="add_finish_disabled">Ekle</button>
                         </div>
                         <div class="col">
-                            <button type="button" class="btn btn-danger w-100" @click="deleteFinish">Sil</button>
+                            <button type="button" class="btn btn-danger w-100" @click="deleteFinish" :disabled="delete_finish_disabled">Sil</button>
                         </div>
                     </div>
                         <div class="row m-auto mt-3">
@@ -288,6 +288,7 @@
                                     v-model:selection="selectedFinishProduct"
                                     selectionMode="single"
                                     style="font-size:85%;"
+                                    @row-click="finishProductSelected"
                                 >
                                     <Column field="name" header="Yüzey"></Column>
                                 </DataTable>
@@ -377,9 +378,9 @@
                                     selectionMode="single"
                                     @row-select="material_filtered_delete_disabled = false"
                                 >
-                                        <Column field="name_en" header="Materyal En"></Column>
-                                        <Column field="name_fr" header="Materyal Fr"></Column>
-                                        <Column field="name_es" header="Materyal Es"></Column>
+                                        <Column field="name_en" header="Material En"></Column>
+                                        <Column field="name_fr" header="Material Fr"></Column>
+                                        <Column field="name_es" header="Material Es"></Column>
                             </DataTable>
                         </div>
                     </div>
@@ -407,9 +408,9 @@
                                     selectionMode="single"
                                     @row-select="style_filtered_delete_disabled = false"
                                 >
-                                        <Column field="name_en" header="Stil En"></Column>
-                                        <Column field="name_fr" header="Stil Fr"></Column>
-                                        <Column field="name_es" header="Stil Es"></Column>
+                                        <Column field="name_en" header="Style En"></Column>
+                                        <Column field="name_fr" header="Style Fr"></Column>
+                                        <Column field="name_es" header="Style Es"></Column>
                             </DataTable>
                         </div>
                     </div>
@@ -437,9 +438,9 @@
                                     selectionMode="single"
                                     @row-select="edge_filtered_delete_disabled = false"
                                 >
-                                        <Column field="name_en" header="Kenar En"></Column>
-                                        <Column field="name_fr" header="Kenar Fr"></Column>
-                                        <Column field="name_es" header="Kenar Es"></Column>
+                                        <Column field="name_en" header="Edge En"></Column>
+                                        <Column field="name_fr" header="Edge Fr"></Column>
+                                        <Column field="name_es" header="Edge Es"></Column>
                             </DataTable>
                         </div>
                     </div>
@@ -467,9 +468,9 @@
                                     selectionMode="single"
                                     @row-select="type_filtered_delete_disabled = false"
                                 >
-                                        <Column field="name_en" header="Tür En"></Column>
-                                        <Column field="name_fr" header="Tür Fr"></Column>
-                                        <Column field="name_es" header="Tür Es"></Column>
+                                        <Column field="name_en" header="Type En"></Column>
+                                        <Column field="name_fr" header="Type Fr"></Column>
+                                        <Column field="name_es" header="Type Es"></Column>
                             </DataTable>
                         </div>
                     </div>
@@ -614,6 +615,8 @@ export default {
     },
     data() {
         return {
+            add_finish_disabled:true,
+            delete_finish_disabled:true,
             selectedType:null,
             type_filtered_save_disabled:true,
             type_filtered_delete_disabled:true,
@@ -714,6 +717,9 @@ export default {
         this.stoneTypeList = this.getProductCategoryList.filter(x=>x.kategoriadi_en == 'Marble' || x.kategoriadi_en == 'Travertine' || x.kategoriadi_en == 'Plasterboard' || x.kategoriadi_en == 'Limestone' || x.kategoriadi_en == 'Quartz')
     },
     methods: {
+        finishProductSelected(){
+          this.delete_finish_disabled = false;
+        },
         getUpdatedData(){
             useLoadingStore().begin_loading_act();
             panelService.getPanelDetail(this.getProductModel.urunid).then(data=>{
@@ -832,6 +838,8 @@ export default {
         },
 
         surfaceDelete(){
+            this.delete_finish_disabled = false;
+            
             panelService.setFilterSurfaceDelete(this.selectedSurfaceProducts.id).then(response=>{
                 if(response.status){
                     this.surface_filtered_delete_disabled = true;
@@ -845,16 +853,16 @@ export default {
 
         },
         surfaceSave(){
-
+          this.add_finish_disabled = true;
           panelService.setFilterSurfaceSave({'urunid':this.getProductModel.urunid,'kategori':this.getProductModel.kategori_id,...this.selectedSurface})
           .then(response=>{
             if(response.status){
                 this.selectedSurface = null;
                 this.surface_filtered_save_disabled = true;
                 this.getUpdatedData();
-
                 this.$toast.add({'severity':'success','detail':'Başarıyla Eklendi.',life:3000});
             }else{
+
                 this.$toast.add({'severity':'error','detail':'Ekleme İşlemi Başarısız',life:3000});
             }
           });
@@ -862,7 +870,7 @@ export default {
         finishSelected(){
             this.fr_surface = this.selectedFinish.name_fr;
             this.es_surface = this.selectedFinish.name_es;
-            
+            this.add_finish_disabled = false;
         },
         areaProductListSelected(event){
             this.delete_area_disabled_form = false;
@@ -1108,8 +1116,10 @@ export default {
             this.filteredProductSizeList = result;
         },
         deleteFinish() {
+            this.delete_finish_disabled = true;
+
             const finishData = {
-                'id': this.selectedSurfaceProduct.id,
+                'id': this.selectedFinishProduct.id,
                 'urunid': this.getProductModel.urunid,
             };
             panelService.setFinishDelete(finishData).then(data => {
@@ -1125,6 +1135,7 @@ export default {
             });
         },
         addFinish() {
+            this.add_finish_disabled = true;
             const finishData = {
                 'islemadien':this.selectedFinish.name,
                 'islemadifr':this.selectedFinish.name_fr,
