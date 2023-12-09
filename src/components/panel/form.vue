@@ -72,6 +72,14 @@
                     </span>
                 </div>
             </div>
+            <div class="row m-auto mt-3">
+                <div class="col">
+                    <button type="button" class="btn btn-success w-100" @click="process" :disabled="save_button_disabled">Kaydet</button>
+                </div>
+                <div class="col">
+                    <button type="button" class="btn btn-danger w-100" @click="deleteForm" :disabled="delete_button_disabled">Sil</button>
+                </div>
+            </div>
         </TabPanel>
         <TabPanel header="Ürün (Fr)">
                 <div class="row m-auto mt-3">
@@ -124,6 +132,14 @@
                         </span>
                     </div>
                 </div>
+                <div class="row m-auto mt-3">
+                <div class="col">
+                    <button type="button" class="btn btn-success w-100" @click="process" :disabled="save_button_disabled">Kaydet</button>
+                </div>
+                <div class="col">
+                    <button type="button" class="btn btn-danger w-100" @click="deleteForm" :disabled="delete_button_disabled">Sil</button>
+                </div>
+            </div>
         </TabPanel>
         <TabPanel header="Ürün (Es)">
                     <div class="row m-auto mt-3">
@@ -174,6 +190,14 @@
                             </span>
                         </div>
                     </div>
+                    <div class="row m-auto mt-3">
+                        <div class="col">
+                            <button type="button" class="btn btn-success w-100" @click="process" :disabled="save_button_disabled">Kaydet</button>
+                        </div>
+                        <div class="col">
+                            <button type="button" class="btn btn-danger w-100" @click="deleteForm" :disabled="delete_button_disabled">Sil</button>
+                        </div>
+                    </div>
         </TabPanel>
         <TabPanel header="Sizes">
             <div class="row m-auto mt-3">
@@ -193,13 +217,13 @@
                             </div>
                         </div>
                         <div class="col">
-                            <button type="button" class="btn btn-success" @click="addSize" :disabled="edge_add_disabled">Ekle</button>
+                            <button type="button" class="btn btn-success w-100" @click="addSize" :disabled="edge_add_disabled">Ekle</button>
                         </div>
                         <div class="col">
-                            <button type="button" class="btn btn-danger" @click="deleteSize" :disabled="edge_delete_disabled">Sil</button>
+                            <button type="button" class="btn btn-danger w-100" @click="deleteSize" :disabled="edge_delete_disabled">Sil</button>
                         </div>
                         <div class="col">
-                            <button type="button" class="btn btn-warning" @click="newSize" :disabled="edge_new_disabled">Yeni</button>
+                            <button type="button" class="btn btn-warning w-100" @click="newSize" :disabled="edge_new_disabled">Yeni</button>
                         </div>
                     </div>
                     <div class="row m-auto mt-3">
@@ -221,13 +245,13 @@
             
 
         </TabPanel>
-        <TabPanel header="">
+        <TabPanel header="Filters">
             <div class="row">
-            <div class="col-6">
+            <div class="col-12">
 
                 <!--Finishes-->
-                    <div v-if="getProductModel.kategori_id == 1 || getProductModel.kategori_id == 3">
-                        <h4 class="text-center">Yüzey Filtresi</h4>
+                    <div v-if="getProductModel.kategori_id == 1 || getProductModel.kategori_id == 2 || getProductModel.kategori_id == 3 || getProductModel.kategori_id == 4 || getProductModel.kategori_id == 8" >
+                        <h4 class="text-center">Finish</h4>
                         <div class="row m-auto mt-3">
                         <div class="col mb-3">
                             
@@ -251,10 +275,10 @@
                             </span>
                         </div>
                         <div class="col">
-                            <button type="button" class="btn btn-success" @click="addFinish">Ekle</button>
+                            <button type="button" class="btn btn-success w-100" @click="addFinish">Ekle</button>
                         </div>
                         <div class="col">
-                            <button type="button" class="btn btn-danger" @click="deleteFinish">Sil</button>
+                            <button type="button" class="btn btn-danger w-100" @click="deleteFinish">Sil</button>
                         </div>
                     </div>
                         <div class="row m-auto mt-3">
@@ -270,8 +294,7 @@
                             </div>
                         </div>
                     </div>
-                    <br/>
-                    <div v-if="getProductModel.kategori_id == 2 || getProductModel.kategori_id == 4">
+                    <!-- <div v-if="getProductModel.kategori_id == 2 || getProductModel.kategori_id == 4">
                         <h3 class="text-center">Yüzey Filtresi</h3>
                         <div class="row m-auto mt-3">
                             <div class="col">
@@ -297,14 +320,12 @@
                                 </DataTable>
                             </div>
                         </div>
-                    </div>
-
+                    </div> -->
 
 
                     <!--Areas-->
-                    <br/>
-                    <div>
-                        <h3 class="text-center">Alan Filtresi</h3>
+                    <!-- <div>
+                        <h3 class="text-center">Area</h3>
                     <div class="row m-auto mt-3">
                         <div class="col">
                             <span class="p-float-label">
@@ -332,12 +353,12 @@
                             </DataTable>
                         </div>
                     </div>
-                    </div>
+                    </div> -->
                     
             </div>
-            <div class="col-6">
+            <div class="col-12">
                 <div v-if="getProductModel.kategori_id == 4 || getProductModel.kategori_id == 5 || getProductModel.kategori_id == 7">
-                    <h3 class="text-center">Materyal Filtresi</h3>
+                    <h3 class="text-center">Material</h3>
                     <div class="row">
                         <div class="col">
                             <Dropdown class="w-100" v-model="selectedMaterial" :options="getProductMaterialFilteredList" optionLabel="name_en" @change="material_filtered_save_disabled = false"/>
@@ -365,9 +386,9 @@
 
 
                 </div>
-                <br/>
+
                 <div v-if="getProductModel.kategori_id == 2">
-                    <h3 class="text-center">Stil Filtresi</h3>
+                    <h3 class="text-center">Style</h3>
                     <div class="row">
                         <div class="col">
                             <Dropdown class="w-100" v-model="selectedStyle" :options="getProductStyleFilteredList" optionLabel="name_en" @change="style_filtered_save_disabled = false"/>
@@ -395,9 +416,9 @@
 
 
                 </div>
-                <br/>
+
                 <div v-if="getProductModel.kategori_id == 2">
-                    <h3 class="text-center">Kenar Filtresi</h3>
+                    <h3 class="text-center">Edge</h3>
                     <div class="row">
                         <div class="col">
                             <Dropdown class="w-100" v-model="selectedEdge" :options="getProductEdgeFilteredList" optionLabel="name_en" @change="edge_filtered_save_disabled = false"/>
@@ -425,8 +446,9 @@
 
 
                 </div>
-                <div v-if="getProductModel.kategori_id == 6 || getProductModel.kategori_id == 9 || getProductModel.kategori_id == 10 || getProductModel.kategori_id == 18">
-                    <h3 class="text-center">Tür Filtresi</h3>
+
+                <div v-if="getProductModel.kategori_id == 6 || getProductModel.kategori_id == 9 || getProductModel.kategori_id == 11 || getProductModel.kategori_id == 18">
+                    <h3 class="text-center">Type</h3>
                     <div class="row">
                         <div class="col">
                             <Dropdown class="w-100" v-model="selectedType" :options="getProductTypeFilteredList" optionLabel="name_en" @change="type_filtered_save_disabled = false"/>
@@ -459,7 +481,7 @@
         <TabPanel header="Suggested" v-if="!getPanelProductNewButton">
             <div class="row m-auto mt-3">
                 <div class="col">
-                    <button type="button" class="btn btn-success" @click="saveSuggested" :disabled="saveSuggestedDisabled">Kaydet</button>
+                    <button type="button" class="btn btn-success w-100" @click="saveSuggested" :disabled="saveSuggestedDisabled">Kaydet</button>
                 </div>
             </div>
             <div class="row m-auto mt-3"  >
@@ -545,14 +567,7 @@
             </div>
         </TabPanel>
     </TabView>
-    <div class="row m-auto mt-3">
-        <div class="col">
-            <button type="button" class="btn btn-success" @click="process" :disabled="save_button_disabled">Kaydet</button>
-        </div>
-        <div class="col">
-            <button type="button" class="btn btn-danger" @click="deleteForm" :disabled="delete_button_disabled">Sil</button>
-        </div>
-    </div>
+
 </template>
 <script>
 import { usePanelStore } from '../../stores/panel';
@@ -721,7 +736,7 @@ export default {
             });
         },
         typeSave(){
-            panelService.setFilterTypeSave({'urunid':this.getProductModel.urunid,...this.selectedType})
+            panelService.setFilterTypeSave({'urunid':this.getProductModel.urunid,'kategori':this.getProductModel.kategori_id,...this.selectedType})
             .then(response=>{
                 if(response.status){
                     this.selectedType = null;
@@ -747,7 +762,7 @@ export default {
             });
         },
         materialSave(){
-            panelService.setFilterMaterialSave({'urunid':this.getProductModel.urunid,...this.selectedMaterial})
+            panelService.setFilterMaterialSave({'urunid':this.getProductModel.urunid,'kategori':this.getProductModel.kategori_id,...this.selectedMaterial})
             .then(response=>{
                 if(response.status){
                     this.selectedMaterial = null;
@@ -759,7 +774,6 @@ export default {
                 }
             });
         },
-
 
         edgeDelete(){
             panelService.setFilterEdgeDelete(this.selectedEdgeProducts.id).then(response=>{
@@ -776,7 +790,7 @@ export default {
             });
         },
         edgeSave(){
-            panelService.setFilterEdgeSave({'urunid':this.getProductModel.urunid,...this.selectedEdge})
+            panelService.setFilterEdgeSave({'urunid':this.getProductModel.urunid,'kategori':this.getProductModel.kategori_id,...this.selectedEdge})
             .then(response=>{
                 if(response.status){
                     this.selectedEdge = null;
@@ -804,7 +818,7 @@ export default {
             });
         },
         styleSave(){
-            panelService.setFilterStyleSave({'urunid':this.getProductModel.urunid,...this.selectedStyle})
+            panelService.setFilterStyleSave({'urunid':this.getProductModel.urunid,'kategori':this.getProductModel.kategori_id,...this.selectedStyle})
             .then(response=>{
                 if(response.status){
                     this.selectedStyle = null;
@@ -832,7 +846,7 @@ export default {
         },
         surfaceSave(){
 
-          panelService.setFilterSurfaceSave({'urunid':this.getProductModel.urunid,...this.selectedSurface})
+          panelService.setFilterSurfaceSave({'urunid':this.getProductModel.urunid,'kategori':this.getProductModel.kategori_id,...this.selectedSurface})
           .then(response=>{
             if(response.status){
                 this.selectedSurface = null;

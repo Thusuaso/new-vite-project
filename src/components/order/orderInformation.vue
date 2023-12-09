@@ -1248,7 +1248,10 @@ export default {
         alert("Lütfen Açıklamayı Giriniz...");
       } else if (!this.products.uretimAciklama) {
         alert("Lütfen Açıklamayı Giriniz...");
-      } else {
+      }  else if (this.products.miktar == 0){
+        alert('Miktar 0 Olamaz.')
+      }
+      else {
         this.products.tedarikciId = this.selectedSupplier.id;
         this.products.tedarikciAdi = this.selectedSupplier.firmaAdi;
 
