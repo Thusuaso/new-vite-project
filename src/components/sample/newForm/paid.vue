@@ -9,7 +9,7 @@
             </div>
             <div class="col">
                 <span class="p-float-label">
-                    <InputText id="usd" v-model="finance.tutar" />
+                    <InputText id="usd" v-model="finance.tutar" @input="finance.tutar= $filters.formatPoint($event.target.value)"/>
                     <label for="usd">$</label>
                 </span>
             </div>

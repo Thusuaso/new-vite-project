@@ -325,7 +325,7 @@
 
 
                     <!--Areas-->
-                    <!-- <div>
+                    <div>
                         <h3 class="text-center">Area</h3>
                     <div class="row m-auto mt-3">
                         <div class="col">
@@ -354,7 +354,7 @@
                             </DataTable>
                         </div>
                     </div>
-                    </div> -->
+                    </div>
                     
             </div>
             <div class="col-12">
@@ -713,7 +713,6 @@ export default {
         this.suggestedList = [...this.getProductSuggestedProductsList];
         this.notSuggestedList = [...this.getProductSuggestedProductList]
         this.pickProductPhotosList = [...this.getProductPhotoListPick];
-        this.areaProductList = this.getProductAreasProductsList;
         this.stoneTypeList = this.getProductCategoryList.filter(x=>x.kategoriadi_en == 'Marble' || x.kategoriadi_en == 'Travertine' || x.kategoriadi_en == 'Plasterboard' || x.kategoriadi_en == 'Limestone' || x.kategoriadi_en == 'Quartz')
     },
     methods: {

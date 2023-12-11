@@ -12,7 +12,7 @@
         <div class="col">
                 <div class="input-group mb-3" style="height:50px;">
                     <span class="input-group-text" id="basic-addon1">Tutar</span>
-                    <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" :disabled="!disabled_new_button" v-model="getWorkmanshipModel.tutar">
+                    <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" :disabled="!disabled_new_button" v-model="getWorkmanshipModel.tutar" @input="getWorkmanshipModel.tutar = $filters.formatPoint($event.target.value)">
                 </div>
             </div>
         <div class="col">

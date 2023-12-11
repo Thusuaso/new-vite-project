@@ -22,7 +22,7 @@
                             <div class="col">
                                 <div class="input-group mb-4 mt-4" >
                                     <span class="input-group-text" id="basic-addon1">Miktar</span>
-                                    <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="getSampleModel.Miktar" >
+                                    <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="getSampleModel.Miktar" @input="getSampleModel.Miktar = $filters.formatPoint($event.target.value)">
                                 </div>
                             </div>
                         </div>

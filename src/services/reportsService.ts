@@ -240,7 +240,9 @@ export const reportsService = {
     setCreateSizeDelete(id:any){
         return api.delete(`/seleksiyon/islemler/kasa/olculer/delete/${id}`).then(response=>response.data);
     },
-
+    getStokExcelList(data:any){
+        return api.post('/raporlar/listeler/stokRaporExcelListe',data).then(response=>response.data);
+    }
 
 
 }

@@ -1,4 +1,5 @@
 <template>
+    <button type="button" class="btn btn-primary" @click="excel_output_list">Excel</button>
     <div class="row m-auto mt-3">
         <div class="col-3">
             <div class="form-check">
@@ -147,6 +148,7 @@ import { mapState } from 'pinia';
 
 import { FilterMatchMode } from 'primevue/api';
 import { reportsService } from '../services/reportsService';
+import {useLocalStore} from '../stores/local';
 import { useLoadingStore } from '../stores/loading';
 
 import mekmerReportsStockDetail from '../components/reports/mekmerReportsStockDetail.vue';
@@ -156,6 +158,9 @@ export default {
         ...mapState(useReportsStore, [
             'getMekmerStockList',
             'getMekmerStockListTotal'
+        ]),
+        ...mapState(useLocalStore,[
+            'url'
         ])
     },
     components: {
@@ -226,6 +231,22 @@ export default {
                     useLoadingStore().end_loading_act();
                 })
             }
+        },
+        excel_output_list(){
+            reportsService.getStokExcelList(this.getMekmerStockList)
+            .then(response=>{
+                if(response.status){
+
+                     
+                        const link = document.createElement('a')
+                        link.href = this.url + 'raporlar/listeler/stokRaporExcelListe' 
+
+                        link.setAttribute('download','Stok_listesi.xlsx')
+                        document.body.appendChild(link)
+                        link.click()
+
+                        }
+            });
         }
     }
 }
