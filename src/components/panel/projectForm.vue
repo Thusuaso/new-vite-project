@@ -52,11 +52,8 @@
 
                 <button type="button" class="btn btn-danger w-100 mb-4" @click="deletePhotos">Sil</button>
                 <button type="button" class="btn btn-secondary w-100 mb-4" @click="mainPhotosChange(getPanelPickListPhotosDetailList[1])" :disabled="getPanelPickListPhotosDetailList[1].lenght == 1">Ana Fotoğrafla Değiştir</button>
-                <PickList v-model="getPanelPickListPhotosDetailList"  dataKey="id" 
-                    @move-to-target="pickListMove($event)" 
-                    @move-all-to-target="pickListMoveAll($event)"
-                    @move-to-source = pickListMoveSource($event)
-                    @move-all-to-source = pickListMoveSourceAll($event)
+                <PickList v-model="panelPickListPhotos"  
+                    @reorder="isSelectionChange($event)"
                 >
                     <template #sourceheader> Available </template>
                     <template #targetheader> Selected </template>
@@ -123,6 +120,7 @@ export default {
     props:['project_id','project_name'],
     data() {
         return {
+            panelPickListPhotos:[],
             suggestedList:[],
             suggested_form:false,
             project_product_name: "",
@@ -154,9 +152,27 @@ export default {
             this.information = this.getPanelProjectDetailList.project_detail_information_list[0].information;
             // @ts-ignore
             this.project_product_name = this.getPanelProjectDetailList.project_detail_information_list[0].project_product_name;
-        }
+        };
+        this.panelPickListPhotos = this.getPanelPickListPhotosDetailList
     },
     methods: {
+        isSelectionChange(event){
+        
+            let index = 1;
+          this.panelPickListPhotos[0].forEach(element => {
+            element.queue = index;
+            index += 1;
+          });
+          reportsService.setProjectPhotosQueueChange(this.panelPickListPhotos[0])
+          .then(response=>{
+                if(response.status){
+                    this.$toast.add({'severity':'success','detail':'Başarıyla Değiştirildi.','life':3000});
+                } else{
+                    this.$toast.add({'severity':'error','detail':'Değiştirme Başarısız.','life':3000});
+                    
+                }
+           })
+        },
         informationControl(event){
           if(event.target.value.length >100){
                 this.information = event.target.value.substring(0,1000);

@@ -242,6 +242,9 @@ export const reportsService = {
     },
     getStokExcelList(data:any){
         return api.post('/raporlar/listeler/stokRaporExcelListe',data).then(response=>response.data);
+    },
+    setProjectPhotosQueueChange(data:any){
+        return api.post('/panel/project/photos/queue/change',data).then(response=>response.data);
     }
 
 
