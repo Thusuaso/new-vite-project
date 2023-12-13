@@ -42,9 +42,13 @@ export const usePanelStore = defineStore('panel', {
             productMaterialFilteredProductsList:[],
             productTypeFilteredProductsList:[],
             productStyleFilteredProductsList:[],
+            productKategoriAdi:null,
         }
     },
     actions: {
+        panel_product_kategori_adi_load_act(data:any){
+          this.productKategoriAdi = data;  
+        },
         panel_queue_products_load_act(data:any){
           this.productQueueProducts = data  
         },
@@ -122,7 +126,9 @@ export const usePanelStore = defineStore('panel', {
             return state.productStyleFilteredProductsList;
         },
 
-
+        getProductKategoriAdi(state){
+            return state.productKategoriAdi;
+        },
 
 
 

@@ -140,14 +140,15 @@ export default {
             panelService.getPanelDetail(event.data.urunid).then(data=>{
                 usePanelStore().panel_product_model_list_load_act(data);
                 usePanelStore().panel_product_new_button_load_act(false);
-                this.$emit('openPanelDetailForm', event.data.urunid);
+                this.$emit('openPanelDetailForm', event.data);
                 useLoadingStore().end_loading_act();
             })
         },
         categorySelected(event) {
             useLoadingStore().begin_loading_act();
-            panelService.getPanelProductList(event.value.kategoriadi_en).then(data => {
+            panelService.getPanelProductList(event.value.kategoriadi_en,this.$route.params.yayinla).then(data => {
                 usePanelStore().panel_product_list_load_act(data);
+                usePanelStore().panel_product_kategori_adi_load_act(event.value.kategoriadi_en);
                 useLoadingStore().end_loading_act();
             });
         }

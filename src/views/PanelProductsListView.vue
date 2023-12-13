@@ -7,7 +7,7 @@
     </div>
     <list @openPanelDetailForm="openPanelDetailForm($event)"/>
     
-    <Dialog v-model:visible="panel_products_form" :header="'Ürün Id ' + urunid" modal :style="{ 'width': '100vw' }">
+    <Dialog v-model:visible="panel_products_form" :header="urunadi + ' - ' + urunid" modal :style="{ 'width': '100vw' }">
         <panelForm  @product_id_emit="productIdEmit($event)" :urunid="urunid"/>
     </Dialog>
 </template>
@@ -33,6 +33,7 @@ export default {
         return {
             panel_products_form: false,
             urunid:0,
+            urunadi:null,
         }
     },
     methods: {
@@ -47,13 +48,16 @@ export default {
             });
         },
         productIdEmit(event){
-          this.urunid = event;
+          this.urunid = event.urunid;
           // @ts-ignore
-          this.getProductModel.urunid = event;
+          this.getProductModel.urunid = event.urunid;
+          this.urunadi = event.urunadi_en;
+
         },
         openPanelDetailForm(event) {
             this.panel_products_form = true;
-            this.urunid = event;
+            this.urunid = event.urunid;
+            this.urunadi = event.urunadi_en;
 
 
         }

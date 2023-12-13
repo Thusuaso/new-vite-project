@@ -650,14 +650,15 @@ const router = createRouter({
       }
     },
     {
-      path: '/panel/products',
+      path: '/panel/products/:yayinla',
       component: () => import('@/views/PanelProductsListView.vue'),
       beforeEnter(to, from, next) {
         useLoadingStore().begin_loading_act();
-        panelService.getPanelCategoryList().then(category => {
+        panelService.getPanelCategoryList(to.params.yayinla).then(category => {
           usePanelStore().panel_category_list_load_act(category);
-          panelService.getPanelProductList(category.kategorilist[0].kategoriadi_en).then(data => {
+          panelService.getPanelProductList(category.kategorilist[0].kategoriadi_en,to.params.yayinla).then(data => {
             usePanelStore().panel_product_list_load_act(data);
+            usePanelStore().panel_product_kategori_adi_load_act(category.kategorilist[0].kategoriadi_en);
             useLoadingStore().end_loading_act();
             next();
           })
@@ -665,6 +666,7 @@ const router = createRouter({
         })
       }
     },
+
     {
       path: '/todo/all',
       component: () => import('@/views/TodoListAllView.vue'),

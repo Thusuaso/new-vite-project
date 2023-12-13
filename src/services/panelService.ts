@@ -4,8 +4,8 @@ export const panelService = {
     getNewQueue(category_id:any){
       return api.get(`/panel/mekmarcom/products/new/queue/${category_id}`).then(response=>response.data);  
     },
-    getPanelCategoryList() {
-        return api.get('/panel/mekmarcom/kategoriList').then(response => response.data);
+    getPanelCategoryList(yayinla:any) {
+        return api.get(`/panel/mekmarcom/kategoriList/${yayinla}`).then(response => response.data);
     },
     getQueueProductsList(category_id:any){
       return api.get(`/panel/mekmarcom/products/queue/${category_id}`).then(response=>response.data);  
@@ -13,9 +13,12 @@ export const panelService = {
     setQueueProducts(data:any){
       return api.post('/panel/mekmarcom/products/queue/save',data).then(response=>response.data);  
     },
-    getPanelProductList(category:any) {
-        return api.get(`/panelProductList/productKategoriList/${category}`).then(response => response.data);
+    getPanelProductList(category:any,yayinla:any) {
+        return api.get(`/panelProductList/productKategoriList/${category}/${yayinla}`).then(response => response.data);
     },
+
+
+
     getPanelModel() {
         return api.get('/panel/mekmarcom/productDetail/newProduct').then(response => response.data);
     },

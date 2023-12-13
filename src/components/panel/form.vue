@@ -110,28 +110,7 @@
                         </span>
                     </div>
                 </div>
-                <div class="row m-auto mt-4">
-                
- 
-                    <div class="col">
-                        <div class="input-group mb-3">
-                            <span class="input-group-text" id="basic-addon1">Birim</span>
-                            <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="getProductModel.birim">
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="input-group mb-3">
-                            <span class="input-group-text" id="basic-addon1">Tedarikçi</span>
-                            <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="getProductModel.tedarikciadi">
-                        </div>
-                    </div>
-                    <div class="col">
-                        <span class="p-float-label">
-                            <Dropdown id="color" v-model="selectedColorFr" :options="getProductColorFrList" optionLabel="name" class="w-100" @change="colorFrSelected($event)"/>
-                            <label for="color">Renk</label>
-                        </span>
-                    </div>
-                </div>
+
                 <div class="row m-auto mt-3">
                 <div class="col">
                     <button type="button" class="btn btn-success w-100" @click="process" :disabled="save_button_disabled">Kaydet</button>
@@ -170,26 +149,6 @@
                             </span>
                         </div>
                     </div>
-                    <div class="row m-auto mt-4">
-                        <div class="col">
-                            <div class="input-group mb-3">
-                                <span class="input-group-text" id="basic-addon1">Birim</span>
-                                <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="getProductModel.birim">
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="input-group mb-3">
-                                <span class="input-group-text" id="basic-addon1">Tedarikçi</span>
-                                <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="getProductModel.tedarikciadi">
-                            </div>
-                        </div>
-                        <div class="col">
-                            <span class="p-float-label">
-                                <Dropdown id="color" v-model="selectedColorEs" :options="getProductColorEsList" optionLabel="name" class="w-100" @change="colorEsSelected($event)"/>
-                                <label for="color">Renk</label>
-                            </span>
-                        </div>
-                    </div>
                     <div class="row m-auto mt-3">
                         <div class="col">
                             <button type="button" class="btn btn-success w-100" @click="process" :disabled="save_button_disabled">Kaydet</button>
@@ -219,46 +178,49 @@
                         <div class="col">
                             <button type="button" class="btn btn-success w-100" @click="addSize" :disabled="edge_add_disabled">Ekle</button>
                         </div>
-                        <div class="col">
-                            <button type="button" class="btn btn-danger w-100" @click="deleteSize" :disabled="edge_delete_disabled">Sil</button>
-                        </div>
+
                     </div>
                     <div class="row m-auto mt-3">
                         <div class="col">
                             <DataTable :value="sizeProductList"
-                                v-model:selection="selectedSizeProduct"
-                                selectionMode="single"
+                                sortField="ebat"
                                 style="font-size:85%;"
                                 @row-click="sizeProductSelected"
                                 editMode="cell" @cell-edit-complete="onCellEditComplete($event)"
                                 :pt="{
-                                        table: { style: 'min-width: 50rem' },
                                         column: {
                                             bodycell: ({ state }) => ({
                                                 class: [{ 'pt-0 pb-0': state['d_editing'] }]
                                             })
                                         }
                                     }"
+                                
                             >
+                               
                                 <Column field="ebat" header="Ebat">
                                     <template #editor="{ data, field }">
-                                        <template v-if="field !== 'price'">
-                                            <InputText v-model="data[field]" autofocus />
+                                        <template v-if="field != 'fiyat'">
+                                            <input type="text" v-model="data[field]" autofocus/>
                                         </template>
                                         <template v-else>
-                                            {{ data[field] }}
+                                            <input type="text" v-model="data[field]" autofocus/>
                                         </template>
                                     </template>
                                 </Column>
                                 <Column field="fiyat" header="Fiyat">
                                     <template #editor="{ data, field }">
-                                        <template v-if="field !== 'price'">
-                                            <InputText v-model="data[field]" autofocus />
+                                        <template v-if="field !== 'ebat'">
+                                            <input type="text" v-model="data[field]" autofocus />
                                         </template>
                                         <template v-else>
-                                            {{ data[field] }}
+                                            <input type="text" v-model="data[field]" autofocus />
                                         </template>
                                     </template>
+                                </Column>
+                                <Column header="Sil">
+                                  <template #body="slotProps">
+                                    <button type="button" class="btn btn-danger w-50" @click="deleteSize(slotProps.data)" >Sil</button>
+                                  </template>
                                 </Column>
                             </DataTable>
                         </div>
@@ -607,6 +569,7 @@ import digitalOceanService from '../../services/digitalOceanService';
 export default {
     computed: {
         ...mapState(usePanelStore, [
+        'getProductKategoriAdi',
             'getPanelProductNewButton',
             'getProductModel',
             'getProductCategoryList',
@@ -1107,20 +1070,23 @@ export default {
                 };
             };
         },
-        deleteSize() {
-            this.edge_delete_disabled = true;
-            const sizeData = {
-                urunid: this.getProductModel.urunid,
-                id: this.selectedSizeProduct.id,
-            };
-            panelService.setSizeDelete(sizeData).then(data => {
-                if (data.status) {
-                    this.sizeProductList = data.ebatlist;
-                    this.$toast.add({ severity: 'success', detail: 'Başarıyla Silindi', life: 3000 });
-                } else {
-                    this.$toast.add({ severity: 'error', detail: 'Silme Başarısız', life: 3000 });
-                }
-            })
+        deleteSize(event) {
+            if(confirm('Silmek İstiyor musunuz?')){
+                this.edge_delete_disabled = true;
+                const sizeData = {
+                    urunid: this.getProductModel.urunid,
+                    id: event.id,
+                };
+                panelService.setSizeDelete(sizeData).then(data => {
+                    if (data.status) {
+                        this.sizeProductList = data.ebatlist;
+                        this.$toast.add({ severity: 'success', detail: 'Başarıyla Silindi', life: 3000 });
+                    } else {
+                        this.$toast.add({ severity: 'error', detail: 'Silme Başarısız', life: 3000 });
+                    }
+                })
+            }
+            
         },
         newSize() {
             this.edge_add_disabled = false;
@@ -1154,7 +1120,7 @@ export default {
                 result = this.getProductSizeList;
             } else {
                 result = this.getProductSizeList.filter(x => {
-                    return x.name.toLowerCase().startsWith(event.query.length);
+                    return x.name.toLowerCase().startsWith(event.query);
                 });
             };
             this.filteredProductSizeList = result;
@@ -1226,6 +1192,9 @@ export default {
         },
         colorEnSelected(event) {
             this.getProductModel.renk_en = event.value.name;
+            this.getProductModel.renk_fr = event.value.name_fr;
+            this.getProductModel.renk_es = event.value.name_es;
+
         },
         categoryEnSelected(event) {
             panelService.getNewQueue(event.value.kategori_id)
@@ -1288,7 +1257,10 @@ export default {
             
         },
         update() {
-            this.save_button_disabled = true;
+            if(!this.getProductModel.birim){
+                alert('Birim Girilmedi.');
+                return;
+            }
             if (this.keyListEn.length > 0) {
                 this.getProductModel.anahtarlar_en = this.keyListEn.join();
 
@@ -1301,9 +1273,66 @@ export default {
             if (this.keyListEs.length > 0) {
                 this.getProductModel.anahtarlar_es = this.keyListEs.join();
             }
+            if(!this.getProductModel.birim){
+                alert('Birim Girilmedi.');
+                return;
+            };
+            if(!this.getProductModel.stonetype){
+                alert('Taş Türü Girilmedi.');
+                return;
+            };
+            if(!this.getProductModel.renk_en){
+                alert('Renk Girilmedi.');
+                return;
+            };
+            if(!this.getProductModel.urunadi_en){
+                alert('İngilizce Ürün Adı Girilmedi.');
+                return;
+            };
+            if(!this.getProductModel.urunadi_fr){
+                alert('Fransızca Ürün Adı Girilmedi.');
+                return;
+            };
+            if(!this.getProductModel.urunadi_es){
+                alert('İspanyolca Ürün Adı Girilmedi.');
+                return;
+            };
+            if(!this.getProductModel.urunkod){
+                alert('Ürün Kodu Girilmedi.');
+                return;
+            };
+            if(!this.getProductModel.aciklama_en){
+                alert('İngilizce Açıklama Girilmedi.');
+                return;
+            };
+            if(!this.getProductModel.aciklama_fr){
+                alert('Fransızca Açıklama Girilmedi.');
+                return;
+            };
+            if(!this.getProductModel.aciklama_es){
+                alert('İspanyolca Açıklama Girilmedi.');
+                return;
+            };
+            if(this.getProductModel.anahtarlar_en == ' '){
+                alert('İngilizce Anahtarlar Girilmedi.');
+                return;
+            };
+            if(this.getProductModel.anahtarlar_fr == ' '){
+                alert('Fransızca Anahtarlar Girilmedi.');
+                return;
+            };
+            if(this.getProductModel.anahtarlar_es == ' '){
+                alert('İspanyolca Anahtarlar Girilmedi.');
+                return;
+            };
+            this.save_button_disabled = true;
+
             panelService.setPanelUpdate(this.getProductModel).then(data => {
                 if (data.status) {
                     this.save_button_disabled = false;
+                    panelService.getPanelProductList(this.getProductKategoriAdi,this.$route.params.yayinla).then(data => {
+                        usePanelStore().panel_product_list_load_act(data);
+                    });
                     this.$toast.add({ severity: 'success', detail: 'Başarıyla Güncellendi', life: 3000 });
                 } else {
                     this.save_button_disabled = false;
@@ -1312,15 +1341,70 @@ export default {
             })
         },
         save() {
-            this.save_button_disabled = true;
             this.getProductModel.anahtarlar_en = this.keyListEn.join();
             this.getProductModel.anahtarlar_fr = this.keyListFr.join();
             this.getProductModel.anahtarlar_es = this.keyListEs.join();
+            if(!this.getProductModel.birim){
+                alert('Birim Girilmedi.');
+                return;
+            };
+            if(!this.getProductModel.stonetype){
+                alert('Taş Türü Girilmedi.');
+                return;
+            };
+            if(!this.getProductModel.renk_en){
+                alert('Renk Girilmedi.');
+                return;
+            };
+            if(!this.getProductModel.urunadi_en){
+                alert('İngilizce Ürün Adı Girilmedi.');
+                return;
+            };
+            if(!this.getProductModel.urunadi_fr){
+                alert('Fransızca Ürün Adı Girilmedi.');
+                return;
+            };
+            if(!this.getProductModel.urunadi_es){
+                alert('İspanyolca Ürün Adı Girilmedi.');
+                return;
+            };
+            if(!this.getProductModel.urunkod){
+                alert('Ürün Kodu Girilmedi.');
+                return;
+            };
+            if(!this.getProductModel.aciklama_en){
+                alert('İngilizce Açıklama Girilmedi.');
+                return;
+            };
+            if(!this.getProductModel.aciklama_fr){
+                alert('Fransızca Açıklama Girilmedi.');
+                return;
+            };
+            if(!this.getProductModel.aciklama_es){
+                alert('İspanyolca Açıklama Girilmedi.');
+                return;
+            };
+            if(!this.getProductModel.anahtarlar_en){
+                alert('İngilizce Anahtarlar Girilmedi.');
+                return;
+            };
+            if(!this.getProductModel.anahtarlar_fr){
+                alert('Fransızca Anahtarlar Girilmedi.');
+                return;
+            };
+            if(!this.getProductModel.anahtarlar_es){
+                alert('İspanyolca Anahtarlar Girilmedi.');
+                return;
+            };
+            this.save_button_disabled = true;
+            
             panelService.setPanelSave(this.getProductModel).then(data => {
                 if (data.status) {
                     this.save_button_disabled = false;
-                    console.log(data.urunid);
-                    this.$emit('product_id_emit',data.urunid)
+                    this.$emit('product_id_emit',data.urunid);
+                    panelService.getPanelProductList(this.getProductKategoriAdi,this.$route.params.yayinla).then(data => {
+                        usePanelStore().panel_product_list_load_act(data);
+                    });
                     this.$toast.add({ severity: 'success', detail: 'Başarıyla Kaydedildi', life: 3000 });
                 } else {
                     this.save_button_disabled = false;

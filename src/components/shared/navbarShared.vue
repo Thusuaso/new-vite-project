@@ -137,7 +137,9 @@
                   Panel
                 </a>
                 <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="/panel/products">Ürünler</a></li>
+                  <li><a class="dropdown-item" href="/panel/products/1">Ürünler(Yayınlı)</a></li>
+                  <li><a class="dropdown-item" href="/panel/products/0">Ürünler(Yayınlı Olmayan)</a></li>
+
                   <li><a class="dropdown-item" href="/panel/project">Projeler</a></li>
 
                   <li><a class="dropdown-item" href="/panel/change/queue">Sıra Değiştir</a></li>
