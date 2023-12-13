@@ -96,6 +96,10 @@ export const panelService = {
     },
     setFilterTypeDelete(id:any){
         return api.delete(`/panel/mekmarcom/type/filter/delete/${id}`).then(response=>response.data);
+    },
+    setSizeUpdate(data:any){
+        return api.post('/panel/mekmarcom/size/update',data).then(response=>response.data);
+    
     }
 
 

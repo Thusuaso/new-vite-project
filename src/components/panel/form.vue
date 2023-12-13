@@ -206,7 +206,7 @@
                     <div class="row m-auto mt-3">
                         <div class="col">
                             <span class="p-float-label">
-                                <AutoComplete id="size" v-model="selectedSize" dropdown :suggestions="filteredProductSizeList" optionLabel="name" @complete="searchSize($event)" @input="inputSize($event)" />
+                                <AutoComplete id="size" v-model="selectedSize" dropdown :suggestions="filteredProductSizeList" optionLabel="name" @complete="searchSize($event)" @input="inputSize($event)" @change="edge_add_disabled = false"/>
                                 <label for="size">Ebat</label>
                             </span>
                         </div>
@@ -222,9 +222,6 @@
                         <div class="col">
                             <button type="button" class="btn btn-danger w-100" @click="deleteSize" :disabled="edge_delete_disabled">Sil</button>
                         </div>
-                        <div class="col">
-                            <button type="button" class="btn btn-warning w-100" @click="newSize" :disabled="edge_new_disabled">Yeni</button>
-                        </div>
                     </div>
                     <div class="row m-auto mt-3">
                         <div class="col">
@@ -232,10 +229,37 @@
                                 v-model:selection="selectedSizeProduct"
                                 selectionMode="single"
                                 style="font-size:85%;"
-                                @item-select="sizeProductSelected"
+                                @row-click="sizeProductSelected"
+                                editMode="cell" @cell-edit-complete="onCellEditComplete($event)"
+                                :pt="{
+                                        table: { style: 'min-width: 50rem' },
+                                        column: {
+                                            bodycell: ({ state }) => ({
+                                                class: [{ 'pt-0 pb-0': state['d_editing'] }]
+                                            })
+                                        }
+                                    }"
                             >
-                                <Column field="ebat" header="Ebat"></Column>
-                                <Column field="fiyat" header="Fiyat"></Column>
+                                <Column field="ebat" header="Ebat">
+                                    <template #editor="{ data, field }">
+                                        <template v-if="field !== 'price'">
+                                            <InputText v-model="data[field]" autofocus />
+                                        </template>
+                                        <template v-else>
+                                            {{ data[field] }}
+                                        </template>
+                                    </template>
+                                </Column>
+                                <Column field="fiyat" header="Fiyat">
+                                    <template #editor="{ data, field }">
+                                        <template v-if="field !== 'price'">
+                                            <InputText v-model="data[field]" autofocus />
+                                        </template>
+                                        <template v-else>
+                                            {{ data[field] }}
+                                        </template>
+                                    </template>
+                                </Column>
                             </DataTable>
                         </div>
                     </div>
@@ -695,8 +719,8 @@ export default {
             selectedSize: null,
             filteredProductSizeList: [],
             sizePrice: 0,
-            edge_add_disabled: false,
-            edge_delete_disabled: false,
+            edge_add_disabled: true,
+            edge_delete_disabled: true,
             edge_new_disabled: false,
             sizeProductList: [],
             selectedSizeProduct: {},
@@ -716,6 +740,23 @@ export default {
         this.stoneTypeList = this.getProductCategoryList.filter(x=>x.kategoriadi_en == 'Marble' || x.kategoriadi_en == 'Travertine' || x.kategoriadi_en == 'Plasterboard' || x.kategoriadi_en == 'Limestone' || x.kategoriadi_en == 'Quartz')
     },
     methods: {
+        onCellEditComplete(event){
+          if((event.data.ebat != event.newData.ebat) || (event.data.fiyat != event.newData.fiyat)){
+          panelService.setSizeUpdate(event.newData).then(response=>{
+            if(response.status){
+                    this.sizeProductList = response.ebatlist;
+                    this.$toast.add({'severity':'success','detail':'Başarıyla Değiştirildi',life:3000}); 
+            } else{
+                    this.$toast.add({'severity':'success','detail':'Başarıyla Değiştirildi',life:3000}); 
+            }
+            });
+          }
+
+        },
+        sizeProductSelected(){
+            this.edge_add_disabled = true;
+            this.edge_delete_disabled = false;
+        },
         finishProductSelected(){
           this.delete_finish_disabled = false;
         },
@@ -959,6 +1000,8 @@ export default {
             }
         },
         inputSize(event){
+        this.edge_add_disabled = false;
+        this.edge_delete_disabled = true;
             this.selectedSize = {
                 name:'',
             }
@@ -1065,6 +1108,7 @@ export default {
             };
         },
         deleteSize() {
+            this.edge_delete_disabled = true;
             const sizeData = {
                 urunid: this.getProductModel.urunid,
                 id: this.selectedSizeProduct.id,
@@ -1083,6 +1127,7 @@ export default {
             this.edge_new_disabled = true;
         },
         addSize() {
+            this.edge_add_disabled = true;
             const sizeData = {
                 urunid: this.getProductModel.urunid,
                 ebat: this.selectedSize.name,
