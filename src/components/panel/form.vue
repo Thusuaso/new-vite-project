@@ -595,6 +595,7 @@ export default {
     },
     data() {
         return {
+            testfile:null,
             add_finish_disabled:true,
             delete_finish_disabled:true,
             selectedType:null,
@@ -1031,27 +1032,28 @@ export default {
         },
 
         sendTestReport(){
-            if (!this.testfile) {
-                alert("Rapor seçmeniz gerekiyor.");
-                return;
-            };
-            let formData = new FormData();
-            formData.append("file", this.testfile);
-            spaceService.sendTestReport(formData).then((res) => {
-                if (res.status) {
-                    const product = {
-                        urunid: this.urunDetay.urunid,
-                        testrapor:
-                            "https://mekmar-image.fra1.digitaloceanspaces.com/test-reports/" +
-                            this.testfile.name
-                    };
-                    mekmarService.testRaporDataGuncelle(product).then((data) => {
-                        if (data.status) {
-                            this.getProductModel.testrapor = product.testrapor;
-                        };
-                    });
-                }
-            });
+            console.log(this.testfile)
+            // if (!this.testfile) {
+            //     alert("Rapor seçmeniz gerekiyor.");
+            //     return;
+            // };
+            // let formData = new FormData();
+            // formData.append("file", this.testfile);
+            // spaceService.sendTestReport(formData).then((res) => {
+            //     if (res.status) {
+            //         const product = {
+            //             urunid: this.getProductModel.urunid,
+            //             testrapor:
+            //                 "https://mekmar-image.fra1.digitaloceanspaces.com/test-reports/" +
+            //                 this.testfile.name
+            //         };
+            //         panelService.testRaporDataGuncelle(product).then((data) => {
+            //             if (data.status) {
+            //                 this.getProductModel.testrapor = product.testrapor;
+            //             };
+            //         });
+            //     }
+            // });
         },
         sendPhotos(event) {
             useLoadingStore().begin_loading_act();
@@ -1266,6 +1268,17 @@ export default {
             
         },
         update() {
+            if(this.keyListEs != null){
+                this.getProductModel.anahtarlar_es = this.keyListEs.join();
+            }
+            if(this.keyListEn != null){
+                this.getProductModel.anahtarlar_en = this.keyListEn.join();
+
+            }
+            if(this.keyListFr != null){
+                this.getProductModel.anahtarlar_fr = this.keyListFr.join();
+
+            }
             if(!this.selectedColorEn){
               alert('Renk Seçiniz.');  
               return;
@@ -1274,18 +1287,7 @@ export default {
                 alert('Birim Girilmedi.');
                 return;
             }
-            if (this.keyListEn.length > 0) {
-                this.getProductModel.anahtarlar_en = this.keyListEn.join();
 
-            }
-            if (this.keyListFr.length > 0) {
-                this.getProductModel.anahtarlar_fr = this.keyListFr.join();
-            
-
-            }
-            if (this.keyListEs.length > 0) {
-                this.getProductModel.anahtarlar_es = this.keyListEs.join();
-            }
             if(!this.getProductModel.birim){
                 alert('Birim Girilmedi.');
                 return;
@@ -1354,9 +1356,17 @@ export default {
             })
         },
         save() {
-            this.getProductModel.anahtarlar_en = this.keyListEn.join();
+            if(this.keyListEn.length != 0){
+                this.getProductModel.anahtarlar_en = this.keyListEn.join();
+            }
+            if(this.keyListFr.length != 0){
             this.getProductModel.anahtarlar_fr = this.keyListFr.join();
+                
+            }
+            if(this.keyListEs.length != 0){
             this.getProductModel.anahtarlar_es = this.keyListEs.join();
+
+            }
             if(!this.getProductModel.birim){
                 alert('Birim Girilmedi.');
                 return;

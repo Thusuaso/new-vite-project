@@ -35,9 +35,18 @@
             </div>
             <div class="form-floating">
                 <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 250px" v-model="information" @input="informationControl($event)"></textarea>
-                <label for="floatingTextarea2">Açıklama ({{ 1000 - information.length }})</label>
+                <label for="floatingTextarea2">Açıklama En ({{ 1000 - information.length }})</label>
                 <span style="color:red;" v-if="information.length == 1000">*1000 Karakterden fazlasını desteklememektedir.</span>
-
+            </div>
+            <div class="form-floating">
+                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 250px" v-model="information_fr" @input="informationControl($event)"></textarea>
+                <label for="floatingTextarea2">Açıklama Fr ({{ 1000 - information_fr.length }})</label>
+                <span style="color:red;" v-if="information_fr.length == 1000">*1000 Karakterden fazlasını desteklememektedir.</span>
+            </div>
+            <div class="form-floating">
+                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 250px" v-model="information_es" @input="informationControl($event)"></textarea>
+                <label for="floatingTextarea2">Açıklama Es ({{ 1000 - information_es.length }})</label>
+                <span style="color:red;" v-if="information_es.length == 1000">*1000 Karakterden fazlasını desteklememektedir.</span>
             </div>
             <button type="button" class="btn btn-success mt-2 w-100" @click="addInformation">Açıklama Ekle</button>
             <button type="button" class="btn btn-warning mt-2 w-100" @click="updateInformation">Açıklama Güncelle</button>
@@ -120,6 +129,8 @@ export default {
     props:['project_id','project_name'],
     data() {
         return {
+            information_fr:"",
+            information_es:"",
             panelPickListPhotos:[],
             suggestedList:[],
             suggested_form:false,
@@ -150,6 +161,10 @@ export default {
         if (this.getPanelProjectDetailList.project_detail_information_list) {
             // @ts-ignore
             this.information = this.getPanelProjectDetailList.project_detail_information_list[0].information;
+            this.information_fr = this.getPanelProjectDetailList.project_detail_information_list[0].information_fr;
+            this.information_es = this.getPanelProjectDetailList.project_detail_information_list[0].information_es;
+
+
             // @ts-ignore
             this.project_product_name = this.getPanelProjectDetailList.project_detail_information_list[0].project_product_name;
         };
@@ -245,6 +260,10 @@ export default {
         updateInformation() {
             // @ts-ignore
             this.getPanelProjectDetailList.project_detail_information_list[0].information = this.information;
+            this.getPanelProjectDetailList.project_detail_information_list[0].information_fr = this.information_fr;
+            this.getPanelProjectDetailList.project_detail_information_list[0].information_es = this.information_es;
+
+
             // @ts-ignore
             this.getPanelProjectDetailList.project_detail_information_list[0].project_product_name = this.project_product_name;
 
@@ -264,6 +283,8 @@ export default {
             const data = {
                 'project_id': this.project_id,
                 'project_information': this.information,
+                'project_information_fr':this.information_fr,
+                'project_information_es':this.information_es,
                 'project_product_name': this.project_product_name
             }
             reportsService.addInformation(data).then(data => {

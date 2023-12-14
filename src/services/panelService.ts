@@ -106,6 +106,9 @@ export const panelService = {
     },
     setProductSizeQueue(data:any){
         return api.post('/panel/mekmarcom/size/queue',data).then(response=>response.data);
+    },
+    testRaporDataGuncelle(data:any){
+        return api.put('/panel/mekmarcom/testRaporIslem',data).then(response=>response.data);
     }
 
 

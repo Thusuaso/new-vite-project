@@ -763,7 +763,7 @@ const router = createRouter({
       component : ()=>import('@/views/PanelQueueView.vue'),
       beforeEnter (to,from,next){
         useLoadingStore().begin_loading_act();
-        panelService.getPanelCategoryList().
+        panelService.getPanelCategoryList(1).
         then(category=>{
           usePanelStore().panel_category_list_load_act(category);
           panelService.getQueueProductsList(1)
