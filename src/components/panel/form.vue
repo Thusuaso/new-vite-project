@@ -187,6 +187,7 @@
                                 style="font-size:85%;"
                                 @row-click="sizeProductSelected"
                                 editMode="cell" @cell-edit-complete="onCellEditComplete($event)"
+                                :reorderableColumns="true" @rowReorder="onRowReorder($event)"
                                 :pt="{
                                         column: {
                                             bodycell: ({ state }) => ({
@@ -196,7 +197,8 @@
                                     }"
                                 
                             >
-                               
+                                <Column rowReorder headerStyle="width: 3rem" :reorderableColumn="false" />
+
                                 <Column field="ebat" header="Ebat">
                                     <template #editor="{ data, field }">
                                         <template v-if="field != 'fiyat'">
@@ -242,22 +244,8 @@
                         <div class="col mb-3">
                             
                             <span class="p-float-label">
-                                <AutoComplete v-model="selectedFinish" inputId="finish_en" optionLabel="name" :suggestions="filteredProductFinishList" @complete="searchFinish($event)" @item-select="finishSelected($event)"/>
-                                <label for="finish_en">En Finish</label>
-                            </span>
-                        </div>
-                        <div class="col mb-3">
-                            
-                            <span class="p-float-label">
-                                <InputText id="frsurface" v-model="fr_surface" disabled/>
-                                <label for="frsurface">Fr-Finish</label>
-                            </span>
-                        </div>
-                        <div class="col mb-3">
-                            
-                            <span class="p-float-label">
-                                <InputText id="essurface" v-model="es_surface" disabled/>
-                                <label for="essurface">Es-Finish</label>
+                                <Dropdown class="w-100" v-model="selectedFinish" :options="getProductFinishList" optionLabel="name" @change="finishSelected($event)"/>
+
                             </span>
                         </div>
                         <div class="col">
@@ -277,6 +265,9 @@
                                     @row-click="finishProductSelected"
                                 >
                                     <Column field="name" header="Yüzey"></Column>
+                                    <Column field="name_fr" header="Yüzey"></Column>
+                                    <Column field="name_es" header="Yüzey"></Column>
+
                                 </DataTable>
                             </div>
                         </div>
@@ -315,10 +306,9 @@
                         <h3 class="text-center">Area</h3>
                     <div class="row m-auto mt-3">
                         <div class="col">
-                            <span class="p-float-label">
-                                <AutoComplete v-model="selectedArea" inputId="areas" :suggestions="filteredAreas" optionLabel="area" @complete="searchAreas($event)" @item-select="save_area_disabled_form = false"/>
-                                <label for="areas">Alan</label>
-                            </span>
+                            <Dropdown class="w-100" v-model="selectedArea" :options="getProductAreasList" optionLabel="area" @change="save_area_disabled_form = false"/>
+
+
                         </div>
                         <div class="col">
                             <button type="button" class="btn btn-success w-100" @click="saveAreas" :disabled="save_area_disabled_form">Ekle</button>
@@ -337,6 +327,9 @@
                                 @row-click="areaProductListSelected($event)"
                             >
                                 <Column field="area" header="Alan"></Column>
+                                <Column field="area_fr" header="Alan"></Column>
+                                <Column field="area_es" header="Alan"></Column>
+
                             </DataTable>
                         </div>
                     </div>
@@ -703,6 +696,25 @@ export default {
         this.stoneTypeList = this.getProductCategoryList.filter(x=>x.kategoriadi_en == 'Marble' || x.kategoriadi_en == 'Travertine' || x.kategoriadi_en == 'Plasterboard' || x.kategoriadi_en == 'Limestone' || x.kategoriadi_en == 'Quartz')
     },
     methods: {
+        onRowReorder(event){
+          let index = 1;
+          let data = event.value
+           data.forEach(x=>{
+            x.queue = index;
+            index += 1;
+          });
+          this.sizeProductList = data;
+
+          panelService.setProductSizeQueue(data).then(response=>{
+            if(response.status){
+                this.$toast.add({'severity':'success','detail':'Başarıyla Değiştirildi.',life:3000});
+            } else{
+                this.$toast.add({'severity':'error','detail':'Değiştirme Başarısız.',life:3000});
+            };
+          });
+
+
+        },
         onCellEditComplete(event){
           if((event.data.ebat != event.newData.ebat) || (event.data.fiyat != event.newData.fiyat)){
           panelService.setSizeUpdate(event.newData).then(response=>{
@@ -1073,11 +1085,8 @@ export default {
         deleteSize(event) {
             if(confirm('Silmek İstiyor musunuz?')){
                 this.edge_delete_disabled = true;
-                const sizeData = {
-                    urunid: this.getProductModel.urunid,
-                    id: event.id,
-                };
-                panelService.setSizeDelete(sizeData).then(data => {
+
+                panelService.setSizeDelete(event).then(data => {
                     if (data.status) {
                         this.sizeProductList = data.ebatlist;
                         this.$toast.add({ severity: 'success', detail: 'Başarıyla Silindi', life: 3000 });
@@ -1257,6 +1266,10 @@ export default {
             
         },
         update() {
+            if(!this.selectedColorEn){
+              alert('Renk Seçiniz.');  
+              return;
+            };
             if(!this.getProductModel.birim){
                 alert('Birim Girilmedi.');
                 return;
@@ -1281,7 +1294,7 @@ export default {
                 alert('Taş Türü Girilmedi.');
                 return;
             };
-            if(!this.getProductModel.renk_en){
+            if((!this.getProductModel.renk_en) || this.getProductModel.renk_en == ' '){
                 alert('Renk Girilmedi.');
                 return;
             };

@@ -103,6 +103,9 @@ export const panelService = {
     setSizeUpdate(data:any){
         return api.post('/panel/mekmarcom/size/update',data).then(response=>response.data);
     
+    },
+    setProductSizeQueue(data:any){
+        return api.post('/panel/mekmarcom/size/queue',data).then(response=>response.data);
     }
 
 
