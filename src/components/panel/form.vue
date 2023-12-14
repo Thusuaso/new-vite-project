@@ -694,7 +694,8 @@ export default {
         this.suggestedList = [...this.getProductSuggestedProductsList];
         this.notSuggestedList = [...this.getProductSuggestedProductList]
         this.pickProductPhotosList = [...this.getProductPhotoListPick];
-        this.stoneTypeList = this.getProductCategoryList.filter(x=>x.kategoriadi_en == 'Marble' || x.kategoriadi_en == 'Travertine' || x.kategoriadi_en == 'Plasterboard' || x.kategoriadi_en == 'Limestone' || x.kategoriadi_en == 'Quartz')
+        this.stoneTypeList = this.getProductCategoryList.filter(x=>x.kategoriadi_en == 'Marble' || x.kategoriadi_en == 'Travertine' || x.kategoriadi_en == 'Plasterboard' || x.kategoriadi_en == 'Limestone' || x.kategoriadi_en == 'Quartz' || x.kategoriadi_en == 'Granite' || x.kategoriadi_en == 'Basalt');
+
     },
     methods: {
         onRowReorder(event){

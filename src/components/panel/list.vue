@@ -17,7 +17,8 @@
                     @row-click="panelProductSelected($event)"
                     sortField="sira"
                     sortOrder="1"
-                    paginator :rows="5"
+                    paginator :rows="15"
+                    class="p-datatable-sm"
                 >
                 <Column 
                         field="sira" 
@@ -92,8 +93,8 @@
                 </Column>
                 <Column header="Fotolar">
                     <template #body="slotProps">
-                        <img :src="item.imagePath" v-for="item of slotProps.data.fotolar" :key="item" width="50"
-                            height="50" />
+                        <img :src="item.imagePath" v-for="item of slotProps.data.fotolar" :key="item" width="30"
+                            height="30" />
                     </template>
                 </Column>
             </DataTable>
