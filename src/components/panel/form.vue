@@ -696,7 +696,14 @@ export default {
         this.suggestedList = [...this.getProductSuggestedProductsList];
         this.notSuggestedList = [...this.getProductSuggestedProductList]
         this.pickProductPhotosList = [...this.getProductPhotoListPick];
-        this.stoneTypeList = this.getProductCategoryList.filter(x=>x.kategoriadi_en == 'Marble' || x.kategoriadi_en == 'Travertine' || x.kategoriadi_en == 'Plasterboard' || x.kategoriadi_en == 'Limestone' || x.kategoriadi_en == 'Quartz' || x.kategoriadi_en == 'Granite' || x.kategoriadi_en == 'Basalt');
+        this.stoneTypeList.push({'kategoriadi_en':'-'});
+        this.getProductCategoryList.forEach(x=>{
+            if(x.kategoriadi_en == 'Marble' || x.kategoriadi_en == 'Travertine' || x.kategoriadi_en == 'Plasterboard' || x.kategoriadi_en == 'Limestone' || x.kategoriadi_en == 'Quartz' || x.kategoriadi_en == 'Granite' || x.kategoriadi_en == 'Basalt'){
+                this.stoneTypeList.push(x);
+            }
+        });
+
+    
     },
     methods: {
         reOrderSuggested(event){
@@ -1217,7 +1224,13 @@ export default {
             this.filteredProductFinishList = result;
         },
         stoneTypeSelected(event) {
-            this.getProductModel.stonetype = event.value.kategori_id;
+            if(event.value.kategoriadi_en == '-'){
+                this.getProductModel.stonetype = null;
+
+            } else{
+                this.getProductModel.stonetype = event.value.kategori_id;
+
+            }
         },
         colorEsSelected(event) {
             this.getProductModel.renk_es = event.value.name;
@@ -1254,8 +1267,13 @@ export default {
             this.selectedColorEn = this.getProductColorEnList.find(x => x.name == this.getProductModel.renk_en);
             this.selectedColorFr = this.getProductColorFrList.find(x => x.name == this.getProductModel.renk_fr);
             this.selectedColorEs = this.getProductColorEsList.find(x => x.name == this.getProductModel.renk_es);
+            if(this.getProductModel.stonetype){
+                this.selectedStoneType = this.getProductCategoryList.find(x => x.kategori_id == this.getProductModel.stonetype);
 
-            this.selectedStoneType = this.getProductCategoryList.find(x => x.kategori_id == this.getProductModel.stonetype);
+            }else{
+                this.selectedStoneType = {'kategoriadi_en':'-'};
+            }
+
             this.finishProductList = this.getProductModel.kenarIslemList;
             this.sizeProductList = this.getProductModel.ebatlar;
             this.productSurfaceFilteredList = this.getProductSurfaceFilteredProductsList;
@@ -1316,10 +1334,7 @@ export default {
                 alert('Birim Girilmedi.');
                 return;
             };
-            if(!this.getProductModel.stonetype){
-                alert('Taş Türü Girilmedi.');
-                return;
-            };
+
             if((!this.getProductModel.renk_en) || this.getProductModel.renk_en == ' '){
                 alert('Renk Girilmedi.');
                 return;
@@ -1395,10 +1410,7 @@ export default {
                 alert('Birim Girilmedi.');
                 return;
             };
-            if(!this.getProductModel.stonetype){
-                alert('Taş Türü Girilmedi.');
-                return;
-            };
+
             if(!this.getProductModel.renk_en){
                 alert('Renk Girilmedi.');
                 return;
