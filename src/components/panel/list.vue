@@ -1,8 +1,11 @@
 <template>
     <div class="row m-auto mt-3">
         <div class="col">
+            <button type="success" class="btn btn-success w-100" @click="$emit('panelProductNewEmit')">Yeni</button>
+        </div>
+        <div class="col">
             <Dropdown v-model="selectedCategory" :options="getPanelCategoryList" optionLabel="kategoriadi_en"
-                class="w-full md:w-15rem" @change="categorySelected($event)" />
+             @change="categorySelected($event)" class="w-100" />
         </div>
     </div>
     <div class="row m-auto mt-3">
@@ -91,7 +94,7 @@
                         <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
                     </template>
                 </Column>
-                <Column header="Fotolar">
+                <Column header="Fotolar" v-if="userId == 10">
                     <template #body="slotProps">
                         <img :src="item.imagePath" v-for="item of slotProps.data.fotolar" :key="item" width="30"
                             height="30" />
@@ -120,6 +123,7 @@ export default {
     },
     data() {
         return {
+            userId:null,
             selectedCategory: {},
             filters: {
                 urunid: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
@@ -134,6 +138,8 @@ export default {
     },
     created() {
         this.selectedCategory = this.getPanelCategoryList[0];
+        this.userId = localStorage.getItem('userId');
+        this.getPanelCategoryList
     },
     methods: {
         panelProductSelected(event) {

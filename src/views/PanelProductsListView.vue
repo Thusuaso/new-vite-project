@@ -1,11 +1,5 @@
 <template>
-
-    <div class="row m-auto mt-3">
-        <div class="col">
-            <button type="success" class="btn btn-success" @click="newForm">Yeni</button>
-        </div>
-    </div>
-    <list @openPanelDetailForm="openPanelDetailForm($event)"/>
+    <list @openPanelDetailForm="openPanelDetailForm($event)" @panelProductNewEmit="newForm"/>
     
     <Dialog v-model:visible="panel_products_form" :header="urunadi + ' - ' + urunid" modal :style="{ 'width': '100vw' }">
         <panelForm  @product_id_emit="productIdEmit($event)" :urunid="urunid"/>

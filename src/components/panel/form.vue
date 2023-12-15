@@ -467,12 +467,13 @@
             <div class="row m-auto mt-3"  >
                 <div class="col">
                     <PickList v-model="getProductSuggested" 
-                    listStyle="height:342px" 
-                    dataKey="urunid"
-                    @move-to-target="moveToTargetSuggested($event)"
-                    @move-to-source="moveToSourceSuggested($event)"
-                    
-                    
+                        listStyle="height:342px" 
+                        dataKey="urunid"
+                        @move-to-target="moveToTargetSuggested($event)"
+                        @move-to-source="moveToSourceSuggested($event)"
+                        @move-all-to-target="moveToTargetAllSuggested($event)"
+                        @move-all-to-source="moveToSourceAllSuggested($event)"
+                        @re-order="reOrderSuggested($event)"                    
                     >
                         <template #sourceheader> Available </template>
                         <template #targetheader> Selected </template>
@@ -537,7 +538,7 @@
         <TabPanel header="Test Raporu">
             <div class="row m-auto mt-3">
                 <div class="col">
-                    <FileUpload mode="basic" :multiple="true" v-model="testfile" chooseLabel="Test Rapor Gönder" @select="sendTestReport" />
+                    <FileUpload mode="basic" :multiple="true" chooseLabel="Test Rapor Gönder" @select="sendTestReport($event)" />
                 </div>
                 <div class="col">
                     <a ref="testRapor" style="display:none;" class="p-button-primary" :disabled="!getProductModel.testrapor" :href="this.getProductModel.testrapor"
@@ -595,6 +596,7 @@ export default {
     },
     data() {
         return {
+            saveSuggestedDisabled:false,
             testfile:null,
             add_finish_disabled:true,
             delete_finish_disabled:true,
@@ -695,9 +697,18 @@ export default {
         this.notSuggestedList = [...this.getProductSuggestedProductList]
         this.pickProductPhotosList = [...this.getProductPhotoListPick];
         this.stoneTypeList = this.getProductCategoryList.filter(x=>x.kategoriadi_en == 'Marble' || x.kategoriadi_en == 'Travertine' || x.kategoriadi_en == 'Plasterboard' || x.kategoriadi_en == 'Limestone' || x.kategoriadi_en == 'Quartz' || x.kategoriadi_en == 'Granite' || x.kategoriadi_en == 'Basalt');
-
     },
     methods: {
+        reOrderSuggested(event){
+          console.log(event);  
+        },
+        moveToSourceAllSuggested(event){
+            for(const item of event.items){
+                this.deletedSuggested.push(item);
+                this.getProductSuggested.push(item);              
+            };
+
+        },
         onRowReorder(event){
           let index = 1;
           let data = event.value
@@ -937,6 +948,7 @@ export default {
             this.filteredAreas = results;
         },
         saveSuggested(){
+            this.saveSuggestedDisabled = true;
           const data = {
                 'added':this.addedSuggested,
                 'deleted':this.deletedSuggested,
@@ -946,7 +958,9 @@ export default {
           .then(response=>{
                 if(response.status){
                     this.getUpdatedData();
-
+                    this.deletedSuggested = [];
+                    this.addedSuggested = [];
+                    this.saveSuggestedDisabled = false;
                     this.$toast.add({severity:'success',detail:'Başarıyla Kaydedildi',life:3000});
                 }else{
                     this.$toast.add({severity:'error',detail:'Kaydetme Başarısız',life:3000});
@@ -957,23 +971,31 @@ export default {
         },
         moveToSourceSuggested(event){
             const index = this.getProductSuggested[1].findIndex(x=>x.urunid == event.items[0].urunid);
-            this.getProductSuggested[1].splice(index,1);
-            this.deletedSuggested.push(event.items[0]);
+            if(index > -1){
+                this.getProductSuggested[1].splice(index,1);
+            };
             this.getProductSuggested[0].push(event.items[0]);
-            const index2 = this.addedSuggested.findIndex(x=>x.urunid == event.items[0].urunid);
-            this.addedSuggested.splice(index2,1);
+            const addIndex = this.addedSuggested.findIndex(x=>x.urunid == event.items[0].urunid);
+            if(addIndex > -1){
+                this.addedSuggested.splice(addIndex,1);
+            };
+            this.deletedSuggested.push(event.items[0]);
         },
         moveToTargetSuggested(event){
-            if(this.getProductSuggested[1].length ==4){
+            if(this.getProductSuggested[1].length >= 4){
                 alert('Zaten 4 adet eklenmiş...');
                 return;
             }else{
                 const index = this.getProductSuggested[0].findIndex(x=>x.urunid == event.items[0].urunid);
-                this.getProductSuggested[0].splice(index,1);
-                this.getProductSuggested[1].push(event.items[0]);
-                const index2 = this.deletedSuggested.findIndex(x=>x.urunid == event.items[0].urunid);
-                this.deletedSuggested.splice(index2,1);
-                this.addedSuggested.push(event.items[0]);
+                const deleteIndex = this.deletedSuggested.findIndex(x=>x.urunid == event.items[0].urunid);
+                if(index != -1){
+                    this.getProductSuggested[0].splice(index,1);
+                    this.getProductSuggested[1].push(event.items[0]);
+                    this.addedSuggested.push(event.items[0]);
+                    if(deleteIndex != -1){
+                        this.deletedSuggested.splice(deleteIndex,1);
+                    };
+                };
             }
         },
         inputSize(event){
@@ -1032,29 +1054,30 @@ export default {
             })
         },
 
-        sendTestReport(){
-            console.log(this.testfile)
-            // if (!this.testfile) {
-            //     alert("Rapor seçmeniz gerekiyor.");
-            //     return;
-            // };
-            // let formData = new FormData();
-            // formData.append("file", this.testfile);
-            // spaceService.sendTestReport(formData).then((res) => {
-            //     if (res.status) {
-            //         const product = {
-            //             urunid: this.getProductModel.urunid,
-            //             testrapor:
-            //                 "https://mekmar-image.fra1.digitaloceanspaces.com/test-reports/" +
-            //                 this.testfile.name
-            //         };
-            //         panelService.testRaporDataGuncelle(product).then((data) => {
-            //             if (data.status) {
-            //                 this.getProductModel.testrapor = product.testrapor;
-            //             };
-            //         });
-            //     }
-            // });
+        sendTestReport(event){
+            console.log(event)
+            
+            if (event.files.length == 0) {
+                alert("Rapor seçmeniz gerekiyor.");
+                return;
+            };
+            let formData = new FormData();
+            formData.append("file", event.files[0]);
+            spaceService.sendTestReport(formData).then((res) => {
+                if (res.status) {
+                    const product = {
+                        urunid: this.getProductModel.urunid,
+                        testrapor:
+                            "https://mekmar-image.fra1.digitaloceanspaces.com/test-reports/" +
+                            event.files[0].name
+                    };
+                    panelService.testRaporDataGuncelle(product).then((data) => {
+                        if (data.status) {
+                            this.getProductModel.testrapor = product.testrapor;
+                        };
+                    });
+                }
+            });
         },
         sendPhotos(event) {
             useLoadingStore().begin_loading_act();
