@@ -35,18 +35,18 @@
             </div>
             <div class="form-floating">
                 <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 250px" v-model="information" @input="informationControl($event)"></textarea>
-                <label for="floatingTextarea2">Açıklama En ({{ 1000 - information.length }})</label>
-                <span style="color:red;" v-if="information.length == 1000">*1000 Karakterden fazlasını desteklememektedir.</span>
+                <label for="floatingTextarea2">Açıklama En ({{ 1500 - information.length }})</label>
+                <span style="color:red;" v-if="information.length == 1500">*1500 Karakterden fazlasını desteklememektedir.</span>
             </div>
             <div class="form-floating">
-                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 250px" v-model="information_fr" @input="informationControl($event)"></textarea>
-                <label for="floatingTextarea2">Açıklama Fr ({{ 1000 - information_fr.length }})</label>
-                <span style="color:red;" v-if="information_fr.length == 1000">*1000 Karakterden fazlasını desteklememektedir.</span>
+                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 250px" v-model="information_fr" @input="informationControl2($event)"></textarea>
+                <label for="floatingTextarea2">Açıklama Fr ({{ 1500 - information_fr.length }})</label>
+                <span style="color:red;" v-if="information_fr.length == 1500">*1500 Karakterden fazlasını desteklememektedir.</span>
             </div>
             <div class="form-floating">
-                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 250px" v-model="information_es" @input="informationControl($event)"></textarea>
-                <label for="floatingTextarea2">Açıklama Es ({{ 1000 - information_es.length }})</label>
-                <span style="color:red;" v-if="information_es.length == 1000">*1000 Karakterden fazlasını desteklememektedir.</span>
+                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 250px" v-model="information_es" @input="informationControl3($event)"></textarea>
+                <label for="floatingTextarea2">Açıklama Es ({{ 1500 - information_es.length }})</label>
+                <span style="color:red;" v-if="information_es.length == 1500">*1500 Karakterden fazlasını desteklememektedir.</span>
             </div>
             <button type="button" class="btn btn-success mt-2 w-100" @click="addInformation">Açıklama Ekle</button>
             <button type="button" class="btn btn-warning mt-2 w-100" @click="updateInformation">Açıklama Güncelle</button>
@@ -190,7 +190,17 @@ export default {
         },
         informationControl(event){
           if(event.target.value.length >100){
-                this.information = event.target.value.substring(0,1000);
+                this.information = event.target.value.substring(0,1500);
+            }
+        },
+        informationControl2(event){
+          if(event.target.value.length >100){
+                this.information_fr = event.target.value.substring(0,1500);
+            }
+        },
+        informationControl3(event){
+          if(event.target.value.length >100){
+                this.information_es = event.target.value.substring(0,1500);
             }
         },
         mainPhotosChange(event){
