@@ -69,6 +69,12 @@
                     <div class="col">
                         <Dropdown v-model="selectedPriority" :options="priorityList" optionLabel="priority" placeholder="Öncelik Seç" @change="prioritySelected($event)" class="w-full md:w-14rem" />
                     </div>
+                    <div class="col">
+                        <span class="p-float-label">
+                            <Dropdown id="source" v-model="selectedCustomerPlace" :options="sources" optionLabel="source" class="w-100"/>
+                            <label for="source">Müşteri Yeri</label>
+                        </span>
+                    </div>
                 </div>
                 <div class="row m-auto mt-4 ">
                     <div class="col">
@@ -327,6 +333,17 @@ export default {
     },
     data() {
         return {
+            sources: [
+                { id: 1, source: "Portföy" },
+                { id: 2, source: "Site" },
+                { id: 3, source: "Stone Contact" },
+                { id: 4, source: "Fuar" },
+                { id: 5, source: "Email" },
+                { id: 6, source: "BGP Network" },
+                { id: 7, source: "Ziyaret" },
+                { id: 8, source: "Stone Add" },
+            ],
+            selectedCustomerPlace:null,
             selectedCountry: null,
             filteredCountryList: [],
             selectedRepresentative: null,
@@ -363,9 +380,12 @@ export default {
             this.selectedSeller = this.getShopperRepresentativeList.find(x => x.id == this.getShopperModel.satisci);
             this.selectedPriority = this.priorityList.find(x => x.priority == this.getShopperModel.selectOncelik);
             this.selectedCountry = this.getShopperCountryList.find(x => x.id == this.getShopperModel.ulke_id);
+            this.selectedCustomerPlace = this.sources.find(x=>x.source == this.getShopperModel.musteri_yeri);
         },
         update() {
             this.getShopperModel.kullanici_id = localStorage.getItem('userId');
+            this.getShopperModel.musteri_yeri = this.selectedCustomerPlace.source;
+
             shopperService.update(this.getShopperModel).then(data => {
                 if (data.status) {
                     socket.socketIO.emit('shopper_update_list_emit');
@@ -378,6 +398,7 @@ export default {
         save() {
             this.getShopperModel.kullanici_id = localStorage.getItem('userId');
             this.getShopperModel.kayit_tarihi = localDateService.getDateString(new Date());
+            this.getShopperModel.musteri_yeri = this.selectedCustomerPlace.source;
             shopperService.save(this.getShopperModel).then(data => {
                 if (data.status) {
                     socket.socketIO.emit('shopper_update_list_emit');

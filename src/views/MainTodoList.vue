@@ -74,7 +74,7 @@ export default {
             selectedTodo:null,
             todo_visible_form:false,
             filters1:{
-                ortak_gorev: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+                ortak_gorev: { value: null, matchMode: FilterMatchMode.CONTAINS },
                 yapilacak: { value: null, matchMode: FilterMatchMode.CONTAINS },
             }
         }  

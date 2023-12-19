@@ -36,6 +36,11 @@
                         <Chips id="aciklama" v-model="keyListEn" style="" />
                         <label for="aciklama">Anahtarlar</label>
                     </span>
+                    <br/>
+                    <span class="p-float-label">
+                        <Chips id="aciklama" v-model="keywordListEn" style="" />
+                        <label for="aciklama">Hashtags</label>
+                    </span>
                 </div>
             </div>
             <div class="row m-auto mt-4">
@@ -102,6 +107,12 @@
                             <Chips id="aciklama" v-model="keyListFr" style="" />
                             <label for="aciklama">Anahtarlar</label>
                         </span>
+                        <br/>
+
+                        <span class="p-float-label">
+                            <Chips id="aciklama" v-model="keywordListFr" style="" />
+                            <label for="aciklama">Hashtags</label>
+                        </span>
                     </div>
                 </div>
 
@@ -140,6 +151,12 @@
                             <span class="p-float-label">
                                 <Chips id="aciklama" v-model="keyListEs" style="" />
                                 <label for="aciklama">Anahtarlar</label>
+                            </span>
+                            <br/>
+
+                            <span class="p-float-label">
+                                <Chips id="aciklama" v-model="keywordListEs" style="" />
+                                <label for="aciklama">Hashtags</label>
                             </span>
                         </div>
                     </div>
@@ -692,6 +709,9 @@ export default {
             keyListEn: [],
             keyListFr: [],
             keyListEs: [],
+            keywordListEn:[],
+            keywordListFr:[],
+            keywordListEs:[],
             selectedCategoryEn: {},
             selectedColorEn: {},
             selectedColorFr: {},
@@ -1353,6 +1373,12 @@ export default {
             this.keyListEn = this.__noneControl(this.getProductModel.anahtarlar_en);   
             this.keyListFr = this.__noneControl(this.getProductModel.anahtarlar_fr);
             this.keyListEs = this.__noneControl(this.getProductModel.anahtarlar_es);
+
+            this.keywordListEn = this.__noneControl(this.getProductModel.keywords_en);
+            this.keywordListFr = this.__noneControl(this.getProductModel.keywords_fr);
+            this.keywordListEs = this.__noneControl(this.getProductModel.keywords_es);
+
+
             if(this.getProductModel.kategori_id){
                 this.selectedCategoryEn = this.getProductCategoryList.find(x => x.kategori_id == this.getProductModel.kategori_id);
                 
@@ -1403,21 +1429,42 @@ export default {
             
         },
         update() {
+            if(this.keywordListEn.length != 0){
+                this.getProductModel.keywords_en = this.keywordListEn.join();
+            } else{
+                this.getProductModel.keywords_en = null;
+            }
+            if(this.keywordListFr.length != 0){
+                this.getProductModel.keywords_fr = this.keywordListFr.join();
+            }else{
+                this.getProductModel.keywords_fr = null;
+
+            }
+            if(this.keywordListEs.length != 0){
+                this.getProductModel.keywords_es = this.keywordListEs.join();
+            }else{
+                this.getProductModel.keywords_es = null;
+
+            }
             if(this.keyListEs != null){
                 this.getProductModel.anahtarlar_es = this.keyListEs.join();
+            } else{
+                this.getProductModel.anahtarlar_es = null;
             }
             if(this.keyListEn != null){
                 this.getProductModel.anahtarlar_en = this.keyListEn.join();
 
+            }else{
+                this.getProductModel.anahtarlar_es = null;
+                
             }
             if(this.keyListFr != null){
                 this.getProductModel.anahtarlar_fr = this.keyListFr.join();
 
+            }else{
+                this.getProductModel.anahtarlar_fr = null;
+                
             }
-            if(!this.selectedColorEn){
-              alert('Renk Seçiniz.');  
-              return;
-            };
             if(!this.getProductModel.birim){
                 alert('Birim Girilmedi.');
                 return;
@@ -1488,6 +1535,18 @@ export default {
             })
         },
         save() {
+            if(this.keywordListEn.length != 0){
+                this.getProductModel.keywords_en = this.keywordListEn.join();
+            }
+            if(this.keywordListFr.length != 0){
+                this.getProductModel.keywords_fr = this.keywordListFr.join();
+            }
+            if(this.keywordListEs.length != 0){
+                this.getProductModel.keywords_es = this.keywordListEs.join();
+            }
+            if(this.keywordListEn.length != 0){
+                this.getProductModel.keywords_en = this.keywordListEn.join();
+            }
             if(this.keyListEn.length != 0){
                 this.getProductModel.anahtarlar_en = this.keyListEn.join();
             }
@@ -1504,10 +1563,6 @@ export default {
                 return;
             };
 
-            if(!this.getProductModel.renk_en){
-                alert('Renk Girilmedi.');
-                return;
-            };
             if(!this.getProductModel.urunadi_en){
                 alert('İngilizce Ürün Adı Girilmedi.');
                 return;
