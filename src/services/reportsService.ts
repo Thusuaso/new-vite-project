@@ -1,7 +1,9 @@
 import { api } from '../services/customServices/doctorService';
 
 export const reportsService = {
-
+    getMekmarNewList(year:any){
+      return api.get(`/raporlar/listeler/yukleme/yeni/${year}`).then(response=>response.data);
+    },
     getMekmerProductionsListYear(year:any) {
         return api.get(`/raporlar/listeler/uretim/yil/${year}`).then(response => response.data);
     },
@@ -245,6 +247,18 @@ export const reportsService = {
     },
     setProjectPhotosQueueChange(data:any){
         return api.post('/panel/project/photos/queue/change',data).then(response=>response.data);
+    },
+    setProjectProductName(data:any){
+        return api.post('/panel/project/product/name/change',data).then(response=>response.data);
+    },
+    getMekmarNewListDetail(customer_id:any,year:any){
+        return api.get(`panel/raporlar/mekmar/new/list/detail/${customer_id}/${year}`).then(response=>response.data);
+    },
+    getMekmarLoadingNewCustomerExcelOutput(data:any){
+        return api.post('/raporlar/loading/new/customer/excel',data).then(response=>response.data);
+    },
+    getMekmarLoadingNewCustomerDetailExcelOutput(data:any){
+        return api.post('/raporlar/loading/new/customer/detail/excel',data).then(response=>response.data);
     }
 
 

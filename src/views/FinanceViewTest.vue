@@ -51,6 +51,7 @@ export default {
     computed:{
       ...mapState(useFinanceTestStore,[
           'getFinanceTestList',
+          'getFinanceTestListAll'
         ]),
       ...mapState(useLocalStore,[
             'getLocalServiceUrl',
@@ -76,7 +77,7 @@ export default {
             useLoadingStore().end_loading_act();
         },
         excelOutput(){
-            financeServiceTest.getExcelList(this.getFinanceTestList).then(data=>{
+            financeServiceTest.getExcelList(this.getFinanceTestListAll).then(data=>{
                 if(data.status){
                     const link = document.createElement("a");
                     link.href = this.getLocalServiceUrl + "finance/reports/test/excel";

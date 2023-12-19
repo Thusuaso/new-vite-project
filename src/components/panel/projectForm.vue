@@ -56,11 +56,12 @@
     <div class="row">
         <div class="col">
             <Dialog v-model:visible="photos_list_form" header="Fotoğraf Listesi" modal :style="{ width: '100vw' }">
-                <FileUpload class="w-100 mb-3" mode="basic" accept="image/*" :multiple="true" :maxFileSize="2000000" @select="onUpload($event)" chooseLabel="Fotoğraf Yükle" />
+                <FileUpload class="w-100 mb-2" mode="basic" accept="image/*" :multiple="true" :maxFileSize="2000000" @select="onUpload($event)" chooseLabel="Fotoğraf Yükle" />
 
 
-                <button type="button" class="btn btn-danger w-100 mb-4" @click="deletePhotos">Sil</button>
-                <button type="button" class="btn btn-secondary w-100 mb-4" @click="mainPhotosChange(getPanelPickListPhotosDetailList[1])" :disabled="getPanelPickListPhotosDetailList[1].lenght == 1">Ana Fotoğrafla Değiştir</button>
+                <button type="button" class="btn btn-danger w-100 mb-2" @click="deletePhotos">Sil</button>
+                <button type="button" class="btn btn-secondary w-100 mb-2" @click="mainPhotosChange(getPanelPickListPhotosDetailList[1])" :disabled="getPanelPickListPhotosDetailList[1].lenght == 1">Ana Fotoğrafla Değiştir</button>
+                <button type="button" class="btn btn-primary w-100 mb-2" @click="photos_product_name_form = true">Ürün Adı</button>
                 <PickList v-model="panelPickListPhotos"  
                     @reorder="isSelectionChange($event)"
                 >
@@ -108,6 +109,41 @@
                 </template>
             </PickList>
             </Dialog>
+            <Dialog v-model:visible="photos_product_name_form" header="Fotoğraf Ürün Adı" modal :style="{ width: '100vw' }">
+                <DataTable v-model:editingRows="editingRows" :value="editingNew" editMode="row" dataKey="id" @row-edit-save="onRowEditSave($event)"
+                                :pt="{
+                                    table: { style: 'min-width: 50rem' },
+                                    column: {
+                                        bodycell: ({ state }) => ({
+                                            class: [{ 'pt-0 pb-0': state['d_editing'] }]
+                                        })
+                                    }
+                                }"
+                            >
+                                <Column field="image_link" header="Fotoğraf">
+                                    <template #body="slotProps">
+                                        <img :src="slotProps.data.image_link" width="250" height="250"/>
+                                    </template>
+                                </Column>
+                                <Column  field="product_name" style="width: 25%" header="Ürün Adı (En)">
+                                    <template #editor="{ data, field }">
+                                        <InputText v-model="data[field]" />
+                                    </template>
+                                </Column>
+                                <Column  field="product_name_fr" style="width: 25%" header="Ürün Adı (Fr)">
+                                    <template #editor="{ data, field }">
+                                        <InputText v-model="data[field]" />
+                                    </template>
+                                </Column>
+                                <Column  field="product_name_es" style="width: 25%" header="Ürün Adı (Es)">
+                                    <template #editor="{ data, field }">
+                                        <InputText v-model="data[field]" />
+                                    </template>
+                                </Column>
+                                <Column :rowEditor="true" style="width: 10%; min-width: 8rem" bodyStyle="text-align:center"></Column>
+
+                            </DataTable>                  
+            </Dialog>
         </div>
     </div>
 </template>
@@ -129,6 +165,9 @@ export default {
     props:['project_id','project_name'],
     data() {
         return {
+            editingNew:[],
+            editingRows:[],
+            photos_product_name_form:false,
             information_fr:"",
             information_es:"",
             panelPickListPhotos:[],
@@ -168,9 +207,29 @@ export default {
             // @ts-ignore
             this.project_product_name = this.getPanelProjectDetailList.project_detail_information_list[0].project_product_name;
         };
-        this.panelPickListPhotos = this.getPanelPickListPhotosDetailList
+        this.panelPickListPhotos = this.getPanelPickListPhotosDetailList;
+        this.editingNew = this.panelPickListPhotos[0];
     },
     methods: {
+        onRowEditSave(event){
+            useLoadingStore().begin_loading_act();
+            reportsService.setProjectProductName(event.newData)
+            .then(response=>{
+                if(response.status){
+
+                    const index = this.editingNew.findIndex(x=>x.id == event.newData.id);
+                    this.editingNew[index] = event.newData;
+
+                    useLoadingStore().end_loading_act();
+
+                    this.$toast.add({'severity':'success','detail':'Başarıyla Kaydedildi.',life:3000});
+                } else{
+                    useLoadingStore().end_loading_act();
+
+                    this.$toast.add({'severity':'error','detail':'Kaydetme Başarısız.',life:3000});
+                }
+            })
+        },
         isSelectionChange(event){
         
             let index = 1;

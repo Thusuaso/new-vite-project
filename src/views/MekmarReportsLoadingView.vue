@@ -61,7 +61,7 @@
             <div class="">
                 <button type="button" class="btn btn-secondary w-100 mb-3" @click="excel_output_year">Excel Yıl</button>
             </div>
-        </div>
+    </div>
 
 
     <div class="row m-auto mb-3">
@@ -194,6 +194,108 @@
             </DataTable>
         </div>
     </div>
+
+    <div class="row m-auto mb-3">
+        <div class="col">
+            <div class="row m-auto mb-3">
+                <div class="col">
+                    <Dropdown v-model="selectedYearNew" :options="mekmarReportsNewYearList" optionLabel="yil" class="w-100 mb-3 mt-3" @change="changeYearNew($event)"/>
+                </div>
+                <div class="col">
+                    <button type="button" class="btn btn-secondary w-100 mb-3 mt-3" @click="excel_output_new_customer">Yeni Müşteri Excel</button>
+                </div>
+            </div>
+            <DataTable :value="mekmarLoadingListNewYear" v-model:filters="filters1" filterDisplay="row" scrollable scrollHeight="550px" :selection="selectedLoadingListNew" selectionMode="single" 
+                @row-click="loadingListNewSelected($event)"
+                @filter="filtersLoadingNewList($event)"
+            >
+                <template #header>
+                    {{ selectedYearNew.yil }} Müşterileri ({{ mekmarLoadingListNewYear.length }})
+                </template>
+                <Column field="musteri_adi" header="Müşteri" :showFilterMenu="false">
+                    <template #filter="{ filterModel, filterCallback }">
+                        <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
+                    </template>
+                </Column>
+                <Column field="fob" header="Fob">
+                    <template #body="slotProps">
+                        {{ $filters.formatPrice(slotProps.data.fob) }}
+                    </template>
+                    <template #footer>
+                        {{ $filters.formatPrice(mekmarLoadingListNewYearTotal.fob) }}
+                    </template>
+                    
+                </Column>
+                <Column field="dtp" header="Ddp">
+                    <template #body="slotProps">
+                        {{ $filters.formatPrice(slotProps.data.dtp) }}
+                    </template>
+                    <template #footer>
+                        {{ $filters.formatPrice(mekmarLoadingListNewYearTotal.ddp) }}
+                    </template>
+                </Column>
+
+
+            </DataTable>
+        </div>
+    </div>
+    <Dialog v-model:visible="mekmar_reports_loading_new_form" header="" modal>
+        <button type="button" class="btn btn-secondary w-100 mb-3 mt-3" @click="excel_output_new_customer_detail">Excel</button>
+        <DataTable :value="mekmarReportsNewDetail" >
+            <Column field="siparis_no" header="Po"></Column>
+            <Column field="yukleme_tarihi" header="Y.Tarihi"></Column>
+
+            <Column field="fob" header="Fob">
+                 <template #body="slotProps">
+                    {{ $filters.formatPrice(slotProps.data.fob) }}
+                 </template>
+                 <template #footer>
+                    {{ $filters.formatPrice(mekmarReportsNewDetailTotal.fob) }}
+                 </template>
+            </Column>
+            <Column field="navlun" header="Navlun">
+                <template #body="slotProps">
+                    {{ $filters.formatPrice(slotProps.data.navlun) }}
+                 </template>
+                 <template #footer>
+                    {{ $filters.formatPrice(mekmarReportsNewDetailTotal.navlun) }}
+                 </template>
+            </Column>
+            <Column field="detay_1" header="Detay 1">
+                <template #body="slotProps">
+                    {{ $filters.formatPrice(slotProps.data.detay_1) }}
+                 </template>
+                 <template #footer>
+                    {{ $filters.formatPrice(mekmarReportsNewDetailTotal.detay_1) }}
+                 </template>
+            </Column>
+            <Column field="detay_2" header="Detay 2">
+                <template #body="slotProps">
+                    {{ $filters.formatPrice(slotProps.data.detay_2) }}
+                 </template>
+                 <template #footer>
+                    {{ $filters.formatPrice(mekmarReportsNewDetailTotal.detay_2) }}
+                 </template>
+            </Column>
+            <Column field="detay_3" header="Detay 3">
+                <template #body="slotProps">
+                    {{ $filters.formatPrice(slotProps.data.detay_3) }}
+                 </template>
+                 <template #footer>
+                    {{ $filters.formatPrice(mekmarReportsNewDetailTotal.detay_3) }}
+                 </template>
+            </Column>
+            <Column field="dtp" header="Ddp">
+                <template #body="slotProps">
+                    {{ $filters.formatPrice(slotProps.data.dtp) }}
+                 </template>
+                 <template #footer>
+                    {{ $filters.formatPrice(mekmarReportsNewDetailTotal.dtp) }}
+                 </template>
+            </Column>
+        </DataTable>
+    </Dialog>
+
 </template>
 <script>
 import { useReportsStore } from '../stores/reports';
@@ -205,6 +307,7 @@ import { mapState } from 'pinia';
 import { FilterMatchMode } from 'primevue/api';
 
 import { reportsService } from '../services/reportsService';
+
 export default {
     computed: {
         ...mapState(useReportsStore, [
@@ -216,7 +319,9 @@ export default {
             'getMekmarLoadingListYearCounting',
             'getMekmarLoadingTotalListMarketing',
             'getMekmarLoadingYearList',
-            'getMekmarLoadingMonthList'
+            'getMekmarLoadingMonthList',
+            'mekmarLoadingListNewYear',
+            'mekmarLoadingListNewYearTotal'
         ]),
         ...mapState(useLocalStore, [
             'getLocalServiceUrl',
@@ -227,6 +332,15 @@ export default {
     },
     data() {
         return {
+            mekmarReportsNewYearList:[],
+            filters1:{
+                musteri_adi: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+
+            },
+            mekmarReportsNewDetail:[],
+            mekmar_reports_loading_new_form:false,
+            selectedLoadingListNew:null,
+            selectedYearNew:null,
             selectedYear: {},
             selectedMonth: {},
             selectedKind: {},
@@ -237,14 +351,95 @@ export default {
             },
             yearFilters: {
                 musteri_adi: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+            },
+            mekmarReportsNewDetailTotal:{
+                'fob':0,
+                'navlun':0,
+                'detay_1':0,
+                'detay_2':0,
+                'detay_3':0,
+                'dtp':0,
             }
         }
     },
     created() {
         this.selectedYear = this.getMekmarLoadingYearList[0];
         this.selectedMonth = this.getMekmarLoadingMonthList[0];
+        this.selectedYearNew = this.getMekmarLoadingYearList[0];
+        this.mekmarReportsNewYearList = this.getMekmarLoadingYearList.filter(x=>x.yil >=2019);
+
     },
     methods: {
+        excel_output_new_customer_detail(){
+            useLoadingStore().begin_loading_act();
+            reportsService.getMekmarLoadingNewCustomerDetailExcelOutput(this.mekmarReportsNewDetail).then(data => {
+                if (data.status) {
+                    const link = document.createElement("a");
+                    link.href =
+                        this.getLocalServiceUrl + "raporlar/loading/new/customer/detail/excel";
+
+                    link.setAttribute("download", "yeni_musteri_yuklenen_detay.xlsx");
+                    document.body.appendChild(link);
+                    link.click();
+                    useLoadingStore().end_loading_act();
+                };
+            });
+
+        },
+        excel_output_new_customer(){
+            useLoadingStore().begin_loading_act();
+            reportsService.getMekmarLoadingNewCustomerExcelOutput(this.mekmarLoadingListNewYear).then(data => {
+                if (data.status) {
+                    const link = document.createElement("a");
+                    link.href =
+                        this.getLocalServiceUrl + "raporlar/loading/new/customer/excel";
+
+                    link.setAttribute("download", "yeni_musteri_yuklenen.xlsx");
+                    document.body.appendChild(link);
+                    link.click();
+                    useLoadingStore().end_loading_act();
+                };
+            });
+        },
+        filtersLoadingNewList(event){
+            useReportsStore().mekmar_loading_total_new_list_total(event.filteredValue);
+        },
+        loadingListNewTotal(data){
+          this.mekmarReportsNewDetailTotal = {
+                'fob':0,
+                'navlun':0,
+                'detay_1':0,
+                'detay_2':0,
+                'detay_3':0,
+                'dtp':0,
+            };
+            for(const item of data){
+                this.mekmarReportsNewDetailTotal.fob += item.fob;
+                this.mekmarReportsNewDetailTotal.navlun += item.navlun;
+                this.mekmarReportsNewDetailTotal.detay_1 += item.detay_1;
+                this.mekmarReportsNewDetailTotal.detay_2 += item.detay_2;
+                this.mekmarReportsNewDetailTotal.detay_3 += item.detay_3;
+                this.mekmarReportsNewDetailTotal.dtp += item.dtp;
+            }
+        },
+        loadingListNewSelected(event){
+          reportsService.getMekmarNewListDetail(event.data.musteriID,this.selectedYearNew.yil)
+          .then(response=>{
+            this.loadingListNewTotal(response);
+            this.mekmar_reports_loading_new_form = true;
+            this.mekmarReportsNewDetail = response;
+          });  
+        },
+        changeYearNew(event){
+            useLoadingStore().begin_loading_act();
+                reportsService.getMekmarNewList(event.value.yil).then(data => {
+                    useReportsStore().mekmar_loading_new_list_load_act(data);
+                    useLoadingStore().end_loading_act();
+                })
+                
+        
+        
+        },
         excel_output_year() {
             useLoadingStore().begin_loading_act();
             reportsService.getMekmarLoadingYearListExcelOutput(this.mekmarLoadingListYear).then(data => {
@@ -287,6 +482,8 @@ export default {
                 })
                 
             })
+        
+        
         },
         changeMonth(event) {
             useLoadingStore().begin_loading_act();

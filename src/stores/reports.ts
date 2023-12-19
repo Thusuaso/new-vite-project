@@ -3,6 +3,11 @@ import { defineStore } from 'pinia';
 export const useReportsStore = defineStore('reports', {
     state: () => {
         return {
+            mekmarLoadingListNewYearTotal:{
+              'fob':0,
+              'ddp':0,  
+            },
+            mekmarLoadingListNewYear:[],
             createSizeList:[],
             mekmarMkCustomerOrderList: [],
             mekmerProductionList: [],
@@ -674,6 +679,23 @@ export const useReportsStore = defineStore('reports', {
             this.mekmarLoadingListByCustomer = data.musteribazinda_aylik;
             this.mekmarLoadingListYearCounting = data.yillik_sayim_listesi;
             this.mekmar_loading_total_list_marketing(data.yillik_sayim_listesi)
+            this.mekmarLoadingListNewYear = data.musteribazinda_yeni_yillik;
+            this.mekmar_loading_total_new_list_total(data.musteribazinda_yeni_yillik);
+        },
+
+        mekmar_loading_new_list_load_act(data:any){
+            this.mekmarLoadingListNewYear = data;
+            this.mekmar_loading_total_new_list_total(data);
+        },
+        mekmar_loading_total_new_list_total(data:any){
+          this.mekmarLoadingListNewYearTotal = {
+            'fob':0,
+            'ddp':0
+          };
+          for(const item of data){
+            this.mekmarLoadingListNewYearTotal.fob += item.fob;
+            this.mekmarLoadingListNewYearTotal.ddp += item.dtp;
+          }
         },
         mekmar_loading_year_list_load_act(data: any) {
             this.mekmarLoadingYearList = data;
@@ -1255,6 +1277,9 @@ export const useReportsStore = defineStore('reports', {
 
     },
     getters: {
+        getMekmarLoadingListNewYear(state){
+          return state.mekmarLoadingListNewYear;  
+        },
         getcreateSizeList(state){
           return state.createSizeList;  
         },

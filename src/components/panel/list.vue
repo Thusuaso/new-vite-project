@@ -4,7 +4,7 @@
             <button type="success" class="btn btn-success w-100" @click="$emit('panelProductNewEmit')">Yeni</button>
         </div>
         <div class="col">
-            <Dropdown v-model="selectedCategory" :options="getPanelCategoryList" optionLabel="kategoriadi_en"
+            <Dropdown v-model="selectedCategory" :options="categoryList" optionLabel="kategoriadi_en"
              @change="categorySelected($event)" class="w-100" />
         </div>
     </div>
@@ -134,12 +134,13 @@ export default {
 
             },
             selectedPanelProduct: {},
+            categoryList:[],
         }
     },
     created() {
         this.selectedCategory = this.getPanelCategoryList[0];
         this.userId = localStorage.getItem('userId');
-        this.getPanelCategoryList
+        this.categoryList = this.getPanelCategoryList.filter(x=> (x.kategoriadi_en != 'Basalt') && (x.kategoriadi_en != 'Granite'));
     },
     methods: {
         panelProductSelected(event) {

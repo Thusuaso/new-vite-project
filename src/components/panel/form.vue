@@ -61,12 +61,6 @@
                 </div>
                 <div class="col">
                     <span class="p-float-label">
-                        <Dropdown id="color" v-model="selectedColorEn" :options="getProductColorEnList" optionLabel="name" class="w-100" @change="colorEnSelected($event)"/>
-                        <label for="color">Renk</label>
-                    </span>
-                </div>
-                <div class="col">
-                    <span class="p-float-label">
                         <Dropdown id="stoneType" v-model="selectedStoneType" :options="stoneTypeList" optionLabel="kategoriadi_en" class="w-100" @change="stoneTypeSelected($event)"/>
                         <label for="stoneType">Taş Türü</label>
                     </span>
@@ -236,7 +230,34 @@
         <TabPanel header="Filters">
             <div class="row">
             <div class="col-12">
+                <div class="">
+                    <div class="row m-auto mb-3 mt-3">
+                        <div class="col">
+                            <span class="p-float-label">
+                                <Dropdown id="color" v-model="selectedColor" :options="getProductColorEnList" optionLabel="name" class="w-100" @change="add_color_disabled = false"/>
+                                <label for="color">Renk</label>
+                            </span>
+                        </div>
+                        <div class="col">
+                            <button type="button" class="btn btn-success w-100" @click="addColor" :disabled="add_color_disabled">Ekle</button>
+                        </div>
+                        <div class="col">
+                            <button type="button" class="btn btn-danger w-100" @click="deleteColor" :disabled="delete_color_disabled">Sil</button>
 
+                        </div>
+                    </div>
+                    
+                    <DataTable :value="getProductColorFilteredProductsList" 
+                        v-model:selection="selectedColorProducts"
+                        selectionMode="single"
+                        @row-click="delete_color_disabled = false"
+                    >
+                        <Column field="name_en" header="Renk (En)"></Column>
+                        <Column field="name_fr" header="Renk (Fr)"></Column>
+                        <Column field="name_es" header="Renk (Es)"></Column>
+                    </DataTable>
+
+                </div>
                 <!--Finishes-->
                     <div v-if="getProductModel.kategori_id == 1 || getProductModel.kategori_id == 2 || getProductModel.kategori_id == 3 || getProductModel.kategori_id == 4 || getProductModel.kategori_id == 8" >
                         <h4 class="text-center">Finish</h4>
@@ -459,11 +480,11 @@
 
         </TabPanel>
         <TabPanel header="Suggested" v-if="!getPanelProductNewButton">
-            <div class="row m-auto mt-3">
+            <!-- <div class="row m-auto mt-3">
                 <div class="col">
                     <button type="button" class="btn btn-success w-100" @click="saveSuggested" :disabled="saveSuggestedDisabled">Kaydet</button>
                 </div>
-            </div>
+            </div> -->
             <div class="row m-auto mt-3"  >
                 <div class="col">
                     <PickList v-model="getProductSuggested" 
@@ -590,12 +611,17 @@ export default {
             'getProductEdgeFilteredProductsList',
             'getProductMaterialFilteredProductsList',
             'getProductTypeFilteredProductsList',
-            'getProductStyleFilteredProductsList'
+            'getProductStyleFilteredProductsList',
+            'getProductColorFilteredProductsList'
 
         ])
     },
     data() {
         return {
+            selectedColorProducts:{},
+            selectedColor:[],
+            delete_color_disabled:true,
+            add_color_disabled:true,
             saveSuggestedDisabled:false,
             testfile:null,
             add_finish_disabled:true,
@@ -706,16 +732,64 @@ export default {
     
     },
     methods: {
+        deleteColor(){
+            panelService.setFilterColorDelete(this.selectedColorProducts.id).then(response=>{
+                if(response.status){
+                    this.selectedColorProducts = null;
+                    this.delete_color_disabled = true;
+                    this.getUpdatedData();
+                    this.$toast.add({'severity':'success','detail':'Başarıyla Silindi','life':3000});
+                } else{
+                    this.$toast.add({'severity':'error','detail':'Silme İşlemi Başarısız',life:3000});
+                }
+            });
+        },
+        addColor(){
+            panelService.setFilterColorSave({'urunid':this.getProductModel.urunid,'kategori':this.getProductModel.kategori_id,...this.selectedColor}).then(response=>{
+               if(response.status){
+                this.add_color_disabled = true;
+                this.getUpdatedData();
+                this.selectedColor = null,
+                this.$toast.add({'severity':'success','detail':'Başarıyla Eklendi','life':3000});
+
+               } else{
+                this.$toast.add({'severity':'error','detail':'Ekleme Başarısız','life':3000});
+ 
+               }
+            });
+        },
         reOrderSuggested(event){
           console.log(event);  
         },
         moveToSourceAllSuggested(event){
             for(const item of event.items){
+                                
                 this.deletedSuggested.push(item);
-                this.getProductSuggested.push(item);              
+                this.getProductSuggested[0].push(item);              
             };
+            this.getProductSuggested[1] = [];
+            this.saveSuggestedDisabled = true;
+          const data = {
+                'added':[],
+                'deleted':this.deletedSuggested,
+                'id':this.getProductModel.urunid,
+            }
+          panelService.setSuggestedProducts(data)
+          .then(response=>{
+                if(response.status){
+                    this.deletedSuggested = [];
+                    this.addedSuggested = [];
+                    this.saveSuggestedDisabled = false;
+                    this.$toast.add({severity:'success',detail:'Başarıyla Kaydedildi',life:3000});
+                }else{
+                    this.$toast.add({severity:'error',detail:'Kaydetme Başarısız',life:3000});
+                    
+                }
+            })
 
         },
+
+
         onRowReorder(event){
           let index = 1;
           let data = event.value
@@ -955,25 +1029,7 @@ export default {
             this.filteredAreas = results;
         },
         saveSuggested(){
-            this.saveSuggestedDisabled = true;
-          const data = {
-                'added':this.addedSuggested,
-                'deleted':this.deletedSuggested,
-                'id':this.getProductModel.urunid,
-            }
-          panelService.setSuggestedProducts(data)
-          .then(response=>{
-                if(response.status){
-                    this.getUpdatedData();
-                    this.deletedSuggested = [];
-                    this.addedSuggested = [];
-                    this.saveSuggestedDisabled = false;
-                    this.$toast.add({severity:'success',detail:'Başarıyla Kaydedildi',life:3000});
-                }else{
-                    this.$toast.add({severity:'error',detail:'Kaydetme Başarısız',life:3000});
-                    
-                }
-            })
+            
 
         },
         moveToSourceSuggested(event){
@@ -987,6 +1043,24 @@ export default {
                 this.addedSuggested.splice(addIndex,1);
             };
             this.deletedSuggested.push(event.items[0]);
+            const data = {
+                    'added':[],
+                    'deleted':this.deletedSuggested,
+                    'id':this.getProductModel.urunid,
+                };
+                panelService.setSuggestedProducts(data)
+                .then(response=>{
+                        if(response.status){
+                            this.deletedSuggested = [];
+                            this.addedSuggested = [];
+                            this.saveSuggestedDisabled = false;
+                            this.$toast.add({severity:'success',detail:'Başarıyla Kaydedildi',life:3000});
+                        }else{
+                            this.$toast.add({severity:'error',detail:'Kaydetme Başarısız',life:3000});
+                        }
+                    })
+
+            
         },
         moveToTargetSuggested(event){
             if(this.getProductSuggested[1].length >= 4){
@@ -1003,6 +1077,25 @@ export default {
                         this.deletedSuggested.splice(deleteIndex,1);
                     };
                 };
+                const data = {
+                    'added':this.addedSuggested,
+                    'deleted':[],
+                    'id':this.getProductModel.urunid,
+                };
+                panelService.setSuggestedProducts(data)
+                .then(response=>{
+                        if(response.status){
+                            this.deletedSuggested = [];
+                            this.addedSuggested = [];
+                            this.saveSuggestedDisabled = false;
+                            this.$toast.add({severity:'success',detail:'Başarıyla Kaydedildi',life:3000});
+                        }else{
+                            this.$toast.add({severity:'error',detail:'Kaydetme Başarısız',life:3000});
+                            
+                        }
+                    })
+
+
             }
         },
         inputSize(event){

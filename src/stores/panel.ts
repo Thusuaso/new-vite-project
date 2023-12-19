@@ -43,6 +43,7 @@ export const usePanelStore = defineStore('panel', {
             productTypeFilteredProductsList:[],
             productStyleFilteredProductsList:[],
             productKategoriAdi:null,
+            productColorFilteredProductsList:[],
         }
     },
     actions: {
@@ -107,9 +108,13 @@ export const usePanelStore = defineStore('panel', {
             this.productMaterialFilteredProductsList = data.materialFilteredProductList;
             this.productTypeFilteredProductsList = data.typeFilteredProductList;
             this.productStyleFilteredProductsList = data.styleFilteredProductList;
+            this.productColorFilteredProductsList = data.colorFilteredProductList;
         },
     },
     getters: {
+        getProductColorFilteredProductsList(state){
+            return state.productColorFilteredProductsList;
+        },
         getProductSurfaceFilteredProductsList(state){
             return state.productSurfaceFilteredProductsList;
         },

@@ -109,6 +109,12 @@ export const panelService = {
     },
     testRaporDataGuncelle(data:any){
         return api.put('/panel/mekmarcom/testRaporIslem',data).then(response=>response.data);
+    },
+    setFilterColorSave(data:any){
+        return api.post('/panel/mekmarcom/color/filter/save',data).then(response=>response.data);
+    },
+    setFilterColorDelete(id:any){
+        return api.delete(`/panel/mekmarcom/color/filter/delete/${id}`).then(response=>response.data);
     }
 
 

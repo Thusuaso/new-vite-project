@@ -307,7 +307,7 @@ import { shopperService } from '../../services/shopperService';
 import { socket } from '../../services/customServices/realTimeService';
 
 import shopperSellerForm from '../../components/shopper/shopperSellerForm.vue';
-
+import {localDateService} from '../../services/localDateService';
 
 export default {
     computed: {
@@ -377,6 +377,7 @@ export default {
         },
         save() {
             this.getShopperModel.kullanici_id = localStorage.getItem('userId');
+            this.getShopperModel.kayit_tarihi = localDateService.getDateString(new Date());
             shopperService.save(this.getShopperModel).then(data => {
                 if (data.status) {
                     socket.socketIO.emit('shopper_update_list_emit');
