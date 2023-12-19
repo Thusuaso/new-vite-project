@@ -1429,18 +1429,18 @@ export default {
             
         },
         update() {
-            if(this.keywordListEn.length != 0){
+            if(this.keywordListEn != null){
                 this.getProductModel.keywords_en = this.keywordListEn.join();
             } else{
                 this.getProductModel.keywords_en = null;
             }
-            if(this.keywordListFr.length != 0){
+            if(this.keywordListFr != null){
                 this.getProductModel.keywords_fr = this.keywordListFr.join();
             }else{
                 this.getProductModel.keywords_fr = null;
 
             }
-            if(this.keywordListEs.length != 0){
+            if(this.keywordListEs != null){
                 this.getProductModel.keywords_es = this.keywordListEs.join();
             }else{
                 this.getProductModel.keywords_es = null;
@@ -1535,26 +1535,26 @@ export default {
             })
         },
         save() {
-            if(this.keywordListEn.length != 0){
+            if(this.keywordListEn != null){
                 this.getProductModel.keywords_en = this.keywordListEn.join();
             }
-            if(this.keywordListFr.length != 0){
+            if(this.keywordListFr != null){
                 this.getProductModel.keywords_fr = this.keywordListFr.join();
             }
-            if(this.keywordListEs.length != 0){
+            if(this.keywordListEs != null){
                 this.getProductModel.keywords_es = this.keywordListEs.join();
             }
-            if(this.keywordListEn.length != 0){
+            if(this.keywordListEn != null){
                 this.getProductModel.keywords_en = this.keywordListEn.join();
             }
-            if(this.keyListEn.length != 0){
+            if(this.keyListEn != null){
                 this.getProductModel.anahtarlar_en = this.keyListEn.join();
             }
-            if(this.keyListFr.length != 0){
+            if(this.keyListFr != null){
             this.getProductModel.anahtarlar_fr = this.keyListFr.join();
                 
             }
-            if(this.keyListEs.length != 0){
+            if(this.keyListEs != null){
             this.getProductModel.anahtarlar_es = this.keyListEs.join();
 
             }
