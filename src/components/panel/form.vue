@@ -744,7 +744,7 @@ export default {
         this.pickProductPhotosList = [...this.getProductPhotoListPick];
         this.stoneTypeList.push({'kategoriadi_en':'-'});
         this.getProductCategoryList.forEach(x=>{
-            if(x.kategoriadi_en == 'Marble' || x.kategoriadi_en == 'Travertine' || x.kategoriadi_en == 'Plasterboard' || x.kategoriadi_en == 'Limestone' || x.kategoriadi_en == 'Quartz' || x.kategoriadi_en == 'Granite' || x.kategoriadi_en == 'Basalt'){
+            if(x.kategoriadi_en == 'Marble' || x.kategoriadi_en == 'Travertine' || x.kategoriadi_en == 'Plasterboard' || x.kategoriadi_en == 'Limestone' || x.kategoriadi_en == 'Quartz' || x.kategoriadi_en == 'Granite' || x.kategoriadi_en == 'Basalt' || x.kategoriadi_en == 'Glass'){
                 this.stoneTypeList.push(x);
             }
         });

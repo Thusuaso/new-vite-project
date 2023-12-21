@@ -389,6 +389,8 @@ export default {
             shopperService.update(this.getShopperModel).then(data => {
                 if (data.status) {
                     socket.socketIO.emit('shopper_update_list_emit');
+                    this.emitter.emit('close_dialog');
+
                     this.$toast.add({ severity: 'success', detail: 'Başarıyla Güncellendi', life: 3000 });
                 } else {
                     this.$toast.add({ severity: 'error', detail: 'Güncelleme Başarısız', life: 3000 });

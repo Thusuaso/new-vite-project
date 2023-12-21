@@ -52,20 +52,6 @@
                     </template>
                 </Column>
                 <Column 
-                        field="renk_en" 
-                        header="Renk"
-                        :showFilterMenu="false"
-                        :showFilterOperator="false"
-                        :showClearButton="false"
-                        :showApplyButton="false"
-                        :showFilterMatchModes="false"
-                        :showAddButton="false"
-                    >
-                    <template #filter="{ filterModel, filterCallback }">
-                        <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
-                    </template>
-                </Column>
-                <Column 
                         field="urunkod" 
                         header="Kod"
                         :showFilterMenu="false"
@@ -140,7 +126,7 @@ export default {
     created() {
         this.selectedCategory = this.getPanelCategoryList[0];
         this.userId = localStorage.getItem('userId');
-        this.categoryList = this.getPanelCategoryList.filter(x=> (x.kategoriadi_en != 'Basalt') && (x.kategoriadi_en != 'Granite'));
+        this.categoryList = this.getPanelCategoryList.filter(x=> (x.kategoriadi_en != 'Basalt') && (x.kategoriadi_en != 'Granite') && (x.kategoriadi_en != 'Glass'));
     },
     methods: {
         panelProductSelected(event) {

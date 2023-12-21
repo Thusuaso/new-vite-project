@@ -217,6 +217,11 @@
                         <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
                     </template>
                 </Column>
+                <Column field="musteri_yeri" header="Müşteri Yeri" :showFilterMenu="false">
+                    <template #filter="{ filterModel, filterCallback }">
+                        <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
+                    </template>
+                </Column>
                 <Column field="fob" header="Fob">
                     <template #body="slotProps">
                         {{ $filters.formatPrice(slotProps.data.fob) }}
@@ -335,6 +340,8 @@ export default {
             mekmarReportsNewYearList:[],
             filters1:{
                 musteri_adi: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+                musteri_yeri: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+
 
             },
             mekmarReportsNewDetail:[],

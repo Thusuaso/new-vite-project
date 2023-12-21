@@ -250,14 +250,14 @@ export default {
             selectedTodo:{},
             filtersNotTodo: {
                 girisTarihi: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-                ortak_gorev: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+                ortak_gorev: { value: null, matchMode: FilterMatchMode.CONTAINS },
                 oncelik: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
                 global: { value: null, matchMode: FilterMatchMode.CONTAINS },
             },
             filtersTodo: {
                 girisTarihi: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
                 yapildiTarihi: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-                ortak_gorev: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+                ortak_gorev: { value: null, matchMode: FilterMatchMode.CONTAINS },
                 oncelik: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
                 global: { value: null, matchMode: FilterMatchMode.CONTAINS },
 
