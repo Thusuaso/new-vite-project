@@ -169,6 +169,50 @@
                         </div>
                     </div>
         </TabPanel>
+        <TabPanel header="Ürün (Ru)">
+                    <div class="row m-auto mt-3">
+                        <div class="col">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="basic-addon1">Ürün Adı</span>
+                                <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="getProductModel.urunadi_ru">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="basic-addon1">Kod</span>
+                                <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="getProductModel.urunkod">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row m-auto mt-3">
+                        <div class="col-6">
+                            <div class="form-floating">
+                                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height:100px;padding-top:35px;" v-model="getProductModel.aciklama_ru"></textarea>
+                                <label for="floatingTextarea2">Açıklama</label>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <span class="p-float-label">
+                                <Chips id="aciklama" v-model="keyListRu" style="" />
+                                <label for="aciklama">Anahtarlar</label>
+                            </span>
+                            <br/>
+
+                            <span class="p-float-label">
+                                <Chips id="aciklama" v-model="keywordListRu" style="" />
+                                <label for="aciklama">Hashtags</label>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row m-auto mt-3">
+                        <div class="col">
+                            <button type="button" class="btn btn-success w-100" @click="process" :disabled="save_button_disabled">Kaydet</button>
+                        </div>
+                        <div class="col">
+                            <button type="button" class="btn btn-danger w-100" @click="deleteForm" :disabled="delete_button_disabled">Sil</button>
+                        </div>
+                    </div>
+        </TabPanel>
         <TabPanel header="Sizes">
             <div class="row m-auto mt-3">
 
@@ -532,7 +576,7 @@
             <div class="row m-auto mt-3">
                 <div class="col" >
                     <div class="containerRestriction" style="text-align:center;margin-left:80px;">
-                        <Galleria :value="getProductPhotoList" :responsiveOptions="responsiveOptions" :numVisible="5" containerStyle="max-width: 640px"
+                        <Galleria :value="pickProductPhotosList[0]" :responsiveOptions="responsiveOptions" :numVisible="5" containerStyle="max-width: 640px"
                             :circular="true" :autoPlay="true" :transitionInterval="2000">
                             <template #item="slotProps">
                             <img :src="slotProps.item.nocdn" style="width: 100%;height:350px; display: block;" />
@@ -550,10 +594,10 @@
 
                         <button type="button" class="btn btn-danger w-100" @click="fotoSil">Sil</button>
                         <PickList v-model="pickProductPhotosList" 
-                        @move-to-target="photoListPick($event)" 
-                        @move-all-to-target="photoListPickAll($event)"
-                        @reorder="photoListChangeQueue($event)"
-                        dataKey="sira"
+                                    @move-to-target="photoListPick($event)" 
+                                    @move-all-to-target="photoListPickAll($event)"
+                                    @reorder="photoListChangeQueue($event)"
+                                    dataKey="sira"
                         
                         >
                         <template #sourceheader> Available </template>
@@ -709,9 +753,13 @@ export default {
             keyListEn: [],
             keyListFr: [],
             keyListEs: [],
+            keyListRu: [],
+
             keywordListEn:[],
             keywordListFr:[],
             keywordListEs:[],
+            keywordListRu:[],
+
             selectedCategoryEn: {},
             selectedColorEn: {},
             selectedColorFr: {},
@@ -755,9 +803,10 @@ export default {
         deleteColor(){
             panelService.setFilterColorDelete(this.selectedColorProducts.id).then(response=>{
                 if(response.status){
+                    const indexColor = this.getProductColorFilteredProductsList.findIndex(x=>x.id == this.selectedColorProducts.id);
+                    this.getProductColorFilteredProductsList.splice(indexColor,1);
                     this.selectedColorProducts = null;
                     this.delete_color_disabled = true;
-                    this.getUpdatedData();
                     this.$toast.add({'severity':'success','detail':'Başarıyla Silindi','life':3000});
                 } else{
                     this.$toast.add({'severity':'error','detail':'Silme İşlemi Başarısız',life:3000});
@@ -765,10 +814,11 @@ export default {
             });
         },
         addColor(){
+
             panelService.setFilterColorSave({'urunid':this.getProductModel.urunid,'kategori':this.getProductModel.kategori_id,...this.selectedColor}).then(response=>{
                if(response.status){
+                this.getProductColorFilteredProductsList.push({'id':response.id,'name_en':this.selectedColor.name,'name_fr':this.selectedColor.name_fr,'name_es':this.selectedColor.name_es,'product_id':this.getProductModel.urunid});
                 this.add_color_disabled = true;
-                this.getUpdatedData();
                 this.selectedColor = null,
                 this.$toast.add({'severity':'success','detail':'Başarıyla Eklendi','life':3000});
 
@@ -849,21 +899,14 @@ export default {
         finishProductSelected(){
           this.delete_finish_disabled = false;
         },
-        getUpdatedData(){
-            useLoadingStore().begin_loading_act();
-            panelService.getPanelDetail(this.getProductModel.urunid).then(data=>{
-                usePanelStore().panel_product_model_list_load_act(data);
-                usePanelStore().panel_product_new_button_load_act(false);
-                useLoadingStore().end_loading_act();
-            })  
-        },
 
         typeDelete(){
             panelService.setFilterTypeDelete(this.selectedTypeProducts.id).then(response=>{
                 if(response.status){
+                    const index = this.getProductTypeFilteredProductsList.findIndex(x=>x.id == this.selectedTypeProducts.id);
+                    this.getProductTypeFilteredProductsList.splice(index,1);
                     this.selectedTypeProducts = null;
                     this.type_filtered_delete_disabled = true;
-                    this.getUpdatedData();
                     this.$toast.add({'severity':'success','detail':'Başarıyla Silindi','life':3000});
                 } else{
                     this.$toast.add({'severity':'error','detail':'Silme İşlemi Başarısız',life:3000});
@@ -874,9 +917,9 @@ export default {
             panelService.setFilterTypeSave({'urunid':this.getProductModel.urunid,'kategori':this.getProductModel.kategori_id,...this.selectedType})
             .then(response=>{
                 if(response.status){
+                    this.getProductTypeFilteredProductsList.push({...this.selectedType,'product_id':this.getProductModel.urunid,'id':response.id});
                     this.selectedType = null;
                     this.type_filtered_save_disabled = true;
-                    this.getUpdatedData();
                     this.$toast.add({'severity':'success','detail':'Başarıyla Eklendi','life':3000});
                 } else{
                     this.$toast.add({'severity':'error','detail':'Ekleme İşlemi Başarısız',life:3000});
@@ -887,9 +930,10 @@ export default {
         materialDelete(){
             panelService.setFilterMaterialDelete(this.selectedMaterialProducts.id).then(response=>{
                 if(response.status){
+                    const index = this.getProductMaterialFilteredProductsList.findIndex(x=>x.id == this.selectedMaterialProducts.id);
+                    this.getProductMaterialFilteredProductsList.splice(index,1);
                     this.selectedMaterialProducts = null;
                     this.material_filtered_delete_disabled = true;
-                    this.getUpdatedData();
                     this.$toast.add({'severity':'success','detail':'Başarıyla Silindi','life':3000});
                 } else{
                     this.$toast.add({'severity':'error','detail':'Silme İşlemi Başarısız',life:3000});
@@ -897,12 +941,14 @@ export default {
             });
         },
         materialSave(){
+
             panelService.setFilterMaterialSave({'urunid':this.getProductModel.urunid,'kategori':this.getProductModel.kategori_id,...this.selectedMaterial})
             .then(response=>{
                 if(response.status){
+                    this.getProductMaterialFilteredProductsList.push({...this.selectedMaterial,'product_id':this.getProductModel.urunid,'id':response.id});
+
                     this.selectedMaterial = null;
                     this.material_filtered_save_disabled = true;
-                    this.getUpdatedData();
                     this.$toast.add({'severity':'success','detail':'Başarıyla Eklendi','life':3000});
                 } else{
                     this.$toast.add({'severity':'error','detail':'Ekleme İşlemi Başarısız',life:3000});
@@ -913,10 +959,10 @@ export default {
         edgeDelete(){
             panelService.setFilterEdgeDelete(this.selectedEdgeProducts.id).then(response=>{
                 if(response.status){
-
+                    const index = this.getProductEdgeFilteredProductsList.findIndex(x=>x.id == this.selectedEdgeProducts.id);
+                    this.getProductEdgeFilteredProductsList.splice(index,1);
                     this.selectedEdgeProducts = null;
                     this.edge_filtered_delete_disabled = true;
-                    this.getUpdatedData();
 
                     this.$toast.add({'severity':'success','detail':'Başarıyla Silindi','life':3000});
                 } else{
@@ -928,9 +974,9 @@ export default {
             panelService.setFilterEdgeSave({'urunid':this.getProductModel.urunid,'kategori':this.getProductModel.kategori_id,...this.selectedEdge})
             .then(response=>{
                 if(response.status){
+                    this.getProductEdgeFilteredProductsList.push({...this.selectedEdge,'product_id':this.getProductModel.urunid,'id':response.id})
                     this.selectedEdge = null;
                     this.edge_filtered_save_disabled = true;
-                    this.getUpdatedData();
                     this.$toast.add({'severity':'success','detail':'Başarıyla Eklendi','life':3000});
                 } else{
                     this.$toast.add({'severity':'error','detail':'Ekleme İşlemi Başarısız',life:3000});
@@ -942,9 +988,10 @@ export default {
         styleDelete(){
             panelService.setFilterStyleDelete(this.selectedStyleProducts.id).then(response=>{
                 if(response.status){
+                    const index = this.getProductStyleFilteredProductsList.findIndex(x=>x.id == this.selectedStyleProducts.id);
+                    this.getProductStyleFilteredProductsList.splice(index,1);
                     this.selectedStyleProducts = null;
                     this.style_filtered_delete_disabled = true;
-                    this.getUpdatedData();
 
                     this.$toast.add({'severity':'success','detail':'Başarıyla Silindi','life':3000});
                 } else{
@@ -956,9 +1003,9 @@ export default {
             panelService.setFilterStyleSave({'urunid':this.getProductModel.urunid,'kategori':this.getProductModel.kategori_id,...this.selectedStyle})
             .then(response=>{
                 if(response.status){
+                    this.getProductStyleFilteredProductsList.push({...this.selectedStyle,'product_id':this.getProductModel.urunid,'id':response.id})
                     this.selectedStyle = null;
                     this.style_filtered_save_disabled = true;
-                    this.getUpdatedData();
                     this.$toast.add({'severity':'success','detail':'Başarıyla Eklendi','life':3000});
                 } else{
                     this.$toast.add({'severity':'error','detail':'Ekleme İşlemi Başarısız',life:3000});
@@ -972,7 +1019,6 @@ export default {
             panelService.setFilterSurfaceDelete(this.selectedSurfaceProducts.id).then(response=>{
                 if(response.status){
                     this.surface_filtered_delete_disabled = true;
-                    this.getUpdatedData();
 
                     this.$toast.add({'severity':'success','detail':'Başarıyla Silindi',life:3000});
                 }else{
@@ -988,7 +1034,6 @@ export default {
             if(response.status){
                 this.selectedSurface = null;
                 this.surface_filtered_save_disabled = true;
-                this.getUpdatedData();
                 this.$toast.add({'severity':'success','detail':'Başarıyla Eklendi.',life:3000});
             }else{
 
@@ -1011,8 +1056,8 @@ export default {
          this.delete_area_disabled_form = true;  
          panelService.setAreasDelete(this.selectedAreaProductList.id).then(response=>{
             if(response.status){
-                this.getUpdatedData();
-
+                const index = this.getProductAreasProductsList.findIndex(x=>x.id == this.selectedAreaProductList.id);
+                this.getProductAreasProductsList.splice(index,1);
                 this.$toast.add({'severity':'success','detail':'Başarıyla Silindi',life:3000});
             }else{
                 this.$toast.add({'severity':'danger','detail':'Silme Başarısız',life:3000});
@@ -1030,9 +1075,8 @@ export default {
             panelService.setAreasProducts(areaid,productid,areaname)
             .then(response=>{
                if(response.status){
+                    this.getProductAreasProductsList.push({...this.selectedArea,'urunid':this.getProductModel.urunid,'id':response.id})
                     this.selectedArea = null;
-                    this.getUpdatedData();
-
                     this.$toast.add({'severity':'success','detail':'Başarıyla Kaydedildi.',life:3000});
                 } 
             });
@@ -1166,7 +1210,6 @@ export default {
             }
             panelService.deletePanelPhotos(data).then(res => {
                 if (res.status) {
-                    socket.socketIO.emit('panel_product_update_emit', this.getProductModel.urunid);
                     useLoadingStore().end_loading_act();
                     this.$toast.add({ severity: 'success', summary: 'Fotoğraf Silme', detail: 'Fotoğraf Silme İşlemi Başarıyla Gerçekleşti', life: 3000 })
                 }
@@ -1207,11 +1250,11 @@ export default {
                 photos.push(event.files[key].name);
             };
             panelService.setPhotosAdd(photos).then((res) => {
-                if (res) {
+                if (res.status) {
                     for (let key in event.files) {
                         digitalOceanService.fotoGonder(event.files[key]);
                     };
-                    socket.socketIO.emit('panel_product_update_emit', this.getProductModel.urunid);
+                        this.pickProductPhotosList = [res.fotolar,[]];
                         useLoadingStore().end_loading_act();
 
                     this.$toast.add({ severity: 'success', detail: 'Fotoğraflar başarıyla kaydedildi.', life: 3000 })
@@ -1232,9 +1275,11 @@ export default {
             if(confirm('Silmek İstiyor musunuz?')){
                 this.edge_delete_disabled = true;
 
+
                 panelService.setSizeDelete(event).then(data => {
                     if (data.status) {
-                        this.sizeProductList = data.ebatlist;
+                        const index = this.sizeProductList.findIndex(x=>x.id == event);
+                        this.sizeProductList.splice(index,1)
                         this.$toast.add({ severity: 'success', detail: 'Başarıyla Silindi', life: 3000 });
                     } else {
                         this.$toast.add({ severity: 'error', detail: 'Silme Başarısız', life: 3000 });
@@ -1248,6 +1293,8 @@ export default {
             this.edge_new_disabled = true;
         },
         addSize() {
+ 
+
             this.edge_add_disabled = true;
             const sizeData = {
                 urunid: this.getProductModel.urunid,
@@ -1257,11 +1304,12 @@ export default {
             };
             panelService.setSizeAdd(sizeData).then(data => {
                 if (data.status) {
+                    console.log({'id':data.ebatId,'fiyat':this.sizePrice,'ebat':this.selectedSize.name,'urunid':this.getProductModel.urunid})
+                    this.sizeProductList.push({'id':data.ebatId,'fiyat':this.sizePrice,'ebat':this.selectedSize.name,'urunid':this.getProductModel.urunid});
                     this.edge_add_disabled = true;
                     this.edge_new_disabled = false;
                     this.sizePrice = 0;
                     this.selectedSize = null;
-                    this.sizeProductList = data.ebatlist;
                     this.$toast.add({ severity: 'success', detail: 'Başarıyla Kaydedildi', life: 3000 });
                 } else {
                     this.$toast.add({ severity: 'danger', detail: 'Kaydetme Başarısız', life: 3000 });
@@ -1281,6 +1329,7 @@ export default {
             this.filteredProductSizeList = result;
         },
         deleteFinish() {
+            
             this.delete_finish_disabled = true;
 
             const finishData = {
@@ -1289,7 +1338,8 @@ export default {
             };
             panelService.setFinishDelete(finishData).then(data => {
                 if (data.status) {
-                    this.finishProductList = data.finishlist;
+                    const index = this.finishProductList.findIndex(x=>x.id == this.selectedFinishProduct.id);
+                    this.finishProductList.splice(index,1)
                     this.selectedFinish = null;
                     useLoadingStore().end_loading_act();
                     this.$toast.add({ severity: 'success', detail: 'Başarıyla Silindi', life: 300 });
@@ -1305,16 +1355,14 @@ export default {
                 'islemadien':this.selectedFinish.name,
                 'islemadifr':this.selectedFinish.name_fr,
                 'islemadies':this.selectedFinish.name_es,
-
                 'dil': "en",
-
                 'kategori_id': this.getProductModel.kategori_id,
                 'urunid': this.getProductModel.urunid,
             };
             useLoadingStore().begin_loading_act();
             panelService.setFinishAdd(finishData).then(data => {
                 if (data.status) {
-                    this.finishProductList = data.finishlist;
+                    this.finishProductList.push({...this.selectedFinish,'id':data.id,'urunid': this.getProductModel.urunid});
                     this.selectedFinish = null;
                     useLoadingStore().end_loading_act();
                     this.$toast.add({ severity: 'success', detail: 'Başarıyla Kaydedildi', life: 300 });
@@ -1373,10 +1421,14 @@ export default {
             this.keyListEn = this.__noneControl(this.getProductModel.anahtarlar_en);   
             this.keyListFr = this.__noneControl(this.getProductModel.anahtarlar_fr);
             this.keyListEs = this.__noneControl(this.getProductModel.anahtarlar_es);
+            this.keyListRu = this.__noneControl(this.getProductModel.anahtarlar_ru);
+
 
             this.keywordListEn = this.__noneControl(this.getProductModel.keywords_en);
             this.keywordListFr = this.__noneControl(this.getProductModel.keywords_fr);
             this.keywordListEs = this.__noneControl(this.getProductModel.keywords_es);
+            this.keywordListRu = this.__noneControl(this.getProductModel.keywords_ru);
+
 
 
             if(this.getProductModel.kategori_id){
@@ -1446,10 +1498,21 @@ export default {
                 this.getProductModel.keywords_es = null;
 
             }
+            if(this.keywordListRu != null){
+                this.getProductModel.keywords_ru = this.keywordListRu.join();
+            }else{
+                this.getProductModel.keywords_ru = null;
+
+            }
             if(this.keyListEs != null){
                 this.getProductModel.anahtarlar_es = this.keyListEs.join();
             } else{
                 this.getProductModel.anahtarlar_es = null;
+            }
+            if(this.keyListRu != null){
+                this.getProductModel.anahtarlar_ru = this.keyListRu.join();
+            } else{
+                this.getProductModel.anahtarlar_ru = null;
             }
             if(this.keyListEn != null){
                 this.getProductModel.anahtarlar_en = this.keyListEn.join();
@@ -1491,6 +1554,10 @@ export default {
                 alert('İspanyolca Ürün Adı Girilmedi.');
                 return;
             };
+            if(!this.getProductModel.urunadi_ru){
+                alert('Rusça Ürün Adı Girilmedi.');
+                return;
+            };
             if(!this.getProductModel.urunkod){
                 alert('Ürün Kodu Girilmedi.');
                 return;
@@ -1505,6 +1572,10 @@ export default {
             };
             if(!this.getProductModel.aciklama_es){
                 alert('İspanyolca Açıklama Girilmedi.');
+                return;
+            };
+            if(!this.getProductModel.aciklama_ru){
+                alert('Rusça Açıklama Girilmedi.');
                 return;
             };
             if(this.getProductModel.anahtarlar_en == ' '){
@@ -1547,6 +1618,9 @@ export default {
             if(this.keywordListEn != null){
                 this.getProductModel.keywords_en = this.keywordListEn.join();
             }
+            if(this.keywordListRu != null){
+                this.getProductModel.keywords_ru = this.keywordListRu.join();
+            }
             if(this.keyListEn != null){
                 this.getProductModel.anahtarlar_en = this.keyListEn.join();
             }
@@ -1556,6 +1630,10 @@ export default {
             }
             if(this.keyListEs != null){
             this.getProductModel.anahtarlar_es = this.keyListEs.join();
+
+            }
+            if(this.keyListRu != null){
+            this.getProductModel.anahtarlar_ru = this.keyListRu.join();
 
             }
             if(!this.getProductModel.birim){
@@ -1575,6 +1653,10 @@ export default {
                 alert('İspanyolca Ürün Adı Girilmedi.');
                 return;
             };
+            if(!this.getProductModel.urunadi_ru){
+                alert('Rusça Ürün Adı Girilmedi.');
+                return;
+            };
             if(!this.getProductModel.urunkod){
                 alert('Ürün Kodu Girilmedi.');
                 return;
@@ -1591,6 +1673,10 @@ export default {
                 alert('İspanyolca Açıklama Girilmedi.');
                 return;
             };
+            if(!this.getProductModel.aciklama_ru){
+                alert('Rusça Açıklama Girilmedi.');
+                return;
+            };
             if(!this.getProductModel.anahtarlar_en){
                 alert('İngilizce Anahtarlar Girilmedi.');
                 return;
@@ -1601,6 +1687,10 @@ export default {
             };
             if(!this.getProductModel.anahtarlar_es){
                 alert('İspanyolca Anahtarlar Girilmedi.');
+                return;
+            };
+            if(!this.getProductModel.anahtarlar_ru){
+                alert('Rusça Anahtarlar Girilmedi.');
                 return;
             };
             this.save_button_disabled = true;
