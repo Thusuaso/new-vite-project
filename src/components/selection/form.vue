@@ -1250,6 +1250,7 @@ export default {
       }
     },
     productSavedKindSelected(event) {
+      console.log(event);
       if (event.value.id == 1) {
         this.form.po = true;
         this.form.product = true;
@@ -1265,6 +1266,7 @@ export default {
         this.selectedProductDetail = null;
         this.getSelectionModelList.siparisaciklama = "Stok";
         this.getSelectionModelList.aciklama = "Stok";
+        this.getSelectionModelList.uretimturid = 1;
         if (this.getSelectionNewButton) {
           this.getSelectionModelList.urunbirimid = 1;
           this.getSelectionModelList.tedarikciid = 1;

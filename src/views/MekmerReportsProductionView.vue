@@ -42,6 +42,7 @@
                 :rows="15"
                 v-model:filters="filters"
                 filterDisplay="row"
+                @filter="filterTotalAmount($event)"
             >
                 <Column field="tarih" header="Tarih"></Column>
                 <Column 
@@ -260,6 +261,9 @@ export default {
         }
     },
     methods: {
+        filterTotalAmount(event) {
+            useReportsStore().mekmer_production_list_total_load_act(event.filteredValue);
+        },
         getSelectedRangeDate() {
             if (this.m_r_date != null) {
                 let first = localDateService.getDateString(this.m_r_date[0]);
