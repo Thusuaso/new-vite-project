@@ -77,7 +77,7 @@ export default {
             useLoadingStore().end_loading_act();
         },
         excelOutput(){
-            financeServiceTest.getExcelList(this.getFinanceTestListAll).then(data=>{
+            financeServiceTest.getExcelList(this.getFinanceTestList).then(data=>{
                 if(data.status){
                     const link = document.createElement("a");
                     link.href = this.getLocalServiceUrl + "finance/reports/test/excel";

@@ -200,7 +200,8 @@ export default {
             sellerRadio: 'Hepsi',
             supplierRadio: 'Hepsi',
             years: [
-                {year:'Hepsi'},
+                { year: 'Hepsi' },
+                { year: '2024' },
                 { year: '2023' },
                 { year: '2022' },
                 { year: '2021' },
@@ -220,7 +221,8 @@ export default {
     created() {
         if (this.$route.fullPath == '/siparisler/sevk') {
             this.selectedYear = { year: 'Hepsi' };
-            this.years= [
+            this.years = [
+            { year: '2024' },
                 { year: '2023' },
                 { year: '2022' },
                 { year: '2021' },

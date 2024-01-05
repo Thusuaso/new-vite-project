@@ -44,12 +44,21 @@
 
         </div>
         <br/>
+        <div class="row">
+            <div class="col">
+                <span class="p-float-label">
+        <InputText id="kod" v-model="code" />
+        <label for="kod">Kod</label>
+    </span>
+            </div>
+        </div>
+        <br/>
         <div class="row m-auto text-center">
             <div class="col">
-                <button type="button" class="btn btn-success w-50" @click="process">Kaydet</button>
+                <button type="button" class="btn btn-success w-100" @click="process">Kaydet</button>
             </div>
             <div class="col" v-if="!getCardNewButton">
-                <button type="button" class="btn btn-danger w-50" @click="deleteCard" >Sil</button>
+                <button type="button" class="btn btn-danger w-100" @click="deleteCard" >Sil</button>
             </div>
         </div>
         <div class="row" v-if="getCardCustomerSalesList.length > 0">
@@ -117,6 +126,15 @@
                 </div>
 
             </div>
+                    <br/>
+            <div class="">
+                <div class="">
+                    <span class="p-float-label">
+            <InputText id="kod" v-model="code" />
+            <label for="kod">Kod</label>
+        </span>
+                </div>
+            </div>
             <br/>
             <div class=" m-auto text-center">
                 <div class="">
@@ -176,6 +194,7 @@ export default {
     },
     data() {
         return {
+            code:null,
             selectedCategory: null,
             selectedProduct: null,
             selectedSurface: null,
@@ -202,6 +221,7 @@ export default {
                 'en': null,
                 'boy': null,
                 'kenar': null,
+                'kod':null,
             },
             cardCustomerTotal:0,
             
@@ -227,7 +247,7 @@ export default {
             this.selectedWidth = this.getCardSizeList.find(x => x.en == this.selectedCard.en);
             this.selectedHeight = this.getCardSizeList.find(x => x.boy == this.selectedCard.boy);
             this.selectedEdge = this.getCardSizeList.find(x => x.kenar == this.selectedCard.kenar);
-
+            this.code = this.selectedCard.kod;
             this.cardModel.username = localStorage.getItem("username");
             this.cardModel.id = this.selectedCard.id;
             this.cardModel.kategoriId = this.selectedCategory.id;
@@ -239,6 +259,7 @@ export default {
             this.cardModel.en = this.selectedCard.en;
             this.cardModel.boy = this.selectedCard.boy;
             this.cardModel.kenar = this.selectedCard.kenar;
+            this.cardModel.kod = this.code;
 
         },
         edgeSelect(event) {
@@ -269,6 +290,8 @@ export default {
             this.cardModel.en = this.selectedWidth.en ? this.selectedWidth.en : this.selectedWidth;
             this.cardModel.boy = this.selectedHeight.boy ? this.selectedHeight.boy : this.selectedHeight;
             this.cardModel.kenar = this.selectedEdge.kenar ? this.selectedEdge.kenar : this.selectedEdge;
+            this.cardModel.kod = this.code;
+
             if (this.getCardNewButton) {
                 this.save();
             } else {

@@ -36,6 +36,9 @@ export const sampleService = {
     },
     getSampleFinanceBankDetailList(bank: any, year: any) {
         return api.get(`/islemler/numune/bankayagelen/${bank}/${year}`).then(response => response.data);
+    },
+    getSampleFinanceYearList() {
+        return api.get('/islemler/numune/numuneYilListesi').then(response => response.data);
     }
 
 }

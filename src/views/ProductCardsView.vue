@@ -31,8 +31,20 @@
             :showAddButton="false"
         >
             <template #filter="{ filterModel, filterCallback }">
-                <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" placeholder="Search by name" />
+                <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
             </template>
+        </Column>
+        <Column field="kod" header="Kod"
+                       :showFilterMenu="false"
+                :showFilterOperator="false"
+                :showClearButton="false"
+                :showApplyButton="false"
+                :showFilterMatchModes="false"
+                :showAddButton="false"
+        >
+        <template #filter="{ filterModel, filterCallback }">
+                    <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
+                </template>
         </Column>
         <Column field="kategoriAdi" header="Kategori"
             :showFilterMenu="false"
@@ -43,7 +55,7 @@
             :showAddButton="false"
         >
             <template #filter="{ filterModel, filterCallback }">
-                <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" placeholder="Search by name" />
+                <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter"  />
             </template>
         </Column>
         <Column field="urunAdi" header="Ürün"
@@ -55,7 +67,7 @@
             :showAddButton="false"
         >
             <template #filter="{ filterModel, filterCallback }">
-                <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" placeholder="Search by name" />
+                <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter"  />
             </template>
         </Column>
         <Column field="yuzey_1" header="Y1"
@@ -67,7 +79,7 @@
             :showAddButton="false"
         >
             <template #filter="{ filterModel, filterCallback }">
-                <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" placeholder="Search by name" />
+                <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
             </template>
         </Column>
         <Column field="yuzey_2" header="Y2"
@@ -79,7 +91,7 @@
             :showAddButton="false"
         >
             <template #filter="{ filterModel, filterCallback }">
-                <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" placeholder="Search by name" />
+                <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter"  />
             </template>
         </Column>
         <Column field="yuzey_3" header="Y3"
@@ -91,7 +103,7 @@
             :showAddButton="false"
         >
             <template #filter="{ filterModel, filterCallback }">
-                <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" placeholder="Search by name" />
+                <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter"  />
             </template>
         </Column>
         <Column field="en" header="En"
@@ -103,7 +115,7 @@
             :showAddButton="false"
         >
             <template #filter="{ filterModel, filterCallback }">
-                <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" placeholder="Search by name" />
+                <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter"/>
             </template>
         </Column>
         <Column field="boy" header="Boy"
@@ -115,7 +127,7 @@
             :showAddButton="false"
         >
             <template #filter="{ filterModel, filterCallback }">
-                <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" placeholder="Search by name" />
+                <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
             </template>
         </Column>
         <Column field="kenar" header="Kenar"
@@ -127,7 +139,7 @@
             :showAddButton="false"
         >
             <template #filter="{ filterModel, filterCallback }">
-                <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" placeholder="Search by name" />
+                <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter"  />
             </template>
         </Column>
     </DataTable>
@@ -167,6 +179,8 @@ export default {
                 'boy': { value: null, matchMode: FilterMatchMode.STARTS_WITH },
                 'kenar': { value: null, matchMode: FilterMatchMode.STARTS_WITH },
                 'id': { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+                'kod': { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+
 
 
 

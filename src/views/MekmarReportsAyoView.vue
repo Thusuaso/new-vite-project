@@ -546,7 +546,7 @@
                         {{ $filters.formatPrice(getMekmarAyoTotalList.mekus) }}
                     </template>
                 </Column>
-                <Column field="pazarlama" header="Pazarlama">
+                <Column field="pazarlama" header="Komisyon">
                     <template #body="slotProps">
                         {{ $filters.formatPrice(slotProps.data.pazarlama) }}
                     </template>

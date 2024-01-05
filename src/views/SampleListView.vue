@@ -155,7 +155,7 @@ export default {
     mounted() {
         socket.socketIO.on('sample_stock_list_on', () => {
             useLoadingStore().begin_loading_act();
-            sampleService.getSampleList(new Date().getFullYear()).then(data => {
+            sampleService.getSampleList(this.selectedYear.yil).then(data => {
                 useSampleStore().sample_list_load_act(data);
                 useLoadingStore().end_loading_act();
             });

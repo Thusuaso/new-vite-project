@@ -207,7 +207,7 @@
     
         >
             <template #header>
-                    R16: 2023 'de Yapılan Sevkiyatın Üreticilere Göre Dağılımı (Mekmar)
+                    R16: {{ new Date().getFullYear() }} 'de Yapılan Sevkiyatın Üreticilere Göre Dağılımı (Mekmar)
             </template>
                 <Column field="tedarikci" header="Tedarikçi" :showFilterMenu="false">
                     <template #filter="{ filterModel, filterCallback }">
@@ -244,7 +244,7 @@
     
             >
                 <template #header>
-                        R17: 2023'deki Ülkelere Göre Sevkiyat
+                        R17: {{ new Date().getFullYear() }} 'deki Ülkelere Göre Sevkiyat
                 </template>
                     <Column field="ulkeid" header="Id" >
                         <template #footer>
@@ -278,7 +278,7 @@
     
                 >
                     <template #header>
-                            R18: 2023'deki Mevcut Siparişlerin Müşterilere Göre Dağılımı
+                            R18: {{ new Date().getFullYear() }}'deki Mevcut Siparişlerin Müşterilere Göre Dağılımı
                     </template>
                         <Column field="tedarikci" header="Firma Adı" :showFilterMenu="false">
                             <template #filter="{ filterModel, filterCallback }">
@@ -446,7 +446,7 @@
     
             >
                 <template #header>
-                        R16: 2023 'de Yapılan Sevkiyatın Üreticilere Göre Dağılımı (Mekmar)
+                        R16: {{ new Date().getFullYear() }} 'de Yapılan Sevkiyatın Üreticilere Göre Dağılımı (Mekmar)
                 </template>
                     <Column field="tedarikci" header="Tedarikçi" :showFilterMenu="false">
                         <template #filter="{ filterModel, filterCallback }">
@@ -482,7 +482,7 @@
     
                 >
                     <template #header>
-                            R17: 2023'deki Ülkelere Göre Sevkiyat
+                            R17: {{ new Date().getFullYear() }}'deki Ülkelere Göre Sevkiyat
                     </template>
                         <Column field="ulkeid" header="Id" >
                             <template #footer>
@@ -515,7 +515,7 @@
     
                     >
                         <template #header>
-                                R18: 2023'deki Mevcut Siparişlerin Müşterilere Göre Dağılımı
+                                R18: {{ new Date().getFullYear() }}'deki Mevcut Siparişlerin Müşterilere Göre Dağılımı
                         </template>
                             <Column field="tedarikci" header="Firma Adı" :showFilterMenu="false">
                                 <template #filter="{ filterModel, filterCallback }">

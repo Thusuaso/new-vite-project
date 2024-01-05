@@ -316,6 +316,8 @@
                         <Column field="name_en" header="Renk (En)"></Column>
                         <Column field="name_fr" header="Renk (Fr)"></Column>
                         <Column field="name_es" header="Renk (Es)"></Column>
+                        <Column field="name_ru" header="Renk (Ru)"></Column>
+
                     </DataTable>
 
                 </div>
@@ -346,9 +348,10 @@
                                     style="font-size:85%;"
                                     @row-click="finishProductSelected"
                                 >
-                                    <Column field="name" header="Yüzey"></Column>
-                                    <Column field="name_fr" header="Yüzey"></Column>
-                                    <Column field="name_es" header="Yüzey"></Column>
+                                    <Column field="name" header="Yüzey (En)"></Column>
+                                    <Column field="name_fr" header="Yüzey (Fr)"></Column>
+                                    <Column field="name_es" header="Yüzey (Es)"></Column>
+                                    <Column field="name_ru" header="Yüzey (Ru)"></Column>
 
                                 </DataTable>
                             </div>
@@ -408,9 +411,11 @@
                                 style="font-size:85%;"
                                 @row-click="areaProductListSelected($event)"
                             >
-                                <Column field="area" header="Alan"></Column>
-                                <Column field="area_fr" header="Alan"></Column>
-                                <Column field="area_es" header="Alan"></Column>
+                                <Column field="area" header="Alan (En)"></Column>
+                                <Column field="area_fr" header="Alan (Fr)"></Column>
+                                <Column field="area_es" header="Alan (Es)"></Column>
+                                <Column field="area_ru" header="Alan (Ru)"></Column>
+
 
                             </DataTable>
                         </div>
@@ -442,6 +447,8 @@
                                         <Column field="name_en" header="Material En"></Column>
                                         <Column field="name_fr" header="Material Fr"></Column>
                                         <Column field="name_es" header="Material Es"></Column>
+                                        <Column field="name_ru" header="Material Ru"></Column>
+
                             </DataTable>
                         </div>
                     </div>
@@ -472,6 +479,8 @@
                                         <Column field="name_en" header="Style En"></Column>
                                         <Column field="name_fr" header="Style Fr"></Column>
                                         <Column field="name_es" header="Style Es"></Column>
+                                        <Column field="name_ru" header="Style Ru"></Column>
+
                             </DataTable>
                         </div>
                     </div>
@@ -502,6 +511,8 @@
                                         <Column field="name_en" header="Edge En"></Column>
                                         <Column field="name_fr" header="Edge Fr"></Column>
                                         <Column field="name_es" header="Edge Es"></Column>
+                                        <Column field="name_ru" header="Edge Ru"></Column>
+
                             </DataTable>
                         </div>
                     </div>
@@ -532,6 +543,8 @@
                                         <Column field="name_en" header="Type En"></Column>
                                         <Column field="name_fr" header="Type Fr"></Column>
                                         <Column field="name_es" header="Type Es"></Column>
+                                        <Column field="name_ru" header="Type Ru"></Column>
+
                             </DataTable>
                         </div>
                     </div>
@@ -726,6 +739,8 @@ export default {
             en_surface:null,
             fr_surface:null,
             es_surface:null,
+            ru_surface: null,
+
             deletedSuggested:[],
             addedSuggested:[],
             pickProductPhotosList:[],
@@ -817,7 +832,7 @@ export default {
 
             panelService.setFilterColorSave({'urunid':this.getProductModel.urunid,'kategori':this.getProductModel.kategori_id,...this.selectedColor}).then(response=>{
                if(response.status){
-                this.getProductColorFilteredProductsList.push({'id':response.id,'name_en':this.selectedColor.name,'name_fr':this.selectedColor.name_fr,'name_es':this.selectedColor.name_es,'product_id':this.getProductModel.urunid});
+                this.getProductColorFilteredProductsList.push({'id':response.id,'name_en':this.selectedColor.name,'name_fr':this.selectedColor.name_fr,'name_es':this.selectedColor.name_es,'name_ru':this.selectedColor.name_ru,'product_id':this.getProductModel.urunid});
                 this.add_color_disabled = true;
                 this.selectedColor = null,
                 this.$toast.add({'severity':'success','detail':'Başarıyla Eklendi','life':3000});
@@ -1044,6 +1059,8 @@ export default {
         finishSelected(){
             this.fr_surface = this.selectedFinish.name_fr;
             this.es_surface = this.selectedFinish.name_es;
+            this.ru_surface = this.selectedFinish.name_ru;
+
             this.add_finish_disabled = false;
         },
         areaProductListSelected(event){
@@ -1354,7 +1371,9 @@ export default {
             const finishData = {
                 'islemadien':this.selectedFinish.name,
                 'islemadifr':this.selectedFinish.name_fr,
-                'islemadies':this.selectedFinish.name_es,
+                'islemadies': this.selectedFinish.name_es,
+                'islemadiru': this.selectedFinish.name_ru,
+
                 'dil': "en",
                 'kategori_id': this.getProductModel.kategori_id,
                 'urunid': this.getProductModel.urunid,

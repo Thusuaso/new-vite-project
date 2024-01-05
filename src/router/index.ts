@@ -592,11 +592,14 @@ const router = createRouter({
       component: () => import('@/views/SampleListView.vue'),
       beforeEnter: (to, from, next) => {
         useLoadingStore().begin_loading_act();
-        sampleService.getSampleList(new Date().getFullYear()).then(data => {
+        sampleService.getSampleFinanceYearList().then(response => {
+          sampleService.getSampleList(response.yil_listesi2[0].yil).then(data => {
           useSampleStore().sample_list_load_act(data);
           useLoadingStore().end_loading_act();
           next();
         });
+        });
+
       }
     },
     {
@@ -604,12 +607,15 @@ const router = createRouter({
       component: () => import('@/views/SampleFinanceListView.vue'),
       beforeEnter(to, from, next) {
         useLoadingStore().begin_loading_act();
-        sampleService.getSampleFinanceList(new Date().getFullYear()).then(data => {
-          useSampleStore().sample_finance_list_load_act(data);
-          useLoadingStore().end_loading_act();
-          next();
-          
+        sampleService.getSampleFinanceYearList().then(response => {
+                  sampleService.getSampleFinanceList(response.yil_listesi[0].yil).then(data => {
+              useSampleStore().sample_finance_list_load_act(data);
+              useLoadingStore().end_loading_act();
+              next();
+              
+            });
         });
+
       }
     },
     {

@@ -117,7 +117,7 @@
 
               <Column
                 field="BuYilUretim"
-                header="               2023                                         Uretim    -    Sevkiyat"
+                :header=" new Date().getFullYear() +  '        Uretim-Sevkiyat       '"
                 headerStyle="width:100px;white-space:pre-wrap;"
                 bodyStyle="text-align:center"
               >
@@ -135,7 +135,7 @@
 
               <Column
                 field="GecenYil"
-                header="2022 - Ddp"
+                :header="(new Date().getFullYear() - 1)  + ' Ddp'"
                 headerStyle="width:60px;"
                 bodyStyle="text-align:center"
                 style="flex-grow: 1; flex-basis: 100px"
@@ -146,7 +146,7 @@
               </Column>
               <Column
                 field="OncekiYil"
-                header="2021 - Ddp"
+                :header="(new Date().getFullYear() - 2) + ' Ddp'"
                 headerStyle="width:60px;"
                 bodyStyle="text-align:center"
                 style="flex-grow: 1; flex-basis: 100px"
@@ -158,7 +158,7 @@
 
               <Column
                 field="OnDokuzYili"
-                header="2020 - Ddp"
+                :header="(new Date().getFullYear() - 3) + ' Ddp'"
                 headerStyle="width:60px;"
                 bodyStyle="text-align:center"
                 style="flex-grow: 1; flex-basis: 100px"
@@ -170,7 +170,7 @@
 
               <Column
                 field="OnSekizYili"
-                header="2019 - Ddp"
+                :header="(new Date().getFullYear() - 4) + ' Ddp'"
                 headerStyle="width:60px;"
                 bodyStyle="text-align:center"
                 style="flex-grow: 1; flex-basis: 100px"
@@ -181,7 +181,7 @@
               </Column>
               <Column
                 field="OnYediYili"
-                header="2018 - Ddp"
+                :header="(new Date().getFullYear() - 5) + ' Ddp'"
                 headerStyle="width:60px;"
                 bodyStyle="text-align:center"
                 style="flex-grow: 1; flex-basis: 100px"
@@ -192,7 +192,7 @@
               </Column>
               <Column
                 field="OnAltiYili"
-                header="2017 - Ddp"
+                :header="(new Date().getFullYear() - 6) + ' Ddp'"
                 headerStyle="width:60px;"
                 bodyStyle="text-align:center"
                 style="flex-grow: 1; flex-basis: 100px"
@@ -203,7 +203,7 @@
               </Column>
               <Column
                 field="OnBesYili"
-                header="2016 - Ddp"
+                :header="(new Date().getFullYear() - 7) + ' Ddp'"
                 headerStyle="width:60px;"
                 bodyStyle="text-align:center"
                 style="flex-grow: 1; flex-basis: 100px"
@@ -214,7 +214,7 @@
               </Column>
               <Column
                 field="OnDortYili"
-                header="2015 - Ddp"
+                :header="(new Date().getFullYear() - 8) + ' Ddp'"
                 headerStyle="width:60px;"
                 bodyStyle="text-align:center"
                 style="flex-grow: 1; flex-basis: 100px"
@@ -225,7 +225,7 @@
               </Column>
               <Column
                 field="OnUcYili"
-                header="2014 - Ddp"
+                :header="(new Date().getFullYear() - 9) + ' Ddp'"
                 headerStyle="width:60px;"
                 bodyStyle="text-align:center"
                 style="flex-grow: 1; flex-basis: 100px"
@@ -236,7 +236,7 @@
               </Column>
               <Column
                 field="OnUcYiliOncesi"
-                header="2013 ve Öncesi - Ddp"
+                :header="(new Date().getFullYear() - 10)+ ' Ddp'"
                 headerStyle="width:60px;"
                 bodyStyle="text-align:center"
                 style="flex-grow: 1; flex-basis: 100px"
