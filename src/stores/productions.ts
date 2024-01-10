@@ -129,7 +129,13 @@ export const useProductionsStore = defineStore('productions',{
             }
             for (const item of data.siparisUrunler) {
                 this.productsTotal.productTotal += parseFloat(item.satisToplam);
+                if (item.alisFiyati == null || item.alisFiyati == undefined || item.alisFiyati == "") {
+                this.productCost.producer += 0;
+                
+                } else {
                 this.productCost.producer += (parseFloat(item.alisFiyati) * parseFloat(item.miktar));
+                    
+                }
 
             };
             this.productsTotal.productFreight = parseFloat(data.siparis.navlunSatis);

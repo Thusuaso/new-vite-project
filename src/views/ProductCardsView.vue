@@ -4,22 +4,22 @@
             <button type="text" class="btn btn-primary" @click="newForm">Yeni</button>
         </div>
         <div class="col">
-
+            
         </div>
     </div>
     <br/>
     <DataTable 
-    :value="getCardList" 
-    paginator :rows="15" 
-    :rowsPerPageOptions="[5, 10, 20, 50]"
-    sortField="sira"
-    :sortOrder="-1"
-    v-model:filters="filters"
-    filterDisplay="row"
-    v-model:selection="selectedCard"
-    selectionMode="single"
-    @row-click="cardSelected($event)"
-    style="font-size:85%;"
+        :value="getCardList" 
+        paginator :rows="15" 
+        :rowsPerPageOptions="[5, 10, 20, 50]"
+        sortField="sira"
+        :sortOrder="-1"
+        v-model:filters="filters"
+        filterDisplay="row"
+        v-model:selection="selectedCard"
+        selectionMode="single"
+        @row-click="cardSelected($event)"
+        style="font-size:85%;"
     >
         <Column field="sira" header="#"></Column>
         <Column field="id" header="Id"

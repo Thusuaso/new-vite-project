@@ -81,6 +81,14 @@ app.config.globalProperties.$filters = {
       
     }
   },
+    formatPointAlis(value: any) {
+    if (value == null || value == " " || value == undefined || value == "") {
+      return null;
+    } else {
+      return value.replace(',', '.');
+      
+    }
+  },
   formatDate(value: any) {
     if (value == null) {
       return null

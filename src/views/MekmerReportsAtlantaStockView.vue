@@ -12,6 +12,8 @@
                     v-model:selection="selectedAtlantaStock"
                     selectionMode="single"
                     @row-click="atlantaStockSelected($event)"
+                    sortField="stok_sqft"
+                    :sortOrder="-1"
                 >
                 <Column 
                     field="sku"
@@ -90,6 +92,11 @@
                         {{ $filters.formatDecimal(slotProps.data.kasa_Sqft) }}
                     </template>
                 </Column>
+                                <Column field="kutu_sqft" header="Kutu Sqft">
+                        <template #body="slotProps">
+                            {{ $filters.formatDecimal(slotProps.data.kutu_sqft) }}
+                        </template>
+                    </Column>
                 <Column field="stok_kutu" header="Stok Kutu">
                     <template #body="slotProps">
                         {{ $filters.formatDecimal(slotProps.data.stok_kutu) }}
@@ -104,38 +111,6 @@
                     </template>
                     <template #footer>
                         {{ $filters.formatDecimal(getMekmerAtlantaStockTotalList.stockSqft) }}
-                    </template>
-                </Column>
-                <Column field="stok_m2" header="Stok M2">
-                    <template #body="slotProps">
-                        {{ $filters.formatDecimal(slotProps.data.stok_m2) }}
-                    </template>
-                    <template #footer>
-                        {{ $filters.formatDecimal(getMekmerAtlantaStockTotalList.stockM2) }}
-                    </template>
-                </Column>
-                <Column field="su_kutu" header="Su Kutu">
-                    <template #body="slotProps">
-                        {{ $filters.formatDecimal(slotProps.data.su_kutu) }}
-                    </template>
-                    <template #footer>
-                        {{ $filters.formatDecimal(getMekmerAtlantaStockTotalList.seaBox) }}
-                    </template>
-                </Column>
-                <Column field="su_sqft" header="Su Sqft">
-                    <template #body="slotProps">
-                        {{ $filters.formatDecimal(slotProps.data.su_sqft) }}
-                    </template>
-                    <template #footer>
-                        {{ $filters.formatDecimal(getMekmerAtlantaStockTotalList.seaSqft) }}
-                    </template>
-                </Column>
-                <Column field="su_m2" header="Su M2">
-                    <template #body="slotProps">
-                        {{ $filters.formatDecimal(slotProps.data.su_m2) }}
-                    </template>
-                    <template #footer>
-                        {{ $filters.formatDecimal(getMekmerAtlantaStockTotalList.seaM2) }}
                     </template>
                 </Column>
                 <Column field="toplam_mekus" header="Mekus">

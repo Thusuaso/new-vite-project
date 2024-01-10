@@ -65,7 +65,7 @@
 
 
                 <button type="button" class="btn btn-danger w-100 mb-2" @click="deletePhotos">Sil</button>
-                <button type="button" class="btn btn-secondary w-100 mb-2" @click="mainPhotosChange(getPanelPickListPhotosDetailList[1])" :disabled="getPanelPickListPhotosDetailList[1].lenght == 1">Ana Fotoğrafla Değiştir</button>
+                <button type="button" class="btn btn-secondary w-100 mb-2" @click="mainPhotosChange(panelPickListPhotos[1])" :disabled="panelPickListPhotos[1].lenght == 1">Ana Fotoğrafla Değiştir</button>
                 <button type="button" class="btn btn-primary w-100 mb-2" @click="photos_product_name_form = true">Ürün Adı</button>
                 <PickList v-model="panelPickListPhotos"  
                     @reorder="isSelectionChange($event)"
@@ -455,10 +455,10 @@ export default {
         },
         deletePhotos() {
             if(confirm('Silme işlemini onaylıyor musunuz?')){
-                reportsService.deleteProjectPhotos(this.getPanelPickListPhotosDetailList[1]).then(data => {
+                reportsService.deleteProjectPhotos(this.panelPickListPhotos[1]).then(data => {
                 if (data.status) {
                     socket.socketIO.emit('project_list_detail_update_emit', this.project_id);
-                    this.getPanelPickListPhotosDetailList[1] = [];
+                    this.panelPickListPhotos[1] = [];
                     // @ts-ignore
                     this.$toast.add({ severity: 'success', detail: 'Başarıyla Silindi', life: 3000 });
                 } else {

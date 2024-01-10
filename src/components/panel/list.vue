@@ -61,6 +61,9 @@
                         :showFilterMatchModes="false"
                         :showAddButton="false"
                     >
+                    <template #body="slotProps">
+                        {{ slotProps.data.urunkod.trim() }}
+                    </template>
                     <template #filter="{ filterModel, filterCallback }">
                         <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
                     </template>

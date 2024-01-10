@@ -106,7 +106,7 @@
                     aria-describedby="basic-addon1"
                     v-model="products.alisFiyati"
                     @input="
-                      products.alisFiyati = $filters.formatPoint($event.target.value)
+                      products.alisFiyati = $filters.formatPointAlis($event.target.value)
                     "
                   />
                 </div>
@@ -518,7 +518,7 @@
                     aria-describedby="basic-addon1"
                     v-model="products.alisFiyati"
                     @input="
-                      products.alisFiyati = $filters.formatPoint($event.target.value)
+                      products.alisFiyati = $filters.formatPointAlis($event.target.value)
                     "
                   />
                 </div>
@@ -1166,8 +1166,12 @@ export default {
         }
         this.products.satisToplam =
           parseFloat(this.products.miktar) * parseFloat(this.products.satisFiyati);
-        this.products.alisToplam =
-          parseFloat(this.products.miktar) * parseFloat(this.products.alisFiyati);
+        if (this.products.alisFiyati > 0) {
+          console.log(this.products.alisFiyati);
+          this.products.alisToplam =
+            parseFloat(this.products.miktar) * parseFloat(this.products.alisFiyati);
+        }
+
 
         // @ts-ignore
         this.getProductionsDetailModel.siparisUrunler.push(this.products);
@@ -1293,7 +1297,7 @@ export default {
         ozelMiktar: 0,
         satisFiyati: 0,
         alisFiyati_Tl: 0,
-        alisFiyati: 0,
+        alisFiyati: null,
         ton: 0,
         adet: 0,
       };

@@ -11,7 +11,7 @@
                 <div class="col">
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">Kod</span>
-                        <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="getProductModel.urunkod">
+                        <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="getProductModel.urunkod" @input="getProductModel.urunkod = getProductModel.urunkod.trim()">
                     </div>
                 </div>
                 
@@ -27,7 +27,7 @@
             <div class="row m-auto mt-3">
                 <div class="col-6">
                     <div class="form-floating">
-                        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height:100px;padding-top:35px;" v-model="getProductModel.aciklama_en"></textarea>
+                        <textarea class="form-control" id="floatingTextarea2" style="height:100px;padding-top:35px;" v-model="getProductModel.aciklama_en"></textarea>
                         <label for="floatingTextarea2">Açıklama</label>
                     </div>
                 </div>
@@ -38,8 +38,9 @@
                     </span>
                     <br/>
                     <span class="p-float-label">
-                        <Chips id="aciklama" v-model="keywordListEn" style="" />
-                        <label for="aciklama">Hashtags</label>
+                            <textarea class="form-control" id="floatingTextarea2" style="height:100px;padding-top:35px;" v-model="keywordListEn"></textarea>
+                            <label for="floatingTextarea2">Hashtags</label>
+
                     </span>
                 </div>
             </div>
@@ -91,7 +92,7 @@
                     <div class="col">
                         <div class="input-group mb-3">
                             <span class="input-group-text" id="basic-addon1">Kod</span>
-                            <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="getProductModel.urunkod">
+                            <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="getProductModel.urunkod" @input="getProductModel.urunkod = getProductModel.urunkod.trim()">
                         </div>
                     </div>
                 </div>
@@ -110,8 +111,9 @@
                         <br/>
 
                         <span class="p-float-label">
-                            <Chips id="aciklama" v-model="keywordListFr" style="" />
-                            <label for="aciklama">Hashtags</label>
+                                                        <textarea class="form-control" id="floatingTextarea2" style="height:100px;padding-top:35px;" v-model="keywordListFr"></textarea>
+                                <label for="floatingTextarea2">Hashtags</label>
+
                         </span>
                     </div>
                 </div>
@@ -136,7 +138,7 @@
                         <div class="col">
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="basic-addon1">Kod</span>
-                                <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="getProductModel.urunkod">
+                                <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="getProductModel.urunkod" @input="getProductModel.urunkod = getProductModel.urunkod.trim()">
                             </div>
                         </div>
                     </div>
@@ -155,8 +157,9 @@
                             <br/>
 
                             <span class="p-float-label">
-                                <Chips id="aciklama" v-model="keywordListEs" style="" />
-                                <label for="aciklama">Hashtags</label>
+                                                                                        <textarea class="form-control" id="floatingTextarea2" style="height:100px;padding-top:35px;" v-model="keywordListEs"></textarea>
+                                    <label for="floatingTextarea2">Hashtags</label>
+
                             </span>
                         </div>
                     </div>
@@ -180,7 +183,7 @@
                         <div class="col">
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="basic-addon1">Kod</span>
-                                <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="getProductModel.urunkod">
+                                <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="getProductModel.urunkod" @input="getProductModel.urunkod = getProductModel.urunkod.trim()">
                             </div>
                         </div>
                     </div>
@@ -199,8 +202,9 @@
                             <br/>
 
                             <span class="p-float-label">
-                                <Chips id="aciklama" v-model="keywordListRu" style="" />
-                                <label for="aciklama">Hashtags</label>
+                                                                                                                        <textarea class="form-control" id="floatingTextarea2" style="height:100px;padding-top:35px;" v-model="keywordListRu"></textarea>
+                                        <label for="floatingTextarea2">Hashtags</label>
+
                             </span>
                         </div>
                     </div>
@@ -1153,11 +1157,12 @@ export default {
                 if(index != -1){
                     this.getProductSuggested[0].splice(index,1);
                     this.getProductSuggested[1].push(event.items[0]);
-                    this.addedSuggested.push(event.items[0]);
+                    this.addedSuggested.push({ ...event.items[0], 'sira': this.getProductSuggested[1].length + 1 });
                     if(deleteIndex != -1){
                         this.deletedSuggested.splice(deleteIndex,1);
                     };
                 };
+
                 const data = {
                     'added':this.addedSuggested,
                     'deleted':[],
@@ -1442,11 +1447,10 @@ export default {
             this.keyListEs = this.__noneControl(this.getProductModel.anahtarlar_es);
             this.keyListRu = this.__noneControl(this.getProductModel.anahtarlar_ru);
 
-
-            this.keywordListEn = this.__noneControl(this.getProductModel.keywords_en);
-            this.keywordListFr = this.__noneControl(this.getProductModel.keywords_fr);
-            this.keywordListEs = this.__noneControl(this.getProductModel.keywords_es);
-            this.keywordListRu = this.__noneControl(this.getProductModel.keywords_ru);
+            this.keywordListEn = this.getProductModel.keywords_en;
+            this.keywordListFr = this.getProductModel.keywords_fr;
+            this.keywordListEs = this.getProductModel.keywords_es;
+            this.keywordListRu = this.getProductModel.keywords_ru;
 
 
 
@@ -1501,24 +1505,24 @@ export default {
         },
         update() {
             if(this.keywordListEn != null){
-                this.getProductModel.keywords_en = this.keywordListEn.join();
+                this.getProductModel.keywords_en = this.keywordListEn
             } else{
                 this.getProductModel.keywords_en = null;
             }
             if(this.keywordListFr != null){
-                this.getProductModel.keywords_fr = this.keywordListFr.join();
+                this.getProductModel.keywords_fr = this.keywordListFr
             }else{
                 this.getProductModel.keywords_fr = null;
 
             }
             if(this.keywordListEs != null){
-                this.getProductModel.keywords_es = this.keywordListEs.join();
+                this.getProductModel.keywords_es = this.keywordListEs
             }else{
                 this.getProductModel.keywords_es = null;
 
             }
             if(this.keywordListRu != null){
-                this.getProductModel.keywords_ru = this.keywordListRu.join();
+                this.getProductModel.keywords_ru = this.keywordListRu
             }else{
                 this.getProductModel.keywords_ru = null;
 
@@ -1626,19 +1630,19 @@ export default {
         },
         save() {
             if(this.keywordListEn != null){
-                this.getProductModel.keywords_en = this.keywordListEn.join();
+                this.getProductModel.keywords_en = this.keywordListEn
             }
             if(this.keywordListFr != null){
-                this.getProductModel.keywords_fr = this.keywordListFr.join();
+                this.getProductModel.keywords_fr = this.keywordListFr
             }
             if(this.keywordListEs != null){
-                this.getProductModel.keywords_es = this.keywordListEs.join();
+                this.getProductModel.keywords_es = this.keywordListEs
             }
             if(this.keywordListEn != null){
-                this.getProductModel.keywords_en = this.keywordListEn.join();
+                this.getProductModel.keywords_en = this.keywordListEn
             }
             if(this.keywordListRu != null){
-                this.getProductModel.keywords_ru = this.keywordListRu.join();
+                this.getProductModel.keywords_ru = this.keywordListRu
             }
             if(this.keyListEn != null){
                 this.getProductModel.anahtarlar_en = this.keyListEn.join();
