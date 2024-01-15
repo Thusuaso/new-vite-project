@@ -17,7 +17,9 @@ export const panelService = {
         return api.get(`/panelProductList/productKategoriList/${category}/${yayinla}`).then(response => response.data);
     },
 
-
+    setSuggestedQueue(data: any) {
+        return api.post('/panel/mekmarcom/suggested/queue/change', data);  
+    },
 
     getPanelModel() {
         return api.get('/panel/mekmarcom/productDetail/newProduct').then(response => response.data);
@@ -115,6 +117,9 @@ export const panelService = {
     },
     setFilterColorDelete(id:any){
         return api.delete(`/panel/mekmarcom/color/filter/delete/${id}`).then(response=>response.data);
+    },
+    setYayinlaChange(data: any) {
+        return api.post('/panel/mekmarcom/yayinla/change', data).then(response => response.data);
     }
 
 

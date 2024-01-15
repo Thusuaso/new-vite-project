@@ -17,7 +17,7 @@
                 
                 <div class="col">
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" v-model="getProductModel.yayinla">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" v-model="getProductModel.yayinla" @input="changeYayinla($event)">
                         <label class="form-check-label" for="flexCheckDefault">
                             Yayınla
                         </label>
@@ -572,7 +572,7 @@
                         @move-to-source="moveToSourceSuggested($event)"
                         @move-all-to-target="moveToTargetAllSuggested($event)"
                         @move-all-to-source="moveToSourceAllSuggested($event)"
-                        @re-order="reOrderSuggested($event)"                    
+                        @reorder="reOrderSuggested($event)"                    
                     >
                         <template #sourceheader> Available </template>
                         <template #targetheader> Selected </template>
@@ -819,6 +819,40 @@ export default {
     
     },
     methods: {
+    changeYayinla(event){
+            const data = {
+                'id': this.getProductModel.urunid,
+                'status': !event.target._modelValue
+            }
+            panelService.setYayinlaChange(data)
+                .then(response => {
+                    if (response.status) {
+                        panelService.getPanelProductList(this.getProductKategoriAdi, this.$route.params.yayinla).then(data => {
+                            usePanelStore().panel_product_list_load_act(data);
+                        });
+                        if (!event.target._modelValue) {
+                            this.$emit('panel_dialog_closed');
+                                                    this.$toast.add({ 'severity': 'success', 'detail': 'Yayından Kaldırıldı.', 'life': 3000 });
+
+
+                        } else {
+                                                        this.$emit('panel_dialog_closed');
+
+                            this.$toast.add({ 'severity': 'success', 'detail': 'Yayınlandı.', 'life': 3000 });
+
+                        }
+                    } else{
+                        if (!event.target._modelValue) {
+                                                        this.$toast.add({ 'severity': 'error', 'detail': 'Yayından Kaldırma Başarısız.', 'life': 3000 });
+
+
+                        } else {
+                            this.$toast.add({ 'severity': 'error', 'detail': 'Yayınlama Başarısız.', 'life': 3000 });
+
+                        }
+                    }
+                });
+        },
         deleteColor(){
             panelService.setFilterColorDelete(this.selectedColorProducts.id).then(response=>{
                 if(response.status){
@@ -847,8 +881,27 @@ export default {
                }
             });
         },
-        reOrderSuggested(event){
-          console.log(event);  
+        reOrderSuggested(event) {
+            let sira = 1;
+            event.value[1].forEach(x => {
+                x.sira = sira;
+                sira++;
+            });
+            this.getProductSuggested[1] = event.value[1];
+            const data = {
+                'id': this.getProductModel.urunid,
+                'suggested': event.value[1]
+            };
+            panelService.setSuggestedQueue(data)
+                .then(response => {
+                    if(response.status){
+                        this.$toast.add({'severity':'success','detail':'Sıralama Başarıyla Kaydedildi.','life':3000});
+                    } else {
+                        this.$toast.add({ 'severity': 'success', 'detail': 'Sıralama Değiştirme Başarısız.', 'life': 3000 });
+
+                    }
+                });
+           
         },
         moveToSourceAllSuggested(event){
             for(const item of event.items){

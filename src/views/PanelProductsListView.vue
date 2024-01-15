@@ -2,7 +2,7 @@
     <list @openPanelDetailForm="openPanelDetailForm($event)" @panelProductNewEmit="newForm"/>
     
     <Dialog v-model:visible="panel_products_form" :header="urunadi + ' - ' + urunid" modal :style="{ 'width': '100vw' }" :closeOnEscape="false">
-        <panelForm  @product_id_emit="productIdEmit($event)" :urunid="urunid"/>
+        <panelForm  @product_id_emit="productIdEmit($event)" :urunid="urunid" @panel_dialog_closed="panel_products_form = false"/>
     </Dialog>
 </template>
 <script>
