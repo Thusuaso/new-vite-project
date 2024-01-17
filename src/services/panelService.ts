@@ -33,8 +33,8 @@ export const panelService = {
     setSizeAdd(data: any) {
         return api.post('/panel/mekmarcom/productDetail/ebatDataIslem',data).then(response => response.data);
     },
-    setSizeDelete(data: any) {
-        return api.put('/panel/mekmarcom/productDetail/ebatDataSil', data).then(response => response.data);
+    setSizeDelete(id: any) {
+        return api.delete(`/panel/mekmarcom/productDetail/ebatDataSil/${id}`).then(response => response.data);
     },
     setPhotosAdd(data: any) {
         return api.put('/panel/mekmarcom/fotoEkle', data);

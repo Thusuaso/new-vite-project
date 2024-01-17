@@ -1351,9 +1351,9 @@ export default {
                 this.edge_delete_disabled = true;
 
 
-                panelService.setSizeDelete(event).then(data => {
+                panelService.setSizeDelete(event.id).then(data => {
                     if (data.status) {
-                        const index = this.sizeProductList.findIndex(x=>x.id == event);
+                        const index = this.sizeProductList.findIndex(x=>x.id == event.id);
                         this.sizeProductList.splice(index,1)
                         this.$toast.add({ severity: 'success', detail: 'Başarıyla Silindi', life: 3000 });
                     } else {
