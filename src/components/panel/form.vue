@@ -27,7 +27,7 @@
             <div class="row m-auto mt-3">
                 <div class="col-6">
                     <div class="form-floating">
-                        <textarea class="form-control" id="floatingTextarea2" style="height:100px;padding-top:35px;" v-model="getProductModel.aciklama_en"></textarea>
+                        <textarea class="form-control" id="floatingTextarea2" style="height:240px;padding-top:35px;" v-model="getProductModel.aciklama_en"></textarea>
                         <label for="floatingTextarea2">Açıklama</label>
                     </div>
                 </div>
@@ -38,7 +38,7 @@
                     </span>
                     <br/>
                     <span class="p-float-label">
-                            <textarea class="form-control" id="floatingTextarea2" style="height:100px;padding-top:35px;" v-model="keywordListEn"></textarea>
+                            <textarea class="form-control" id="floatingTextarea2" style="height:150px;padding-top:35px;" v-model="keywordListEn"></textarea>
                             <label for="floatingTextarea2">Hashtags</label>
 
                     </span>
@@ -99,7 +99,7 @@
                 <div class="row m-auto mt-3">
                     <div class="col-6">
                         <div class="form-floating">
-                            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height:100px;padding-top:35px;" v-model="getProductModel.aciklama_fr"></textarea>
+                            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height:240px;padding-top:35px;" v-model="getProductModel.aciklama_fr"></textarea>
                             <label for="floatingTextarea2">Açıklama</label>
                         </div>
                     </div>
@@ -111,7 +111,7 @@
                         <br/>
 
                         <span class="p-float-label">
-                                                        <textarea class="form-control" id="floatingTextarea2" style="height:100px;padding-top:35px;" v-model="keywordListFr"></textarea>
+                                                        <textarea class="form-control" id="floatingTextarea2" style="height:150px;padding-top:35px;" v-model="keywordListFr"></textarea>
                                 <label for="floatingTextarea2">Hashtags</label>
 
                         </span>
@@ -145,7 +145,7 @@
                     <div class="row m-auto mt-3">
                         <div class="col-6">
                             <div class="form-floating">
-                                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height:100px;padding-top:35px;" v-model="getProductModel.aciklama_es"></textarea>
+                                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height:240px;padding-top:35px;" v-model="getProductModel.aciklama_es"></textarea>
                                 <label for="floatingTextarea2">Açıklama</label>
                             </div>
                         </div>
@@ -157,7 +157,7 @@
                             <br/>
 
                             <span class="p-float-label">
-                                                                                        <textarea class="form-control" id="floatingTextarea2" style="height:100px;padding-top:35px;" v-model="keywordListEs"></textarea>
+                                                                                        <textarea class="form-control" id="floatingTextarea2" style="height:150px;padding-top:35px;" v-model="keywordListEs"></textarea>
                                     <label for="floatingTextarea2">Hashtags</label>
 
                             </span>
@@ -190,7 +190,7 @@
                     <div class="row m-auto mt-3">
                         <div class="col-6">
                             <div class="form-floating">
-                                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height:100px;padding-top:35px;" v-model="getProductModel.aciklama_ru"></textarea>
+                                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height:240px;padding-top:35px;" v-model="getProductModel.aciklama_ru"></textarea>
                                 <label for="floatingTextarea2">Açıklama</label>
                             </div>
                         </div>
@@ -202,7 +202,7 @@
                             <br/>
 
                             <span class="p-float-label">
-                                                                                                                        <textarea class="form-control" id="floatingTextarea2" style="height:100px;padding-top:35px;" v-model="keywordListRu"></textarea>
+                                        <textarea class="form-control" id="floatingTextarea2" style="height:150px;padding-top:35px;" v-model="keywordListRu"></textarea>
                                         <label for="floatingTextarea2">Hashtags</label>
 
                             </span>
