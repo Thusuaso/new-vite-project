@@ -420,7 +420,7 @@
 
 
 
-    <Dialog v-model:visible="offer_detail_form" :header="queue" modal :style="{ width: '100vw' }">
+    <Dialog v-model:visible="offer_detail_form" :header="queue" modal :style="{ width: '100vw' }" :closeOnEscape="false">
         <offerForm  />
     </Dialog>
 

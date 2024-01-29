@@ -31,8 +31,8 @@
                   Siparişler
                 </a>
                 <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="/order/product">Üretim</a></li>
-                  <li><a class="dropdown-item" href="/order/forwarding">Sevk</a></li>
+                  <li><a class="dropdown-item" href="/order/production">Üretim</a></li>
+                  <li><a class="dropdown-item" href="/order/shipped">Sevk</a></li>
                   <li><a class="dropdown-item" href="/order/waiting">Bekleyen</a></li>
 
                 </ul>

@@ -162,7 +162,7 @@
                      <Column field="birim" header="Birim"></Column>
         </DataTable>
 
-    <Dialog v-model:visible="offer_detail_form" header="" modal :style="{ width: '100vw' }">
+    <Dialog v-model:visible="offer_detail_form" header="" modal :style="{ width: '100vw' }" :closeOnEscape="false">
         <offerForm/>
     </Dialog>
  </template>

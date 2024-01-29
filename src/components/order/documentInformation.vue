@@ -15,6 +15,7 @@
         <Column header="">
             <template #body="slotProps">
                 <button type="button" class="btn btn-danger" v-if="slotProps.data.faturano == 2" @click="deleteProforma">Sil</button>
+                <button type="button" class="btn btn-danger" v-if="slotProps.data.yeniID == 3" @click="deleteIsf(slotProps.data)">Sil</button>
             </template>
         </Column>
     </DataTable>
@@ -33,6 +34,21 @@ export default {
         ])
     },
     methods: {
+        deleteIsf(event) {
+            if (confirm('Silmek İstiyor musunuz?')) {
+                productionsService.setDeleteIsf(event)
+                    .then(response => {
+                        if (response) {
+                                this.$toast.add({ severity: 'success', detail: 'Başarıyla Silindi', life: 3000 });
+
+                        } else {
+                                this.$toast.add({ severity: 'error', detail: 'Silme Başarısız', life: 3000 });
+                        }
+                    })
+            };
+            const index = this.getProductDetailDocumentList.findIndex(x => x.id === event.id);
+            this.getProductDetailDocumentList.splice(index, 1);
+        },
         documentDownload(documentLink, documentName) {
             const link = document.createElement("a");
             link.href = documentLink;

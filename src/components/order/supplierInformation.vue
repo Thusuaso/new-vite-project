@@ -894,7 +894,7 @@ export default {
                   };
                   socket.socketIO.emit("products_update_waiting_emit", productStatus);
                 } else if (
-                  this.$router.currentRoute._value.fullPath == "/order/product"
+                  this.$router.currentRoute._value.fullPath == "/order/production"
                 ) {
                   productStatus = {
                     status: 2,
@@ -902,7 +902,7 @@ export default {
                   };
                   socket.socketIO.emit("products_update_products_emit", productStatus);
                 } else if (
-                  this.$router.currentRoute._value.fullPath == "/order/forwarding"
+                  this.$router.currentRoute._value.fullPath == "/order/shipped"
                 ) {
                   productStatus = {
                     status: 3,

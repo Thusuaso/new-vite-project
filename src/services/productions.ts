@@ -100,5 +100,8 @@ getIcSiparisExcelListesi(data_list:any) {
     },
     getSupplierList() {
         return api.get('/siparis/supplier/list').then(response => response.data);
+    },
+    setDeleteIsf(data: any) {
+        return api.post('/siparis/isf/delete', data).then(response => response.data);
     }
 }

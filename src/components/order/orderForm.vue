@@ -170,14 +170,14 @@ export default {
                     }
                     socket.socketIO.emit('products_update_waiting_emit', productStatus);
 
-                } else if (this.$router.currentRoute._value.fullPath == '/order/product') {
+                } else if (this.$router.currentRoute._value.fullPath == '/order/production') {
                     productStatus = {
                         status: 2,
                         year: new Date().getFullYear()
                     }
                     socket.socketIO.emit('products_update_products_emit', productStatus);
 
-                } else if (this.$router.currentRoute._value.fullPath == '/order/forwarding') {
+                } else if (this.$router.currentRoute._value.fullPath == '/order/shipped') {
                     productStatus = {
                         status: 3,
                         year: new Date().getFullYear()
@@ -215,14 +215,14 @@ export default {
                         }
                         socket.socketIO.emit('products_update_waiting_emit', productStatus);
 
-                    } else if (this.$router.currentRoute._value.fullPath == '/order/product') {
+                    } else if (this.$router.currentRoute._value.fullPath == '/order/production') {
                         productStatus = {
                             status: 2,
                             year: new Date().getFullYear()
                         }
                         socket.socketIO.emit('products_update_products_emit', productStatus);
 
-                    } else if (this.$router.currentRoute._value.fullPath == '/order/forwarding') {
+                    } else if (this.$router.currentRoute._value.fullPath == '/order/shipped') {
                         productStatus = {
                             status: 3,
                             year: new Date().getFullYear()

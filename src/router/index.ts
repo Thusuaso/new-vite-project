@@ -92,7 +92,7 @@ const router = createRouter({
       }
     },
     {
-      path: '/order/product',
+      path: '/order/production',
       component: () => import('@/views/OrderView.vue'),
       beforeEnter: (to, from, next) => {
         useLoadingStore().begin_loading_act();
@@ -119,7 +119,7 @@ const router = createRouter({
       }
     },
     {
-      path: '/order/forwarding',
+      path: '/order/shipped',
       component: () => import('@/views/ShipmentView.vue'),
       beforeEnter: (to, from, next) => {
         useLoadingStore().begin_loading_act();

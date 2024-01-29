@@ -17,7 +17,7 @@
       @row-select="siparisSecim($event)"
       @filter="productFilterEvent($event)"
       :rowStyle="rowStyle"
-      v-if="$route.fullPath == '/order/forwarding'"
+      v-if="$route.fullPath == '/order/shipped'"
       paginator :rows="15"
       
     >
