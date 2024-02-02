@@ -60,7 +60,7 @@
                                     <Calendar v-model="r_date" showIcon @date-select="reminderDateSelected($event)" dateFormat="dd/mm/yy"/>
                                 </div>
                                 <div class="col-3">
-                                    <FileUpload mode="basic" accept="image/*" :maxFileSize="1000000" @select="onSelect($event)" :auto="true" chooseLabel="Gönder" />
+                                    <FileUpload mode="basic"  :maxFileSize="1000000" @select="onSelect($event)" :auto="true" chooseLabel="Gönder" />
                                 </div>
                                 <div class="col-3">
                                     <a :href="offerFileLink">
@@ -185,7 +185,7 @@
                             </TabPanel>
                             <TabPanel header="Hatırlatma Belge">
                                         <Calendar v-model="r_date" showIcon @date-select="reminderDateSelected($event)" dateFormat="dd/mm/yy" class="w-100 mb-3"/>
-                                        <FileUpload mode="basic" accept="image/*" :maxFileSize="1000000" @select="onSelect($event)" :auto="true" chooseLabel="Gönder"  class="w-100 mb-3"/>
+                                        <FileUpload mode="basic"  :maxFileSize="1000000" @select="onSelect($event)" :auto="true" chooseLabel="Gönder"  class="w-100 mb-3"/>
                                         <a :href="offerFileLink">
                                             <button type="button" class="pi pi-download w-100 h-100 btn btn-secondary mb-3" :disabled="offerFileDownloadDisable"></button>
                                         </a>

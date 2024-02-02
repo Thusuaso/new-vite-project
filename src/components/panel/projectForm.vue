@@ -1,7 +1,7 @@
 <template>
     <div class="row">
         <div class="col">
-            <FileUpload class="w-100" mode="basic" accept="image/*" :maxFileSize="2000000" @select="newMainPhotos($event)" :auto="true" chooseLabel="Yeni Fotoğraf Yükle" />
+            <FileUpload class="w-100" mode="basic" accept="image/*" :maxFileSize="2000000" @select="newMainPhotos($event)" :auto="true" chooseLabel="Ana Fotoğraf Değiştir" />
         </div>
         <div class="col">
             <button type="button" class="btn btn-primary w-100 mb-3" @click="openPhotosList">Fotoğraf Listesi</button>
@@ -28,11 +28,6 @@
         <div class="col">
             <iframe style="width:100%; height:320px;" :src="getPanelProjectDetailList.project_detail_video_list[0].video_link" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
             <br/>
-
-            <div class="input-group mb-3">
-                <span class="input-group-text" id="basic-addon1">Ürün Adı</span>
-                <input type="text" class="form-control" v-model="project_product_name" aria-describedby="basic-addon1">
-            </div>
             <div class="form-floating">
                 <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 250px" v-model="information" @input="informationControl($event)"></textarea>
                 <label for="floatingTextarea2">Açıklama En ({{ 1500 - information.length }})</label>
@@ -376,7 +371,6 @@ export default {
                 'project_information_es':this.information_es,
                 'project_information_ru':this.information_ru,
 
-                'project_product_name': this.project_product_name
             }
             reportsService.addInformation(data).then(data => {
                 if (data.status) {

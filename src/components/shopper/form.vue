@@ -390,56 +390,12 @@ export default {
         }
         },
         update() {
-            if (this.__control(this.getShopperModel.musteri_adi)) {
-                alert('Müşteri adı eksik')
-                return;
-            };
-            if (this.__control(this.getShopperModel.mail_adresi)) {
-                alert('Mail adresi eksik')
-                return;
-            };
-            if (this.__control(this.getShopperModel.unvan)) {
-                alert('Firma adı eksik');
-                return;
-            };
-            if (this.__control(this.getShopperModel.adres)) {
-                alert('Adres eksik')
-                return;
-            }
-            if (this.__control(this.getShopperModel.marketing)) {
-                alert('Marketing eksik');
-                return;
-            }
-                        if (this.__control(this.getShopperModel.telefon)) {
-                alert('Telefon numarası eksik');
-                return;
-            }
-            if(this.__control(this.selectedCountry)){
-                alert('Ülke adı eksik');
-                return;
-            };
-                        if (this.__control(this.selectedRepresentative)) {
-                alert('Temsilci seçilmedi');
-                return;
-            }
-            if(this.__control(this.selectedSeller)){
-                alert('Satışçı seçilmedi');
-                return;
-            };
-            if(this.__control(this.selectedPriority)){
-                alert('Öncelik seçilmedi');
-                return;
-            };
-            if(this.__control(this.selectedCustomerPlace)){
-                alert('Müşteri yeri seçilmedi.');
-                return;
-            }
- 
-
-
-
             this.getShopperModel.kullanici_id = localStorage.getItem('userId');
+            if(this.selectedCustomerPlace){
             this.getShopperModel.musteri_yeri = this.selectedCustomerPlace.source;
+
+
+            }
 
             shopperService.update(this.getShopperModel).then(data => {
                 if (data.status) {
@@ -453,53 +409,13 @@ export default {
             })
         },
         save() {
-            if (this.__control(this.getShopperModel.musteri_adi)) {
-                alert('Müşteri adı eksik')
-                return;
-            };
-            if (this.__control(this.getShopperModel.mail_adresi)) {
-                alert('Mail adresi eksik')
-                return;
-            };
-            if (this.__control(this.getShopperModel.unvan)) {
-                alert('Firma adı eksik');
-                return;
-            };
-            if (this.__control(this.getShopperModel.adres)) {
-                alert('Adres eksik')
-                return;
-            }
-            if (this.__control(this.getShopperModel.marketing)) {
-                alert('Marketing eksik');
-                return;
-            }
-            if (this.__control(this.getShopperModel.telefon)) {
-                alert('Telefon numarası eksik');
-                return;
-            }
-            if (this.__control(this.selectedCountry)) {
-                alert('Ülke adı eksik');
-                return;
-            };
-            if (this.__control(this.selectedRepresentative)) {
-                alert('Temsilci seçilmedi');
-                return;
-            }
-            if (this.__control(this.selectedSeller)) {
-                alert('Satışçı seçilmedi');
-                return;
-            };
-            if (this.__control(this.selectedPriority)) {
-                alert('Öncelik seçilmedi');
-                return;
-            };
-            if (this.__control(this.selectedCustomerPlace)) {
-                alert('Müşteri yeri seçilmedi.');
-                return;
-            }
+            
             this.getShopperModel.kullanici_id = localStorage.getItem('userId');
             this.getShopperModel.kayit_tarihi = localDateService.getDateString(new Date());
-            this.getShopperModel.musteri_yeri = this.selectedCustomerPlace.source;
+            if (this.selectedCustomerPlace) {
+                            this.getShopperModel.musteri_yeri = this.selectedCustomerPlace.source;
+
+            }
             shopperService.save(this.getShopperModel).then(data => {
                 if (data.status) {
                     socket.socketIO.emit('shopper_update_list_emit');
