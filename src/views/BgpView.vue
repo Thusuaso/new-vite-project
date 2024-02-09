@@ -6,10 +6,10 @@
             <div class="container text-center">
           <div class="row">
             <div class="col-4">
-              <button type="button" class="btn btn-success" @click="newProject">Yeni Proje</button>
+              <button type="button" class="btn btn-success" @click="newProject">New</button>
             </div>
             <div class="col-4">
-              <button type="button" class="btn btn-danger" @click="statistics">İstatistik</button>
+              <button type="button" class="btn btn-danger" @click="statistics">Statistics</button>
             </div>
           </div>
           <br/>
@@ -41,14 +41,14 @@
                 <div class="container text-center">
                     <div class="row">
                         <div class="col-4">
-                            <button type="button" class="btn btn-primary" @click="detail(item.projectName, item.ulkeAdi)">Detay</button>
+                            <button type="button" class="btn btn-primary" @click="detail(item.projectName, item.ulkeAdi)">Detail</button>
                         </div>
                         <div class="col-4">
                             {{ $filters.formatDate(item.dateOfRegistiration) }}  {{ item.temsilciAdi }}
 
                         </div>
                         <div class="col-4">
-                            <button type="button" class="btn btn-danger" @click="deleteProject(item.projectName)">Sil</button>
+                            <button type="button" class="btn btn-danger" @click="deleteProject(item.projectName)">Delete</button>
                         </div>
                     </div>
                 </div>
@@ -64,10 +64,10 @@
                 <div class="container text-center">
               <div class="">
                 <div class="">
-                  <button type="button" class="btn btn-success w-100 mb-3" @click="newProject">Yeni Proje</button>
+                  <button type="button" class="btn btn-success w-100 mb-3" @click="newProject">New</button>
                 </div>
                 <div class="">
-                  <button type="button" class="btn btn-danger w-100 mb-3" @click="statistics">İstatistik</button>
+                  <button type="button" class="btn btn-danger w-100 mb-3" @click="statistics">Statistic</button>
                 </div>
               </div>
               <br/>
@@ -99,14 +99,14 @@
                     <div class="container text-center">
                         <div class="row">
                             <div class="col-4">
-                                <button type="button" class="btn btn-primary" @click="detail(item.projectName, item.ulkeAdi)">Detay</button>
+                                <button type="button" class="btn btn-primary" @click="detail(item.projectName, item.ulkeAdi)">Detail</button>
                             </div>
                             <div class="col-4">
                                 {{ $filters.formatDate(item.dateOfRegistiration) }}  {{ item.temsilciAdi }}
 
                             </div>
                             <div class="col-4">
-                                <button type="button" class="btn btn-danger" @click="deleteProject(item.projectName)">Sil</button>
+                                <button type="button" class="btn btn-danger" @click="deleteProject(item.projectName)">Delete</button>
                             </div>
                         </div>
                     </div>

@@ -10,6 +10,7 @@ export const useOfferStore = defineStore('offer', {
             offerRepresentativeTotalList: {
                 'offer': 0,
                 'pi': 0,
+                'bOffer':0
             },
             offerAllListB: [],
             offerAllListA: [],
@@ -58,11 +59,14 @@ export const useOfferStore = defineStore('offer', {
         offer_main_page_representative_total_list_load_act(data: any) {
             this.offerRepresentativeTotalList = {
                 'offer': 0,
-                'pi': 0
+                'pi': 0,
+                'bOffer':0
             };
             for (const item of data) {
                 this.offerRepresentativeTotalList.offer += item.teklifSayisi;
                 this.offerRepresentativeTotalList.pi += item.proformaSayisi;
+                this.offerRepresentativeTotalList.bOffer += item.teklifBSayisi;
+
             }
         },
         offer_all_list_load_act(data: any) {

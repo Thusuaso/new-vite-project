@@ -4,18 +4,18 @@
             <div class="col">
                 <span class="p-float-label">
                     <AutoComplete id="orders" v-model="selectedOrder" dropdown :suggestions="filterOrderList" optionLabel="siparisno" @complete="searchOrder($event)" @item-select="orderSelected($event)"/>
-                    <label for="orders">Siparişler</label>
+                    <label for="orders">Orders</label>
                 </span>
             </div>
             <div class="col">
                 <span class="p-float-label">
                     <Calendar id="f_date" v-model="f_date" showIcon dateFormat="dd/mm/yy"/>
-                    <label for="f_date">Sevk Tarihi</label>
+                    <label for="f_date">Shipping Date</label>
                 </span>
             </div>
             <div class="col">
                 <div class="input-group mb-3">
-                    <span class="input-group-text" id="basic-addon1">Fatura No</span>
+                    <span class="input-group-text" id="basic-addon1">Invoice No</span>
                     <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getModel.faturano">
                 </div>
             </div>
@@ -23,7 +23,7 @@
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" v-model="getModel.takip">
                     <label class="form-check-label" for="flexCheckDefault">
-                        Takip
+                        Follow
                     </label>
                 </div>
             </div>
@@ -31,13 +31,13 @@
                 <div class="form-check">
                     <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="normal" checked v-model="forwardingStatus" @change="forwardingStatusChange($event)">
                     <label class="form-check-label" for="flexRadioDefault1">
-                        Normal Sevk
+                        Normal Shipping
                     </label>
                     </div>
                     <div class="form-check">
                     <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" value="fast" v-model="forwardingStatus" @change="forwardingStatusChange($event)">
                     <label class="form-check-label" for="flexRadioDefault2">
-                        Hızlı Sevk
+                        Faster Shipping
                     </label>
                 </div>
             </div>
@@ -46,28 +46,28 @@
         </div>
         <div class="row m-auto mb-5">
             <div class="col">
-                <Dropdown v-model="selectedOrderProduct" :options="getProductList" optionLabel="icerik" placeholder="Kalem Seçiniz" class="w-full md:w-14rem" @change="orderProductSelected($event)"/>
+                <Dropdown v-model="selectedOrderProduct" :options="getProductList" optionLabel="icerik" placeholder="Select a Product" class="w-full md:w-14rem" @change="orderProductSelected($event)"/>
             </div>
             <div class="col">
                 <div class="input-group mb-3">
-                    <span class="input-group-text" id="basic-addon1">Sipariş</span>
+                    <span class="input-group-text" id="basic-addon1">Order</span>
                     <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" disabled v-model="selectedOrderProduct.siparis">
                 </div>
             </div>
             <div class="col">
                 <div class="input-group mb-3">
-                    <span class="input-group-text" id="basic-addon1">Giden</span>
+                    <span class="input-group-text" id="basic-addon1">Outgoing Amount</span>
                     <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" disabled v-model="selectedOrderProduct.uretim">
                 </div>
             </div>
             <div class="col">
                 <div class="input-group mb-3">
-                    <span class="input-group-text" id="basic-addon1">Kalan</span>
+                    <span class="input-group-text" id="basic-addon1">Remaining Amount</span>
                     <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" disabled v-model="remainder">
                 </div>
             </div>
             <div class="col">
-                <button type="button" class="btn btn-success" @click="save" :disabled="forwarding_form">Sevk Et</button>
+                <button type="button" class="btn btn-success" @click="save" :disabled="forwarding_form">Ship</button>
             </div>
         </div>
         <div class="row m-auto">
@@ -83,20 +83,20 @@
                                 </template>
                             </Column>
                             <Column field="kasano" header="No"></Column>
-                            <Column field="miktar" header="M">
+                            <Column field="miktar" header="A">
                             <template #body="slotProps">
                                     {{ $filters.formatDecimal(slotProps.data.miktar) }}
                                 </template>
                             </Column>
-                            <Column field="birimadi" header="B"></Column>
+                            <Column field="birimadi" header="U"></Column>
                         </DataTable>
                     </div>
                     <div class="col">
-                        <button type="button" class="btn btn-primary mb-3" @click="sendCrate" :disabled="send_crate_disabled">Kasa Çık</button>
+                        <button type="button" class="btn btn-primary mb-3" @click="sendCrate" :disabled="send_crate_disabled">Send Crate</button>
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" v-model="allCrate" @click="allCrateSelected($event)">
                             <label class="form-check-label" for="flexCheckDefault">
-                                Hepsi
+                                All
                             </label>
                         </div>
                     </div>
@@ -105,11 +105,11 @@
             </div>
             <div class="col">
                 <DataTable  :value="getModel.kasalistesi" style="font-size:85%;">
-                    <Column field="kasano" header="Kasa No"></Column>
-                    <Column field="urunadi" header="Ürün"></Column>
-                    <Column field="yuzeyislem" header="Yüzey"></Column>
-                    <Column field="ebat" header="Ebat"></Column>
-                    <Column field="miktar" header="M">
+                    <Column field="kasano" header="Crate No"></Column>
+                    <Column field="urunadi" header="Product"></Column>
+                    <Column field="yuzeyislem" header="Surface"></Column>
+                    <Column field="ebat" header="Size"></Column>
+                    <Column field="miktar" header="A">
                         <template #body="slotProps">
                             {{ $filters.formatDecimal(slotProps.data.miktar) }}
                         </template>
@@ -117,8 +117,8 @@
                             {{ $filters.formatDecimal(crateTotal.amount) }}
                         </template>
                     </Column>
-                    <Column field="birimadi" header="B"></Column>
-                    <Column header="Toplam">
+                    <Column field="birimadi" header="U"></Column>
+                    <Column header="Total">
                         <template #body="slotProps">
                             {{ $filters.formatPrice(slotProps.data.birimfiyat * slotProps.data.miktar) }}
                         </template>
@@ -135,18 +135,18 @@
             <div class="">
                 <span class="p-float-label">
                     <AutoComplete class="w-100 mb-3" id="orders" v-model="selectedOrder" dropdown :suggestions="filterOrderList" optionLabel="siparisno" @complete="searchOrder($event)" @item-select="orderSelected($event)"/>
-                    <label for="orders">Siparişler</label>
+                    <label for="orders">Orders</label>
                 </span>
             </div>
             <div class="">
                 <span class="p-float-label">
                     <Calendar id="f_date" class="w-100 mb-3" v-model="f_date" showIcon dateFormat="dd/mm/yy"/>
-                    <label for="f_date">Sevk Tarihi</label>
+                    <label for="f_date">Shipping Date</label>
                 </span>
             </div>
             <div class="">
                 <div class="input-group mb-3">
-                    <span class="input-group-text"  id="basic-addon1">Fatura No</span>
+                    <span class="input-group-text"  id="basic-addon1">Invoice No</span>
                     <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="getModel.faturano">
                 </div>
             </div>
@@ -155,7 +155,7 @@
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" v-model="getModel.takip">
                         <label class="form-check-label" for="flexCheckDefault">
-                            Takip
+                            Follow
                         </label>
                     </div>
                 </div>
@@ -163,7 +163,7 @@
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="normal" checked v-model="forwardingStatus" @change="forwardingStatusChange($event)">
                         <label class="form-check-label" for="flexRadioDefault1">
-                            Normal Sevk
+                            Normal Shipping
                         </label>
                         </div>
                 </div>
@@ -171,7 +171,7 @@
                     <div class="form-check">
                     <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" value="fast" v-model="forwardingStatus" @change="forwardingStatusChange($event)">
                     <label class="form-check-label" for="flexRadioDefault2">
-                        Hızlı Sevk
+                        Faster Shipping
                     </label>
                 </div>  
                 
@@ -182,23 +182,23 @@
         </div>
         <div class=" m-auto mb-5">
             <div class="">
-                <Dropdown class="w-100 mb-3" v-model="selectedOrderProduct" :options="getProductList" optionLabel="icerik" placeholder="Kalem Seçiniz" @change="orderProductSelected($event)"/>
+                <Dropdown class="w-100 mb-3" v-model="selectedOrderProduct" :options="getProductList" optionLabel="icerik" placeholder="Select a Product" @change="orderProductSelected($event)"/>
             </div>
             <div class="">
                 <div class="input-group mb-3">
-                    <span class="input-group-text" id="basic-addon1">Sipariş</span>
+                    <span class="input-group-text" id="basic-addon1">Order Amount</span>
                     <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" disabled v-model="selectedOrderProduct.siparis">
                 </div>
             </div>
             <div class="">
                 <div class="input-group mb-3">
-                    <span class="input-group-text" id="basic-addon1">Giden</span>
+                    <span class="input-group-text" id="basic-addon1">Outgoing Amount</span>
                     <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" disabled v-model="selectedOrderProduct.uretim">
                 </div>
             </div>
             <div class="">
                 <div class="input-group mb-3">
-                    <span class="input-group-text" id="basic-addon1">Kalan</span>
+                    <span class="input-group-text" id="basic-addon1">Remaining Amount</span>
                     <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" disabled v-model="remainder">
                 </div>
             </div>
@@ -217,20 +217,20 @@
                                 </template>
                             </Column>
                             <Column field="kasano" header="No"></Column>
-                            <Column field="miktar" header="M">
+                            <Column field="miktar" header="A">
                             <template #body="slotProps">
                                     {{ $filters.formatDecimal(slotProps.data.miktar) }}
                                 </template>
                             </Column>
-                            <Column field="birimadi" header="B"></Column>
+                            <Column field="birimadi" header="U"></Column>
                         </DataTable>
                     </div>
                     <div class="">
-                        <button type="button" class="btn btn-primary mb-3 w-100" @click="sendCrate" :disabled="send_crate_disabled">Kasa Çık</button>
+                        <button type="button" class="btn btn-primary mb-3 w-100" @click="sendCrate" :disabled="send_crate_disabled">Send Crate</button>
                         <div class="form-check m-auto">
                             <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" v-model="allCrate" @click="allCrateSelected($event)">
                             <label class="form-check-label" for="flexCheckDefault">
-                                Hepsi
+                                All
                             </label>
                         </div>
                     </div>
@@ -239,11 +239,11 @@
             </div>
             <div class="">
                 <DataTable  :value="getModel.kasalistesi" style="font-size:85%;">
-                    <Column field="kasano" header="Kasa No"></Column>
-                    <Column field="urunadi" header="Ürün"></Column>
-                    <Column field="yuzeyislem" header="Yüzey"></Column>
-                    <Column field="ebat" header="Ebat"></Column>
-                    <Column field="miktar" header="M">
+                    <Column field="kasano" header="Crate No"></Column>
+                    <Column field="urunadi" header="Product"></Column>
+                    <Column field="yuzeyislem" header="Surface"></Column>
+                    <Column field="ebat" header="Size"></Column>
+                    <Column field="miktar" header="A">
                         <template #body="slotProps">
                             {{ $filters.formatDecimal(slotProps.data.miktar) }}
                         </template>
@@ -251,8 +251,8 @@
                             {{ $filters.formatDecimal(crateTotal.amount) }}
                         </template>
                     </Column>
-                    <Column field="birimadi" header="B"></Column>
-                    <Column header="Toplam">
+                    <Column field="birimadi" header="U"></Column>
+                    <Column header="Total">
                         <template #body="slotProps">
                             {{ $filters.formatPrice(slotProps.data.birimfiyat * slotProps.data.miktar) }}
                         </template>
@@ -264,7 +264,7 @@
             </div>
         </div>
         <div class="">
-                    <button type="button" class="btn btn-success w-100 mt-3 mb-5" @click="save" :disabled="forwarding_form">Sevk Et</button>
+                    <button type="button" class="btn btn-success w-100 mt-3 mb-5" @click="save" :disabled="forwarding_form">Ship</button>
                 </div>
     </div>
 

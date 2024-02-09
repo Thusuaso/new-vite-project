@@ -1,12 +1,12 @@
 <template>
     <div class="row m-auto mt-3" v-if="!getMobile">
         <div class="col">
-            <button type="button" class="btn btn-success" @click="newForm">Yeni</button>
+            <button type="button" class="btn btn-success" @click="newForm">New</button>
         </div>
     </div>
     <div class="row m-auto mt-3" v-if="getMobile">
         <div class="col">
-            <button type="button" class="btn btn-success w-100 mb-3" @click="newForm">Yeni</button>
+            <button type="button" class="btn btn-success w-100 mb-3" @click="newForm">New</button>
         </div>
     </div>
     <div class="row m-auto mt-3">
@@ -25,7 +25,7 @@
             >
                 <Column 
                     field="customer" 
-                    header="Müşteri"
+                    header="Customer"
                     :showFilterMenu="false"
                     :showFilterOperator="false"
                     :showClearButton="false"
@@ -39,7 +39,7 @@
                 </Column>
                 <Column 
                     field="company" 
-                    header="Şirket"
+                    header="Company"
                     :showFilterMenu="false"
                     :showFilterOperator="false"
                     :showClearButton="false"
@@ -51,12 +51,12 @@
                         <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter"  />
                     </template>
                 </Column>
-                <Column field="phone" header="Telefon"></Column>
+                <Column field="phone" header="Phone"></Column>
                 <Column field="email" header="Mail"></Column>
-                <Column field="adress" header="Adres"></Column>
+                <Column field="adress" header="Adress"></Column>
                 <Column 
                     field="country" 
-                    header="Ülke"
+                    header="Country"
                     :showFilterMenu="false"
                     :showFilterOperator="false"
                     :showClearButton="false"
@@ -70,7 +70,7 @@
                 </Column>
                 <Column 
                     field="satisci" 
-                    header="Satışçı"
+                    header="Salesman"
                     :showFilterMenu="false"
                     :showFilterOperator="false"
                     :showClearButton="false"

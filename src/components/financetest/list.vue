@@ -19,7 +19,7 @@
             >
                 <Column 
                     field="customer_name" 
-                    header="Müşteri"
+                    header="Customer"
                     :showFilterMenu="false"
                     :showFilterOperator="false"
                     :showClearButton="false"
@@ -32,7 +32,7 @@
                         <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
                     </template>
                 </Column>
-                <Column field="total_order_amount" header="Toplam Sipariş">
+                <Column field="total_order_amount" header="Total Order">
                     <template #body="slotProps">
                         {{ $filters.formatPrice(slotProps.data.total_order_amount) }}
                     </template>
@@ -40,7 +40,7 @@
                         {{ $filters.formatPrice(getFinanceTestListTotal.total_orders) }}
                     </template>
                 </Column>
-                <Column field="production" header="Üretimde">
+                <Column field="production" header="On Production">
                     <template #body="slotProps">
                         {{ $filters.formatPrice(slotProps.data.production) }}
                     </template>
@@ -48,7 +48,7 @@
                         {{ $filters.formatPrice(getFinanceTestListTotal.orders) }}
                     </template>
                 </Column>
-                <Column field="forwarding" header="Sevk Edilen">
+                <Column field="forwarding" header="Shipped">
                     <template #body="slotProps">
                         {{ $filters.formatPrice(slotProps.data.forwarding) }}
                     </template>
@@ -56,7 +56,7 @@
                         {{ $filters.formatPrice(getFinanceTestListTotal.forwarding) }}
                     </template>
                 </Column>
-                <Column field="paid" header="Ödenen">
+                <Column field="paid" header="Paid">
                     <template #body="slotProps">
                         {{ $filters.formatPrice(slotProps.data.paid) }}
                     </template>
@@ -64,7 +64,7 @@
                         {{ $filters.formatPrice(getFinanceTestListTotal.paid) }}
                     </template>
                 </Column>
-                <Column field="advanced_payment" header="Peşinat">
+                <Column field="advanced_payment" header="Prepayment">
                     <template #body="slotProps">
                         <div :style="{ 'backgroundColor': slotProps.data.advanced_payment ? 'red' : '', 'color': slotProps.data.advanced_payment ? 'white' : '' }">
                             {{ $filters.formatPrice(slotProps.data.advanced_payment) }}
@@ -75,7 +75,7 @@
                         {{ $filters.formatPrice(getFinanceTestListTotal.advance_payment) }}
                     </template>
                 </Column>
-                <Column field="total " header="Bakiye(Borç)">
+                <Column field="total " header="Balance">
                     <template #body="slotProps">
                         <div :style="{ 'backgroundColor': slotProps.data.total < -8 ? 'green' : '', 'color': slotProps.data.total < -8 ? 'white' : 'black' }">
                             {{ $filters.formatPrice(slotProps.data.total) }}
@@ -85,7 +85,7 @@
                         {{ $filters.formatPrice(getFinanceTestListTotal.balance) }}
                     </template>
                 </Column>
-                <Column  header="Bakiye (Üretim Hariç)" sortable="">
+                <Column  header="Balance (Including Production)" sortable="">
                     <template #body="slotProps">
                         {{ $filters.formatPrice(slotProps.data.forwarding - slotProps.data.paid) }}
                     </template>
@@ -123,7 +123,7 @@
             >
                 <Column 
                     field="customer_name" 
-                    header="Müşteri"
+                    header="Customer"
                     :showFilterMenu="false"
                     :showFilterOperator="false"
                     :showClearButton="false"
@@ -136,7 +136,7 @@
                         <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
                     </template>
                 </Column>
-                <Column field="total_order_amount" header="Toplam Sipariş">
+                <Column field="total_order_amount" header="Total Order">
                     <template #body="slotProps">
                         {{ $filters.formatPrice(slotProps.data.total_order_amount) }}
                     </template>
@@ -144,7 +144,7 @@
                         {{ $filters.formatPrice(getFinanceTestListTotal.total_orders) }}
                     </template>
                 </Column>
-                <Column field="production" header="Üretimde">
+                <Column field="production" header="On Production">
                     <template #body="slotProps">
                         {{ $filters.formatPrice(slotProps.data.production) }}
                     </template>
@@ -152,7 +152,7 @@
                         {{ $filters.formatPrice(getFinanceTestListTotal.orders) }}
                     </template>
                 </Column>
-                <Column field="forwarding" header="Sevk Edilen">
+                <Column field="forwarding" header="Shipped">
                     <template #body="slotProps">
                         {{ $filters.formatPrice(slotProps.data.forwarding) }}
                     </template>
@@ -160,7 +160,7 @@
                         {{ $filters.formatPrice(getFinanceTestListTotal.forwarding) }}
                     </template>
                 </Column>
-                <Column field="paid" header="Ödenen">
+                <Column field="paid" header="Paid">
                     <template #body="slotProps">
                         {{ $filters.formatPrice(slotProps.data.paid) }}
                     </template>
@@ -168,7 +168,7 @@
                         {{ $filters.formatPrice(getFinanceTestListTotal.paid) }}
                     </template>
                 </Column>
-                <Column field="advanced_payment" header="Peşinat">
+                <Column field="advanced_payment" header="Prepayment">
                     <template #body="slotProps">
                         <div :style="{ 'backgroundColor': slotProps.data.advanced_payment ? 'red' : '', 'color': slotProps.data.advanced_payment ? 'white' : '' }">
                             {{ $filters.formatPrice(slotProps.data.advanced_payment) }}
@@ -179,7 +179,7 @@
                         {{ $filters.formatPrice(getFinanceTestListTotal.advance_payment) }}
                     </template>
                 </Column>
-                <Column field="total " header="Bakiye(Borç)">
+                <Column field="total " header="Balance">
                     <template #body="slotProps">
                         <div :style="{ 'backgroundColor': slotProps.data.total < -8 ? 'green' : '', 'color': slotProps.data.total < -8 ? 'white' : 'black' }">
                             {{ $filters.formatPrice(slotProps.data.total) }}
@@ -189,7 +189,7 @@
                         {{ $filters.formatPrice(getFinanceTestListTotal.balance) }}
                     </template>
                 </Column>
-                <Column field="total" header="Bakiye (Üretim Hariç)">
+                <Column field="total" header="Balance (Including Production)">
                     <template #body="slotProps">
                         {{ $filters.formatPrice(slotProps.data.forwarding - slotProps.data.paid) }}
                     </template>

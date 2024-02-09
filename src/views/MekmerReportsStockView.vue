@@ -47,7 +47,7 @@
                 selectionMode="single"
                 @row-click="stockSelected($event)"
                 style="font-size:85%;"
-                sortField="kasaSayisi" :sortOrder="-1"
+                :sortField="['urunAdi']" :sortOrder="1"
             >
                 <Column 
                     field="en" 
@@ -58,6 +58,7 @@
                     :showApplyButton="false"
                     :showFilterMatchModes="false"
                     :showAddButton="false"
+                    sortable 
                 >
                     <template #filter="{ filterModel, filterCallback }">
                         <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
@@ -72,6 +73,7 @@
                     :showApplyButton="false"
                     :showFilterMatchModes="false"
                     :showAddButton="false"
+                    sortable 
                 >
                     <template #filter="{ filterModel, filterCallback }">
                         <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
@@ -86,6 +88,7 @@
                     :showApplyButton="false"
                     :showFilterMatchModes="false"
                     :showAddButton="false"
+                    sortable 
                     >
                     <template #filter="{ filterModel, filterCallback }">
                         <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
@@ -100,6 +103,7 @@
                     :showApplyButton="false"
                     :showFilterMatchModes="false"
                     :showAddButton="false"
+                    sortable 
                     >
                     <template #filter="{ filterModel, filterCallback }">
                         <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
@@ -114,12 +118,13 @@
                     :showApplyButton="false"
                     :showFilterMatchModes="false"
                     :showAddButton="false"
+                    sortable 
                 >
                     <template #filter="{ filterModel, filterCallback }">
                         <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
                     </template>
                 </Column>
-                <Column field="kasaSayisi" header="Kasa">
+                <Column field="kasaSayisi" header="Kasa" sortable >
                     <template #body="slotProps">
                         {{ $filters.formatDecimal(slotProps.data.kasaSayisi) }}
                     </template>
@@ -127,7 +132,7 @@
                         {{ $filters.formatDecimal(getMekmerStockListTotal.crate) }}
                     </template>
                 </Column>
-                <Column field="miktar" header="Miktar">
+                <Column field="miktar" header="Miktar" sortable >
                     <template #body="slotProps">
                         {{ $filters.formatDecimal(slotProps.data.miktar) }}
                     </template>

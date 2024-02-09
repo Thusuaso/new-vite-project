@@ -4,10 +4,10 @@
             <AutoComplete placeholder="Po" class="w-100" v-model="selectedOrder" :suggestions="orderList" @complete="orderSearch($event)" optionLabel="name" @item-select="orderItemSelected($event)" />
         </div>
         <div class="col">
-            <Dropdown v-model="selectedProduct" :options="productList" placeholder="Ürün Seçiniz" optionLabel="product_full_name"  />
+            <Dropdown v-model="selectedProduct" :options="productList" placeholder="Selecte a Product" optionLabel="product_full_name"  />
         </div>
         <div class="col">
-            <button type="button" class="btn btn-success" @click="save">Kasaları Ata</button>
+            <button type="button" class="btn btn-success" @click="save">Assing</button>
         </div>
     </div>
     <div class="row m-auto mt-3">
@@ -25,7 +25,7 @@
                 <Column selectionMode="multiple" headerStyle="width: 3rem"></Column>
                 <Column 
                         field="kasa_no" 
-                        header="Kasa No"
+                        header="Crate No"
                         :showFilterMenu="false"
                         :showFilterOperator="false"
                         :showClearButton="false"
@@ -39,7 +39,7 @@
                 </Column>
                 <Column 
                         field="kategori" 
-                        header="Kategori"
+                        header="Category"
                         :showFilterMenu="false"
                         :showFilterOperator="false"
                         :showClearButton="false"
@@ -53,7 +53,7 @@
                 </Column>
                 <Column 
                         field="urunadi" 
-                        header="Ürün"
+                        header="Product"
                         :showFilterMenu="false"
                         :showFilterOperator="false"
                         :showClearButton="false"
@@ -67,7 +67,7 @@
                 </Column>
                 <Column 
                         field="kenarislem" 
-                        header="Yüzey"
+                        header="Surface"
                         :showFilterMenu="false"
                         :showFilterOperator="false"
                         :showClearButton="false"
@@ -82,7 +82,7 @@
                 </Column>
                 <Column 
                         field="en" 
-                        header="En"
+                        header="Width"
                         :showFilterMenu="false"
                         :showFilterOperator="false"
                         :showClearButton="false"
@@ -96,7 +96,7 @@
                 </Column>
                 <Column 
                         field="boy" 
-                        header="Boy"
+                        header="Height"
                         :showFilterMenu="false"
                         :showFilterOperator="false"
                         :showClearButton="false"
@@ -110,7 +110,7 @@
                 </Column>
                 <Column 
                         field="kenar" 
-                        header="Kenar"
+                        header="Edge"
                         :showFilterMenu="false"
                         :showFilterOperator="false"
                         :showClearButton="false"
@@ -123,7 +123,7 @@
                         <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
                     </template>
                 </Column>
-                <Column field="birim_id" header="Birim">
+                <Column field="birim_id" header="Unit">
                     <template #body="slotProps">
                         <div v-if="slotProps.data.birim_id == 1">
                             M2
@@ -136,7 +136,7 @@
                         </div>
                     </template>
                 </Column>
-                <Column field="miktar" header="Miktar">
+                <Column field="miktar" header="Amount">
                     <template #body="slotProps">
                         {{ $filters.formatDecimal(slotProps.data.miktar) }}
                     </template>

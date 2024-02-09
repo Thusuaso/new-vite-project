@@ -12,35 +12,35 @@
             </div>
             <div class="col-2">
                 <div class="input-group mb-3">
-                    <span class="input-group-text" id="basic-addon1">Tutar</span>
+                    <span class="input-group-text" id="basic-addon1">Total</span>
                     <input type="text" class="form-control" v-model="advancedPaymentModel.tutar" @input="advancedPaymentModel.tutar = $filters.formatPoint($event.target.value)" aria-describedby="basic-addon1">
                 </div>
             </div>
             <div class="col-2">
                 <div class="input-group mb-3">
-                    <span class="input-group-text" id="basic-addon1">Kur</span>
+                    <span class="input-group-text" id="basic-addon1">Currency</span>
                     <input type="text" class="form-control" v-model="advancedPaymentModel.kur" @input="advancedPaymentModel.kur = $filters.formatPoint($event.target.value)" aria-describedby="basic-addon1">
                 </div>
             </div>
             <div class="col-2">
                 <div class="input-group mb-3">
-                    <span class="input-group-text" id="basic-addon1">Masraf</span>
+                    <span class="input-group-text" id="basic-addon1">Cost</span>
                     <input type="text" class="form-control" v-model="advancedPaymentModel.masraf" @input="advancedPaymentModel.masraf = $filters.formatPoint($event.target.value)" aria-describedby="basic-addon1">
                 </div>
             </div>
             <div class="col-2">
                 <div class="form-floating">
                     <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px;padding-top:35px;" v-model="advancedPaymentModel.aciklama" ></textarea>
-                    <label for="floatingTextarea2">Açıklama</label>
+                    <label for="floatingTextarea2">Description</label>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col">
-                <button type="button" class="btn btn-success" @click="save" :disabled="save_button_form">Kaydet</button>
+                <button type="button" class="btn btn-success" @click="save" :disabled="save_button_form">Save</button>
             </div>
             <div class="col">
-                <button type="button" class="btn btn-primary" @click="cancel">Vazgeç</button>
+                <button type="button" class="btn btn-primary" @click="cancel">Cancel</button>
             </div>
         </div>
         <br/>
@@ -51,9 +51,9 @@
         selectionMode="single"
         @row-click="advancedPaymentClick($event)"
         >
-            <Column field="musteri_adi" header="Müşteri"></Column>
+            <Column field="musteri_adi" header="Customer"></Column>
             <Column field="siparis_no" header="Po"></Column>
-            <Column field="tutar" header="Tutar">
+            <Column field="tutar" header="Total">
                 <template #body="slotProps">
                     {{ $filters.formatPrice(slotProps.data.tutar) }}
                 </template>
@@ -76,35 +76,35 @@
             </div>
             <div class="">
                 <div class="input-group mb-3">
-                    <span class="input-group-text" id="basic-addon1">Tutar</span>
+                    <span class="input-group-text" id="basic-addon1">Total</span>
                     <input type="text" class="form-control" v-model="advancedPaymentModel.tutar" @input="advancedPaymentModel.tutar = $filters.formatPoint($event.target.value)" aria-describedby="basic-addon1">
                 </div>
             </div>
             <div class="">
                 <div class="input-group mb-3">
-                    <span class="input-group-text" id="basic-addon1">Kur</span>
+                    <span class="input-group-text" id="basic-addon1">Currency</span>
                     <input type="text" class="form-control" v-model="advancedPaymentModel.kur" @input="advancedPaymentModel.kur = $filters.formatPoint($event.target.value)" aria-describedby="basic-addon1">
                 </div>
             </div>
             <div class="">
                 <div class="input-group mb-3">
-                    <span class="input-group-text" id="basic-addon1">Masraf</span>
+                    <span class="input-group-text" id="basic-addon1">Cost</span>
                     <input type="text" class="form-control" v-model="advancedPaymentModel.masraf" @input="advancedPaymentModel.masraf = $filters.formatPoint($event.target.value)" aria-describedby="basic-addon1">
                 </div>
             </div>
             <div class="">
                 <div class="form-floating">
                     <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px;padding-top:35px;" v-model="advancedPaymentModel.aciklama" ></textarea>
-                    <label for="floatingTextarea2">Açıklama</label>
+                    <label for="floatingTextarea2">Description</label>
                 </div>
             </div>
         </div>
         <div class="">
             <div class="">
-                <button type="button" class="btn btn-success w-100 mb-3" @click="save" :disabled="save_button_form">Kaydet</button>
+                <button type="button" class="btn btn-success w-100 mb-3" @click="save" :disabled="save_button_form">Save</button>
             </div>
             <div class="">
-                <button type="button" class="btn btn-primary w-100" @click="cancel">Vazgeç</button>
+                <button type="button" class="btn btn-primary w-100" @click="cancel">Cancel</button>
             </div>
         </div>
         <br/>
@@ -115,9 +115,9 @@
         selectionMode="single"
         @row-click="advancedPaymentClick($event)"
         >
-            <Column field="musteri_adi" header="Müşteri"></Column>
+            <Column field="musteri_adi" header="Customer"></Column>
             <Column field="siparis_no" header="Po"></Column>
-            <Column field="tutar" header="Tutar">
+            <Column field="tutar" header="Total">
                 <template #body="slotProps">
                     {{ $filters.formatPrice(slotProps.data.tutar) }}
                 </template>

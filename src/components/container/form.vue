@@ -4,7 +4,7 @@
     <div class="row">
       <div class="col">
         <div class="input-group mb-3">
-          <span class="input-group-text" id="basic-addon1">Konteynır No</span>
+          <span class="input-group-text" id="basic-addon1">Container No</span>
           <input
             type="text"
             class="form-control"
@@ -15,7 +15,7 @@
       </div>
       <div class="col">
         <div class="input-group mb-3">
-          <span class="input-group-text" id="basic-addon1">Hat</span>
+          <span class="input-group-text" id="basic-addon1">Line</span>
           <input
             type="text"
             class="form-control"
@@ -29,7 +29,7 @@
       </div>
       <div class="col">
         <button type="button" class="btn btn-danger" @click="c_date = null">
-          Temizle
+          Clear
         </button>
       </div>
       <div class="col">
@@ -46,10 +46,10 @@
             for="flexCheckDefault"
             v-if="containerData.konsimento"
           >
-            Gönderildi
+            Sent
           </label>
           <label class="form-check-label" for="flexCheckDefault" v-else>
-            Gönderilmedi
+            Not Sent
           </label>
         </div>
       </div>
@@ -62,13 +62,13 @@
             id="flexCheckDefault"
             v-model="containerData.takip"
           />
-          <label class="form-check-label" for="flexCheckDefault"> Takip </label>
+          <label class="form-check-label" for="flexCheckDefault"> Follow </label>
         </div>
       </div>
     </div>
     <div class="row">
       <div class="col">
-        <button type="button" class="btn btn-success w-100" @click="save">Kaydet</button>
+        <button type="button" class="btn btn-success w-100" @click="save">Save</button>
       </div>
     </div>
   </div>
@@ -77,7 +77,7 @@
     <div class="">
       <div class="">
         <div class="input-group mb-3">
-          <span class="input-group-text" id="basic-addon1">Konteynır No</span>
+          <span class="input-group-text" id="basic-addon1">Container No</span>
           <input
             type="text"
             class="form-control"
@@ -88,7 +88,7 @@
       </div>
       <div class="">
         <div class="input-group mb-3">
-          <span class="input-group-text" id="basic-addon1">Hat</span>
+          <span class="input-group-text" id="basic-addon1">Line</span>
           <input
             type="text"
             class="form-control"
@@ -115,10 +115,10 @@
               for="flexCheckDefault"
               v-if="containerData.konsimento"
             >
-              Gönderildi
+              Sent
             </label>
             <label class="form-check-label" for="flexCheckDefault" v-else>
-              Gönderilmedi
+              Not Sent
             </label>
           </div>
         </div>
@@ -131,7 +131,7 @@
               id="flexCheckDefault"
               v-model="containerData.takip"
             />
-            <label class="form-check-label" for="flexCheckDefault"> Takip </label>
+            <label class="form-check-label" for="flexCheckDefault"> Follow </label>
           </div>
         </div>
       </div>
@@ -139,7 +139,7 @@
     <div class="">
       <div class="">
         <button type="button" class="btn btn-success w-100 mb-3" @click="save">
-          Kaydet
+          Save
         </button>
       </div>
     </div>

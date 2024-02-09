@@ -10,6 +10,7 @@
                 @complete="searchSupplier($event)"
                 field="tedarikci"
                 @item-select="supplierKindSelected($event)"
+                placeholder="Supplier"
               >
                 <template #items="slotProps">
                   <div class="p-clearfix p-autocomplete-brand-item">
@@ -22,7 +23,7 @@
             </div>
             <div class="col">
                 <div class="input-group mb-3">
-                    <span class="input-group-text" id="basic-addon1">Fatura No</span>
+                    <span class="input-group-text" id="basic-addon1">Invoice No</span>
                     <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="invoiceNo">
                 </div>
             </div>
@@ -36,13 +37,13 @@
         <div class="row m-auto mt-3">
             <div class="col">
                 <custom-file-input
-                    baslik="  Dosya Yükle  "
+                    baslik="  Upload Document  "
                     @sunucuDosyaYolla="invoiceSend($event)"
                     :isISFForm="supplier_document_form"
                 />
             </div>
             <div class="col">
-                <button type="button" class="btn btn-success" :disabled="product_save_form" @click="productSave">Kaydet</button>
+                <button type="button" class="btn btn-success" :disabled="product_save_form" @click="productSave">Save</button>
             </div>
         </div>
     </div>
@@ -58,6 +59,7 @@
                     @complete="searchSupplier($event)"
                     field="tedarikci"
                     @item-select="supplierKindSelected($event)"
+                    placeholder="Supplier"
                   >
                     <template #items="slotProps">
                       <div class="p-clearfix p-autocomplete-brand-item">
@@ -70,7 +72,7 @@
                 </div>
                 <div class="">
                     <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon1">Fatura No</span>
+                        <span class="input-group-text" id="basic-addon1">Invoice No</span>
                         <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="invoiceNo">
                     </div>
                 </div>
@@ -85,13 +87,13 @@
                 <div class="">
                     <custom-file-input
                         class="m-100 mb-3 m-auto"
-                        baslik="  Dosya Yükle  "
+                        baslik="  Upload Document  "
                         @sunucuDosyaYolla="invoiceSend($event)"
                         :isISFForm="supplier_document_form"
                     />
                 </div>
                 <div class="">
-                    <button type="button" class="btn btn-success w-100 mb-3" :disabled="product_save_form" @click="productSave">Kaydet</button>
+                    <button type="button" class="btn btn-success w-100 mb-3" :disabled="product_save_form" @click="productSave">Save</button>
                 </div>
             </div>
         </div>

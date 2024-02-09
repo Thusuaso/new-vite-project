@@ -19,8 +19,8 @@
             v-model:filters="filters" 
             filterDisplay="row"
         >
-        <Column field="tarih" header="Ödeme Tarihi"></Column>
-        <Column field="musteriadi" header="Müşteri"
+        <Column field="tarih" header="Paid Date"></Column>
+        <Column field="musteriadi" header="Customer"
             :showFilterMenu="false"
             :showFilterOperator="false"
             :showClearButton="false"
@@ -44,7 +44,7 @@
                 <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
             </template>
         </Column>
-        <Column field="tutar" header="Tutar">
+        <Column field="tutar" header="Total">
             <template #body="slotProps">
                 {{ $filters.formatPrice(slotProps.data.tutar) }}
             </template>

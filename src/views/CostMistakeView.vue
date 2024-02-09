@@ -1,6 +1,6 @@
 <template>
     <div class="row m-auto mt-3">
-        <button type="button" class="btn btn-success" @click="newForm">Yeni</button>
+        <button type="button" class="btn btn-success" @click="newForm">New</button>
     </div>
     <div class="row m-auto mt-3">
         <div class="col">

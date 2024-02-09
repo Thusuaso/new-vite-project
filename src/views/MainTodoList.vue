@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <button type="button" class="btn btn-success w-100 mb-3" @click="saveQueue" :disabled="save_queue_disabled_form">Sıra Değiştir</button>
+        <button type="button" class="btn btn-success w-100 mb-3" @click="saveQueue" :disabled="save_queue_disabled_form">Change Queue</button>
         <DataTable :value="todoMainList" :reorderableColumns="true"  @rowReorder="onRowReorder" sortField="sira" sortOrder="1"
             :selection="selectedTodo"
             selectionMode="single"
@@ -10,8 +10,8 @@
 
         >
             <Column rowReorder headerStyle="width: 3rem" :reorderableColumn="false" />
-            <Column  field="sira" header="Sıra" ></Column>
-            <Column  field="ortak_gorev" header="Görev Sahibi" 
+            <Column  field="sira" header="Queue" ></Column>
+            <Column  field="ortak_gorev" header="To Do Owner" 
             
                                         :showFilterMenu="false"
                         :showFilterOperator="false"
@@ -24,7 +24,7 @@
                         <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter"/>
                     </template>
             </Column>
-            <Column  field="yapilacak" header="Görev" 
+            <Column  field="yapilacak" header="To Do" 
             
                                         :showFilterMenu="false"
                         :showFilterOperator="false"
@@ -39,12 +39,12 @@
             </Column>
             <Column header="#" >
                 <template #body='slotProps'>
-                    <button class="btn btn-success" type="button" @click="isTodoUpdate(slotProps.data.id)">Yapıldı</button>
+                    <button class="btn btn-success" type="button" @click="isTodoUpdate(slotProps.data.id)">Done</button>
                 </template>
             </Column>
             <Column header="#">
                 <template #body="slotProps">
-                    <button class="btn btn-primary" type="button" @click="isTodoSeeing(slotProps.data.id)">Görüldü</button>
+                    <button class="btn btn-primary" type="button" @click="isTodoSeeing(slotProps.data.id)">Seen</button>
                 </template>
             </Column>
 

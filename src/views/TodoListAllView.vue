@@ -18,16 +18,16 @@
                 >
                 <template #header>
                     <div class="flex justify-content-between">
-                        Yapılacaklar
+                        To Do List
                         <span class="p-input-icon-right">
                             <i class="pi pi-search" />
-                            <InputText v-model="filtersNotTodo['global'].value" placeholder="Genel Arama" />
+                            <InputText v-model="filtersNotTodo['global'].value" placeholder="General Search" />
                         </span>
                     </div>
                 </template>
                 <Column 
                         field="ortak_gorev" 
-                        header="Görev Sahibi"
+                        header="To Do Owner"
                         :showFilterMenu="false"
                         :showFilterOperator="false"
                         :showClearButton="false"
@@ -39,10 +39,10 @@
                         <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter"/>
                     </template>
                 </Column>
-                <Column field="yapilacak" header="Görev"></Column>
-                <Column header="Durum" v-if="userId == 10">
+                <Column field="yapilacak" header="To Do"></Column>
+                <Column header="Status" v-if="userId == 10">
                     <template #body="slotProps">
-                        <button type="button" class="btn btn-warning" @click="status(slotProps.data.id)">Yapıldı</button>
+                        <button type="button" class="btn btn-warning" @click="status(slotProps.data.id)">Done</button>
                     </template>
                 </Column>
 
@@ -66,11 +66,11 @@
                     :globalFilterFields="['ortak_gorev', 'yapilacak',]"
                 >
                 <template #header>
-                    Mail Bölümü
+                    Mail Section
                 </template>
                 <Column 
                         field="ortak_gorev" 
-                        header="Görev Sahibi"
+                        header="To Do Owner"
                         :showFilterMenu="false"
                         :showFilterOperator="false"
                         :showClearButton="false"
@@ -82,10 +82,10 @@
                         <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter"/>
                     </template>
                 </Column>
-                <Column field="yapilacak" header="Görev"></Column>
-                <Column header="Durum" v-if="userId == 10">
+                <Column field="yapilacak" header="To Do"></Column>
+                <Column header="Status" v-if="userId == 10">
                     <template #body="slotProps">
-                        <button type="button" class="btn btn-warning" @click="status(slotProps.data.id)">Yapıldı</button>
+                        <button type="button" class="btn btn-warning" @click="status(slotProps.data.id)">Done</button>
                     </template>
                 </Column>
 
@@ -102,11 +102,11 @@
                     scrollable scrollHeight="450px"
                 >
                 <template #header>
-                    Yapılanlar
+                    Done List
                 </template>
                 <Column 
                     field="girisTarihi" 
-                    header="Giriş Tarihi"
+                    header="Date of Entry"
                     :showFilterMenu="false"
                     :showFilterOperator="false"
                     :showClearButton="false"
@@ -124,7 +124,7 @@
                 </Column>
                 <Column 
                     field="yapildiTarihi" 
-                    header="Yapıldı Tarihi"
+                    header="Date of Completion"
                     :showFilterMenu="false"
                     :showFilterOperator="false"
                     :showClearButton="false"
@@ -141,7 +141,7 @@
                 </Column>
                 <Column 
                         field="ortak_gorev"
-                        header="Görev Sahibi"
+                        header="To Do Owner"
                         :showFilterMenu="false"
                         :showFilterOperator="false"
                         :showClearButton="false"
@@ -153,10 +153,10 @@
                         <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter"/>
                     </template>
                 </Column>
-                <Column field="yapilacak" header="Görev"></Column>
+                <Column field="yapilacak" header="To Do"></Column>
                 <Column 
                     field="oncelik" 
-                    header="Öncelik"
+                    header="Priority"
                     :showFilterMenu="false"
                     :showFilterOperator="false"
                     :showClearButton="false"
@@ -170,7 +170,7 @@
                 </Column>
                 <Column header="Status" v-if="userId == 10">
                     <template #body="slotProps">
-                    <button type="button" class="btn btn-danger" @click="status2(slotProps.data.id)">Yapılmadı</button>
+                    <button type="button" class="btn btn-danger" @click="status2(slotProps.data.id)">Not Done</button>
 
                     </template>
                 </Column>
@@ -185,33 +185,33 @@
             <div class="col mt-3">
                 <span class="p-float-label w-100">
                 <AutoComplete id="users" v-model="selectedUser" multiple :suggestions="filteredUsers" optionLabel="username" @complete="searchUsers($event)" @item-select="usersSelected($event)"/>
-                <label for="users">Görev Sahibi</label>
+                <label for="users">To Do Owner</label>
             </span>
                 <span class="p-float-label mt-4">
                         <Dropdown id="priority" v-model="selectedPriority" :options="priorities" optionLabel="priority"  class="w-100" @change="prioritiesSelectedChange($event)"/>
-                        <label for="priority">Öncelik</label>
+                        <label for="priority">Priority</label>
                     </span>
 
             </div>
             <div class="col">
                 <div class="form-floating">
                 <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height:200px;" v-model="selectedTodo.yapilacak"></textarea>
-                <label for="floatingTextarea2">Comments</label>
+                <label for="floatingTextarea2">To Do</label>
                 </div>
             </div>
             
             <div class="flex align-items-center mb-3">
                 <Checkbox v-model="selectedTodo.aciliyet" inputId="ingredient1" :binary="true" class="mr-2" style="margin-right:10px;"/>
-                <label for="ingredient1" class="ml-3"> Acil</label>
+                <label for="ingredient1" class="ml-3"> Urgent</label>
             </div>
 
         </div>
         <div class="row">
             <div class="col">
-                <button class="btn btn-success" @click="update" type="button" :disabled="update_to_do_disabled">Güncelle</button>
+                <button class="btn btn-success" @click="update" type="button" :disabled="update_to_do_disabled">Update</button>
             </div>
             <div class="col">
-                <button class="btn btn-danger" @click="deleteTodo(selectedTodo.id)" type="button" v-if="userId == 10">Sil</button>
+                <button class="btn btn-danger" @click="deleteTodo(selectedTodo.id)" type="button" v-if="userId == 10">Delete</button>
             </div>
         </div>
     </Dialog>

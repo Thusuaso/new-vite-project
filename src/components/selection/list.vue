@@ -11,7 +11,7 @@
          filterDisplay="row"
          @filter="selectionFiltered($event)"
          >
-        <Column field="kasa_no" header="Kasa No"
+        <Column field="kasa_no" header="Crate No"
             :showClearButton="false"
             :showFilterMatchModes="false"
             :showFilterMenu="false"
@@ -22,7 +22,7 @@
             </template>
             
         </Column>
-        <Column field="tarih" header="Tarih"
+        <Column field="tarih" header="Date"
             :showClearButton="false"
                 :showFilterMatchModes="false"
                 :showFilterMenu="false"
@@ -32,7 +32,7 @@
                 <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
             </template>
         </Column>
-        <Column field="kategori" header="Kategori"
+        <Column field="kategori" header="Category"
             :showClearButton="false"
                 :showFilterMatchModes="false"
                 :showFilterMenu="false"
@@ -42,7 +42,7 @@
                 <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
             </template>
         </Column>
-        <Column field="ocak" header="Ocak"
+        <Column field="ocak" header="Mine"
             :showClearButton="false"
                 :showFilterMatchModes="false"
                 :showFilterMenu="false"
@@ -52,7 +52,7 @@
                 <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter"/>
             </template>
         </Column>
-        <Column field="urunadi" header="Ürün"
+        <Column field="urunadi" header="Product"
         >
             <template #footer>
                 {{ $filters.formatDecimal(getSelectionSum.crate) }}
@@ -61,7 +61,7 @@
                 <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" style="width:100px;"/>
             </template>
         </Column>
-        <Column field="kenarislem" header="İşlem"
+        <Column field="kenarislem" header="Surface"
             :showClearButton="false"
                 :showFilterMatchModes="false"
                 :showFilterMenu="false"
@@ -71,7 +71,7 @@
                 <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
             </template>
         </Column>
-        <Column field="en" header="E"
+        <Column field="en" header="W"
             :showClearButton="false"
                 :showFilterMatchModes="false"
                 :showFilterMenu="false"
@@ -81,7 +81,7 @@
                 <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
             </template>
         </Column>
-        <Column field="boy" header="B"
+        <Column field="boy" header="H"
             :showClearButton="false"
                 :showFilterMatchModes="false"
                 :showFilterMenu="false"
@@ -91,7 +91,7 @@
                 <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
             </template>
         </Column>
-        <Column field="kenar" header="K"
+        <Column field="kenar" header="E"
             :showClearButton="false"
                 :showFilterMatchModes="false"
                 :showFilterMenu="false"
@@ -104,7 +104,7 @@
 
         <Column 
             field="kasaadet" 
-            header="K.Adet"
+            header="Pieces in Crate"
             :showClearButton="false"
             :showFilterMatchModes="false"
             :showFilterMenu="false"
@@ -119,7 +119,7 @@
         </Column>
         <Column 
             field="kutuadet" 
-            header="Kutu"
+            header="Box"
             :showClearButton="false"
             :showFilterMatchModes="false"
             :showFilterMenu="false"
@@ -137,7 +137,7 @@
                 {{ $filters.formatDecimal(getSelectionSum.m2) }}
             </template>
         </Column>
-        <Column field="kutu" header="K">
+        <Column field="kutu" header="B">
             <template #body="slotProps">
                 <div v-if="slotProps.data.kutu">
                     *
@@ -147,7 +147,7 @@
                 </div>
             </template>
         </Column>
-        <Column field="bagli" header="B">
+        <Column field="bagli" header="C">
             <template #body="slotProps">
                 <div v-if="slotProps.data.bagli">
                     *
@@ -167,7 +167,7 @@
                 <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
             </template>
         </Column>
-        <Column field="aciklama" header="Not"
+        <Column field="aciklama" header="Desc"
             :showClearButton="false"
                 :showFilterMatchModes="false"
                 :showFilterMenu="false"

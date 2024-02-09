@@ -3,31 +3,31 @@
         <div class="col">
             <div class="form-floating">
                 <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 150px;width:350px;padding-top:35px;" v-model="getModel.yapilacak"></textarea>
-                <label for="floatingTextarea2">Yapılacak</label>
+                <label for="floatingTextarea2">To Do</label>
             </div>
         </div>
         <div class="col">
             <span class="p-float-label w-100">
                 <AutoComplete id="users" v-model="selectedUser" multiple :suggestions="filteredUsers" optionLabel="username" @complete="searchUsers($event)" @item-select="usersSelected($event)"/>
-                <label for="users">Görev Sahibi</label>
+                <label for="users">To Do Owner</label>
             </span>
         </div>
         <div class="col">
             <span class="p-float-label w-100">
                 <Dropdown id="priority" v-model="selectedPriority" :options="priorities" optionLabel="priority" class="w-100" @change="prioritySelected($event)"/>
-                <label for="priority">Öncelik</label>
+                <label for="priority">Priority</label>
             </span>
         </div>
         <div class="col">
             <div class="flex align-items-center mb-3">
                 <Checkbox v-model="getModel.aciliyet" inputId="ingredient1" :binary="true" class="mr-2" style="margin-right:10px;"/>
-                <label for="ingredient1" class="ml-3"> Acil</label>
+                <label for="ingredient1" class="ml-3"> Urgent</label>
             </div>
         </div>
     </div>
     <div class="row m-auto mt-3">
         <div class="col">
-            <button type="button" class="btn btn-success w-100" @click="process" :disabled="to_do_save_disabled">Kaydet</button>
+            <button type="button" class="btn btn-success w-100" @click="process" :disabled="to_do_save_disabled">Save</button>
         </div>
     </div>
 </template>

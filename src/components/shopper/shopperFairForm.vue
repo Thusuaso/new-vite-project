@@ -3,14 +3,14 @@
             <div class="row m-auto mt-3">
             <div class="col">
                 <div class="input-group mb-3">
-                    <span class="input-group-text" id="basic-addon1">Müşteri</span>
+                    <span class="input-group-text" id="basic-addon1">Customer</span>
                     <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="getShopperFairModel.customer">
                 </div>
 
             </div>
             <div class="col">
                 <div class="input-group mb-3">
-                    <span class="input-group-text" id="basic-addon1">Şirket</span>
+                    <span class="input-group-text" id="basic-addon1">Company</span>
                     <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="getShopperFairModel.company">
                 </div>
             </div>
@@ -32,9 +32,9 @@
                                 v-model="getShopperFairModel.phone"
                                 :translations="{
                                     countrySelector: {
-                                        placeholder: 'Ülke Kodu',
+                                        placeholder: 'Country Code',
                                         error: 'Choose country',
-                                        searchPlaceholder: 'Ülke Ara',
+                                        searchPlaceholder: 'Search Country',
                                     },
                                     phoneInput: {
                                         placeholder: 'Phone number',
@@ -46,39 +46,39 @@
                 </div>
                 <div class="col">
                     <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon1">Satışçı</span>
+                        <span class="input-group-text" id="basic-addon1">Salesman</span>
                         <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="getShopperFairModel.satisci">
                     </div>
                 </div>
                 <div class="col">
-                    <AutoComplete class="w-100" v-model="selectedCountry" dropdown :suggestions="filteredCountryList" optionLabel="ulkeAdi" placeholder="Ülke Seçiniz" @complete="searchCountry($event)" @item-select="countrySelected($event)" />
+                    <AutoComplete class="w-100" v-model="selectedCountry" dropdown :suggestions="filteredCountryList" optionLabel="ulkeAdi" placeholder="Select a Country" @complete="searchCountry($event)" @item-select="countrySelected($event)" />
                 </div>
         </div>
         <div class="row m-auto mt-3">
             <div class="col-9">
                 <div class="form-floating">
                     <textarea class="form-control h-100" placeholder="Leave a comment here" id="floatingTextarea" v-model="getShopperFairModel.adress" style="padding-top:35px;"></textarea>
-                    <label for="floatingTextarea">Adres</label>
+                    <label for="floatingTextarea">Adress</label>
                 </div>
             </div>
             <div class="col-3">
                 <div   class="flex align-items-center mb-2">
                     <Checkbox style="margin-right:4px;" v-model="getShopperFairModel.fairstatus" inputId="fair" :binary="true" />
-                    <label for="fair">Fuar</label>
+                    <label for="fair">Fair</label>
                 </div>
                 <div   class="flex align-items-center">
                     <Checkbox style="margin-right:4px;" v-model="getShopperFairModel.visitstatus" inputId="visit" :binary="true" />
-                    <label for="visit">Ziyaret</label>
+                    <label for="visit">Visit</label>
                 </div>
             </div>
 
         </div>
         <div class="row m-auto mt-3">
             <div class="col">
-                <button type="button" class="btn btn-success w-100" @click="fairProcess" >Kaydet</button>
+                <button type="button" class="btn btn-success w-100" @click="fairProcess" >Save</button>
             </div>
             <div class="col" v-if="!getShopperFairNewButton">
-                <button type="button" class="btn btn-danger w-100" @click="deleteForm" >Sil</button>
+                <button type="button" class="btn btn-danger w-100" @click="deleteForm" >Delete</button>
             </div>
         </div>
     </div>
@@ -87,14 +87,14 @@
                 <div class=" m-auto mt-3">
                 <div class="">
                     <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon1">Müşteri</span>
+                        <span class="input-group-text" id="basic-addon1">Customer</span>
                         <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="getShopperFairModel.customer">
                     </div>
 
                 </div>
                 <div class="">
                     <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon1">Şirket</span>
+                        <span class="input-group-text" id="basic-addon1">Company</span>
                         <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="getShopperFairModel.company">
                     </div>
                 </div>
@@ -116,9 +116,9 @@
                                 v-model="getShopperFairModel.phone"
                                 :translations="{
                                     countrySelector: {
-                                        placeholder: 'Ülke Kodu',
+                                        placeholder: 'Country Code',
                                         error: 'Choose country',
-                                        searchPlaceholder: 'Ülke Ara',
+                                        searchPlaceholder: 'Search Country',
                                     },
                                     phoneInput: {
                                         placeholder: 'Phone number',
@@ -130,38 +130,38 @@
                     </div>
                     <div class="">
                         <div class="input-group mb-3">
-                            <span class="input-group-text" id="basic-addon1">Satışçı</span>
+                            <span class="input-group-text" id="basic-addon1">Salesman</span>
                             <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="getShopperFairModel.satisci">
                         </div>
                     </div>
                     <div class="">
-                        <AutoComplete class="w-100 mb-3" v-model="selectedCountry" dropdown :suggestions="filteredCountryList" optionLabel="ulkeAdi" placeholder="Ülke Seçiniz" @complete="searchCountry($event)" @item-select="countrySelected($event)" />
+                        <AutoComplete class="w-100 mb-3" v-model="selectedCountry" dropdown :suggestions="filteredCountryList" optionLabel="ulkeAdi" placeholder="Select a Country" @complete="searchCountry($event)" @item-select="countrySelected($event)" />
                     </div>
             </div>
             <div class="row m-auto mt-3">
                 <div class="col-9">
                     <div class="form-floating">
                         <textarea class="form-control h-100 w-100 mb-3" placeholder="Leave a comment here" id="floatingTextarea" v-model="getShopperFairModel.adress"></textarea>
-                        <label for="floatingTextarea">Adres</label>
+                        <label for="floatingTextarea">Adress</label>
                     </div>
                 </div>
                 <div class="col-3">
                     <div   class="flex align-items-center mb-2">
                         <Checkbox style="margin-right:4px;" v-model="getShopperFairModel.fairstatus" inputId="fair" :binary="true" />
-                        <label for="fair">Fuar</label>
+                        <label for="fair">Fair</label>
                     </div>
                     <div   class="flex align-items-center">
                         <Checkbox style="margin-right:4px;" v-model="getShopperFairModel.visitstatus" inputId="visit" :binary="true" />
-                        <label for="visit">Ziyaret</label>
+                        <label for="visit">Visit</label>
                     </div>
                 </div>
             </div>
             <div class=" m-auto mt-3">
                 <div class="">
-                    <button type="button" class="btn btn-success w-100 mb-3" @click="fairProcess" >Kaydet</button>
+                    <button type="button" class="btn btn-success w-100 mb-3" @click="fairProcess" >Save</button>
                 </div>
                 <div class="" v-if="!getShopperFairNewButton">
-                    <button type="button" class="btn btn-danger w-100 mb-3" @click="deleteForm" >Sil</button>
+                    <button type="button" class="btn btn-danger w-100 mb-3" @click="deleteForm" >Delete</button>
                 </div>
             </div>
         </div>

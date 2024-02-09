@@ -1,27 +1,27 @@
 <template>
     <div class="row m-auto" v-if="!getMobile">
         <div class="col">
-            <button type="button" class="btn btn-success" @click="newCustomer">Yeni</button>
+            <button type="button" class="btn btn-success" @click="newCustomer">New</button>
         </div>
         <div class="col">
             <button type="button" class="btn btn-primary" @click="excel_cikti_al_click">Excel</button>
         </div>
         <div class="col">
-            <AutoComplete placeholder="Po ile Müşteri Ara" v-model="selectedPo" :suggestions="filteredShopperPoList" optionLabel="po" @complete="searchPo($event)" @item-select="poSelected($event)" @clear="clearPo($event)"/>
+            <AutoComplete placeholder="Search by Po" v-model="selectedPo" :suggestions="filteredShopperPoList" optionLabel="po" @complete="searchPo($event)" @item-select="poSelected($event)" @clear="clearPo($event)"/>
         </div>
     </div>
     <div class=" m-auto" v-if="getMobile">
         <div class="">
-            <button type="button" class="btn btn-success w-100 mb-3" @click="newCustomer">Yeni</button>
+            <button type="button" class="btn btn-success w-100 mb-3" @click="newCustomer">New</button>
         </div>
         <div>
             <button type="button" class="btn btn-primary" @click="excel_cikti_al_click">Excel</button>
         </div>
         <div class="w-100">
             <span class="p-float-label w-100">
-                <AutoComplete inputId="ac" class="w-100 mb-3"  v-model="selectedPo" :suggestions="filteredShopperPoList" optionLabel="po" @complete="searchPo($event)" @item-select="poSelected($event)" @clear="clearPo($event)"/>
+                <AutoComplete  inputId="ac" class="w-100 mb-3"  v-model="selectedPo" :suggestions="filteredShopperPoList" optionLabel="po" @complete="searchPo($event)" @item-select="poSelected($event)" @clear="clearPo($event)"/>
 
-                <label for="ac">Po ile Müşteri Ara</label>
+                <label for="ac">Search by Po</label>
             </span>
 
         </div>
@@ -60,7 +60,7 @@
             </Column>
             <Column 
                 field="musteriadi" 
-                header="Müşteri"
+                header="Customer"
                 :showFilterMenu="false"
                 :showFilterOperator="false"
                 :showClearButton="false"
@@ -75,7 +75,7 @@
             </Column>
             <Column 
                 field="unvan" 
-                header="Firma"
+                header="Company"
                 :showFilterMenu="false"
                 :showFilterOperator="false"
                 :showClearButton="false"
@@ -88,7 +88,7 @@
                     <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
                 </template>
             </Column>
-            <Column field="adres" header="Adres"></Column>
+            <Column field="adres" header="Adress"></Column>
             <Column 
                 field="marketing" 
                 header="Marketing"
@@ -105,7 +105,7 @@
             </Column>
             <Column 
                 field="ulkeadi" 
-                header="Ülke"
+                header="Country"
                 :showFilterMenu="false"
                 :showFilterOperator="false"
                 :showClearButton="false"
@@ -124,7 +124,7 @@
             </Column>
             <Column 
                 field="temsilci" 
-                header="Temsilci"
+                header="Representative"
                 :showFilterMenu="false"
                 :showFilterOperator="false"
                 :showClearButton="false"
@@ -139,7 +139,7 @@
             </Column>
             <Column 
                 field="satisci" 
-                header="Satışçı"
+                header="Salesman"
                 :showFilterMenu="false"
                 :showFilterOperator="false"
                 :showClearButton="false"
@@ -151,12 +151,12 @@
                     <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
                 </template>
             </Column>
-            <Column field="devir" header="Devir">
+            <Column field="devir" header="Transfer">
                 <template #body="slotProps">
                     <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" v-model="slotProps.data.devir" disabled>
                 </template>
             </Column>
-            <Column field="ozel" header="Özel">
+            <Column field="ozel" header="Speacial">
                 <template #body="slotProps">
                     <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" v-model="slotProps.data.ozel" disabled>
                 </template>

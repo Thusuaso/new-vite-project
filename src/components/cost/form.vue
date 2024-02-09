@@ -4,12 +4,12 @@
             <div class="col">
                 <div class="form-floating">
                     <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px;padding-top:35px;" v-model="getModel.hata"></textarea>
-                    <label for="floatingTextarea2">Hata</label>
+                    <label for="floatingTextarea2">Mistake</label>
                 </div>
             </div>
             <div class="col">
                 <div class="input-group mb-3">
-                    <span class="input-group-text" id="basic-addon1">Masraf</span>
+                    <span class="input-group-text" id="basic-addon1">Cost</span>
                     <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="getModel.maliyet" @input="getModel.maliyet = $filters.formatPoint($event.target.value)">
                 </div>
             </div>
@@ -22,7 +22,7 @@
         </div>
         <div class="row m-auto mt-3">
             <div class="col">
-                <button type="button" class="btn btn-success" @click="process">Kaydet</button>
+                <button type="button" class="btn btn-success" @click="process">Save</button>
             </div>
         </div>
     </div>
@@ -31,12 +31,12 @@
                 <div class="mb-3">
                     <div class="form-floating">
                         <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px;padding-top:35px;" v-model="getModel.hata"></textarea>
-                        <label for="floatingTextarea2">Hata</label>
+                        <label for="floatingTextarea2">Mistake</label>
                     </div>
                 </div>
                 <div class="">
                     <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon1">Masraf</span>
+                        <span class="input-group-text" id="basic-addon1">Cost</span>
                         <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="getModel.maliyet" @input="getModel.maliyet = $filters.formatPoint($event.target.value)">
                     </div>
                 </div>
@@ -49,7 +49,7 @@
             </div>
             <div class=" m-auto mt-3">
                 <div class="">
-                    <button type="button" class="btn btn-success w-100 mb-3" @click="process">Kaydet</button>
+                    <button type="button" class="btn btn-success w-100 mb-3" @click="process">Save</button>
                 </div>
             </div>
         </div>

@@ -16,7 +16,7 @@
             <div class="container text-center">
                 <div class="row">
                     <div class="col">
-                        <button class="btn btn-primary" @click="musteri_sec(item, 'A')">Detay</button>
+                        <button class="btn btn-primary" @click="musteri_sec(item, 'A')">Detail</button>
                     </div>
                     <div class="col">
                         {{ item.temsilci }}
@@ -46,7 +46,7 @@
                 <div class="container text-center">
                     <div class="row">
                         <div class="col">
-                            <button class="btn btn-primary" @click="musteri_sec(item, 'B')">Detay</button>
+                            <button class="btn btn-primary" @click="musteri_sec(item, 'B')">Detail</button>
                         </div>
                         <div class="col">
                             {{ item.temsilci }}
@@ -76,7 +76,7 @@
                     <div class="container text-center">
                         <div class="row">
                             <div class="col">
-                                <button class="btn btn-primary" @click="musteri_sec(item, 'C')">Detay</button>
+                                <button class="btn btn-primary" @click="musteri_sec(item, 'C')">Detail</button>
                             </div>
                             <div class="col">
                                 {{ item.temsilci }}
@@ -114,7 +114,7 @@
               <div class="container text-center">
                   <div class="row">
                       <div class="col">
-                          <button class="btn btn-primary" @click="musteri_sec(item, 'A')">Detay</button>
+                          <button class="btn btn-primary" @click="musteri_sec(item, 'A')">Detail</button>
                       </div>
                       <div class="col">
                           {{ item.temsilci }}
@@ -144,7 +144,7 @@
                   <div class="container text-center">
                       <div class="row">
                           <div class="col">
-                              <button class="btn btn-primary" @click="musteri_sec(item, 'B')">Detay</button>
+                              <button class="btn btn-primary" @click="musteri_sec(item, 'B')">Detail</button>
                           </div>
                           <div class="col">
                               {{ item.temsilci }}
@@ -174,7 +174,7 @@
                       <div class="container text-center">
                           <div class="row">
                               <div class="col">
-                                  <button class="btn btn-primary" @click="musteri_sec(item, 'C')">Detay</button>
+                                  <button class="btn btn-primary" @click="musteri_sec(item, 'C')">Detail</button>
                               </div>
                               <div class="col">
                                   {{ item.temsilci }}
@@ -195,7 +195,7 @@
 
 
 
-    <Dialog v-model:visible="customer_forms" modal header="Ayrıntı" :style="{ 'width': '100vw' }">
+    <Dialog v-model:visible="customer_forms" modal header="Detail" :style="{ 'width': '100vw' }">
       <customerDetail :customerName="customerName" :priority="priority" :followStatus="followStatus"/>
     </Dialog>
     

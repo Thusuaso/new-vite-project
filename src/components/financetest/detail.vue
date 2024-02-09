@@ -5,9 +5,9 @@
         <table class="table">
           <thead>
             <tr>
-              <th scope="col">Sipariş Toplam</th>
-              <th scope="col">Gelen Bedel</th>
-              <th scope="col">Bakiye</th>
+              <th scope="col">Total Order</th>
+              <th scope="col">Paid</th>
+              <th scope="col">Balance</th>
             </tr>
           </thead>
           <tbody>
@@ -22,7 +22,7 @@
     </div>
     <div class="row m-auto mt-3">
       <div class="col bg-danger m-auto text-center" style="color: white">
-        * Sarı renkli Po'lar MAYA USA hesabına gelmiştir.
+        * Yellow colored ones are Maya account
       </div>
     </div>
     <div class="row m-auto mt-3">
@@ -44,20 +44,20 @@
           :sortField="['status', 'forwarding_date']"
           sortOrder="-1"
         >
-          <Column field="po" header="Po (Purchase Order)"></Column>
-          <Column field="product_date" header="Sipariş Tarihi (Order Date)">
+          <Column field="po" header="Purchase Order"></Column>
+          <Column field="product_date" header="Order Date">
             <template #body="slotProps">
               {{ $filters.formatDate(slotProps.data.product_date) }}
             </template>
           </Column>
-          <Column field="forwarding_date" header="Sevkiyat Tarihi (Shipment Date)">
+          <Column field="forwarding_date" header="Shipment Date">
             <template #body="slotProps">
               {{ $filters.formatDate(slotProps.data.forwarding_date) }}
             </template>
           </Column>
 
-          <Column field="status" header="Durum (Status)"></Column>
-          <Column field="cost" header="Sipariş (Order Total USD)">
+          <Column field="status" header="Status"></Column>
+          <Column field="cost" header="Order Total USD">
             <template #body="slotProps">
               {{ $filters.formatPrice(slotProps.data.cost) }}
             </template>
@@ -65,7 +65,7 @@
               {{ $filters.formatPrice(getFinanceTestDetailTotalList.cost) }}
             </template>
           </Column>
-          <Column field="paid" header="Ödenen (Paid Amount)">
+          <Column field="paid" header="Paid Amount">
             <template #body="slotProps">
               {{ $filters.formatPrice(slotProps.data.paid) }}
             </template>
@@ -73,7 +73,7 @@
               {{ $filters.formatPrice(getFinanceTestDetailTotalList.paid) }}
             </template>
           </Column>
-          <Column field="balance" header="Kalan (Balance)">
+          <Column field="balance" header="Balance">
             <template #body="slotProps">
               <div
                 :style="{
@@ -88,7 +88,7 @@
               {{ $filters.formatPrice(getFinanceTestDetailTotalList.balance) }}
             </template>
           </Column>
-          <Column field="advanced_payment" header="Peşinat (Prepayment)">
+          <Column field="advanced_payment" header="Prepayment">
             <template #body="slotProps">
               {{ $filters.formatPrice(slotProps.data.advanced_payment) }}
             </template>
@@ -108,12 +108,12 @@
           @row-click="detailPaidSelected($event)"
           style="font-size: 85%"
         >
-          <Column field="date" header="Tarih">
+          <Column field="date" header="Paid Date">
             <template #body="slotProps">
               {{ $filters.formatDate(slotProps.data.date) }}
             </template>
           </Column>
-          <Column field="paid" header="Ödenen">
+          <Column field="paid" header="Paid">
             <template #body="slotProps">
               {{ $filters.formatPrice(slotProps.data.paid) }}
             </template>
@@ -131,9 +131,9 @@
         <table class="table">
           <thead>
             <tr>
-              <th scope="col">Sipariş Toplam</th>
-              <th scope="col">Gelen Bedel</th>
-              <th scope="col">Bakiye</th>
+              <th scope="col">Order Total</th>
+              <th scope="col">Paid</th>
+              <th scope="col">Balance</th>
             </tr>
           </thead>
           <tbody>
@@ -148,7 +148,7 @@
     </div>
     <div class="row m-auto mt-3">
       <div class="col bg-danger m-auto text-center" style="color: white">
-        * Sarı renkli Po'lar MAYA USA hesabına gelmiştir.
+        * Yellow colored ones are Maya account
       </div>
     </div>
     <div class="row m-auto mt-3">
@@ -169,20 +169,20 @@
       :rowClass="rowClass"
       style="font-size: 85%"
     >
-      <Column field="po" header="Po"></Column>
-      <Column field="product_date" header="Sipariş Tarihi">
+      <Column field="po" header="Purchase Order"></Column>
+      <Column field="product_date" header="Order Date">
         <template #body="slotProps">
           {{ $filters.formatDate(slotProps.data.product_date) }}
         </template>
       </Column>
-      <Column field="forwarding_date" header="Sevkiyat Tarihi">
+      <Column field="forwarding_date" header="Shipment Date">
         <template #body="slotProps">
           {{ $filters.formatDate(slotProps.data.forwarding_date) }}
         </template>
       </Column>
 
-      <Column field="status" header="Durum"></Column>
-      <Column field="cost" header="Sipariş">
+      <Column field="status" header="Status"></Column>
+      <Column field="cost" header="Order Total USD">
         <template #body="slotProps">
           {{ $filters.formatPrice(slotProps.data.cost) }}
         </template>
@@ -190,7 +190,7 @@
           {{ $filters.formatPrice(getFinanceTestDetailTotalList.cost) }}
         </template>
       </Column>
-      <Column field="paid" header="Ödenen">
+      <Column field="paid" header="Paid Amount">
         <template #body="slotProps">
           {{ $filters.formatPrice(slotProps.data.paid) }}
         </template>
@@ -198,7 +198,7 @@
           {{ $filters.formatPrice(getFinanceTestDetailTotalList.paid) }}
         </template>
       </Column>
-      <Column field="balance" header="Kalan">
+      <Column field="balance" header="Balance">
         <template #body="slotProps">
           <div
             :style="{
@@ -213,7 +213,7 @@
           {{ $filters.formatPrice(getFinanceTestDetailTotalList.balance) }}
         </template>
       </Column>
-      <Column field="advanced_payment" header="Peşinat">
+      <Column field="advanced_payment" header="Prepayment">
         <template #body="slotProps">
           {{ $filters.formatPrice(slotProps.data.advanced_payment) }}
         </template>
@@ -231,12 +231,12 @@
       @row-click="detailPaidSelected($event)"
       style="font-size: 85%"
     >
-      <Column field="date" header="Tarih">
+      <Column field="date" header="Paid Date">
         <template #body="slotProps">
           {{ $filters.formatDate(slotProps.data.date) }}
         </template>
       </Column>
-      <Column field="paid" header="Ödenen">
+      <Column field="paid" header="Paid">
         <template #body="slotProps">
           {{ $filters.formatPrice(slotProps.data.paid) }}
         </template>

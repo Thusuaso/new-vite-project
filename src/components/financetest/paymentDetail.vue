@@ -5,7 +5,7 @@
         <div class="row m-auto mt-3">
           <div class="col">
             <div class="input-group mb-3">
-              <span class="input-group-text" id="basic-addon1">Müşteri</span>
+              <span class="input-group-text" id="basic-addon1">Customer</span>
               <input
                 type="text"
                 class="form-control"
@@ -38,7 +38,7 @@
           </div>
           <div class="col">
             <div class="input-group mb-3">
-              <span class="input-group-text" id="basic-addon1">Bakiye</span>
+              <span class="input-group-text" id="basic-addon1">Balance</span>
               <input
                 type="text"
                 class="form-control"
@@ -52,7 +52,7 @@
         <div class="row m-auto mt-3">
           <div class="col">
             <div class="input-group mb-3">
-              <span class="input-group-text" id="basic-addon1">Bakiye</span>
+              <span class="input-group-text" id="basic-addon1">Balance</span>
               <input
                 type="text"
                 class="form-control"
@@ -68,7 +68,7 @@
           </div>
           <div class="col">
             <div class="input-group mb-3">
-              <span class="input-group-text" id="basic-addon1">Masraf</span>
+              <span class="input-group-text" id="basic-addon1">Cost</span>
               <input
                 type="text"
                 class="form-control"
@@ -86,7 +86,7 @@
         <div class="row m-auto mt-3">
           <div class="col">
             <div class="input-group mb-3">
-              <span class="input-group-text" id="basic-addon1">Kur</span>
+              <span class="input-group-text" id="basic-addon1">Currency</span>
               <input
                 type="text"
                 class="form-control"
@@ -109,7 +109,7 @@
                 style="height: 100px; padding-top: 35px"
                 v-model="getFinanceTestDetailPaymentList.musteri_model.aciklama"
               ></textarea>
-              <label for="floatingTextarea2">Açıklama</label>
+              <label for="floatingTextarea2">Description</label>
             </div>
           </div>
         </div>
@@ -122,19 +122,19 @@
           @row-click="paymentSelected($event)"
           style="font-size: 85%"
         >
-          <Column field="tarih" header="Tarih"></Column>
+          <Column field="tarih" header="Date"></Column>
           <Column field="siparisno" header="Po"></Column>
-          <Column field="tutar" header="Tutar">
+          <Column field="tutar" header="Total">
             <template #body="slotProps">
               {{ $filters.formatPrice(slotProps.data.tutar) }}
             </template>
           </Column>
-          <Column field="masraf" header="Masraf">
+          <Column field="masraf" header="Cost">
             <template #body="slotProps">
               {{ $filters.formatPrice(slotProps.data.masraf) }}
             </template>
           </Column>
-          <Column field="kur" header="Kur">
+          <Column field="kur" header="Currency">
             <template #body="slotProps">
               {{ $filters.formatPrice(slotProps.data.kur) }}
             </template>
@@ -150,7 +150,7 @@
           @click="save"
           :disabled="save_form_disabled"
         >
-          Kaydet
+          Save
         </button>
       </div>
       <div class="col">
@@ -160,7 +160,7 @@
           @click="update"
           :disabled="form_disabled"
         >
-          Güncelle
+          Update
         </button>
       </div>
       <div class="col">
@@ -170,7 +170,7 @@
           @click="deleteForm"
           :disabled="form_disabled"
         >
-          Sil
+          Delete
         </button>
       </div>
     </div>
@@ -181,7 +181,7 @@
         <div class="m-auto mt-3">
           <div class="">
             <div class="input-group mb-3">
-              <span class="input-group-text" id="basic-addon1">Müşteri</span>
+              <span class="input-group-text" id="basic-addon1">Customer</span>
               <input
                 type="text"
                 class="form-control"
@@ -215,7 +215,7 @@
           </div>
           <div class="">
             <div class="input-group mb-3">
-              <span class="input-group-text" id="basic-addon1">Bakiye</span>
+              <span class="input-group-text" id="basic-addon1">Balance</span>
               <input
                 type="text"
                 class="form-control"
@@ -229,7 +229,7 @@
         <div class="m-auto mt-3">
           <div class="">
             <div class="input-group mb-3">
-              <span class="input-group-text" id="basic-addon1">Bakiye</span>
+              <span class="input-group-text" id="basic-addon1">Balance</span>
               <input
                 type="text"
                 class="form-control"
@@ -245,7 +245,7 @@
           </div>
           <div class="">
             <div class="input-group mb-3">
-              <span class="input-group-text" id="basic-addon1">Masraf</span>
+              <span class="input-group-text" id="basic-addon1">Cost</span>
               <input
                 type="text"
                 class="form-control"
@@ -263,7 +263,7 @@
         <div class="m-auto mt-3">
           <div class="">
             <div class="input-group mb-3">
-              <span class="input-group-text" id="basic-addon1">Kur</span>
+              <span class="input-group-text" id="basic-addon1">Currency</span>
               <input
                 type="text"
                 class="form-control"
@@ -286,7 +286,7 @@
                 style="height: 100px; padding-top: 35px"
                 v-model="getFinanceTestDetailPaymentList.musteri_model.aciklama"
               ></textarea>
-              <label for="floatingTextarea2">Açıklama</label>
+              <label for="floatingTextarea2">Description</label>
             </div>
           </div>
         </div>
@@ -299,19 +299,19 @@
           @row-click="paymentSelected($event)"
           style="font-size: 85%"
         >
-          <Column field="tarih" header="Tarih"></Column>
+          <Column field="tarih" header="Date"></Column>
           <Column field="siparisno" header="Po"></Column>
-          <Column field="tutar" header="Tutar">
+          <Column field="tutar" header="Total">
             <template #body="slotProps">
               {{ $filters.formatPrice(slotProps.data.tutar) }}
             </template>
           </Column>
-          <Column field="masraf" header="Masraf">
+          <Column field="masraf" header="Cost">
             <template #body="slotProps">
               {{ $filters.formatPrice(slotProps.data.masraf) }}
             </template>
           </Column>
-          <Column field="kur" header="Kur">
+          <Column field="kur" header="Currency">
             <template #body="slotProps">
               {{ $filters.formatPrice(slotProps.data.kur) }}
             </template>
@@ -327,7 +327,7 @@
           @click="save"
           :disabled="save_form_disabled"
         >
-          Kaydet
+          Save
         </button>
       </div>
       <div class="">
@@ -337,7 +337,7 @@
           @click="update"
           :disabled="form_disabled"
         >
-          Güncelle
+          Update
         </button>
       </div>
       <div class="">
@@ -347,7 +347,7 @@
           @click="deleteForm"
           :disabled="form_disabled"
         >
-          Sil
+          Delete
         </button>
       </div>
     </div>

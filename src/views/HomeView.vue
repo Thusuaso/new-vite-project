@@ -9,7 +9,7 @@
                                       <div class="row no-gutters align-items-center">
                                           <div class="col mr-2">
                                               <div class="text-xs font-weight-bold text-primary mb-1">
-                                                    R1 Gelen Sipariş (FOB)</div>
+                                                    R1 Incoming Order (Monthly) (FOB)</div>
                                               <div class="h6 mb-0 font-weight-bold text-gray-800">{{  formatPrice(dashboard.gelenSiparisMekmar[0].gelenSiparisFob)}}</div>
                                           </div>
                                           <div class="col-auto">
@@ -25,7 +25,7 @@
                                         <div class="row no-gutters align-items-center">
                                             <div class="col mr-2">
                                                 <div class="text-xs font-weight-bold text-primary mb-1">
-                                                    R2 Gelen Sipariş (FOB)</div>
+                                                    R2 Incoming Order (Yearly) (FOB)</div>
                                                 <div class="h6 mb-0 font-weight-bold text-gray-800">{{  formatPrice(dashboard.gelenSiparisYearMekmar[0].gelenSiparisFob) }}</div>
                                             </div>
                                             <div class="col-auto">
@@ -44,7 +44,7 @@
                                         <div class="row no-gutters align-items-center">
                                             <div class="col mr-2">
                                                 <div class="text-xs font-weight-bold text-primary mb-1">
-                                                    R3 Aylık Ortalama (FOB)</div>
+                                                    R3 Monthly Average (FOB)</div>
                                                 <div class="h6 mb-0 font-weight-bold text-gray-800">{{  formatPrice(dashboard.gelenSiparisYearMekmar[0].gelenSiparisAylikOrtalama) }}</div>
                                             </div>
     
@@ -58,7 +58,7 @@
                                         <div class="row no-gutters align-items-center">
                                             <div class="col mr-2">
                                                 <div class="text-xs font-weight-bold text-primary mb-1">
-                                                    R4 Yıl Sonu Tahmini (FOB)</div>
+                                                    R4 End of Year Forecast (FOB)</div>
                                                 <div class="h6 mb-0 font-weight-bold text-gray-800">{{  formatPrice(dashboard.gelenSiparisYearMekmar[0].gelenSiparisYilSonuTahmini) }}</div>
                                             </div>
 
@@ -72,7 +72,7 @@
                                         <div class="row no-gutters align-items-center">
                                             <div class="col mr-2">
                                                 <div class="text-xs font-weight-bold text-primary mb-1">
-                                                    R4 Yüklenen Sipariş (DDP)</div>
+                                                    R4 Shipment (Monthly) (DDP)</div>
                                                 <div class="h6 mb-0 font-weight-bold text-gray-800">{{  formatPrice(dashboard.gelenSiparisMekmarYuklenen[0].gelenSiparisFob) }}</div>
                                             </div>
                                             <div class="col-auto">
@@ -88,7 +88,7 @@
                                         <div class="row no-gutters align-items-center">
                                             <div class="col mr-2">
                                                 <div class="text-xs font-weight-bold text-primary  mb-1">
-                                                    R6 Yüklenen Sipariş (DDP)</div>
+                                                    R6 Shipment (Yearly) (DDP)</div>
                                                 <div class="h6 mb-0 font-weight-bold text-gray-800">{{  formatPrice(dashboard.gelenSiparisYearYuklenenMekmar[0].gelenSiparisFob) }}</div>
                                             </div>
                                             <div class="col-auto">
@@ -108,7 +108,7 @@
                                         <div class="row no-gutters align-items-center">
                                             <div class="col mr-2">
                                                 <div class="text-xs font-weight-bold text-primary mb-1">
-                                                    R7 Aylık Ortalama (DDP)</div>
+                                                    R7 Monthly Average (DDP)</div>
                                                 <div class="h6 mb-0 font-weight-bold text-gray-800">{{  formatPrice(dashboard.gelenSiparisYearYuklenenMekmar[0].gelenSiparisAylikOrtalama) }}</div>
                                             </div>
                                         </div>
@@ -121,7 +121,7 @@
                                         <div class="row no-gutters align-items-center">
                                             <div class="col mr-2">
                                                 <div class="text-xs font-weight-bold text-primary mb-1">
-                                                    R8 Yıl Sonu Tahmini (DDP)</div>
+                                                    R8 End of Year Forecast (DDP)</div>
                                                 <div class="h6 mb-0 font-weight-bold text-gray-800">{{  formatPrice(dashboard.gelenSiparisYearYuklenenMekmar[0].gelenSiparisYilSonuTahmini) }}</div>
                                             </div>
                                             <div class="col-auto">
@@ -145,7 +145,7 @@
 
 
   </div>
-  <button type="button" class="btn btn-primary" style="width:100%;" @click="subDataLoad" v-if="!sub_data_form">Devamı için tıklayınız</button>
+  <button type="button" class="btn btn-primary" style="width:100%;" @click="subDataLoad" v-if="!sub_data_form">Click For More</button>
   <br/>
   <br/>
   <div class="container" v-if="sub_data_form" v-show="!getMobile">
@@ -158,31 +158,31 @@
     
     >
         <template #header>
-                R14 : Konteynır Takip Listesi
+                R14 : Container Tracking List
         </template>
-            <Column field="firmaAdi" header="Firma Adı" :showFilterMenu="false">
+            <Column field="firmaAdi" header="Customer" :showFilterMenu="false">
                 <template #filter="{ filterModel, filterCallback }">
                         <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
                     
                     
                     </template>
             </Column>
-            <Column field="siparisNo" header="Sipariş No" :showFilterMenu="false">
+            <Column field="siparisNo" header="Po" :showFilterMenu="false">
                 <template #filter="{ filterModel, filterCallback }">
                             <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
                         </template>
             </Column>
-            <Column field="siparisTarihi" header="Sipariş Tarihi"></Column>
-            <Column field="yuklemeTarihi" header="Yükleme Tarihi"></Column>
-            <Column field="etaTarihi" header="Eta Tarihi"></Column>
-            <Column field="konteynirNo" header="Konteynır No" :showFilterMenu="false">
+            <Column field="siparisTarihi" header="Order Date"></Column>
+            <Column field="yuklemeTarihi" header="Shipped Date"></Column>
+            <Column field="etaTarihi" header="Eta Date"></Column>
+            <Column field="konteynirNo" header="Container No" :showFilterMenu="false">
             <template #filter="{ filterModel, filterCallback }">
                             <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
                         </template>
             </Column>
             <Column field="line" header="Line"></Column>
-            <Column field="navlunFirma" header="Navlun Firma"></Column>
-            <Column field="kalan" header="Kalan Ödeme">
+            <Column field="navlunFirma" header="Freight Company"></Column>
+            <Column field="kalan" header="Remaining Payment">
                 <template #body="slotProps">
                     {{ formatPrice(slotProps.data.kalan) }}
                 </template>
@@ -207,16 +207,16 @@
     
         >
             <template #header>
-                    R16: {{ new Date().getFullYear() }} 'de Yapılan Sevkiyatın Üreticilere Göre Dağılımı (Mekmar)
+                    R16: {{ new Date().getFullYear() }} Distribution of Shipments by Manufacturers (Mekmar)
             </template>
-                <Column field="tedarikci" header="Tedarikçi" :showFilterMenu="false">
+                <Column field="tedarikci" header="Supplier" :showFilterMenu="false">
                     <template #filter="{ filterModel, filterCallback }">
                             <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
                     
                     
                         </template>
                 </Column>
-                <Column field="satisMiktar" header="Miktar">
+                <Column field="satisMiktar" header="Amount">
                     <template #body="slotProps">
                         {{ formatDecimal(slotProps.data.satisMiktar) }}
                     </template>
@@ -244,7 +244,7 @@
     
             >
                 <template #header>
-                        R17: {{ new Date().getFullYear() }} 'deki Ülkelere Göre Sevkiyat
+                        R17: {{ new Date().getFullYear() }} Shipping by Country
                 </template>
                     <Column field="ulkeid" header="Id" >
                         <template #footer>
@@ -252,13 +252,13 @@
                         </template>    
                     </Column>
 
-                    <Column field="ulkeadi" header="Ülke Adı" :showFilterMenu="false">
+                    <Column field="ulkeadi" header="Country" :showFilterMenu="false">
                             <template #filter="{ filterModel, filterCallback }">
                                 <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
                     
                         </template>
                     </Column>
-                    <Column field="toplamsevkiyat" header="Toplam Sevkiyat">
+                    <Column field="toplamsevkiyat" header="Total Shipped">
                         <template #body="slotProps">
                             {{ formatPrice(slotProps.data.toplamsevkiyat) }}
                         </template>
@@ -278,21 +278,21 @@
     
                 >
                     <template #header>
-                            R18: {{ new Date().getFullYear() }}'deki Mevcut Siparişlerin Müşterilere Göre Dağılımı
+                            R18: {{ new Date().getFullYear() }} Distribution of Current Orders by Customers
                     </template>
-                        <Column field="tedarikci" header="Firma Adı" :showFilterMenu="false">
+                        <Column field="tedarikci" header="Customer" :showFilterMenu="false">
                             <template #filter="{ filterModel, filterCallback }">
                                     <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
                     
                             </template>
                         </Column>
 
-                        <Column field="satisMiktar" header="Miktar" >
+                        <Column field="satisMiktar" header="Amount" >
                             <template #body="slotProps">
                                     {{ formatPrice(slotProps.data.satisMiktar) }}
                                 </template>
                         </Column>
-                        <Column field="satisToplam" header="Toplam Sevkiyat">
+                        <Column field="satisToplam" header="Total Shipped">
                             <template #body="slotProps">
                                 {{ formatPrice(slotProps.data.satisToplam) }}
                             </template>
@@ -312,16 +312,16 @@
     
                     >
                         <template #header>
-                                R19: Takipteki {{ month }} Ayına Ait Teklifler
+                                R19: {{ month }} Following Offers
                         </template>
-                            <Column field="teklifSahibi" header="Teklif Sahibi" :showFilterMenu="false">
+                            <Column field="teklifSahibi" header="Offer Owner" :showFilterMenu="false">
                                 <template #filter="{ filterModel, filterCallback }">
                                         <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
                     
                                 </template>
                             </Column>
 
-                            <Column field="teklifSayisi" header="Teklif Sayısı" >
+                            <Column field="teklifSayisi" header="Offer Count" >
  
                             </Column>
 
@@ -335,16 +335,16 @@
     
                         >
                             <template #header>
-                                    R20: {{ new Date().getFullYear() }} Yılına Ait Tüm Teklifler
+                                    R20: {{ new Date().getFullYear() }} All Offers for the Year
                             </template>
-                                <Column field="teklifSahibi" header="Teklif Sahibi" :showFilterMenu="false">
+                                <Column field="teklifSahibi" header="Offer Owner" :showFilterMenu="false">
                                     <template #filter="{ filterModel, filterCallback }">
                                             <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
                     
                                     </template>
                                 </Column>
 
-                                <Column field="teklifSayisi" header="Teklif Sayısı" >
+                                <Column field="teklifSayisi" header="Offer Count" >
  
                                 </Column>
 
@@ -359,17 +359,17 @@
     
                             >
                                 <template #header>
-                                       R22: {{ new Date().getFullYear() }} Yeni Eklenen Siparişler
+                                       R22: {{ new Date().getFullYear() }} Newly Added Orders
 
                                 </template>
                                     <Column field="siparisNo" header="PO">
    
                                     </Column>
 
-                                    <Column field="satisci" header="Satışçı" >
+                                    <Column field="satisci" header="Salesman" >
  
                                     </Column>
-                                    <Column field="satisToplami" header="Satış Toplamı" >
+                                    <Column field="satisToplami" header="Sales Total" >
                                         <template #body="slotProps">
                                             {{ formatPrice(slotProps.data.satisToplami) }}
                                         </template>
@@ -399,31 +399,31 @@
     
         >
             <template #header>
-                    R14 : Konteynır Takip Listesi
+                    R14 : Container Tracking List
             </template>
-                <Column field="firmaAdi" header="Firma Adı" :showFilterMenu="false">
+                <Column field="firmaAdi" header="Customer" :showFilterMenu="false">
                     <template #filter="{ filterModel, filterCallback }">
                             <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
                     
                     
                         </template>
                 </Column>
-                <Column field="siparisNo" header="Sipariş No" :showFilterMenu="false">
+                <Column field="siparisNo" header="Po" :showFilterMenu="false">
                     <template #filter="{ filterModel, filterCallback }">
                                 <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
                             </template>
                 </Column>
-                <Column field="siparisTarihi" header="Sipariş Tarihi"></Column>
-                <Column field="yuklemeTarihi" header="Yükleme Tarihi"></Column>
-                <Column field="etaTarihi" header="Eta Tarihi"></Column>
-                <Column field="konteynirNo" header="Konteynır No" :showFilterMenu="false">
+                <Column field="siparisTarihi" header="Order Date"></Column>
+                <Column field="yuklemeTarihi" header="Shipped Date"></Column>
+                <Column field="etaTarihi" header="Eta Date"></Column>
+                <Column field="konteynirNo" header="Container No" :showFilterMenu="false">
                 <template #filter="{ filterModel, filterCallback }">
                                 <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
                             </template>
                 </Column>
                 <Column field="line" header="Line"></Column>
-                <Column field="navlunFirma" header="Navlun Firma"></Column>
-                <Column field="kalan" header="Kalan Ödeme">
+                <Column field="navlunFirma" header="Freight Company"></Column>
+                <Column field="kalan" header="Remaining Payment">
                     <template #body="slotProps">
                         {{ formatPrice(slotProps.data.kalan) }}
                     </template>
@@ -446,16 +446,16 @@
     
             >
                 <template #header>
-                        R16: {{ new Date().getFullYear() }} 'de Yapılan Sevkiyatın Üreticilere Göre Dağılımı (Mekmar)
+                        R16: {{ new Date().getFullYear() }} Distribution of Shipments by Manufacturers (Mekmar)
                 </template>
-                    <Column field="tedarikci" header="Tedarikçi" :showFilterMenu="false">
+                    <Column field="tedarikci" header="Supplier" :showFilterMenu="false">
                         <template #filter="{ filterModel, filterCallback }">
                                 <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
                     
                     
                             </template>
                     </Column>
-                    <Column field="satisMiktar" header="Miktar">
+                    <Column field="satisMiktar" header="Amount">
                         <template #body="slotProps">
                             {{ formatDecimal(slotProps.data.satisMiktar) }}
                         </template>
@@ -482,7 +482,7 @@
     
                 >
                     <template #header>
-                            R17: {{ new Date().getFullYear() }}'deki Ülkelere Göre Sevkiyat
+                            R17: {{ new Date().getFullYear() }} Shipping by Country
                     </template>
                         <Column field="ulkeid" header="Id" >
                             <template #footer>
@@ -490,13 +490,13 @@
                             </template>    
                         </Column>
 
-                        <Column field="ulkeadi" header="Ülke Adı" :showFilterMenu="false">
+                        <Column field="ulkeadi" header="Country" :showFilterMenu="false">
                                 <template #filter="{ filterModel, filterCallback }">
                                     <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
                     
                             </template>
                         </Column>
-                        <Column field="toplamsevkiyat" header="Toplam Sevkiyat">
+                        <Column field="toplamsevkiyat" header="Total Shipped">
                             <template #body="slotProps">
                                 {{ formatPrice(slotProps.data.toplamsevkiyat) }}
                             </template>
@@ -515,21 +515,21 @@
     
                     >
                         <template #header>
-                                R18: {{ new Date().getFullYear() }}'deki Mevcut Siparişlerin Müşterilere Göre Dağılımı
+                                R18: {{ new Date().getFullYear() }} Distribution of Current Orders by Customers
                         </template>
-                            <Column field="tedarikci" header="Firma Adı" :showFilterMenu="false">
+                            <Column field="tedarikci" header="Customer" :showFilterMenu="false">
                                 <template #filter="{ filterModel, filterCallback }">
                                         <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
                     
                                 </template>
                             </Column>
 
-                            <Column field="satisMiktar" header="Miktar" >
+                            <Column field="satisMiktar" header="Amount" >
                                 <template #body="slotProps">
                                         {{ formatPrice(slotProps.data.satisMiktar) }}
                                     </template>
                             </Column>
-                            <Column field="satisToplam" header="Toplam Sevkiyat">
+                            <Column field="satisToplam" header="Total Shipped">
                                 <template #body="slotProps">
                                     {{ formatPrice(slotProps.data.satisToplam) }}
                                 </template>
@@ -547,16 +547,16 @@
     
                         >
                             <template #header>
-                                    R19: Takipteki {{ month }} Ayına Ait Teklifler
+                                    R19: {{ month }} Following Offers
                             </template>
-                                <Column field="teklifSahibi" header="Teklif Sahibi" :showFilterMenu="false">
+                                <Column field="teklifSahibi" header="Offer Owner" :showFilterMenu="false">
                                     <template #filter="{ filterModel, filterCallback }">
                                             <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
                     
                                     </template>
                                 </Column>
 
-                                <Column field="teklifSayisi" header="Teklif Sayısı" >
+                                <Column field="teklifSayisi" header="Offer Count" >
  
                                 </Column>
 
@@ -570,16 +570,16 @@
     
                             >
                                 <template #header>
-                                        R20: {{ new Date().getFullYear() }} Yılına Ait Tüm Teklifler
+                                        R20: {{ new Date().getFullYear() }} All Offers for the Year
                                 </template>
-                                    <Column field="teklifSahibi" header="Teklif Sahibi" :showFilterMenu="false">
+                                    <Column field="teklifSahibi" header="Offer Owner" :showFilterMenu="false">
                                         <template #filter="{ filterModel, filterCallback }">
                                                 <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
                     
                                         </template>
                                     </Column>
 
-                                    <Column field="teklifSayisi" header="Teklif Sayısı" >
+                                    <Column field="teklifSayisi" header="Offer Count" >
  
                                     </Column>
 
@@ -593,17 +593,17 @@
     
                                 >
                                     <template #header>
-                                           R22: {{ new Date().getFullYear() }} Yeni Eklenen Siparişler
+                                           R22: {{ new Date().getFullYear() }} Newly Added Orders
 
                                     </template>
                                         <Column field="siparisNo" header="PO">
    
                                         </Column>
 
-                                        <Column field="satisci" header="Satışçı" >
+                                        <Column field="satisci" header="Salesman" >
  
                                         </Column>
-                                        <Column field="satisToplami" header="Satış Toplamı" >
+                                        <Column field="satisToplami" header="Sales Total" >
                                             <template #body="slotProps">
                                                 {{ formatPrice(slotProps.data.satisToplami) }}
                                             </template>
@@ -683,7 +683,7 @@ export default {
             link.click();
         },
         getMonthName(val) {
-            const monthList = ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık']
+            const monthList = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
             return monthList[val]
     },
     formatPrice(value) {

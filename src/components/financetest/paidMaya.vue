@@ -9,11 +9,11 @@
 
             >
                 <template #header>
-                    Maya Ödemeleri
+                    Maya Paid
                 </template>
                 <Column 
                         field="order_date" 
-                        header="S.Tarih"
+                        header="Invoice Date"
                         :showFilterMenu="false"
                         :showFilterOperator="false"
                         :showClearButton="false"
@@ -28,7 +28,7 @@
                 </Column>
                 <Column 
                         field="forwarding_date"
-                        header="Y.Tarih"
+                        header="Shipping Date"
                         :showFilterMenu="false"
                         :showFilterOperator="false"
                         :showClearButton="false"
@@ -43,7 +43,7 @@
                 </Column>
                 <Column 
                         field="customer" 
-                        header="Müşteri"
+                        header="Customer"
                         :showFilterMenu="false"
                         :showFilterOperator="false"
                         :showClearButton="false"
@@ -69,17 +69,17 @@
                         <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter"/>
                     </template>
                 </Column>
-                <Column field="order_amount" header="Sipariş">
+                <Column field="order_amount" header="Invoice">
                     <template #body="slotProps">
                         {{ $filters.formatPrice(slotProps.data.order_amount) }}
                     </template>
                 </Column>
-                <Column field="paid" header="Ödeme(GELEN)">
+                <Column field="paid" header="Paid">
                     <template #body="slotProps">
                         {{ $filters.formatPrice(slotProps.data.paid) }}
                     </template>
                 </Column>
-                <Column field="balance" header="Balans(Tahsil Edilmedi)">
+                <Column field="balance" header="Balance">
                     <template #body="slotProps">
                         <div :style="{'backgroundColor':slotProps.data.balance > 0 ? 'green':'','color':slotProps.data.balance>0 ? 'white':''}">
                             {{ $filters.formatPrice(slotProps.data.balance) }}

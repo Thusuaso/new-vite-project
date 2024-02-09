@@ -5,9 +5,9 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th scope="col">Üretici</th>
-                            <th scope="col">Ay</th>
-                            <th scope="col">Yıl</th>
+                            <th scope="col">Producer</th>
+                            <th scope="col">Month</th>
+                            <th scope="col">Year</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -20,7 +20,7 @@
                     <tfoot>
                         <tr>
                             <td>
-                                <b>Toplam</b>
+                                <b>Total</b>
                             </td>
                             <td>
                                <b>{{ $filters.formatDecimal(allSummarySum) }} ({{ $filters.formatDecimal(mekmerSummarySum) }})</b> 
@@ -34,53 +34,53 @@
                 </table>
             </div>
             <div class="col-1">
-                <button type="button" class="btn btn-success" @click="newForm">Yeni</button>
+                <button type="button" class="btn btn-success" @click="newForm">New</button>
             </div>
             <div class="col-2 text-left">
                     <button type="button" class="btn btn-danger m-1 w-50" :disabled="getBtnFormMekmer" @click="mekmer">Mekmer</button>
                     <br/>
-                    <button type="button" class="btn btn-primary m-1 w-50" :disabled="getBtnFormOuter" @click="outer">Dış</button>
+                    <button type="button" class="btn btn-primary m-1 w-50" :disabled="getBtnFormOuter" @click="outer">Outer</button>
                     <br/>
-                    <button type="button" class="btn btn-secondary m-1 w-50" :disabled="getBtnFormMekmerOuter" @click="mekmerOuter">Mekmer Dış</button>
+                    <button type="button" class="btn btn-secondary m-1 w-50" :disabled="getBtnFormMekmerOuter" @click="mekmerOuter">Mekmer Outer</button>
                     <br/>
-                    <button type="button" class="btn btn-warning m-1 w-50" :disabled="getBtnFormNotFound" @click="notFound">Bulunamadı</button>
+                    <button type="button" class="btn btn-warning m-1 w-50" :disabled="getBtnFormNotFound" @click="notFound">Crate Not Found</button>
                     <br/>
-                    <button type="button" class="btn btn-info m-1 w-50"  @click="collectiveCrate">Toplu Kasa</button>
+                    <button type="button" class="btn btn-info m-1 w-50"  @click="collectiveCrate">Crate Assign</button>
             </div>
             <div class="col">
                 <button type="text" class="btn btn-secondary" @click="excel_output_list">Excel</button>
                 <br/>
                 <br/>
                 <Calendar v-model="l_date" showIcon dateFormat="dd/mm/yy"/>
-                <button type="text" class="btn btn-primary" @click="ticketExcelList" style="margin-left:10px;margin-top:-5px;">Etiket</button>
+                <button type="text" class="btn btn-primary" @click="ticketExcelList" style="margin-left:10px;margin-top:-5px;">Label</button>
                 <br/>
                 <br/>
-                <button type="button"  class="btn btn-dark" @click="$refs.op.toggle($event)" >Efe Etiketleri</button>
+                <button type="button"  class="btn btn-dark" @click="$refs.op.toggle($event)" >Efe Labels</button>
 
                 <OverlayPanel ref="op">
                 <Dropdown v-model="selectedEfeTicket" :options="efeTickets" optionLabel="name" placeholder="Etiket Seç" @change="downloadEfeTicket($event)"/>
         
-                <a :href="ticketLink" download type="button" class="btn btn-secondary" v-if="!isEfeTicketForm">İndir</a>
+                <a :href="ticketLink" download type="button" class="btn btn-secondary" v-if="!isEfeTicketForm">Download</a>
                 </OverlayPanel>
             </div>
             <div class="col">
                 <div class="row">
                     <div class="col p-3">
-                        <Dropdown v-model="selectedVeikBox" :options="etiketlerVeikKutu" optionLabel="urun" placeholder="Veik Kutu" class="w-100" @change="isDropDownChange($event)"/>
+                        <Dropdown v-model="selectedVeikBox" :options="etiketlerVeikKutu" optionLabel="urun" placeholder="Veik Box" class="w-100" @change="isDropDownChange($event)"/>
                     </div>
                     <div class="col p-3">
-                        <Dropdown v-model="selectedVeikCrate" :options="etiketlerVeikKasa" optionLabel="urun" placeholder="Veik Kasa" class="w-100" @change="isDropDownChange($event)"/>
+                        <Dropdown v-model="selectedVeikCrate" :options="etiketlerVeikKasa" optionLabel="urun" placeholder="Veik Crate" class="w-100" @change="isDropDownChange($event)"/>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col p-3">
-                        <Dropdown v-model="selectedNovaBox" :options="etiketlerNovaKutu" optionLabel="urun" placeholder="Nova Kutu" class="w-100" @change="isDropDownChange($event)" />
+                        <Dropdown v-model="selectedNovaBox" :options="etiketlerNovaKutu" optionLabel="urun" placeholder="Nova Box" class="w-100" @change="isDropDownChange($event)" />
                     </div>
                     <div class="col p-3">
-                        <Dropdown v-model="selectedNovaCrate" :options="etiketlerNovaKasa" optionLabel="urun" placeholder="Nova Kasa" class="w-100" @change="isDropDownChange($event)" />
+                        <Dropdown v-model="selectedNovaCrate" :options="etiketlerNovaKasa" optionLabel="urun" placeholder="Nova Crate" class="w-100" @change="isDropDownChange($event)" />
                     </div>
                 </div>
-                <button type="button" class="btn btn-info w-100" @click="downloadPoTicket">İndir</button>
+                <button type="button" class="btn btn-info w-100" @click="downloadPoTicket">Download</button>
             </div>
 
         
@@ -96,9 +96,9 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th scope="col">Üretici</th>
-                            <th scope="col">Ay</th>
-                            <th scope="col">Yıl</th>
+                            <th scope="col">Producer</th>
+                            <th scope="col">Month</th>
+                            <th scope="col">Year</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -111,7 +111,7 @@
                     <tfoot>
                         <tr>
                             <td>
-                                <b>Toplam</b>
+                                <b>Total</b>
                             </td>
                             <td>
                                 <b>{{ $filters.formatDecimal(allSummarySum) }} ({{ $filters.formatDecimal(mekmerSummarySum) }})</b> 
@@ -123,45 +123,45 @@
                         </tr>
                     </tfoot>
                 </table>
-                <button type="button" class="btn btn-success w-100 mb-2" @click="newForm">Yeni</button>
+                <button type="button" class="btn btn-success w-100 mb-2" @click="newForm">New</button>
                 <div>
                     <button type="button" class="btn btn-danger w-100 mb-2" :disabled="getBtnFormMekmer" @click="mekmer">Mekmer</button>
                     <br/>
-                    <button type="button" class="btn btn-primary  w-100 mb-2" :disabled="getBtnFormOuter" @click="outer">Dış</button>
+                    <button type="button" class="btn btn-primary  w-100 mb-2" :disabled="getBtnFormOuter" @click="outer">Outer</button>
                     <br/>
-                    <button type="button" class="btn btn-secondary  w-100 mb-2" :disabled="getBtnFormMekmerOuter" @click="mekmerOuter">Mekmer Dış</button>
+                    <button type="button" class="btn btn-secondary  w-100 mb-2" :disabled="getBtnFormMekmerOuter" @click="mekmerOuter">Mekmer Outer</button>
                     <br/>
-                    <button type="button" class="btn btn-warning w-100 mb-2" :disabled="getBtnFormNotFound" @click="notFound">Bulunamadı</button>
+                    <button type="button" class="btn btn-warning w-100 mb-2" :disabled="getBtnFormNotFound" @click="notFound">Crate Not Found</button>
                     <br/>
                 </div>
                 
-                <button type="button" class="btn btn-info w-100 mb-2"  @click="collectiveCrate">Toplu Kasa</button>
+                <button type="button" class="btn btn-info w-100 mb-2"  @click="collectiveCrate">Crate Assign</button>
                     <button type="text" class="btn btn-secondary w-100 mb-2" @click="excel_output_list">Excel</button>
                     <br/>
                     <br/>
                     <div style="margin:auto;margin-left:30px;">
                         <Calendar v-model="l_date" showIcon dateFormat="dd/mm/yy"/>
-                        <button type="text" class="btn btn-primary" @click="ticketExcelList" style="margin-left:10px;margin-top:-5px;">Etiket</button>
+                        <button type="text" class="btn btn-primary" @click="ticketExcelList" style="margin-left:10px;margin-top:-5px;">Label</button>
 
                     </div>
                     <br/>
                     <br/>
-                    <button type="button"  class="btn btn-dark mb-4 w-100" @click="$refs.op.toggle($event)" >Efe Etiketleri</button>
+                    <button type="button"  class="btn btn-dark mb-4 w-100" @click="$refs.op.toggle($event)" >Efe Labels</button>
                     <OverlayPanel ref="op">
                     <Dropdown v-model="selectedEfeTicket" :options="efeTickets" optionLabel="name" placeholder="Etiket Seç" @change="downloadEfeTicket($event)"/>
         
-                    <a :href="ticketLink" download type="button" class="btn btn-secondary" v-if="!isEfeTicketForm">İndir</a>
+                    <a :href="ticketLink" download type="button" class="btn btn-secondary" v-if="!isEfeTicketForm">Download</a>
                     </OverlayPanel>
   
-                    <Dropdown v-model="selectedVeikBox" :options="etiketlerVeikKutu" optionLabel="urun" placeholder="Veik Kutu" class="w-100 mb-2" @change="isDropDownChange($event)"/>
+                    <Dropdown v-model="selectedVeikBox" :options="etiketlerVeikKutu" optionLabel="urun" placeholder="Veik Box" class="w-100 mb-2" @change="isDropDownChange($event)"/>
 
-                    <Dropdown v-model="selectedVeikCrate" :options="etiketlerVeikKasa" optionLabel="urun" placeholder="Veik Kasa" class="w-100 mb-2" @change="isDropDownChange($event)"/>
+                    <Dropdown v-model="selectedVeikCrate" :options="etiketlerVeikKasa" optionLabel="urun" placeholder="Veik Crate" class="w-100 mb-2" @change="isDropDownChange($event)"/>
 
      
-                    <Dropdown v-model="selectedNovaBox" :options="etiketlerNovaKutu" optionLabel="urun" placeholder="Nova Kutu" class="w-100 mb-2" @change="isDropDownChange($event)" />
+                    <Dropdown v-model="selectedNovaBox" :options="etiketlerNovaKutu" optionLabel="urun" placeholder="Nova Box" class="w-100 mb-2" @change="isDropDownChange($event)" />
 
-                    <Dropdown v-model="selectedNovaCrate" :options="etiketlerNovaKasa" optionLabel="urun" placeholder="Nova Kasa" class="w-100 mb-2" @change="isDropDownChange($event)" />
-                    <button type="button" class="btn btn-info w-100 mb-5" @click="downloadPoTicket">İndir</button>
+                    <Dropdown v-model="selectedNovaCrate" :options="etiketlerNovaKasa" optionLabel="urun" placeholder="Nova Crate" class="w-100 mb-2" @change="isDropDownChange($event)" />
+                    <button type="button" class="btn btn-info w-100 mb-5" @click="downloadPoTicket">Download</button>
             </div>
 
         

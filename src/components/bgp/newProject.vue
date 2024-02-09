@@ -3,7 +3,7 @@
       <div class="row">
         <div class="col-6">
           <div class="input-group mb-3">
-            <span class="input-group-text" id="basic-addon1">Proje Adı</span>
+            <span class="input-group-text" id="basic-addon1">Project Name</span>
             <input v-model="project.name" type="text" class="form-control"  aria-label="Username" aria-describedby="basic-addon1" >
           </div>
         </div>
@@ -14,14 +14,14 @@
         </div>
 
       </div>
-      <button type="button" class="btn btn-success" @click="save">Kaydet</button>
+      <button type="button" class="btn btn-success" @click="save">Save</button>
     </div>
 
         <div class="container text-center" v-if="getMobile">
         <div class="">
           <div class="">
             <div class="input-group mb-3 w-100">
-              <span class="input-group-text" id="basic-addon1">Proje Adı</span>
+              <span class="input-group-text" id="basic-addon1">Project Name</span>
               <input v-model="project.name" type="text" class="form-control"  aria-label="Username" aria-describedby="basic-addon1" >
             </div>
           </div>
@@ -32,7 +32,7 @@
           </div>
 
         </div>
-        <button type="button" class="btn btn-success w-100 mb-3" @click="save">Kaydet</button>
+        <button type="button" class="btn btn-success w-100 mb-3" @click="save">Save</button>
       </div>
 </template>
 <script>

@@ -3,27 +3,27 @@
     <div class="container text-center">
       <div class="row">
         <div class="col">
-          <button type="button" class="btn btn-success" @click="newProjectDetail">Yeni</button>
+          <button type="button" class="btn btn-success" @click="newProjectDetail">New</button>
         </div>
       </div>
       <DataTable :value="getBgpListDetail" style="font-size:85%;" :selection="bgpListSelected" selectionMode="single" @row-click="bgpListDetail($event)">
-        <Column field="firmaAdi" header="Firma Adı"></Column>
-        <Column field="kayitTarihi" header="Tarih">
+        <Column field="firmaAdi" header="Company"></Column>
+        <Column field="kayitTarihi" header="Date">
           <template #body="slotProps">
             {{ $filters.formatDate(slotProps.data.kayitTarihi) }}
           </template>
         </Column>
-        <Column field="baslik" header="Başlık"></Column>
-        <Column field="aciklama" header="Açıklama"></Column>
-        <Column field="hatirlatmaTarihi" header="H.Tarihi">
+        <Column field="baslik" header="Title"></Column>
+        <Column field="aciklama" header="Description"></Column>
+        <Column field="hatirlatmaTarihi" header="Reminder Date">
           <template #body="slotProps">
               {{ $filters.formatDate(slotProps.data.hatirlatmaTarihi) }}
             </template>
         </Column>
-        <Column field="hatirlatmaAciklama" header="H.Açıklama"></Column>
+        <Column field="hatirlatmaAciklama" header="Reminder Description"></Column>
         <Column field="email" header="Email"></Column>
-        <Column field="phone" header="Tel"></Column>
-        <Column field="unvan" header="Ünvan"></Column>
+        <Column field="phone" header="Phone"></Column>
+        <Column field="unvan" header="Apellation"></Column>
 
 
       </DataTable>

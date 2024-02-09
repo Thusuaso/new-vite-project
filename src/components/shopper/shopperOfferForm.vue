@@ -3,30 +3,30 @@
             <div class="row m-auto mt-3">
             <div class="col">
                 <div class="input-group mb-3">
-                    <span class="input-group-text" id="basic-addon1">Müşteri</span>
+                    <span class="input-group-text" id="basic-addon1">Customer</span>
                     <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="getShopperOfferModel.customer" @input="isShopperOfferControl(getShopperOfferModel.customer)">
                 </div>
             </div>
             <div class="col">
                 <div class="input-group mb-3">
-                    <span class="input-group-text" id="basic-addon1">Şirket</span>
+                    <span class="input-group-text" id="basic-addon1">Company</span>
                     <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="getShopperOfferModel.company">
                 </div>
             </div>
             <div class="col">
-                <AutoComplete class="w-100" v-model="selectedCountry" dropdown :suggestions="filteredCountryList" optionLabel="ulkeAdi" placeholder="Ülke Seçiniz" @complete="searchCountry($event)" @item-select="countrySelected($event)" />
+                <AutoComplete class="w-100" v-model="selectedCountry" dropdown :suggestions="filteredCountryList" optionLabel="ulkeAdi" placeholder="Select a Country" @complete="searchCountry($event)" @item-select="countrySelected($event)" />
             </div>
         </div>
         <div class="row m-auto mt-3">
             <div class="col">
                 <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon1">Email</span>
+                        <span class="input-group-text" id="basic-addon1">Mail</span>
                         <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="getShopperOfferModel.email">
                 </div>
             </div>
             <div class="col">
                 <div class="input-group mb-3">
-                    <span class="input-group-text" id="basic-addon1">Telefon</span>
+                    <span class="input-group-text" id="basic-addon1">Phone</span>
                     <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="getShopperOfferModel.phone">
                 </div>
             </div>
@@ -37,23 +37,23 @@
             <div class="col">
                 <div class="form-floating">
                     <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" v-model="getShopperOfferModel.adress" style="padding-top:35px;height:150px;"></textarea>
-                    <label for="floatingTextarea">Adres</label>
+                    <label for="floatingTextarea">Adress</label>
                 </div>
             </div>
             <div class="col">
                 <div class="form-floating">
                     <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" v-model="getShopperOfferModel.description" style="padding-top:35px;height:150px;"></textarea>
-                    <label for="floatingTextarea">Açıklama</label>
+                    <label for="floatingTextarea">Description</label>
                 </div>
             </div>
         </div>
         <div class="row m-auto mt-3">
             <div class="col">
-                <button type="button" class="btn btn-success w-100" @click="offerProcess" :disabled="offer_save_button">Kaydet</button>
+                <button type="button" class="btn btn-success w-100" @click="offerProcess" :disabled="offer_save_button">Save</button>
 
             </div>
             <div class="col" v-if="!getShopperOfferNewButton">
-                <button type="button"  class="btn btn-danger w-100" @click="deleteOffer">Sil</button>
+                <button type="button"  class="btn btn-danger w-100" @click="deleteOffer">Delete</button>
             </div>
         </div>
     </div>
@@ -61,48 +61,48 @@
                 <div class=" m-auto mt-3">
                 <div class="">
                     <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon1">Müşteri</span>
+                        <span class="input-group-text" id="basic-addon1">Customer</span>
                         <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="getShopperOfferModel.customer" @input="isShopperOfferControl(getShopperOfferModel.customer)">
                     </div>
                 </div>
                 <div class="">
                     <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon1">Şirket</span>
+                        <span class="input-group-text" id="basic-addon1">Company</span>
                         <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="getShopperOfferModel.company">
                     </div>
                 </div>
                 <div class="">
-                    <AutoComplete class="w-100 mb-3" v-model="selectedCountry" dropdown :suggestions="filteredCountryList" optionLabel="ulkeAdi" placeholder="Ülke Seçiniz" @complete="searchCountry($event)" @item-select="countrySelected($event)" />
+                    <AutoComplete class="w-100 mb-3" v-model="selectedCountry" dropdown :suggestions="filteredCountryList" optionLabel="ulkeAdi" placeholder="Select a Country" @complete="searchCountry($event)" @item-select="countrySelected($event)" />
                 </div>
             </div>
             <div class=" m-auto mt-3">
                 <div class="">
                     <div class="input-group mb-3">
-                            <span class="input-group-text" id="basic-addon1">Email</span>
+                            <span class="input-group-text" id="basic-addon1">Mail</span>
                             <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="getShopperOfferModel.email">
                     </div>
                 </div>
                 <div class="">
                     <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon1">Telefon</span>
+                        <span class="input-group-text" id="basic-addon1">Phone</span>
                         <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="getShopperOfferModel.phone">
                     </div>
                 </div>
                 <div class="">
                     <div class="form-floating">
                         <textarea class="form-control h-100" placeholder="Leave a comment here" id="floatingTextarea" v-model="getShopperOfferModel.adress" style="padding-top:35px;"></textarea>
-                        <label for="floatingTextarea">Adres</label>
+                        <label for="floatingTextarea">Adress</label>
                     </div>
                 </div>
             
             </div>
             <div class=" m-auto mt-3">
                 <div class="">
-                    <button type="button" class="btn btn-success w-100 mb-3" @click="offerProcess" :disabled="offer_save_button">Kaydet</button>
+                    <button type="button" class="btn btn-success w-100 mb-3" @click="offerProcess" :disabled="offer_save_button">Save</button>
 
                 </div>
                 <div class="" v-if="!getShopperOfferNewButton">
-                    <button type="button"  class="btn btn-danger w-100 mb-3" @click="deleteOffer">Sil</button>
+                    <button type="button"  class="btn btn-danger w-100 mb-3" @click="deleteOffer">Delete</button>
                 </div>
             </div>
         </div>

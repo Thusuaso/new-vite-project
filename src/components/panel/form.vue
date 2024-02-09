@@ -1613,11 +1613,6 @@ export default {
                 alert('Birim Girilmedi.');
                 return;
             };
-
-            if((!this.getProductModel.renk_en) || this.getProductModel.renk_en == ' '){
-                alert('Renk Girilmedi.');
-                return;
-            };
             if(!this.getProductModel.urunadi_en){
                 alert('İngilizce Ürün Adı Girilmedi.');
                 return;

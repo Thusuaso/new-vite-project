@@ -1,14 +1,14 @@
 <template>
     <div class="input-group mb-3">
-      <span class="input-group-text" id="basic-addon1">Tedarikçi Adı</span>
+      <span class="input-group-text" id="basic-addon1">Supplier</span>
       <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="supplierModel.tedarikciadi">
     </div>
     <div class="row">
         <div class="col">
-            <button type="button" class="btn btn-success" @click="supplierProcess">Kaydet</button>
+            <button type="button" class="btn btn-success" @click="supplierProcess">Save</button>
         </div>
         <div class="col" v-if="!getSupplierNewButton">
-            <button type="button" class="btn btn-danger" @click="deleteSupplier">Sil</button>
+            <button type="button" class="btn btn-danger" @click="deleteSupplier">Delete</button>
         </div>
     </div>
 </template>

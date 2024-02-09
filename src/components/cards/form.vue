@@ -5,19 +5,19 @@
             <div class="col">
                 <span class="p-float-label">
                     <AutoComplete id="category" v-model="selectedCategory" dropdown :suggestions="filteredCategoryList" optionLabel="kategoriAdi" @complete="searchCategory($event)" @item-select="categorySelect($event)"/>
-                    <label for="category">Kategori</label>
+                    <label for="category">Category</label>
                 </span>
             </div>
             <div class="col">
                 <span class="p-float-label">
                     <AutoComplete id="product" v-model="selectedProduct" dropdown :suggestions="filteredProductList" optionLabel="urunAdi" @complete="searchProduct($event)" @item-select="productSelect($event)"/>
-                    <label for="product">Ürün</label>
+                    <label for="product">Product</label>
                 </span>
             </div>
             <div class="col">
                 <span class="p-float-label">
                     <AutoComplete id="surface" v-model="selectedSurface" dropdown :suggestions="filteredSurfaceList" optionLabel="yuzeyIslemAdi" @complete="searchSurface($event)" @item-select="surfaceSelect($event)"/>
-                    <label for="surface">Yüzey</label>
+                    <label for="surface">Surface</label>
                 </span>
             </div>
         </div>
@@ -26,19 +26,19 @@
             <div class="col">
                 <span class="p-float-label">
                     <AutoComplete id="width" v-model="selectedWidth" dropdown :suggestions="filteredWidthList" optionLabel="en" @complete="searchWidth($event)" @item-select="widthSelect($event)"/>
-                    <label for="width">En</label>
+                    <label for="width">Width</label>
                 </span>
             </div>
             <div class="col">
                 <span class="p-float-label">
                     <AutoComplete id="height" v-model="selectedHeight" dropdown :suggestions="filteredHeightList" optionLabel="boy" @complete="searchHeight($event)" @item-select="heightSelect($event)"/>
-                    <label for="height">Boy</label>
+                    <label for="height">Height</label>
                 </span>
             </div>
             <div class="col">
                 <span class="p-float-label">
                     <AutoComplete id="edge" v-model="selectedEdge" dropdown :suggestions="filteredEdgeList" optionLabel="kenar" @complete="searchEdge($event)" @item-select="edgeSelect($event)"/>
-                    <label for="edge">Kenar</label>
+                    <label for="edge">Edge</label>
                 </span>
             </div>
 
@@ -48,30 +48,30 @@
             <div class="col">
                 <span class="p-float-label">
         <InputText id="kod" v-model="code" />
-        <label for="kod">Kod</label>
+        <label for="kod">Code</label>
     </span>
             </div>
         </div>
         <br/>
         <div class="row m-auto text-center">
             <div class="col">
-                <button type="button" class="btn btn-success w-100" @click="process">Kaydet</button>
+                <button type="button" class="btn btn-success w-100" @click="process">Save</button>
             </div>
             <div class="col" v-if="!getCardNewButton">
-                <button type="button" class="btn btn-danger w-100" @click="deleteCard" >Sil</button>
+                <button type="button" class="btn btn-danger w-100" @click="deleteCard" >Delete</button>
             </div>
         </div>
         <div class="row" v-if="getCardCustomerSalesList.length > 0">
             <div class="col">
                 <DataTable :value="getCardCustomerSalesList" style="font-size:85%;">
-                    <Column field="musteriAdi" header="Müşteri"></Column>
+                    <Column field="musteriAdi" header="Customer"></Column>
                     <Column field="siparisNo" header="Po"></Column>
-                    <Column field="satisFiyati" header="Fiyat">
+                    <Column field="satisFiyati" header="Price">
                         <template #body="slotProps"> 
                             {{ $filters.formatPrice(slotProps.data.satisFiyati) }}
                         </template>
                     </Column>
-                    <Column field="miktar" header="Miktar">
+                    <Column field="miktar" header="Amount">
                         <template #body="slotProps"> 
                             {{ $filters.formatDecimal(slotProps.data.miktar) }}
                         </template>
@@ -88,19 +88,19 @@
                 <div class="">
                     <span class="p-float-label">
                         <AutoComplete class="w-100 mb-3" id="category" v-model="selectedCategory" dropdown :suggestions="filteredCategoryList" optionLabel="kategoriAdi" @complete="searchCategory($event)" @item-select="categorySelect($event)"/>
-                        <label for="category">Kategori</label>
+                        <label for="category">Category</label>
                     </span>
                 </div>
                 <div class="">
                     <span class="p-float-label">
                         <AutoComplete class="w-100 mb-3" id="product" v-model="selectedProduct" dropdown :suggestions="filteredProductList" optionLabel="urunAdi" @complete="searchProduct($event)" @item-select="productSelect($event)"/>
-                        <label for="product">Ürün</label>
+                        <label for="product">Product</label>
                     </span>
                 </div>
                 <div class="">
                     <span class="p-float-label">
                         <AutoComplete class="w-100 mb-3" id="surface" v-model="selectedSurface" dropdown :suggestions="filteredSurfaceList" optionLabel="yuzeyIslemAdi" @complete="searchSurface($event)" @item-select="surfaceSelect($event)"/>
-                        <label for="surface">Yüzey</label>
+                        <label for="surface">Surface</label>
                     </span>
                 </div>
             </div>
@@ -109,19 +109,19 @@
                 <div class="">
                     <span class="p-float-label">
                         <AutoComplete class="w-100 mb-3" id="width" v-model="selectedWidth" dropdown :suggestions="filteredWidthList" optionLabel="en" @complete="searchWidth($event)" @item-select="widthSelect($event)"/>
-                        <label for="width">En</label>
+                        <label for="width">Width</label>
                     </span>
                 </div>
                 <div class="">
                     <span class="p-float-label">
                         <AutoComplete class="w-100 mb-3" id="height" v-model="selectedHeight" dropdown :suggestions="filteredHeightList" optionLabel="boy" @complete="searchHeight($event)" @item-select="heightSelect($event)"/>
-                        <label for="height">Boy</label>
+                        <label for="height">Height</label>
                     </span>
                 </div>
                 <div class="">
                     <span class="p-float-label">
                         <AutoComplete class="w-100 mb-3" id="edge" v-model="selectedEdge" dropdown :suggestions="filteredEdgeList" optionLabel="kenar" @complete="searchEdge($event)" @item-select="edgeSelect($event)"/>
-                        <label for="edge">Kenar</label>
+                        <label for="edge">Edge</label>
                     </span>
                 </div>
 
@@ -131,30 +131,30 @@
                 <div class="">
                     <span class="p-float-label">
             <InputText id="kod" v-model="code" />
-            <label for="kod">Kod</label>
+            <label for="kod">Code</label>
         </span>
                 </div>
             </div>
             <br/>
             <div class=" m-auto text-center">
                 <div class="">
-                    <button type="button" class="btn btn-success w-100 mb-3" @click="process">Kaydet</button>
+                    <button type="button" class="btn btn-success w-100 mb-3" @click="process">Save</button>
                 </div>
                 <div class="" v-if="!getCardNewButton">
-                    <button type="button" class="btn btn-danger w-100 mb-3" @click="deleteCard" >Sil</button>
+                    <button type="button" class="btn btn-danger w-100 mb-3" @click="deleteCard" >Delete</button>
                 </div>
             </div>
             <div class="" v-if="getCardCustomerSalesList.length > 0">
                 <div class="">
                     <DataTable :value="getCardCustomerSalesList" style="font-size:85%;">
-                        <Column field="musteriAdi" header="Müşteri"></Column>
+                        <Column field="musteriAdi" header="Customer"></Column>
                         <Column field="siparisNo" header="Po"></Column>
-                        <Column field="satisFiyati" header="Fiyat">
+                        <Column field="satisFiyati" header="Price">
                             <template #body="slotProps"> 
                                 {{ $filters.formatPrice(slotProps.data.satisFiyati) }}
                             </template>
                         </Column>
-                        <Column field="miktar" header="Miktar">
+                        <Column field="miktar" header="Amount">
                             <template #body="slotProps"> 
                                 {{ $filters.formatDecimal(slotProps.data.miktar) }}
                             </template>

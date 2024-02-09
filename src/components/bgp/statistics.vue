@@ -1,22 +1,22 @@
 <template>
     <DataTable :value="getStatisticList" style="font-size:85%;">
-        <Column field="ulkeAdi" header="Ülke"></Column>
-        <Column field="notResponse" header="Cevapsız">
+        <Column field="ulkeAdi" header="Country"></Column>
+        <Column field="notResponse" header="Not Answer">
             <template #footer>
                 {{ statisticsSum.wrongNumber }}
             </template>
         </Column>
-        <Column field="wrongNumber" header="Yanlış Numara">
+        <Column field="wrongNumber" header="Wrong Number">
             <template #footer>
                     {{ statisticsSum.wrongNumber }}
                 </template>
         </Column>
-        <Column field="notInterested" header="İlgisiz">
+        <Column field="notInterested" header="Not Interested">
             <template #footer>
                         {{ statisticsSum.notInterested }}
                     </template>
         </Column>
-        <Column field="interested" header="İlgili">
+        <Column field="interested" header="Interested">
             <template #footer>
                             {{ statisticsSum.interested }}
                         </template>

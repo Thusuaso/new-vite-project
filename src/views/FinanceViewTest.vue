@@ -1,10 +1,10 @@
 <template>
     <div class="row m-auto mt-0">
         <div class="col">
-            <button type="button" class="btn btn-primary" @click="paymentList">Tahsilat</button>
+            <button type="button" class="btn btn-primary" @click="paymentList">Collection</button>
         </div>
         <div class="col">
-            <button type="button" class="btn btn-secondary" @click="advancedPayment">Peşinat</button>
+            <button type="button" class="btn btn-secondary" @click="advancedPayment">Advanced Payment</button>
         </div>
         <div class="col">
             <button type="button" class="btn btn-info" @click="excelOutput">Excel</button>
@@ -12,7 +12,7 @@
         <div class="col">
             <div class="form-check form-switch">
                 <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" v-model="all" @change="allButtonSelected($event)">
-                <label class="form-check-label" for="flexSwitchCheckDefault">Hepsi</label>
+                <label class="form-check-label" for="flexSwitchCheckDefault">All</label>
             </div>
         </div>
 
@@ -20,10 +20,10 @@
     <list />
 
 
-    <Dialog v-model:visible="payment_list_form" header="Tahsilat Listesi" modal :style="{'width':'100vw'}">
+    <Dialog v-model:visible="payment_list_form" header="Collection List" modal :style="{'width':'100vw'}">
         <collectionList/>
     </Dialog>
-    <Dialog v-model:visible="advanced_payment_form" header="Peşinat" modal :style="{ 'width': '100vw' }">
+    <Dialog v-model:visible="advanced_payment_form" header="Advanced Payment" modal :style="{ 'width': '100vw' }">
         <advancedPayment/>
     </Dialog>
 </template>

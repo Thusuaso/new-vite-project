@@ -3,7 +3,7 @@
     <div class="container">
       <div class="row">
         <div class="col">
-          <button type="button" class="btn btn-success" @click="newCustomer">Yeni</button>
+          <button type="button" class="btn btn-success" @click="newCustomer">New</button>
 
         </div>
         <div class="col">
@@ -13,8 +13,8 @@
         <div class="col">
           <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
             <input type="checkbox" class="btn-check" id="btncheck1" autocomplete="off" v-model="followingStatus" @input="followingStatusChange($event)">
-            <label class="btn btn-outline-primary" for="btncheck1" v-if="!followingStatus">Takibi Bırak</label>
-            <label class="btn btn-outline-primary" for="btncheck1" v-else-if="followingStatus">Takibi Et</label>
+            <label class="btn btn-outline-primary" for="btncheck1" v-if="!followingStatus">Unfollow</label>
+            <label class="btn btn-outline-primary" for="btncheck1" v-else-if="followingStatus">Follow</label>
 
         </div>
         </div>
@@ -29,20 +29,20 @@
     
     >
             <Column field="sira" header="#"></Column>
-            <Column field="tarih_giris" header="Kayıt">
+            <Column field="tarih_giris" header="Date of Entry">
                 <template #body="slotProps">
                     {{ $filters.formatDate(slotProps.data.tarih_giris) }}
                 </template>
             </Column>
-            <Column field="baslik" header="Başlık"></Column>
-            <Column field="aciklama" header="Açıklama"></Column>
-            <Column field="hatirlatmaTarihi" header="Hatırlatma T.">
+            <Column field="baslik" header="Title"></Column>
+            <Column field="aciklama" header="Description"></Column>
+            <Column field="hatirlatmaTarihi" header="Reminder Date">
                 <template #body="slotProps">
                     {{ $filters.formatDate(slotProps.data.hatirlatmaTarihi) }}
                 </template>
             </Column>
-                <Column field="hatirlatma_notu" header="Hatırlatma N."></Column>
-                <Column field="satisci_cloud_dosya" header="İndir">
+                <Column field="hatirlatma_notu" header="Reminder Description"></Column>
+                <Column field="satisci_cloud_dosya" header="Download">
                     <template #body="slotProps">
                         <button
                         type="button"
@@ -51,12 +51,12 @@
                     ><i class="pi pi-download"></i></button>
                     </template>
                 </Column>
-                <Column field="temsilci" header="Temsilci"></Column>
+                <Column field="temsilci" header="Representative"></Column>
 
 
     </DataTable>
 
-    <Dialog v-model:visible="customer_detail_new_form" modal header="Yeni" :style="{ 'width': '100vw' }">
+    <Dialog v-model:visible="customer_detail_new_form" modal header="New" :style="{ 'width': '100vw' }">
         <customerDetailForm :customerName="customerName"/>
     </Dialog>
 </template>

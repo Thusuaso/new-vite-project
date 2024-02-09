@@ -9,7 +9,7 @@
           v-model="selectedSavedKind"
           :options="saveKindList"
           optionLabel="kayitTur"
-          placeholder="Kayıt Tür"
+          placeholder="Stock Type"
           @change="productSavedKindSelected($event)"
           :disabled="form.kind"
         />
@@ -32,7 +32,7 @@
           v-model="selectedProductDetail"
           :options="selectionProductDetail"
           optionLabel="tanim"
-          placeholder="Sipariş Detay"
+          placeholder="Order Detail"
           :disabled="form.product"
           @change="productItemDetailSelected($event)"
         />
@@ -41,7 +41,7 @@
         <InputText
           class="w-100"
           v-model="getSelectionModelList.tanim"
-          placeholder="Sipariş Ürün Kart"
+          placeholder="Order Product Card"
           disabled
         />
         <br />
@@ -69,7 +69,7 @@
         <div class="row">
           <div class="col">
             <div class="input-group mb-3 w-100">
-              <span class="input-group-text" id="basic-addon1">Kasa No</span>
+              <span class="input-group-text" id="basic-addon1">Crate No</span>
               <input
                 type="text"
                 class="form-control"
@@ -83,7 +83,7 @@
             <AutoComplete
               class=""
               v-model="searchMine"
-              placeholder="Ocak"
+              placeholder="Mine"
               :suggestions="mineList"
               @complete="mineSearch($event)"
               optionLabel="name"
@@ -95,7 +95,7 @@
         <div class="row">
           <div class="col">
             <div class="input-group mb-3 w-100">
-              <span class="input-group-text" id="basic-addon1">Düzenleyen</span>
+              <span class="input-group-text" id="basic-addon1">Organizer</span>
               <input
                 type="text"
                 class="form-control"
@@ -134,7 +134,7 @@
             :disabled="form.supplier"
           />
 
-          <label for="ac">Tedarikçi</label>
+          <label for="ac">Supplier</label>
         </span>
         <br />
         <br />
@@ -177,7 +177,7 @@
                 @input="calculateAmount($event)"
                 :disabled="form.amountincreate"
               />
-              <label for="kutusayisi">Kutu Sayısı</label>
+              <label for="kutusayisi">Amount of Box</label>
             </span>
           </div>
           <div class="col">
@@ -190,7 +190,7 @@
                 @input="inBoxPiece"
                 :disabled="form.amountinbox"
               />
-              <label for="kutuiciadet">Kutu İçi Adet</label>
+              <label for="kutuiciadet">Pieces in Box</label>
             </span>
           </div>
           <div class="col">
@@ -203,7 +203,7 @@
                 @input="calculateAmount($event)"
                 :disabled="form.totalAmount"
               />
-              <label for="kutuiciadet">Toplam Adet</label>
+              <label for="kutuiciadet">Total Piece</label>
             </span>
           </div>
         </div>
@@ -221,7 +221,7 @@
                 "
                 :disabled="form.amount"
               />
-              <label for="miktar">Miktar</label>
+              <label for="miktar">Amount</label>
             </span>
           </div>
           <div class="col">
@@ -250,7 +250,7 @@
                 v-model="cratePiece"
                 :disabled="form.createpiece"
               />
-              <label for="miktar">Kasa</label>
+              <label for="miktar">Crate</label>
             </span>
           </div>
         </div>
@@ -265,7 +265,7 @@
                 id="flexCheckDefault"
                 v-model="getSelectionModelList.kutu"
               />
-              <label class="form-check-label" for="flexCheckDefault"> Kutu </label>
+              <label class="form-check-label" for="flexCheckDefault"> Box </label>
             </div>
           </div>
           <div class="col">
@@ -277,7 +277,7 @@
                 id="flexCheckDefault2"
                 v-model="getSelectionModelList.bagli"
               />
-              <label class="form-check-label" for="flexCheckDefault2"> Bağlı </label>
+              <label class="form-check-label" for="flexCheckDefault2"> Bound </label>
             </div>
           </div>
           <div class="col">
@@ -289,7 +289,7 @@
                 id="flexCheckDefault3"
                 v-model="getSelectionModelList.disarda"
               />
-              <label class="form-check-label" for="flexCheckDefault3"> Dışarda </label>
+              <label class="form-check-label" for="flexCheckDefault3"> Outside </label>
             </div>
           </div>
           <div class="col">
@@ -301,7 +301,7 @@
                 id="flexCheckDefault3"
                 v-model="getSelectionModelList.bulunamayan"
               />
-              <label class="form-check-label" for="flexCheckDefault3"> Bulunamadı </label>
+              <label class="form-check-label" for="flexCheckDefault3"> Not Found</label>
             </div>
           </div>
         </div>
@@ -314,7 +314,7 @@
             v-model="getSelectionModelList.aciklama"
             style="padding-top: 35px"
           ></textarea>
-          <label for="floatingTextarea">Notlar</label>
+          <label for="floatingTextarea">Description</label>
         </div>
       </div>
       <div class="col-4">
@@ -366,7 +366,7 @@
           @click="newForm"
           :disabled="new_button_form"
         >
-          Yeni
+          New
         </button>
       </div>
       <div class="col">
@@ -376,7 +376,7 @@
           @click="cancelForm"
           :disabled="cancel_button_form"
         >
-          Vazgeç
+          Cancel
         </button>
       </div>
       <div class="col">
@@ -386,7 +386,7 @@
           @click="saveForm"
           :disabled="save_button_form"
         >
-          Kaydet
+          Save
         </button>
       </div>
       <div class="col">
@@ -396,7 +396,7 @@
           @click="updateForm"
           :disabled="update_button_form"
         >
-          Güncelle
+          Update
         </button>
       </div>
       <div class="col">
@@ -406,7 +406,7 @@
           @click="deleteForm"
           :disabled="delete_button_form"
         >
-          Sil
+          Delete
         </button>
       </div>
     </div>
@@ -457,7 +457,7 @@
           v-model="selectedSavedKind"
           :options="saveKindList"
           optionLabel="kayitTur"
-          placeholder="Kayıt Tür"
+          placeholder="Stock Type"
           @change="productSavedKindSelected($event)"
           :disabled="form.kind"
         />
@@ -480,7 +480,7 @@
           v-model="selectedProductDetail"
           :options="selectionProductDetail"
           optionLabel="tanim"
-          placeholder="Sipariş Detay"
+          placeholder="Order Detail"
           :disabled="form.product"
           @change="productItemDetailSelected($event)"
         />
@@ -489,7 +489,7 @@
         <InputText
           class="w-100"
           v-model="getSelectionModelList.tanim"
-          placeholder="Sipariş Ürün Kart"
+          placeholder="Order Product Card"
           disabled
         />
         <br />
@@ -517,7 +517,7 @@
         <div class="">
           <div class="">
             <div class="input-group mb-3 w-100">
-              <span class="input-group-text" id="basic-addon1">Kasa No</span>
+              <span class="input-group-text" id="basic-addon1">Crate No</span>
               <input
                 type="text"
                 class="form-control"
@@ -544,7 +544,7 @@
         <div class="">
           <div class="">
             <div class="input-group mb-3 mt-4 w-100">
-              <span class="input-group-text" id="basic-addon1">Düzenleyen</span>
+              <span class="input-group-text" id="basic-addon1">Organizer</span>
               <input
                 type="text"
                 class="form-control"
@@ -583,7 +583,7 @@
             :disabled="form.supplier"
           />
 
-          <label for="ac">Tedarikçi</label>
+          <label for="ac">Supplier</label>
         </span>
         <br />
         <Calendar
@@ -625,7 +625,7 @@
                 @input="calculateAmount($event)"
                 :disabled="form.amountincreate"
               />
-              <label for="kutusayisi">Kutu Sayısı</label>
+              <label for="kutusayisi">Amount of Box</label>
             </span>
           </div>
           <div class="">
@@ -638,7 +638,7 @@
                 @input="inBoxPiece"
                 :disabled="form.amountinbox"
               />
-              <label for="kutuiciadet">Kutu İçi</label>
+              <label for="kutuiciadet">Pieces in Box</label>
             </span>
           </div>
           <div class="">
@@ -651,7 +651,7 @@
                 @input="calculateAmount($event)"
                 :disabled="form.totalAmount"
               />
-              <label for="kutuiciadet">Toplam</label>
+              <label for="kutuiciadet">Total Piece</label>
             </span>
           </div>
         </div>
@@ -669,7 +669,7 @@
                 "
                 :disabled="form.amount"
               />
-              <label for="miktar">Miktar</label>
+              <label for="miktar">Amount</label>
             </span>
           </div>
           <div class="">
@@ -698,7 +698,7 @@
                 v-model="cratePiece"
                 :disabled="form.createpiece"
               />
-              <label for="miktar">Kasa</label>
+              <label for="miktar">Crate</label>
             </span>
           </div>
         </div>
@@ -713,7 +713,7 @@
                 id="flexCheckDefault"
                 v-model="getSelectionModelList.kutu"
               />
-              <label class="form-check-label" for="flexCheckDefault"> Kutu </label>
+              <label class="form-check-label" for="flexCheckDefault"> Box </label>
             </div>
           </div>
           <div class="col">
@@ -725,7 +725,7 @@
                 id="flexCheckDefault2"
                 v-model="getSelectionModelList.bagli"
               />
-              <label class="form-check-label" for="flexCheckDefault2"> Bağlı </label>
+              <label class="form-check-label" for="flexCheckDefault2"> Bound </label>
             </div>
           </div>
           <div class="col">
@@ -737,7 +737,7 @@
                 id="flexCheckDefault3"
                 v-model="getSelectionModelList.disarda"
               />
-              <label class="form-check-label" for="flexCheckDefault3"> Dışarda </label>
+              <label class="form-check-label" for="flexCheckDefault3"> Outside </label>
             </div>
           </div>
           <div class="col">
@@ -749,7 +749,7 @@
                 id="flexCheckDefault3"
                 v-model="getSelectionModelList.bulunamayan"
               />
-              <label class="form-check-label" for="flexCheckDefault3"> Bulunamadı </label>
+              <label class="form-check-label" for="flexCheckDefault3"> Not Found </label>
             </div>
           </div>
         </div>
@@ -762,7 +762,7 @@
             v-model="getSelectionModelList.aciklama"
             style="padding-top: 35px"
           ></textarea>
-          <label for="floatingTextarea">Notlar</label>
+          <label for="floatingTextarea">Description</label>
         </div>
       </div>
     </div>
@@ -773,7 +773,7 @@
       @click="newForm"
       :disabled="new_button_form"
     >
-      Yeni
+      New
     </button>
     <button
       type="button"
@@ -781,7 +781,7 @@
       @click="cancelForm"
       :disabled="cancel_button_form"
     >
-      Vazgeç
+      Cancel
     </button>
     <button
       type="button"
@@ -789,7 +789,7 @@
       @click="saveForm"
       :disabled="save_button_form"
     >
-      Kaydet
+      Save
     </button>
     <button
       type="button"
@@ -797,7 +797,7 @@
       @click="updateForm"
       :disabled="update_button_form"
     >
-      Güncelle
+      Update
     </button>
     <button
       type="button"
@@ -805,7 +805,7 @@
       @click="deleteForm"
       :disabled="delete_button_form"
     >
-      Sil
+      Delete
     </button>
   </div>
 

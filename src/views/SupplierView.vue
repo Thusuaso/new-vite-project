@@ -16,7 +16,7 @@
         scrollable 
         scrollHeight="600px"
     >
-        <Column field="tedarikciadi" header="Tedarikçi"
+        <Column field="tedarikciadi" header="Supplier"
             :showClearButton="false"
             :showFilterMatchModes="false"
             :showFilterMenu="false"
@@ -26,7 +26,7 @@
                 <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
             </template>
         </Column>
-        <Column field="siparis_sayisi" header="Toplam Sipariş"></Column>
+        <Column field="siparis_sayisi" header="Total Order"></Column>
     </DataTable>
     <Dialog v-model:visible="supplier_form" :header="supplier_form_header" modal :style="{ 'width': '100vw' }">
         <supplierForm :selectedSupplier="selectedSupplier"/>

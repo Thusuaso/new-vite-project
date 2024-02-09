@@ -12,15 +12,15 @@
             </li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Satışçı
+                Sales
               </a>
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="/salesman">Takip</a></li>
+                <li><a class="dropdown-item" href="/salesman">Follow</a></li>
                 <li><a class="dropdown-item" href="/bgpnetwork">Bgp Project</a></li>
-                <li><a class="dropdown-item" href="/todo/all">Yapılacaklar</a></li>
-                <li><a class="dropdown-item" href="/cost/mistake">Maliyet Hatalar</a></li>
-                <li><a class="dropdown-item" href="/order/representative">Satışçı ve Operasyon</a></li>
-                <li><a class="dropdown-item" href="/main/follow">Ana Takip</a></li>
+                <li><a class="dropdown-item" href="/todo/all">To Do</a></li>
+                <li><a class="dropdown-item" href="/cost/mistake">Cost Mistakes</a></li>
+                <li><a class="dropdown-item" href="/order/representative">Sales & Operation</a></li>
+                <li><a class="dropdown-item" href="/main/follow">Main To Do</a></li>
 
 
 
@@ -28,42 +28,42 @@
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Siparişler
+                  Orders
                 </a>
                 <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="/order/production">Üretim</a></li>
-                  <li><a class="dropdown-item" href="/order/shipped">Sevk</a></li>
-                  <li><a class="dropdown-item" href="/order/waiting">Bekleyen</a></li>
+                  <li><a class="dropdown-item" href="/order/production">Production</a></li>
+                  <li><a class="dropdown-item" href="/order/shipped">Shipped</a></li>
+                  <li><a class="dropdown-item" href="/order/waiting">Waiting</a></li>
 
                 </ul>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Seleksiyon
+                  Selection
                 </a>
                 <ul class="dropdown-menu">
-                  <li><a class="nav-link" aria-current="page" href="/selection/entry">Seleksiyon Giriş</a></li>
-                  <li><a class="nav-link" aria-current="page" href="/create/sizes">Kasa Ölçüleri</a></li>
+                  <li><a class="nav-link" aria-current="page" href="/selection/entry">Entry</a></li>
+                  <li><a class="nav-link" aria-current="page" href="/create/sizes">Crate Size</a></li>
                 </ul>
             </li>
             <li class="nav-item dropdown">
-              <a class="nav-link" aria-current="page" href="/finance/test">Finans</a>
+              <a class="nav-link" aria-current="page" href="/finance/test">Finance</a>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Operasyon
+                  Operation
                 </a>
                 <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="/operation/cards">Ürün Kart</a></li>
-                  <li><a class="dropdown-item" href="/operation/supplier/list">Tedarikçi</a></li>
-                  <li><a class="dropdown-item" href="/operation/forwarding">Sevkiyat</a></li>
-                  <li><a class="dropdown-item" href="/operation/uploading">Yükleme Formu</a></li>
-                  <li><a class="dropdown-item" href="/operation/invoice/container/follow/list">Konteynır Takip Listesi</a></li>
-                  <li><a class="dropdown-item" href="/operation/invoice/container/unfollow/list">Konteynır Takipten Düşenler</a></li>
-                  <li><a class="dropdown-item" href="/operation/shipping/input">Nakliye Giriş</a></li>
-                  <li><a class="dropdown-item" href="/operation/shipping/list">Nakliye Fatura</a></li>
-                  <li><a class="dropdown-item" href="/operation/container/input">Konteynır Giriş</a></li>
-                  <li><a class="dropdown-item" href="/operation/container/list">Konteynır Liste</a></li>
+                  <li><a class="dropdown-item" href="/operation/cards">Product Card</a></li>
+                  <li><a class="dropdown-item" href="/operation/supplier/list">Supplier</a></li>
+                  <li><a class="dropdown-item" href="/operation/forwarding">Shipment</a></li>
+                  <li><a class="dropdown-item" href="/operation/uploading">Upload Form</a></li>
+                  <li><a class="dropdown-item" href="/operation/invoice/container/follow/list">Container Follow List</a></li>
+                  <li><a class="dropdown-item" href="/operation/invoice/container/unfollow/list">Container Out of Tracking</a></li>
+                  <li><a class="dropdown-item" href="/operation/shipping/input">Shipping Introduction</a></li>
+                  <li><a class="dropdown-item" href="/operation/shipping/list">Shipping Invoice</a></li>
+                  <li><a class="dropdown-item" href="/operation/container/input">Container Input</a></li>
+                  <li><a class="dropdown-item" href="/operation/container/list">Container List</a></li>
 
 
 
@@ -71,65 +71,65 @@
             </li>
             <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Müşteriler
+                    Customers
                   </a>
                   <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="/shopper/list">Müşteriler</a></li>
-                    <li><a class="dropdown-item" href="/shopper/offer/list">Teklifler</a></li>
+                    <li><a class="dropdown-item" href="/shopper/list">Order</a></li>
+                    <li><a class="dropdown-item" href="/shopper/offer/list">Offer</a></li>
                     <li><a class="dropdown-item" href="/shopper/bgp/list">Bgp</a></li>
-                    <li><a class="dropdown-item" href="/shopper/fair/list">Fuar & Ziyaret</a></li>
-                    <li><a class="dropdown-item" href="/shopper/selection/list">Seleksiyon</a></li>
+                    <li><a class="dropdown-item" href="/shopper/fair/list">Fair & Visit</a></li>
+                    <li><a class="dropdown-item" href="/shopper/selection/list">Selection</a></li>
 
 
                   </ul>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Mekmer Raporları
+                  Mekmer Reports
                 </a>
                 <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="/reports/mekmer/production">Üretim</a></li>
-                  <li><a class="dropdown-item" href="/reports/mekmer/stock">Stok</a></li>
-                  <li><a class="dropdown-item" href="/reports/mekmer/stock/prices">Stok Fiyatlı</a></li>
-                  <li><a class="dropdown-item" href="/reports/mekmer/mine">Ocak</a></li>
-                  <li><a class="dropdown-item" href="/reports/mekmer/tobeproduced">Üretilecek</a></li>
+                  <li><a class="dropdown-item" href="/reports/mekmer/production">Production</a></li>
+                  <li><a class="dropdown-item" href="/reports/mekmer/stock">Stock</a></li>
+                  <li><a class="dropdown-item" href="/reports/mekmer/stock/prices">Stock by Price</a></li>
+                  <li><a class="dropdown-item" href="/reports/mekmer/mine">Mine</a></li>
+                  <li><a class="dropdown-item" href="/reports/mekmer/tobeproduced">Will be Produced</a></li>
                   <li><a class="dropdown-item" href="/reports/mekmer/atlanta">Atlanta</a></li>
 
                 </ul>
             </li>
             <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Mekmar Raporları
+                    Mekmar Reports
                   </a>
                   <ul class="dropdown-menu">
                     <li><a class="dropdown-item" href="/reports/mekmar/ayo">Ayo</a></li>
-                    <li><a class="dropdown-item" href="/reports/mekmar/loading">Yükleme</a></li>
-                    <li><a class="dropdown-item" href="/reports/mekmar/forwarding">Sevkiyat</a></li>
-                    <li><a class="dropdown-item" href="/reports/mekmar/order/summary">Sipariş Özet</a></li>
-                    <li><a class="dropdown-item" href="/reports/mekmar/order/mk">Mk Raporları</a></li>
-                    <li><a class="dropdown-item" href="/reports/mekmar/order/gu">GU Raporları</a></li>
+                    <li><a class="dropdown-item" href="/reports/mekmar/loading">Loading</a></li>
+                    <li><a class="dropdown-item" href="/reports/mekmar/forwarding">Forwarding</a></li>
+                    <li><a class="dropdown-item" href="/reports/mekmar/order/summary">Order Summary</a></li>
+                    <li><a class="dropdown-item" href="/reports/mekmar/order/mk">Mk Reports</a></li>
+                    <li><a class="dropdown-item" href="/reports/mekmar/order/gu">GU Reports</a></li>
 
                   </ul>
             </li>
             <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      Numuneler
+                      Samples
                     </a>
                     <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="/sample/list">Liste</a></li>
-                      <li><a class="dropdown-item" href="/sample/finance">Finans</a></li>
+                      <li><a class="dropdown-item" href="/sample/list">List</a></li>
+                      <li><a class="dropdown-item" href="/sample/finance">Finance</a></li>
                     </ul>
             </li>
             <li class="nav-item">
-              <a class="nav-link" aria-current="page" href="/offer">Teklifler</a>
+              <a class="nav-link" aria-current="page" href="/offer">Offers</a>
             </li>
             <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Usa
                   </a>
                   <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="/usa/products">Ürünler</a></li>
-                    <li><a class="dropdown-item" href="/usa/comments">Yorumlar</a></li>
+                    <li><a class="dropdown-item" href="/usa/products">Products</a></li>
+                    <li><a class="dropdown-item" href="/usa/comments">Comments</a></li>
                   </ul>
             </li>
             <li class="nav-item dropdown">
@@ -137,13 +137,13 @@
                   Panel
                 </a>
                 <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="/panel/products/1">Ürünler(Yayınlı)</a></li>
-                  <li><a class="dropdown-item" href="/panel/products/0">Ürünler(Yayınlı Olmayan)</a></li>
+                  <li><a class="dropdown-item" href="/panel/products/1">Products(Yayınlı)</a></li>
+                  <li><a class="dropdown-item" href="/panel/products/0">Products(Yayınlı Olmayan)</a></li>
 
-                  <li><a class="dropdown-item" href="/panel/project">Projeler</a></li>
+                  <li><a class="dropdown-item" href="/panel/project">Project</a></li>
 
-                  <li><a class="dropdown-item" href="/panel/change/queue">Sıra Değiştir</a></li>
-                  <li><a class="dropdown-item" href="/panel/users">Kullanıcılar</a></li>
+                  <li><a class="dropdown-item" href="/panel/change/queue">Change Queue</a></li>
+                  <li><a class="dropdown-item" href="/panel/users">Users</a></li>
 
 
 

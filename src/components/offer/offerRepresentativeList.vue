@@ -14,6 +14,11 @@
                         {{ getOfferRepresentativeTotalList.offer }}
                     </template>
                 </Column>
+                <Column field="teklifBSayisi" header="Teklif Sayısı B">
+                        <template #footer>
+                            {{ getOfferRepresentativeTotalList.bOffer }}
+                        </template>
+                    </Column>
                 <Column field="proformaSayisi" header="PI">
                     <template #footer>
                         {{ getOfferRepresentativeTotalList.pi }}

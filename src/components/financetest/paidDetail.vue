@@ -6,8 +6,8 @@
                 <Column field="siparisno" header="Po">
       
                 </Column>
-                <Column field="aciklama" header="Açıklama"></Column>
-                <Column field="tutar" header="Tutar">
+                <Column field="aciklama" header="Description"></Column>
+                <Column field="tutar" header="Total">
                     <template #body="slotProps">
                         {{ $filters.formatPrice(slotProps.data.tutar) }}
                     </template>
@@ -15,7 +15,7 @@
                         {{ $filters.formatPrice(getFinanceTestDetailPaidDetailTotalList.paid) }}
                     </template>
                 </Column>
-                <Column field="masraf" header="Masraf">
+                <Column field="masraf" header="Cost">
                     <template #body="slotProps">
                         {{ $filters.formatPrice(slotProps.data.masraf) }}
                     </template>
@@ -23,7 +23,7 @@
                         {{ $filters.formatPrice(getFinanceTestDetailPaidDetailTotalList.cost) }}
                     </template>
                 </Column>
-                <Column field="kur" header="Kur">
+                <Column field="kur" header="Currency">
                     <template #body="slotProps">
                         {{ $filters.formatPrice(slotProps.data.kur) }}
                     </template>

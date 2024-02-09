@@ -1,7 +1,7 @@
 <template>
     <div class="row m-auto">
         <div class="col">
-            <button type="text" class="btn btn-primary" @click="newForm">Yeni</button>
+            <button type="text" class="btn btn-primary" @click="newForm">New</button>
         </div>
         <div class="col">
             
@@ -34,7 +34,7 @@
                 <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
             </template>
         </Column>
-        <Column field="kod" header="Kod"
+        <Column field="kod" header="Code"
                        :showFilterMenu="false"
                 :showFilterOperator="false"
                 :showClearButton="false"
@@ -46,7 +46,7 @@
                     <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
                 </template>
         </Column>
-        <Column field="kategoriAdi" header="Kategori"
+        <Column field="kategoriAdi" header="Category"
             :showFilterMenu="false"
             :showFilterOperator="false"
             :showClearButton="false"
@@ -58,7 +58,7 @@
                 <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter"  />
             </template>
         </Column>
-        <Column field="urunAdi" header="Ürün"
+        <Column field="urunAdi" header="Product"
             :showFilterMenu="false"
             :showFilterOperator="false"
             :showClearButton="false"
@@ -70,7 +70,7 @@
                 <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter"  />
             </template>
         </Column>
-        <Column field="yuzey_1" header="Y1"
+        <Column field="yuzey_1" header="S1"
             :showFilterMenu="false"
             :showFilterOperator="false"
             :showClearButton="false"
@@ -82,7 +82,7 @@
                 <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
             </template>
         </Column>
-        <Column field="yuzey_2" header="Y2"
+        <Column field="yuzey_2" header="S2"
             :showFilterMenu="false"
             :showFilterOperator="false"
             :showClearButton="false"
@@ -94,7 +94,7 @@
                 <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter"  />
             </template>
         </Column>
-        <Column field="yuzey_3" header="Y3"
+        <Column field="yuzey_3" header="S3"
             :showFilterMenu="false"
             :showFilterOperator="false"
             :showClearButton="false"
@@ -106,7 +106,7 @@
                 <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter"  />
             </template>
         </Column>
-        <Column field="en" header="En"
+        <Column field="en" header="Width"
             :showFilterMenu="false"
             :showFilterOperator="false"
             :showClearButton="false"
@@ -118,7 +118,7 @@
                 <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter"/>
             </template>
         </Column>
-        <Column field="boy" header="Boy"
+        <Column field="boy" header="Height"
             :showFilterMenu="false"
             :showFilterOperator="false"
             :showClearButton="false"
@@ -130,7 +130,7 @@
                 <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
             </template>
         </Column>
-        <Column field="kenar" header="Kenar"
+        <Column field="kenar" header="Edge"
             :showFilterMenu="false"
             :showFilterOperator="false"
             :showClearButton="false"

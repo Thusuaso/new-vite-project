@@ -11,7 +11,7 @@
                 >
                 <Column 
                     field="yukleme_tarihi" 
-                    header="Yükleme Tarihi"
+                    header="Upload Date"
                     :showFilterMenu="false"
                     :showFilterOperator="false"
                     :showClearButton="false"
@@ -28,7 +28,7 @@
                 </Column>
                 <Column 
                     field="firma_adi" 
-                    header="Firma Adı"
+                    header="Company"
                     :showFilterMenu="false"
                     :showFilterOperator="false"
                     :showClearButton="false"
@@ -56,7 +56,7 @@
                 </Column>
                 <Column 
                     field="fatura_no" 
-                    header="Fatura No"
+                    header="Invoice No"
                     :showFilterMenu="false"
                     :showFilterOperator="false"
                     :showClearButton="false"
@@ -70,7 +70,7 @@
                 </Column>
                 <Column 
                     field="tur" 
-                    header="Tür"
+                    header="Type"
                     :showFilterMenu="false"
                     :showFilterOperator="false"
                     :showClearButton="false"
@@ -84,7 +84,7 @@
                 </Column>
                 <Column 
                     field="kur"
-                    header="Kur"
+                    header="Currency"
                 >
                     <template #body="slotProps">
                         {{ $filters.formatPriceTl(slotProps.data.kur) }}
@@ -100,7 +100,7 @@
                         {{ $filters.formatPriceTl(slotProps.data.tutar * slotProps.data.kur) }}
                     </template>
                 </Column>
-                <Column field="aciklama" header="Açıklama">
+                <Column field="aciklama" header="Description">
                 </Column>
                 <Column field="genel_link" header="Link">
                     <template #body="slotProps">

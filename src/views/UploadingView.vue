@@ -3,11 +3,11 @@
         <div class="col-6">
             <div class="row mb-5">
                 <div class="col">
-                    <AutoComplete v-model="selectedUploadingProduct" dropdown :suggestions="filteredUploadingProductList" optionLabel="siparisno" @complete="searchUploadingProduct($event)" @item-select="uploadingProductSelected($event)" />
+                    <AutoComplete v-model="selectedUploadingProduct" dropdown :suggestions="filteredUploadingProductList" optionLabel="siparisno" @complete="searchUploadingProduct($event)" @item-select="uploadingProductSelected($event)" placeholder="Orders"/>
                 </div>
                 <div class="col">
                     <div class="input-group flex-nowrap">
-                        <span class="input-group-text" id="addon-wrapping">Müşteri Adı</span>
+                        <span class="input-group-text" id="addon-wrapping">Customer</span>
                         <input type="text" class="form-control" aria-describedby="addon-wrapping" v-model="uploadingProductInfo.customer" disabled>
                     </div>
                 </div>
@@ -21,7 +21,7 @@
                 </div>
                 <div class="col">
                     <div class="input-group flex-nowrap">
-                        <span class="input-group-text" id="addon-wrapping">Not</span>
+                        <span class="input-group-text" id="addon-wrapping">Description</span>
                         <input type="text" class="form-control" aria-describedby="addon-wrapping" v-model="uploadingProductInfo.line" disabled>
                     </div>
                 </div>
@@ -29,13 +29,13 @@
             <div class="row mb-5">
                 <div class="col">
                     <div class="input-group flex-nowrap">
-                        <span class="input-group-text" id="addon-wrapping">Teslim</span>
+                        <span class="input-group-text" id="addon-wrapping">Delivery</span>
                         <input type="text" class="form-control" aria-describedby="addon-wrapping" v-model="uploadingProductInfo.delivery" disabled>
                     </div>
                 </div>
                 <div class="col">
                     <div class="input-group flex-nowrap">
-                        <span class="input-group-text" id="addon-wrapping">Ödeme</span>
+                        <span class="input-group-text" id="addon-wrapping">Paid</span>
                         <input type="text" class="form-control" aria-describedby="addon-wrapping" v-model="uploadingProductInfo.payment" disabled>
                     </div>
                 </div>
@@ -43,19 +43,19 @@
             <div class="row mb-5">
                 <div class="col">
                     <div class="input-group flex-nowrap">
-                        <span class="input-group-text" id="addon-wrapping">Navlun A.</span>
+                        <span class="input-group-text" id="addon-wrapping">Freight Buying</span>
                         <input type="text" class="form-control" aria-describedby="addon-wrapping" v-model="uploadingProductInfo.freightIn" disabled>
                     </div>
                 </div>
                 <div class="col">
                     <div class="input-group flex-nowrap">
-                        <span class="input-group-text" id="addon-wrapping">Navlun S.</span>
+                        <span class="input-group-text" id="addon-wrapping">Freight Selling</span>
                         <input type="text" class="form-control" aria-describedby="addon-wrapping" v-model="uploadingProductInfo.freightOut" disabled>
                     </div>
                 </div>
             </div>
             
-            <FileUpload class="w-100" v-if="uploadButtonForm" mode="basic" accept=".pdf" :maxFileSize="1000000" @select="uploadingFolders($event)" multiple chooseLabel="Evrak Yükleme" showUploadButton/>
+            <FileUpload class="w-100" v-if="uploadButtonForm" mode="basic" accept=".pdf" :maxFileSize="1000000" @select="uploadingFolders($event)" multiple chooseLabel="Upload Document" showUploadButton/>
         </div>
         <div class="col-6">
             <DataTable 
@@ -66,7 +66,7 @@
                 @row-click="uploadingFolderSelected($event)"
             >
                 <Column field="Faturaid" header="#"></Column>
-                <Column field="faturaadi" header="Fatura Adı">
+                <Column field="faturaadi" header="Invoice No">
                     <template #body="slotProps">
                         <div :style="{'backgroundColor':slotProps.data.renk,'color':'white'}">
                             {{ slotProps.data.faturaadi }}
@@ -81,11 +81,11 @@
             <div class="">
                 <div class="">
                     <div class="">
-                        <AutoComplete class="w-100 mb-3" v-model="selectedUploadingProduct" dropdown :suggestions="filteredUploadingProductList" optionLabel="siparisno" @complete="searchUploadingProduct($event)" @item-select="uploadingProductSelected($event)" />
+                        <AutoComplete class="w-100 mb-3" v-model="selectedUploadingProduct" dropdown :suggestions="filteredUploadingProductList" optionLabel="siparisno" @complete="searchUploadingProduct($event)" @item-select="uploadingProductSelected($event)" placeholder="Orders" />
                     </div>
                     <div class="">
                         <div class="input-group flex-nowrap mb-3">
-                            <span class="input-group-text" id="addon-wrapping">Müşteri Adı</span>
+                            <span class="input-group-text" id="addon-wrapping">Customer</span>
                             <input type="text" class="form-control" aria-describedby="addon-wrapping" v-model="uploadingProductInfo.customer" disabled>
                         </div>
                     </div>
@@ -99,7 +99,7 @@
                     </div>
                     <div class="">
                         <div class="input-group flex-nowrap mb-3">
-                            <span class="input-group-text" id="addon-wrapping">Not</span>
+                            <span class="input-group-text" id="addon-wrapping">Description</span>
                             <input type="text" class="form-control" aria-describedby="addon-wrapping" v-model="uploadingProductInfo.line" disabled>
                         </div>
                     </div>
@@ -107,13 +107,13 @@
                 <div class="">
                     <div class="">
                         <div class="input-group flex-nowrap mb-3">
-                            <span class="input-group-text" id="addon-wrapping">Teslim</span>
+                            <span class="input-group-text" id="addon-wrapping">Delivery</span>
                             <input type="text" class="form-control" aria-describedby="addon-wrapping" v-model="uploadingProductInfo.delivery" disabled>
                         </div>
                     </div>
                     <div class="">
                         <div class="input-group flex-nowrap mb-3">
-                            <span class="input-group-text" id="addon-wrapping">Ödeme</span>
+                            <span class="input-group-text" id="addon-wrapping">Paid</span>
                             <input type="text" class="form-control" aria-describedby="addon-wrapping" v-model="uploadingProductInfo.payment" disabled>
                         </div>
                     </div>
@@ -121,19 +121,19 @@
                 <div class="">
                     <div class="">
                         <div class="input-group flex-nowrap mb-3">
-                            <span class="input-group-text" id="addon-wrapping">Navlun A.</span>
+                            <span class="input-group-text" id="addon-wrapping">Freight Buying</span>
                             <input type="text" class="form-control" aria-describedby="addon-wrapping" v-model="uploadingProductInfo.freightIn" disabled>
                         </div>
                     </div>
                     <div class="">
                         <div class="input-group flex-nowrap mb-3">
-                            <span class="input-group-text" id="addon-wrapping">Navlun S.</span>
+                            <span class="input-group-text" id="addon-wrapping">Freight Selling</span>
                             <input type="text" class="form-control" aria-describedby="addon-wrapping" v-model="uploadingProductInfo.freightOut" disabled>
                         </div>
                     </div>
                 </div>
             
-                <FileUpload class="w-100 mb-3" v-if="uploadButtonForm" mode="basic" accept=".pdf" :maxFileSize="1000000" @select="uploadingFolders($event)" multiple chooseLabel="Evrak Yükleme" showUploadButton/>
+                <FileUpload class="w-100 mb-3" v-if="uploadButtonForm" mode="basic" accept=".pdf" :maxFileSize="1000000" @select="uploadingFolders($event)" multiple chooseLabel="Upload Document" showUploadButton/>
             </div>
             <div class="">
                 <DataTable 
@@ -144,7 +144,7 @@
                     @row-click="uploadingFolderSelected($event)"
                 >
                     <Column field="Faturaid" header="#"></Column>
-                    <Column field="faturaadi" header="Fatura Adı">
+                    <Column field="faturaadi" header="Invoice No">
                         <template #body="slotProps">
                             <div :style="{ 'backgroundColor': slotProps.data.renk, 'color': 'white' }">
                                 {{ slotProps.data.faturaadi }}

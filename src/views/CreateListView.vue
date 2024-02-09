@@ -1,6 +1,6 @@
 <template>
     <div>
-        <button type="button" class="btn btn-success w-100" @click="newCreateSize">Yeni</button>
+        <button type="button" class="btn btn-success w-100" @click="newCreateSize">New</button>
         <DataTable 
             :value="getcreateSizeList" 
             tableStyle="min-width: 50rem"
@@ -10,58 +10,58 @@
             @row-select="isCreateRowSelected($event)"
             selectionMode="single"
         >
-            <Column field="tedarikci_adi" header="Tedarikçi">
+            <Column field="tedarikci_adi" header="Supplier">
                 <template #filter="{ filterModel, filterCallback }">
                     <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
                 </template>
             </Column>
-            <Column field="ebat" header="Taş Ölçüsü">
+            <Column field="ebat" header="Stone Size">
                 <template #filter="{ filterModel, filterCallback }">
                     <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter"  />
                 </template>
             </Column>
-            <Column field="kasa_olculeri" header="Kasa Ölçüleri">
+            <Column field="kasa_olculeri" header="Crate Size">
                 <template #filter="{ filterModel, filterCallback }">
                     <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter"  />
                 </template>
             </Column>
-            <Column field="adet" header="Adet">
+            <Column field="adet" header="Piece">
                 <template #filter="{ filterModel, filterCallback }">
                     <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" placeholder="Search by country" />
                 </template>
             </Column>
         </DataTable>
     </div>
-    <Dialog v-model:visible="create_size_form" header="Yeni Kasa Ölçüsü Ekle" modal> 
+    <Dialog v-model:visible="create_size_form" header="New Crate Size" modal> 
         <div class="row">
             <div class="col">
                 <AutoComplete v-model="tedarikci" :suggestions="filteredTedarikci" optionLabel="firmaAdi" @complete="searchTedarikci($event)" @item-select="selectedTedarikci($event)" placeholder="Tedarikçi" />
             </div>
             <div class="col">
                 <div class="input-group mb-3">
-                    <span class="input-group-text" id="basic-addon1">Taş Ölçüsü</span>
+                    <span class="input-group-text" id="basic-addon1">Stone Size</span>
                     <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="createSize.ebat">
                 </div>
             </div>
             <div class="col">
                 <div class="input-group mb-3">
-                    <span class="input-group-text" id="basic-addon1">Kasa Ölçüsü</span>
+                    <span class="input-group-text" id="basic-addon1">Crate Size</span>
                     <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="createSize.kasa_olculeri">
                 </div>
             </div>
             <div class="col">
                 <div class="input-group mb-3">
-                    <span class="input-group-text" id="basic-addon1">Adet</span>
+                    <span class="input-group-text" id="basic-addon1">Piece</span>
                     <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" v-model="createSize.adet">
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col">
-                <button type="button" class="btn btn-success w-100" @click="saveProcess">Kaydet</button>
+                <button type="button" class="btn btn-success w-100" @click="saveProcess">Save</button>
             </div>
             <div class="col" v-if="!is_new_button_selected">
-                <button type="button" class="btn btn-danger w-100" @click="deleteProcess">Sil</button>
+                <button type="button" class="btn btn-danger w-100" @click="deleteProcess">Delete</button>
 
             </div>
 

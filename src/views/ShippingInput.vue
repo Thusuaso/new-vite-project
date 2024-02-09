@@ -2,25 +2,25 @@
     <div v-if="!getMobile">
             <div class="row m-auto">
             <div class="col">
-                <button type="button" class="btn btn-primary" @click="newCompanyList">Yeni Firma</button>
+                <button type="button" class="btn btn-primary" @click="newCompanyList">New Company</button>
             </div>
         </div>
         <div class="row m-auto mt-5">
             <div class="col">
                 <span class="p-float-label">
                     <AutoComplete id="company" v-model="selectedCompany" dropdown :suggestions="filteredCompanyList" optionLabel="firma_adi" @complete="searchCompany($event)" @item-select="companySelected($event)"/>
-                    <label for="company">Firma Seç</label>
+                    <label for="company">Select a Company</label>
                 </span>
             </div>
             <div class="col">
                 <span class="p-float-label">
                     <Calendar id="date" v-model="s_date" showIcon @date-select="shippingDateSelect($event)" dateFormat="dd/mm/yy"/>
-                    <label for="date">Tarih</label>
+                    <label for="date">Date</label>
                 </span>
             </div>
             <div class="col">
                 <div class="input-group mb-3">
-                    <span class="input-group-text" id="basic-addon1">Fatura No</span>
+                    <span class="input-group-text" id="basic-addon1">Invoice No</span>
                     <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="shippingModel.faturaNo">
                 </div>
             </div>
@@ -29,7 +29,7 @@
             <div class="col">
                 <span class="p-float-label">
                     <AutoComplete id="po" v-model="selectedPo" dropdown :suggestions="filteredPoList" optionLabel="siparisno" @complete="searchPo($event)" @item-select="poSelected($event)" :disabled="!is_company_selected"/>
-                    <label for="po">Sipariş No</label>
+                    <label for="po">Po</label>
                 </span>
             </div>
             <div class="col">
@@ -40,7 +40,7 @@
             </div>
             <div class="col">
                 <div class="input-group mb-3">
-                    <span class="input-group-text" id="basic-addon1">Kur</span>
+                    <span class="input-group-text" id="basic-addon1">Currency</span>
                     <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="shippingModel.kur" disabled>
                 </div>
             </div>
@@ -53,16 +53,16 @@
         </div>
         <div class="row m-auto mt-3 text-center">
             <div class="col">
-                <button type="button" class="btn btn-primary" @click="newForm">Yeni</button>
+                <button type="button" class="btn btn-primary" @click="newForm">New</button>
             </div>
             <div class="col">
-                <button type="button" class="btn btn-success" @click="save">Kaydet</button>
+                <button type="button" class="btn btn-success" @click="save">Save</button>
             </div>
             <div class="col">
-                <button type="button" class="btn btn-warning" @click="update">Değiştir</button>
+                <button type="button" class="btn btn-warning" @click="update">Update</button>
             </div>
             <div class="col">
-                <button type="button" class="btn btn-danger" @click="deleteForm">Sil</button>
+                <button type="button" class="btn btn-danger" @click="deleteForm">Delete</button>
             </div>
         </div> 
         <div class="row m-auto mt-3">
@@ -87,7 +87,7 @@
                             {{ $filters.formatPrice(slotProps.data.Tutar_dolar) }}
                         </template>
                     </Column>
-                    <Column field="kur" header="Kur">
+                    <Column field="kur" header="Currency">
                         <template #body="slotProps">
                             {{ $filters.formatPrice(slotProps.data.kur) }}
                         </template>
@@ -97,12 +97,12 @@
         </div>
         <div class="row m-auto mt-3 w-100">
             <div class="col">
-                <button type="button" class="btn btn-success w-100" @click="informationSave" :disabled="save_disabled_form">Kaydet</button>
+                <button type="button" class="btn btn-success w-100" @click="informationSave" :disabled="save_disabled_form">Save</button>
             </div>
         </div>
         <div class="row m-auto mt-3 w-100">
             <div class="col">
-                <FileUpload mode="basic" accept=".pdf" :maxFileSize="1000000" @select="uploadDocument($event)" chooseLabel="Evrak Yükle" class="bg-black bg-gradient" :disabled="file_disabled_form"/>
+                <FileUpload mode="basic" accept=".pdf" :maxFileSize="1000000" @select="uploadDocument($event)" chooseLabel="Upload Document" class="bg-black bg-gradient" :disabled="file_disabled_form"/>
             </div>
         </div>
     </div>
@@ -110,25 +110,25 @@
         <div v-if="getMobile">
                 <div class=" m-auto">
                 <div class="">
-                    <button type="button" class="btn btn-primary w-100 mb-3" @click="newCompanyList">Yeni Firma</button>
+                    <button type="button" class="btn btn-primary w-100 mb-3" @click="newCompanyList">New Company</button>
                 </div>
             </div>
             <div class=" m-auto mt-5">
                 <div class="">
                     <span class="p-float-label">
                         <AutoComplete class="w-100 mb-3" id="company" v-model="selectedCompany" dropdown :suggestions="filteredCompanyList" optionLabel="firma_adi" @complete="searchCompany($event)" @item-select="companySelected($event)"/>
-                        <label for="company">Firma Seç</label>
+                        <label for="company">Select a Company</label>
                     </span>
                 </div>
                 <div class="">
                     <span class="p-float-label">
                         <Calendar id="date" class="w-100 mb-3" v-model="s_date" showIcon @date-select="shippingDateSelect($event)" dateFormat="dd/mm/yy"/>
-                        <label for="date">Tarih</label>
+                        <label for="date">Date</label>
                     </span>
                 </div>
                 <div class="">
                     <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon1">Fatura No</span>
+                        <span class="input-group-text" id="basic-addon1">Invoice No</span>
                         <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="shippingModel.faturaNo">
                     </div>
                 </div>
@@ -137,7 +137,7 @@
                 <div class="">
                     <span class="p-float-label">
                         <AutoComplete class="w-100 mb-3" id="po" v-model="selectedPo" dropdown :suggestions="filteredPoList" optionLabel="siparisno" @complete="searchPo($event)" @item-select="poSelected($event)" :disabled="!is_company_selected"/>
-                        <label for="po">Sipariş No</label>
+                        <label for="po">Po</label>
                     </span>
                 </div>
                 <div class="">
@@ -148,7 +148,7 @@
                 </div>
                 <div class="">
                     <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon1">Kur</span>
+                        <span class="input-group-text" id="basic-addon1">Currency</span>
                         <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="shippingModel.kur" disabled>
                     </div>
                 </div>
@@ -161,16 +161,16 @@
             </div>
             <div class=" m-auto mt-3 text-center">
                 <div class="">
-                    <button type="button" class="btn btn-primary w-100 mb-3" @click="newForm">Yeni</button>
+                    <button type="button" class="btn btn-primary w-100 mb-3" @click="newForm">New</button>
                 </div>
                 <div class="">
-                    <button type="button" class="btn btn-success w-100 mb-3" @click="save">Kaydet</button>
+                    <button type="button" class="btn btn-success w-100 mb-3" @click="save">Save</button>
                 </div>
                 <div class="">
-                    <button type="button" class="btn btn-warning w-100 mb-3" @click="update">Değiştir</button>
+                    <button type="button" class="btn btn-warning w-100 mb-3" @click="update">Upload</button>
                 </div>
                 <div class="">
-                    <button type="button" class="btn btn-danger w-100 mb-3" @click="deleteForm">Sil</button>
+                    <button type="button" class="btn btn-danger w-100 mb-3" @click="deleteForm">Delete</button>
                 </div>
             </div> 
             <div class=" m-auto mt-3">
@@ -195,7 +195,7 @@
                                 {{ $filters.formatPrice(slotProps.data.Tutar_dolar) }}
                             </template>
                         </Column>
-                        <Column field="kur" header="Kur">
+                        <Column field="kur" header="Currency">
                             <template #body="slotProps">
                                 {{ $filters.formatPrice(slotProps.data.kur) }}
                             </template>
@@ -205,17 +205,17 @@
             </div>
             <div class=" m-auto mt-3 w-100">
                 <div class="">
-                    <button type="button" class="btn btn-success w-100 mb-3" @click="informationSave" :disabled="save_disabled_form">Kaydet</button>
+                    <button type="button" class="btn btn-success w-100 mb-3" @click="informationSave" :disabled="save_disabled_form">Save</button>
                 </div>
             </div>
             <div class=" m-auto mt-3 w-100">
                 <div class="">
-                    <FileUpload mode="basic" accept=".pdf" :maxFileSize="1000000" @select="uploadDocument($event)" chooseLabel="Evrak Yükle" class="bg-black bg-gradient w-100 mb-3" :disabled="file_disabled_form"/>
+                    <FileUpload mode="basic" accept=".pdf" :maxFileSize="1000000" @select="uploadDocument($event)" chooseLabel="Upload Document" class="bg-black bg-gradient w-100 mb-3" :disabled="file_disabled_form"/>
                 </div>
             </div>
         </div>
 
-    <Dialog v-model:visible="new_company_form" header="Yeni Firma Ekle" modal :style="{ 'width': '100vw' }">
+    <Dialog v-model:visible="new_company_form" header="Add New Company" modal :style="{ 'width': '100vw' }">
         <company />
     </Dialog>
 </template>

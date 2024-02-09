@@ -12,7 +12,7 @@
                 >
                 <Column 
                         field="tarih" 
-                        header="Tarih"
+                        header="Date"
                         :showFilterMenu="false"
                         :showFilterOperator="false"
                         :showClearButton="false"
@@ -30,7 +30,7 @@
                 </Column>
                 <Column 
                         field="kullanici_adi" 
-                        header="Hata Sahibi"
+                        header="The Owner Of The Mistake"
                         :showFilterMenu="false"
                         :showFilterOperator="false"
                         :showClearButton="false"
@@ -42,15 +42,15 @@
                         <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
                     </template>
                 </Column>
-                <Column field="hata" header="Hata"></Column>
-                <Column field="maliyet" header="Maliyet">
+                <Column field="hata" header="Mistake"></Column>
+                <Column field="maliyet" header="Cost">
                     <template #body="slotProps">
                         {{ $filters.formatPrice(slotProps.data.maliyet) }}
                     </template>
                 </Column>
                 <Column header="">
                     <template #body="slotProps">
-                        <button type="button" class="btn btn-danger" @click="deleteCost(slotProps.data.id)">Sil</button>
+                        <button type="button" class="btn btn-danger" @click="deleteCost(slotProps.data.id)">Delete</button>
                     </template>
                 </Column>
             </DataTable>

@@ -11,7 +11,7 @@
     <Column field="sira" header="#"></Column>
     <Column
       field="musteriadi"
-      header="Müşteri"
+      header="Customer"
       :showFilterMenu="false"
       :showFilterOperator="false"
       :showClearButton="false"
@@ -47,12 +47,12 @@
         />
       </template>
     </Column>
-    <Column field="sevk_tarihi" header="Sevk Tarihi"></Column>
-    <Column field="konteynerno" header="K.No"></Column>
-    <Column field="line" header="Hat"></Column>
-    <Column field="eta" header="Eta"></Column>
-    <Column field="kalan_sure" header="Kalan Süre"></Column>
-    <Column field="konsimento" header="Eta">
+    <Column field="sevk_tarihi" header="Shipped Date"></Column>
+    <Column field="konteynerno" header="Container No"></Column>
+    <Column field="line" header="Line"></Column>
+    <Column field="eta" header="Eta Date"></Column>
+    <Column field="kalan_sure" header="Remaining Time"></Column>
+    <Column field="konsimento" header="Status">
       <template #body="slotProps">
         <div class="form-check">
           <input
@@ -68,22 +68,22 @@
             for="flexCheckDefault"
             v-if="slotProps.data.konsimento"
           >
-            Gönderildi
+            Sent
           </label>
           <label class="form-check-label" for="flexCheckDefault" v-else>
-            Gönderilmedi
+            Not Sent
           </label>
         </div>
       </template>
     </Column>
-    <Column field="liman" header="Liman"></Column>
-    <Column field="sorumlusu" header="Sorumlu"></Column>
-    <Column field="pesinat" header="Peşinat">
+    <Column field="liman" header="Port"></Column>
+    <Column field="sorumlusu" header="Responsible"></Column>
+    <Column field="pesinat" header="Prepayment">
       <template #body="slotProps">
         {{ $filters.formatPrice(slotProps.data.pesinat) }}
       </template>
     </Column>
-    <Column field="kalan_alacak" header="Kalan">
+    <Column field="kalan_alacak" header="Remaining">
       <template #body="slotProps">
         {{ $filters.formatPrice(slotProps.data.kalan_alacak) }}
       </template>

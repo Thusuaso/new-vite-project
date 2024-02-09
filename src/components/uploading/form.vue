@@ -2,21 +2,21 @@
     <br/>
     <div class="row" v-if="!getMobile">
         <div class="col">
-            <FileUpload mode="basic" accept=".pdf" :maxFileSize="1000000" @select="save($event)" chooseLabel="Yükle"/>
+            <FileUpload mode="basic" accept=".pdf" :maxFileSize="1000000" @select="save($event)" chooseLabel="Upload"/>
         </div>
         <div class="col">
             <a :href="productFolder.Draft" >
-                <button class="btn btn-success" :disabled="productFolder.Draft == '' ? true : false" type="button">İndir</button>
+                <button class="btn btn-success" :disabled="productFolder.Draft == '' ? true : false" type="button">Download</button>
             </a>
         </div>
     </div>
     <div class="" v-if="getMobile">
         <div class="">
-            <FileUpload class="w-100 mb-3" mode="basic" accept=".pdf" :maxFileSize="1000000" @select="save($event)" chooseLabel="Yükle"/>
+            <FileUpload class="w-100 mb-3" mode="basic" accept=".pdf" :maxFileSize="1000000" @select="save($event)" chooseLabel="Upload"/>
         </div>
         <div class="">
             <a :href="productFolder.Draft" >
-                <button class="btn btn-success w-100 mb-3" :disabled="productFolder.Draft == '' ? true : false" type="button">İndir</button>
+                <button class="btn btn-success w-100 mb-3" :disabled="productFolder.Draft == '' ? true : false" type="button">Download</button>
             </a>
         </div>
     </div>

@@ -16,7 +16,7 @@
         <template #header>
             Konteynır Alacak Listesi
         </template>
-            <Column field="musteriadi" header="Müşteri"
+            <Column field="musteriadi" header="Customer"
                 :showFilterMenu="false"
                 :showFilterOperator="false"
                 :showClearButton="false"

@@ -2,9 +2,9 @@
 
     <DataTable :value="list" style="font-size:85%;">
         <template #header>
-                        Vadeli Alacaklar Listesi
+                        Maturity List
         </template>
-        <Column field="firmaAdi" header="Müşteri">
+        <Column field="firmaAdi" header="Customer">
             <template #body="slotProps">
                 {{ slotProps.data.firmaAdi }}
             </template>
@@ -15,12 +15,12 @@
                 {{ slotProps.data.siparis_no }}
             </template>
         </Column>
-        <Column field="vade_tarih" header="Vade Tarihi" bodyStyle="text-align:center;">
+        <Column field="vade_tarih" header="Maturity Date" bodyStyle="text-align:center;">
             <template #body="slotProps">
                 {{ $filters.formatDate(slotProps.data.vade_tarih) }}
             </template>
         </Column>
-        <Column field="tutar" header="Tutar" bodyStyle="text-align:center;">
+        <Column field="tutar" header="Total" bodyStyle="text-align:center;">
             <template #body="slotProps">
                 {{ formatPrice(slotProps.data.tutar) }}
             </template>

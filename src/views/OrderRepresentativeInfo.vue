@@ -26,7 +26,7 @@
                 </Column>
                 <Column 
                         field="satisci_adi" 
-                        header="Satışçı"
+                        header="Salesman"
                         :showFilterMenu="false"
                         :showFilterOperator="false"
                         :showClearButton="false"
@@ -40,7 +40,7 @@
                 </Column>
                 <Column 
                         field="operasyon_adi" 
-                        header="Operasyoncu"
+                        header="Operation"
                         :showFilterMenu="false"
                         :showFilterOperator="false"
                         :showClearButton="false"
@@ -62,16 +62,16 @@
                 style="font-size:85%;"
             >
                 <template #header>
-                    Siparişçi Özet ({{ getOrderRepresentativeInfoTotal.orderer }})
+                    Salesman Summary ({{ getOrderRepresentativeInfoTotal.orderer }})
                 </template>
                 <Column 
                         field="ad" 
-                        header="Satışçı"
+                        header="Salesman"
                     >
                 </Column>
                 <Column 
                         field="adet" 
-                        header="Adet"
+                        header="Piece"
                     >
                 </Column>
             </DataTable>
@@ -83,16 +83,16 @@
                 style="font-size:85%;"
             >
                 <template #header>
-                    Operasyon Özet ({{ getOrderRepresentativeInfoTotal.operation }})
+                    Operation Summary ({{ getOrderRepresentativeInfoTotal.operation }})
                 </template>
                 <Column 
                         field="ad" 
-                        header="Satışçı"
+                        header="Salesman"
                     >
                 </Column>
                 <Column 
                         field="adet" 
-                        header="Adet"
+                        header="Piece"
                     >
                 </Column>
             </DataTable>
@@ -104,19 +104,19 @@
                 <div class="col-6">
                     <span class="p-float-label">
                         <Dropdown v-model="selectedOrderer" :options="getOrderRepresentativeInfoList.kullaniciList" optionLabel="kullaniciAdi" style="width:250px;" />
-                        <label for="username">Siparişçi</label>
+                        <label for="username">Salesman</label>
                     </span>
                 </div>
                 <div class="col-6">
                     <span class="p-float-label">
                         <Dropdown v-model="selectedOperation" :options="getOrderRepresentativeInfoList.kullaniciList" optionLabel="kullaniciAdi" style="width:250px;" />
-                        <label for="username">Operasyon</label>
+                        <label for="username">Operation</label>
                     </span>
                 </div>
             </div>
             <div class="row m-auto mt-3">
                 <div class="col">
-                    <button type="button" class="btn btn-success" @click="save">Kaydet</button>
+                    <button type="button" class="btn btn-success" @click="save">Save</button>
                 </div>
             </div>
         </div>
@@ -125,19 +125,19 @@
                     <div class="">
                         <span class="p-float-label">
                             <Dropdown v-model="selectedOrderer" :options="getOrderRepresentativeInfoList.kullaniciList" optionLabel="kullaniciAdi" class="w-100 mb-3"  />
-                            <label for="username">Siparişçi</label>
+                            <label for="username">Salesman</label>
                         </span>
                     </div>
                     <div class="">
                         <span class="p-float-label">
                             <Dropdown v-model="selectedOperation" :options="getOrderRepresentativeInfoList.kullaniciList" optionLabel="kullaniciAdi" class="w-100 mb-3" />
-                            <label for="username">Operasyon</label>
+                            <label for="username">Operation</label>
                         </span>
                     </div>
                 </div>
                 <div class=" m-auto mt-3">
                     <div class=" ">
-                        <button type="button" class="btn btn-success w-100 mb-3" @click="save">Kaydet</button>
+                        <button type="button" class="btn btn-success w-100 mb-3" @click="save">Save</button>
                     </div>
                 </div>
             </div>

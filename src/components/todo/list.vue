@@ -11,29 +11,29 @@
                 :rowStyle="rowStyle"
             >
                 <template #header>
-                    Tamamlanacak Görevler
+                    To Do List
                 </template>
-                <Column field="girisTarihi" header="Giriş Tarihi">
+                <Column field="girisTarihi" header="Date of Entry">
                     <template #body="slotProps">
                         {{ $filters.formatDate(slotProps.data.girisTarihi) }}
                     </template>
                 </Column>
-                <Column field="yapilacak" header="Görev">
+                <Column field="yapilacak" header="To Do">
                     <template #body="slotProps">
                         <div :style="{'backgroundColor':slotProps.data.gorev_veren_id == 10 ? 'yellow':''}">
                             {{ slotProps.data.yapilacak }}
                         </div>
                     </template>
                 </Column>
-                <Column field="oncelik" header="Öncelik"></Column>
-                <Column header="Durum">
+                <Column field="oncelik" header="Priority"></Column>
+                <Column header="Status">
                     <template #body="slotProps">
-                        <button type="button" class="btn btn-warning" @click="updateTodo(slotProps.data.id,1)">Yapıldı</button>
+                        <button type="button" class="btn btn-warning" @click="updateTodo(slotProps.data.id,1)">Done</button>
                     </template>
                 </Column>
-                <Column header="Sil">
+                <Column header="Delete">
                     <template #body="slotProps">
-                        <button type="button" class="btn btn-danger" @click="deleteTodo(slotProps.data.id)">Sil</button>
+                        <button type="button" class="btn btn-danger" @click="deleteTodo(slotProps.data.id)">Delete</button>
                     </template>
                 </Column>
 
@@ -45,34 +45,34 @@
             <div class="col">
                 <DataTable :value="getTodoList.yapildi" style="font-size:85%;">
                     <template #header>
-                        Tamamlanan Görevler
+                        Done List
                     </template>
-                    <Column field="girisTarihi" header="Giriş Tarihi">
+                    <Column field="girisTarihi" header="Date of Entry">
                         <template #body="slotProps">
                             {{ $filters.formatDate(slotProps.data.girisTarihi) }}
                         </template>
                     </Column>
-                    <Column field="yapildiTarihi" header="Yapıldığı Tarih">
+                    <Column field="yapildiTarihi" header="Date of Completion">
                         <template #body="slotProps">
                             {{ slotProps.data.yapildiTarihi }}
                         </template>
                     </Column>
-                    <Column field="yapilacak" header="Görev">
+                    <Column field="yapilacak" header="To Do">
                         <template #body="slotProps">
                             <div :style="{ 'backgroundColor': slotProps.data.gorev_veren_id == 10 ? 'yellow' : '' }">
                                 {{ slotProps.data.yapilacak }}
                             </div>
                         </template>
                     </Column>
-                    <Column field="oncelik" header="Öncelik"></Column>
-                    <Column header="Durum">
+                    <Column field="oncelik" header="Priority"></Column>
+                    <Column header="Status">
                         <template #body="slotProps">
-                            <button type="button" class="btn btn-info" @click="updateTodo2(slotProps.data.id, 0)">Yapılmadı</button>
+                            <button type="button" class="btn btn-info" @click="updateTodo2(slotProps.data.id, 0)">Not Done</button>
                         </template>
                     </Column>
-                    <Column header="Sil">
+                    <Column header="Delete">
                         <template #body="slotProps">
-                            <button type="button" class="btn btn-danger" @click="deleteTodo(slotProps.data.id)">Sil</button>
+                            <button type="button" class="btn btn-danger" @click="deleteTodo(slotProps.data.id)">Delete</button>
                         </template>
                     </Column>
 

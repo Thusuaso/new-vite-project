@@ -7,8 +7,8 @@
         @row-click="shopperSellerSelected($event)"
     >
         <Column field="SiparisNo" header="Po"></Column>
-        <Column field="Satisci" header="Satışçı"></Column>
-        <Column field="Operasyon" header="Operasyon"></Column>
+        <Column field="Satisci" header="Salesman"></Column>
+        <Column field="Operasyon" header="Operation"></Column>
     </DataTable>
     <Dialog v-model:visible="is_seller_product_form" header modal :style="{ 'width': '100vw' }">
         <shopperSellerProductForm/>
