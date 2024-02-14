@@ -656,7 +656,6 @@ import { mapState } from 'pinia';
 
 import { panelService } from '../../services/panelService';
 import { spaceService } from '../../services/spaceService';
-import { socket } from '../../services/customServices/realTimeService';
 import digitalOceanService from '../../services/digitalOceanService';
 
 export default {
