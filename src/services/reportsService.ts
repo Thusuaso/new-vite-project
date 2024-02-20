@@ -259,6 +259,9 @@ export const reportsService = {
     },
     getMekmarLoadingNewCustomerDetailExcelOutput(data:any){
         return api.post('/raporlar/loading/new/customer/detail/excel',data).then(response=>response.data);
+    },
+    getMekmarForwardingReportsQuarter(year:any,year2:any){
+        return api.get(`/raporlar/forwarding/reports/quarter/${year}/${year2}`).then(response=>response.data);
     }
 
 

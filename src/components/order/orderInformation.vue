@@ -1190,7 +1190,9 @@ export default {
           } else {
             this.getProductionsDetailModel.urunlerDegisenler.push(this.products);
           }
-        }
+        };
+
+
         useProductionsStore().product_total_load_act(this.getProductionsDetailModel);
         useProductionsStore().products_save_button_status_load_act(false);
         // @ts-ignore

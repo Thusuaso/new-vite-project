@@ -12,6 +12,10 @@
         <div class="col-1">
             <button type="button" class="btn btn-secondary" @click="excelOutput">Excel</button>
         </div>
+        <div class="col-1">
+            <Dropdown v-model="selectedQuarter" :options="quarters" optionLabel="quarter"  @change="quarterSelected($event)"/>
+
+        </div>
     </div>
     <div class=" m-auto mt-3" v-if="getMobile">
             <div class="">
@@ -26,7 +30,7 @@
             <div class="">
                 <button type="button" class="btn btn-secondary w-100 mb-3" @click="excelOutput">Excel</button>
             </div>
-        </div>
+    </div>
     <div class="row m-auto mt-3">
         <div class="col">
             <DataTable 
@@ -322,9 +326,47 @@ export default {
 
             },
             f_dates: null,
+            selectedQuarter:{'id':1,'quarter':'1Q'},
+            quarters:[
+                {'id':1,'quarter':'1Q'},
+                {'id':2,'quarter':'2Q'},
+                {'id':3,'quarter':'3Q'},
+                {'id':4,'quarter':'4Q'},
+            ]
+
         }
     },
     methods: {
+        quarterSelected(event){
+            useLoadingStore().begin_loading_act();
+
+            let year = new Date().getFullYear();
+            if(event.value.id == 1){
+
+                reportsService.getMekmarForwardingReportsQuarter(year,year-2).then(response=>{
+                    useReportsStore().mekmar_forwarding_list_load_act(response);
+                    useLoadingStore().end_loading_act();
+                });
+            } else if (event.value.id == 2){
+                reportsService.getMekmarForwardingReportsQuarter(year-3,year-5).then(response=>{
+                    useReportsStore().mekmar_forwarding_list_load_act(response);
+                    useLoadingStore().end_loading_act();
+                });
+            } else if (event.value.id == 3){
+                reportsService.getMekmarForwardingReportsQuarter(year-6,year-8).then(response=>{
+                    useReportsStore().mekmar_forwarding_list_load_act(response);
+                    useLoadingStore().end_loading_act();
+                });
+            } else if (event.value.id == 4){
+                reportsService.getMekmarForwardingReportsQuarter(year-9,year-12).then(response=>{
+                    useReportsStore().mekmar_forwarding_list_load_act(response);
+                    useLoadingStore().end_loading_act();
+                });
+            } 
+            
+
+
+        },
         excelOutput() {
             useLoadingStore().begin_loading_act();
             reportsService.getMekmarForwardingExcel(this.getMekmarForwardingList).then((responce) => {
