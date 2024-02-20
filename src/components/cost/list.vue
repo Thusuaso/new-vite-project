@@ -12,7 +12,7 @@
                 >
 
 
-                <Column field="hata" header="Mistake"
+                <Column field="hata" header="Points to Consider"
                 :showFilterMenu="false"
                         :showFilterOperator="false"
                         :showClearButton="false"
