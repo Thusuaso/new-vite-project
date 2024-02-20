@@ -686,7 +686,7 @@ const router = createRouter({
       }
     },
     {
-      path: '/cost/mistake',
+      path: '/points/to/consider',
       component: () => import('@/views/CostMistakeView.vue'),
       beforeEnter(to, from, next) {
         useLoadingStore().begin_loading_act();

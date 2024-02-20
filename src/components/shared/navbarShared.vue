@@ -18,7 +18,7 @@
                 <li><a class="dropdown-item" href="/salesman">Follow</a></li>
                 <li><a class="dropdown-item" href="/bgpnetwork">Bgp Project</a></li>
                 <li><a class="dropdown-item" href="/todo/all">To Do</a></li>
-                <li><a class="dropdown-item" href="/cost/mistake">Cost Mistakes</a></li>
+                <li><a class="dropdown-item" href="/points/to/consider">Points to Consider </a></li>
                 <li><a class="dropdown-item" href="/order/representative">Sales & Operation</a></li>
                 <li><a class="dropdown-item" href="/main/follow">Main To Do</a></li>
 

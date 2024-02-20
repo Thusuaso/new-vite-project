@@ -10,44 +10,21 @@
                     v-model:filters="filters"
                     filterDisplay="row"
                 >
-                <Column 
-                        field="tarih" 
-                        header="Date"
-                        :showFilterMenu="false"
+
+
+                <Column field="hata" header="Mistake"
+                :showFilterMenu="false"
                         :showFilterOperator="false"
                         :showClearButton="false"
                         :showApplyButton="false"
                         :showFilterMatchModes="false"
                         :showAddButton="false"
-                    
-                    >
-                    <template #body="slotProps">
-                        {{ $filters.formatDate(slotProps.data.tarih) }}
-                    </template>
+                >
                     <template #filter="{ filterModel, filterCallback }">
                         <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter"/>
                     </template>
                 </Column>
-                <Column 
-                        field="kullanici_adi" 
-                        header="The Owner Of The Mistake"
-                        :showFilterMenu="false"
-                        :showFilterOperator="false"
-                        :showClearButton="false"
-                        :showApplyButton="false"
-                        :showFilterMatchModes="false"
-                        :showAddButton="false"
-                    >
-                    <template #filter="{ filterModel, filterCallback }">
-                        <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
-                    </template>
-                </Column>
-                <Column field="hata" header="Mistake"></Column>
-                <Column field="maliyet" header="Cost">
-                    <template #body="slotProps">
-                        {{ $filters.formatPrice(slotProps.data.maliyet) }}
-                    </template>
-                </Column>
+
                 <Column header="">
                     <template #body="slotProps">
                         <button type="button" class="btn btn-danger" @click="deleteCost(slotProps.data.id)">Delete</button>
@@ -76,8 +53,7 @@ export default {
         return {
             selectedCostError: {},
             filters: {
-                tarih: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-                kullanici_adi: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+                hata: { value: null, matchMode: FilterMatchMode.CONTAINS },
             }
         }
     },

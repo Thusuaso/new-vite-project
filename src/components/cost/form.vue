@@ -4,20 +4,8 @@
             <div class="col">
                 <div class="form-floating">
                     <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px;padding-top:35px;" v-model="getModel.hata"></textarea>
-                    <label for="floatingTextarea2">Mistake</label>
+                    <label for="floatingTextarea2">Points to Consider</label>
                 </div>
-            </div>
-            <div class="col">
-                <div class="input-group mb-3">
-                    <span class="input-group-text" id="basic-addon1">Cost</span>
-                    <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="getModel.maliyet" @input="getModel.maliyet = $filters.formatPoint($event.target.value)">
-                </div>
-            </div>
-            <div class="col">
-                <Dropdown v-model="selectedUser" :options="getUsers" optionLabel="name" placeholder="Select a User" class="w-full md:w-14rem" @change="userSelected($event)"/>
-            </div>
-            <div class="col">
-                <Calendar v-model="c_m_date" dateFormat="dd/mm/yy"/>
             </div>
         </div>
         <div class="row m-auto mt-3">
@@ -31,20 +19,8 @@
                 <div class="mb-3">
                     <div class="form-floating">
                         <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px;padding-top:35px;" v-model="getModel.hata"></textarea>
-                        <label for="floatingTextarea2">Mistake</label>
+                        <label for="floatingTextarea2">Points to Consider </label>
                     </div>
-                </div>
-                <div class="">
-                    <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon1">Cost</span>
-                        <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="getModel.maliyet" @input="getModel.maliyet = $filters.formatPoint($event.target.value)">
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <Dropdown v-model="selectedUser" :options="getUsers" optionLabel="name" placeholder="Select a User" class="w-100" @change="userSelected($event)"/>
-                </div>
-                <div class="mb-3">
-                    <Calendar class="w-100" v-model="c_m_date" dateFormat="dd/mm/yy"/>
                 </div>
             </div>
             <div class=" m-auto mt-3">
@@ -82,10 +58,7 @@ export default {
         }
     },
     created() {
-        if (!this.getNewButton) {
-            this.selectedUser = this.getUsers.find(x => x.id == this.getModel.kullanici_id);
-            this.c_m_date = localDateService.getStringDate2(this.getModel.tarih);
-        }
+
     },
     methods: {
         userSelected(event) {
@@ -101,7 +74,6 @@ export default {
         },
         save() {
             useLoadingStore().begin_loading_act();
-            this.getModel.tarih = localDateService.getDateString(this.c_m_date);
             costService.save(this.getModel).then(data => {
                 if (data.status) {
                     socket.socketIO.emit('cost_error_list_emit');
@@ -129,8 +101,7 @@ export default {
             });
         },
         reset() {
-            this.c_m_date = new Date();
-            this.selectedUser = {};
+
             costService.getModel().then(data => {
                 useCostStore().cost_error_model_load_act(data);
                 useCostStore().cost_error_new_button_load_act(true);
