@@ -9,8 +9,8 @@
                 :rowStyle="rowStyle"
             >
                 <Column 
-                    field="yil" 
-                    header="Yıl"
+                    field="kayit_tarihi" 
+                    header="Kayıt Tarihi"
                     :showFilterMenu="false"
                     :showFilterOperator="false"
                     :showClearButton="false"
@@ -23,35 +23,7 @@
                         <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter"/>
                     </template>
                 </Column>
-                <Column 
-                    field="ay" 
-                    header="Ay"
-                    :showFilterMenu="false"
-                    :showFilterOperator="false"
-                    :showClearButton="false"
-                    :showApplyButton="false"
-                    :showFilterMatchModes="false"
-                    :showAddButton="false"
-                
-                >
-                    <template #filter="{ filterModel, filterCallback }">
-                        <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter"/>
-                    </template>
-                </Column>
-                <Column 
-                    field="gun" 
-                    header="Gün"
-                    :showFilterMenu="false"
-                    :showFilterOperator="false"
-                    :showClearButton="false"
-                    :showApplyButton="false"
-                    :showFilterMatchModes="false"
-                    :showAddButton="false"
-                >
-                    <template #filter="{ filterModel, filterCallback }">
-                        <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter"/>
-                    </template>
-                </Column>
+ 
                 <Column 
                     field="kayit_kisi" 
                     header="Değişim Yapan"
@@ -80,7 +52,6 @@
                         <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter"/>
                     </template>
                 </Column>
-                <Column field="yukleme_tarihi" header="Y.Tarihi"></Column>
                 <Column field="info" header="Bilgi"></Column>
 
             </DataTable>
@@ -100,9 +71,7 @@ export default {
     data() {
         return {
             filters: {
-                yil: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-                ay: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-                gun: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+                kayit_tarihi: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
                 kayit_kisi: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
                 siparis_no: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
             }

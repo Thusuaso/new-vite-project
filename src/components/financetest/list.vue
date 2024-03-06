@@ -75,7 +75,7 @@
                         {{ $filters.formatPrice(getFinanceTestListTotal.advance_payment) }}
                     </template>
                 </Column>
-                <Column field="total " header="Balance">
+                <Column field="total " header="Balance (Including Production)">
                     <template #body="slotProps">
                         <div :style="{ 'backgroundColor': slotProps.data.total < -8 ? 'green' : '', 'color': slotProps.data.total < -8 ? 'white' : 'black' }">
                             {{ $filters.formatPrice(slotProps.data.total) }}
@@ -85,7 +85,7 @@
                         {{ $filters.formatPrice(getFinanceTestListTotal.balance) }}
                     </template>
                 </Column>
-                <Column  header="Balance (Including Production)" sortable="">
+                <Column  header="Balance " sortable="">
                     <template #body="slotProps">
                         {{ $filters.formatPrice(slotProps.data.forwarding - slotProps.data.paid) }}
                     </template>
@@ -179,7 +179,7 @@
                         {{ $filters.formatPrice(getFinanceTestListTotal.advance_payment) }}
                     </template>
                 </Column>
-                <Column field="total " header="Balance">
+                <Column field="total " header="Balance (Including Production)">
                     <template #body="slotProps">
                         <div :style="{ 'backgroundColor': slotProps.data.total < -8 ? 'green' : '', 'color': slotProps.data.total < -8 ? 'white' : 'black' }">
                             {{ $filters.formatPrice(slotProps.data.total) }}
@@ -189,7 +189,7 @@
                         {{ $filters.formatPrice(getFinanceTestListTotal.balance) }}
                     </template>
                 </Column>
-                <Column field="total" header="Balance (Including Production)">
+                <Column field="total" header="Balance">
                     <template #body="slotProps">
                         {{ $filters.formatPrice(slotProps.data.forwarding - slotProps.data.paid) }}
                     </template>
