@@ -64,6 +64,7 @@ export const useFinanceTestStore = defineStore('financetest',{
                 if(item.forwarding - item.paid == 0 ){
                     continue;
                 }else if ((item.forwarding - item.paid) >8 || (item.forwarding - item.paid) <-8){
+                    item.balanced = item.forwarding - item.paid;
                     this.financeTestList.push(item);
                 }
             };
@@ -114,7 +115,6 @@ export const useFinanceTestStore = defineStore('financetest',{
             this.allFinance = data;
         },
         finance_test_mekmar_list_load_act(data: any) {
-                        console.log(data);
 
             this.financeTestList = [];
             for (const item of data.financeList) {
